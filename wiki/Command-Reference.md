@@ -7,6 +7,7 @@
 | `/morningstar` | Initialize session, load state | Start of session |
 | `/update` | Checkpoint current state | Mid-session save |
 | `/end` | Close session, finalize records | End of session |
+| `/aegis` | Invoke aegis-protocol subagent | Security, containment, ethical dilemma, crisis, meta-deliberation |
 
 ## Subject Matter Expert Commands
 

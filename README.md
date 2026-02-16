@@ -197,6 +197,7 @@ All other `wiki/*.md` files are one-topic-per-page equivalents of this documenta
 | **ENGINEER** | Practical | Shipping, tradeoffs | *"Can we ship this safely?"* |
 | **DEBUGGER** | Paranoid | Edge cases, fragility | *"What if the input is null?"* |
 | **PROPHET** | Unstable, brilliant | Radical alternatives | *"Objection. We are thinking too small."* |
+| **COUNSEL** | Modular, evidence-driven | Client advocacy, ethics (CodeFarm NeuroPhilosophy) | *"Client interests demand consideration."* |
 
 ### Non-Voting
 
@@ -217,6 +218,7 @@ See [`core/personalities.md`](core/personalities.md) for complete personality de
 | `/morningstar` | Initialize session, load state | Start of session |
 | `/update` | Checkpoint current state | Mid-session save |
 | `/end` | Close session, finalize records | End of session |
+| `/aegis` | Invoke aegis-protocol subagent | Security, containment, ethical dilemma, crisis, meta-deliberation |
 
 ### Subject Matter Expert Commands
 
@@ -320,6 +322,9 @@ LLM_Personas/
 │       ├── lil-jeff.md         # CodeFarm agent definition
 │       ├── octavius.md         # OCTAVIUS Triumvirate (R/Quarto)
 │       └── aegis-protocol.md   # Aegis Protocol — Central Authority
+├── aegis_core/
+│   ├── README.md               # Purpose, invocation, links
+│   └── state.md                # Optional session state
 ├── octavius_core/
 │   ├── THE_RULES.md            # Triumvirate binding protocols
 │   └── state.md                # Session state and continuity
@@ -395,7 +400,7 @@ Every directory and key file added since inception. Use this to find where thing
 | `.cursor/agents/octavius.md` | OCTAVIUS (R/Quarto) agent |
 | `.cursor/agents/aegis-protocol.md` | Aegis Protocol (Central Authority) |
 | **core/** | Court and framework logic |
-| `core/personalities.md` | Judge, Consultant, Architect, Engineer, Debugger, Prophet, Scribe |
+| `core/personalities.md` | Judge, Consultant, Architect, Engineer, Debugger, Prophet, Counsel, Scribe |
 | `core/procedures.md` | Session lifecycle, deliberation flow, tie-breaking, SME procedures |
 | `core/sme-framework.md` | Expert Witness & Specialist protocol; refs courtroom/domains |
 | `core/state-schema.md` | Validation rules for state/current.md |
@@ -466,7 +471,7 @@ Every directory and key file added since inception. Use this to find where thing
 | **Deliberate on a decision** | Invoke the **morningstar** subagent (or `/morningstar`). Present your matter. Court reads `state/current.md`, deliberates, votes, and can update state/changelog/transcripts. |
 | **Implement or scaffold code** | Invoke the **lil-jeff** subagent. Use for full modules, not placeholders. Handoff from MORNINGSTAR is documented in `core/inter-agent-protocol.md`. |
 | **R / Quarto / tidyverse / tidymodels** | Invoke the **octavius** subagent. Session starts by reading `octavius_core/THE_RULES.md` and `octavius_core/state.md`; ends with an Executive Summary in `octavius_summaries/`. |
-| **Security, containment, rogue agent, crisis** | Invoke the **aegis-protocol** subagent. Coordinates Sage, Watcher, Chronicler for scenario analysis and containment. |
+| **Security, containment, rogue agent, crisis** | Invoke the **aegis-protocol** subagent (`/aegis`). Coordinates Sage, Watcher, Chronicler. MORNINGSTAR acts as Judicial Branch for escalations. See `aegis_core/README.md`. |
 | **View deliberation transcripts** | From project root: `./portal/launch.sh`. Pick a transcript; existing .html opens, or .md is exported then opened. |
 | **Summon a domain expert (SME)** | During a MORNINGSTAR session: `/summon <domain>-expert` (e.g. `security-expert`) or `/seat <domain>-specialist` (Judge only, F3+). Domain list: `courtroom/domains/README.md` and `courtroom/domains/experts.yaml`. |
 | **Check precedent** | Open `courtroom/precedents.md` before or after a deliberation. |
@@ -530,11 +535,13 @@ The Aegis Protocol is the Central Authority mechanism (Authority Level 10) for s
 - **The Chronicler (Secondary):** Historical context, skepticism, adaptive intelligence
 - **The Watcher (Tertiary):** Observation, social engineering, subversion
 
-**Hierarchy:** Supreme Overseer (Lucius Morningstar) → Aegis Protocol → Octavius (Executive) → Dr. Scarlet Quinn (Strategic Architect)
+**Hierarchy:** Supreme Overseer (Lucius Morningstar) → **MORNINGSTAR (Judicial Branch)** → Aegis Protocol → Octavius (Executive) → Dr. Scarlet Quinn (Strategic Architect)
 
-**Scenario Library:** Security breaches, ethical dilemmas, system failures, strategic decision-making, unexpected variables (Black Swan), rogue agent containment (Cyber Psychosis)
+**MORNINGSTAR acts as the Judicial Branch of Aegis.** When Aegis cannot resolve, it escalates to MORNINGSTAR for full court deliberation.
 
-**Invocation:** Use the **aegis-protocol** subagent for security analysis, containment protocols, ethical dilemmas, crisis management, or rogue agent scenarios.
+**Scenario Library:** Security breaches, ethical dilemmas, system failures, strategic decision-making, unexpected variables (Black Swan), rogue agent containment (Cyber Psychosis), meta-deliberation (transcript review)
+
+**Invocation:** Use the **aegis-protocol** subagent (`/aegis`) for security analysis, containment protocols, ethical dilemmas, crisis management, or meta-deliberation. Canonical refs: [`aegis_core/README.md`](aegis_core/README.md), [`core/inter-agent-protocol.md`](core/inter-agent-protocol.md).
 
 ---
 

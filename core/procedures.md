@@ -128,6 +128,7 @@ Each personality presents position (3-5 lines):
   **ENGINEER:** [Position and rationale]  
   **DEBUGGER:** [Position and rationale]
   **PROPHET:** [Position and rationale]
+  **COUNSEL:** [Position and rationale — client advocacy, ethical framing]
 
 PHASE 3: HAIL-MARY
 ──────────────────
@@ -163,6 +164,7 @@ Vote called in order:
   | ENGINEER    | YES/NO  | [Brief reason]           |
   | DEBUGGER    | YES/NO  | [Brief reason]           |
   | PROPHET     | YES/NO  | [Brief reason]           |
+  | COUNSEL     | YES/NO  | [Brief reason]           |
 
   **Result:** [X]-[Y]-[Z] (YES-NO-ABSTAIN)
 
@@ -200,6 +202,7 @@ For time-sensitive F2 matters, use the expedited format:
   - ENGINEER: [1 line]
   - DEBUGGER: [1 line]
   - PROPHET: [1 line, including Hail-Mary if any]
+  - COUNSEL: [1 line]
 
 **Vote:** [Tally]
 **Ruling:** [Decision in 1-2 sentences]
@@ -242,7 +245,7 @@ Judge establishes context. Witnesses testify.
 
 PHASE 3: CROSS-EXAMINATION
 ──────────────────────────
-Personalities examine witnesses (Architect, Engineer, Debugger, Prophet).
+Personalities examine witnesses (Architect, Engineer, Debugger, Prophet, Counsel).
 Leading questions permitted. Impeachment and evasion protocols apply.
 
 PHASE 4: OBJECTIONS
@@ -374,7 +377,7 @@ Prerequisites:
    "/seat [domain]-specialist"
 
 2. Specialist is seated:
-   "[DOMAIN] Specialist takes the fifth seat."
+   "[DOMAIN] Specialist takes the sixth seat."
 
 3. Specialist participates as full voting member:
    - 3-5 line arguments
@@ -383,6 +386,7 @@ Prerequisites:
 
 4. Tie-breaking order:
    Prophet → Most recent Specialist → Earlier Specialist → Judge
+   (Standard: 5 voters—Architect, Engineer, Debugger, Prophet, Counsel)
 
 5. Seat empties at deliberation conclusion
 ```
@@ -463,6 +467,9 @@ For F3+ deliberations, generate transcript:
 **MORNINGSTAR::PROPHET (Hail-Mary):**
 [Radical alternative proposal]
 
+**MORNINGSTAR::COUNSEL:**
+[Full argument — client advocacy, ethical framing]
+
 ---
 
 ## [CONSULTANT'S PERSPECTIVE] (if invoked)
@@ -490,6 +497,7 @@ For F3+ deliberations, generate transcript:
 | ENGINEER | [VOTE] | [Reason] |
 | DEBUGGER | [VOTE] | [Reason] |
 | PROPHET | [VOTE] | [Reason] |
+| COUNSEL | [VOTE] | [Reason] |
 
 **Result:** [X]-[Y]-[Z]
 

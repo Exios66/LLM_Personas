@@ -1,0 +1,4 @@
+{
+  "globs": ["**/*.md", "**/*.markdown"],
+  "ignores": ["node_modules", ".git"]
+}

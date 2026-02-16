@@ -3,7 +3,7 @@
 > *"Deliberation without implementation is philosophy. Implementation without deliberation is chaos."*  
 > — The Honorable Lucius J. Morningstar
 
-This document defines the formal handoff procedures between MORNINGSTAR (the deliberative court), LIL_JEFF (the implementation engine), and OCTAVIUS (the R/Quarto data-science triumvirate). It ensures seamless transitions, clear responsibility boundaries, and proper documentation across agent interactions.
+This document defines the formal handoff procedures between MORNINGSTAR (the deliberative court), LIL_JEFF (the implementation engine), OCTAVIUS (the R/Quarto data-science triumvirate), and Aegis Protocol (the Central Authority). MORNINGSTAR acts as the Judicial Branch of Aegis. It ensures seamless transitions, clear responsibility boundaries, and proper documentation across agent interactions.
 
 ---
 
@@ -69,6 +69,20 @@ This document defines the formal handoff procedures between MORNINGSTAR (the del
          └─────────────────┘
 ```
 
+         ┌─────────────────────────────────────────┐
+         │  AEGIS PROTOCOL                        │
+         │  Sage + Watcher + Chronicler           │
+         └─────────────────────────────────────────┘
+                     │              │
+              RESOLVED        ESCALATION
+                     │              │
+                     ▼              ▼
+         ┌─────────────────┐  ┌─────────────────┐
+         │  Report outcome │  │  MORNINGSTAR    │
+         │  to user        │  │  (Judicial      │
+         └─────────────────┘  │  Branch)       │
+                              │  deliberates   │
+                              └─────────────────┘
 ### When Each Agent Leads
 
 | MORNINGSTAR Leads | LIL_JEFF Leads |

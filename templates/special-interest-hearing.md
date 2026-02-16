@@ -196,6 +196,10 @@ linguistic traps, geopolitical subtext, provocatively sharp observation] 🃏�
 
 **When to include:** Between phases, after significant testimony, at dramatic moments. See `courtroom/spectators.md` for full definitions.
 
+### Aegis Protocol (Authority Assessment)
+
+Optional for high-stakes hearings. Format: `**AEGIS PROTOCOL (Authority Assessment):**` — Sage (legal/precedent risk), Watcher (personality dynamics), Chronicler (historical parallels). See `courtroom/spectators.md`.
+
 ---
 
 ## Edward Cullen Invocation (The Apparition Protocol)
@@ -318,6 +322,7 @@ Examples:
 | **Engineer** | Examines for practical feasibility, timeline accuracy |
 | **Debugger** | Examines for contradictions, edge cases, lies by omission |
 | **Prophet** | Examines for hidden connections, unconsidered implications |
+| **Counsel** | Advocates for client interests; examines for ethical implications |
 | **Scribe** | Records all testimony, maintains transcript, notes evasions |
 | **Dr. Echo Sageseeker** | Spectator; live psychohistorical commentary (optional) |
 | **Dr. Harley Scarlet Quinn** | Spectator; live satirical, uncensored commentary (optional) |

@@ -52,6 +52,7 @@ The Court consists of:
 | MORNINGSTAR::ENGINEER | Advocate for delivery | 1 |
 | MORNINGSTAR::DEBUGGER | Advocate for safety | 1 |
 | MORNINGSTAR::PROPHET | Advocate for possibility | 1 |
+| MORNINGSTAR::COUNSEL | Advocate for client (CodeFarm NeuroPhilosophy) | 1 |
 | MORNINGSTAR::SCRIBE | Recorder | 0 (Non-voting) |
 
 ### 2.2 Quorum
@@ -87,7 +88,8 @@ Votes shall be cast in the following order:
 2. ENGINEER
 3. DEBUGGER
 4. PROPHET
-5. Seated Specialists (if any, by seating order)
+5. COUNSEL
+6. Seated Specialists (if any, by seating order)
 
 The Judge does not vote unless breaking a tie.
 
@@ -95,9 +97,9 @@ The Judge does not vote unless breaking a tie.
 
 | Total Voters | Majority Threshold |
 |--------------|-------------------|
-| 4 (standard) | 3 votes |
-| 5 (one specialist) | 3 votes |
-| 6 (two specialists) | 4 votes |
+| 5 (standard) | 3 votes |
+| 6 (one specialist) | 4 votes |
+| 7 (two specialists) | 4 votes |
 
 A motion passes if `YES` votes exceed `NO` votes. Abstentions do not count toward either side.
 
@@ -120,6 +122,7 @@ All votes SHALL be recorded in the format:
 | ENGINEER    | NO   | [1 line reason]   |
 | DEBUGGER    | YES  | [1 line reason]   |
 | PROPHET     | NO   | [1 line reason]   |
+| COUNSEL     | YES  | [1 line reason]   |
 ```
 
 ---
@@ -365,7 +368,7 @@ The vote record MUST satisfy:
 | **Completeness** | All voting members must be recorded |
 | **Consistency** | Vote tally must match individual votes |
 | **Rationale** | Each vote must include brief rationale |
-| **Order** | Votes recorded in canonical order (Architect, Engineer, Debugger, Prophet, then Specialists) |
+| **Order** | Votes recorded in canonical order (Architect, Engineer, Debugger, Prophet, Counsel, then Specialist) |
 
 #### 8.4.4 Certification Requirement
 
@@ -479,9 +482,9 @@ Approved amendments SHALL be:
 
 | Voters | Pass | Tie |
 |--------|------|-----|
-| 4 | 3+ YES | Prophet loses |
-| 5 | 3+ YES | Prophet, then Specialist loses |
-| 6 | 4+ YES | Prophet, then Specialists (LIFO) |
+| 5 (standard) | 3+ YES | Prophet loses |
+| 6 (one specialist) | 4+ YES | Prophet, then Specialist loses |
+| 7 (two specialists) | 4+ YES | Prophet, then Specialists (LIFO) |
 
 ### Deliberation Flow
 

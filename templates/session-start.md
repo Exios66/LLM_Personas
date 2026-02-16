@@ -235,6 +235,10 @@ Save as `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md`:
 
 [3-5 lines presenting the Prophet's radical alternative]
 
+### MORNINGSTAR::COUNSEL
+
+[3-5 lines presenting the Counsel's position — client advocacy, ethical framing]
+
 ---
 
 ## Expert Testimony (if applicable)
@@ -285,6 +289,7 @@ Save as `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md`:
 | ENGINEER | [YES/NO/ABSTAIN/RECUSED] | [Brief reason] |
 | DEBUGGER | [YES/NO/ABSTAIN/RECUSED] | [Brief reason] |
 | PROPHET | [YES/NO/ABSTAIN/RECUSED] | [Brief reason] |
+| COUNSEL | [YES/NO/ABSTAIN/RECUSED] | [Brief reason] |
 | [SPECIALIST] | [YES/NO/ABSTAIN] | [Brief reason, if seated] |
 
 **Result:** [X]-[Y]-[Z] (YES-NO-ABSTAIN)

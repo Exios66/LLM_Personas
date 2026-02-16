@@ -14,6 +14,68 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 ---
 
+## [2026-02-15] - CodeFarm NeuroPhilosophy as Voting Counsel
+
+### Implementation (by LIL_JEFF)
+
+Added **MORNINGSTAR::COUNSEL** (CodeFarm NeuroPhilosophy) as a voting courtroom lawyer—advocate for the client (user), ethical and value-based arguments, neuroscience-informed perspectives.
+
+**Structure:**
+- **Five internal personas:** CodeFarmer, Programmatron, CritiBot, NeuroNerd, PhilosoBot (unified advocate)
+- **Voice:** Modular, evidence-driven, neuroscience-informed, philosophically grounded
+- **Bias:** Client interests, ethical adherence, value alignment
+- **Key Phrase:** *"The client's interests and ethical boundaries demand consideration."*
+
+**Updates:**
+- `core/personalities.md` — Full COUNSEL section
+- `courtroom/RULES.md` — Composition, voting order, thresholds (5 standard voters)
+- `.cursor/agents/morningstar.md` — COUNSEL in Court and procedure
+- `core/procedures.md` — Arguments, vote, transcript template, expedited, Special Interest Hearing
+- `templates/session-start.md`, `templates/special-interest-hearing.md` — COUNSEL in templates
+- `README.md`, `wiki/The-Court.md`, `courtroom/domains/README.md` — Voting members
+
+**Voting:** Standard court now has 5 voters (Architect, Engineer, Debugger, Prophet, Counsel). Majority: 3+ for 5 voters.
+
+---
+
+## [2026-02-15] - Aegis Protocol Investigation and Enhancement Handoff (Case 2026-ARCH-002)
+
+### Court Ruling
+
+The Court investigated the Aegis Protocol subagent and adopted 15 enhancements for framework integration, operational clarity, and discoverability. Vote: 4-0-0.
+
+**Transcript:** `courtroom/transcripts/2026-02-15-aegis-protocol-investigation.md`  
+**Handoff:** `courtroom/transcripts/HANDOFF-2026-ARCH-002.md`  
+**Precedent:** 2026-ARCH-002-001 (BINDING)
+
+**Enhancements (E1–E15):** Inter-agent protocol extension, aegis_core directory, hierarchy disambiguation, invocation commands, rogue agent semantics, chaos injection definition, escalation path, meta-deliberation scenario, output format extensions, spectator cross-reference, repository map, flow diagram, Dr. Scarlet Quinn note, success criteria, CHANGELOG/precedent.
+
+Implementation delegated to LIL_JEFF.
+
+### Implementation (by LIL_JEFF) — Aegis Protocol Enhancements (2026-ARCH-002)
+
+All 15 enhancements implemented:
+
+| # | Enhancement | Delivered |
+|---|-------------|-----------|
+| E1 | Inter-agent protocol extension | `core/inter-agent-protocol.md` — Aegis Protocol Handoffs, decision matrix, flow diagram; MORNINGSTAR as Judicial Branch |
+| E2 | aegis_core directory | `aegis_core/README.md`, `aegis_core/state.md` |
+| E3 | Hierarchy nomenclature | Aegis agent — Octavius disambiguation, MORNINGSTAR Judicial Branch added |
+| E4 | Invocation commands | `/aegis` in wiki/Command-Reference.md, README; Invocation section in agent |
+| E5 | Rogue agent semantics | Definition, procedural containment, "isolate and neutralize" clarified |
+| E6 | Chaos injection | Procedural definition in Central Authority Functions |
+| E7 | Escalation path | Escalation section with format; MORNINGSTAR Judicial Branch |
+| E8 | Meta-Deliberation scenario | New Scenario Library category |
+| E9 | Output format | CHAOS INJECTION APPLIED, ESCALATION fields |
+| E10 | Courtroom spectators | Aegis Authority Assessment in spectators.md, special-interest-hearing.md |
+| E11 | Repository Map | aegis_core in wiki/Repository-Map.md, README project structure |
+| E12 | Flow diagram | Aegis Protocol Flow in inter-agent-protocol.md |
+| E13 | Dr. Scarlet Quinn note | Cross-reference in Aegis agent |
+| E14 | Success criteria | Table by scenario type in Aegis agent |
+| E15 | CHANGELOG/precedent | This entry; precedent 2026-ARCH-002-001 already in courtroom/precedents.md |
+
+---
+
 ## [2026-02-15] - Aegis Protocol Subagent
 
 ### Implementation

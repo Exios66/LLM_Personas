@@ -55,6 +55,7 @@ This document serves as the authoritative index of precedent-setting decisions m
 | 2026-INFRA-001-001 | 2026-02-15 | Framework Enhancement Analysis | 10 enhancements adopted | 4-0-0 | Establishes infrastructure improvement process | BINDING |
 | 2026-INFRA-002-001 | 2026-02-15 | Second Enhancement Deliberation | 10 enhancements adopted (operational excellence) | 4-0-0 | SME failures, dissolution, glossary, handoff, onboarding, portal, runbook, edge cases | BINDING |
 | 2026-ARCH-001-001 | 2026-02-15 | Agent Structure (CrewAI-Style Attributes) | Optional frontmatter adopted: role, goal, backstory, allow_delegation, response_format | 4-0-0 | Agent schema doc; extend all three agents; inter-agent protocol note | BINDING |
+| 2026-ARCH-002-001 | 2026-02-15 | Aegis Protocol Enhancements | 15 enhancements adopted for integration, semantics, escalation | 4-0-0 | Inter-agent protocol, aegis_core, rogue semantics, chaos injection, meta-deliberation | BINDING |
 
 ### Index by Category
 
@@ -63,6 +64,7 @@ This document serves as the authoritative index of precedent-setting decisions m
 | Case ID | Date | Matter | Ruling | Vote |
 |---------|------|--------|--------|------|
 | 2026-ARCH-001-001 | 2026-02-15 | Agent Structure (CrewAI-Style Attributes) | Optional frontmatter adopted | 4-0-0 |
+| 2026-ARCH-002-001 | 2026-02-15 | Aegis Protocol Enhancements | 15 enhancements adopted | 4-0-0 |
 
 #### Features (FEAT)
 

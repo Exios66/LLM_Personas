@@ -168,5 +168,11 @@ Spectators are **optional**. The Judge or transcript author may include them whe
 
 ---
 
+## Aegis Protocol Authority Assessment (Optional)
+
+Aegis Protocol may optionally provide an **Authority Assessment** during F4+ MORNINGSTAR deliberations—Sage (legal/precedent risk), Watcher (personality dynamics), Chronicler (historical parallels). Invocation: Judge or transcript author may request Aegis commentary. Format: Same as spectator commentary; label as `**AEGIS PROTOCOL (Authority Assessment):**`
+
+---
+
 > *"The gallery watches. The gallery comments. The gallery does not vote."*  
 > — Courtroom Protocol

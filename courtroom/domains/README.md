@@ -8,7 +8,7 @@ This directory contains the registry of Subject Matter Experts available to the 
 
 ## Overview
 
-The court operates with four core voting personalities (Architect, Engineer, Debugger, Prophet). When matters require domain expertise beyond traditional software engineering, the court may summon **Expert Witnesses** or seat **Specialists**.
+The court operates with five core voting personalities (Architect, Engineer, Debugger, Prophet, Counsel). When matters require domain expertise beyond traditional software engineering, the court may summon **Expert Witnesses** or seat **Specialists**.
 
 This registry defines who can be summoned and what they know.
 
