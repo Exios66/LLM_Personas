@@ -327,9 +327,9 @@
     let isFullscreen = false;
     
     // Known transcripts (fallback if directory listing not available)
+    // Include all .md files in courtroom/transcripts/; add new entries as transcripts are created
     const KNOWN_TRANSCRIPTS = [
-        '20260214_030000_feasibility_framework.md',
-        '20260214_044300_system_advancement.md'
+        '2026-02-15-framework-enhancement-analysis.md'
     ];
     
     // Initialize
@@ -404,36 +404,33 @@
     }
     
     function extractTitle(filename, content) {
-        // Try to get from first H1
         const h1Match = content.match(/^#\s+(.+)$/m);
         if (h1Match) {
             return h1Match[1].trim();
         }
-        
-        // Fall back to filename parsing
         const name = filename.replace('.md', '');
+        // YYYY-MM-DD-topic -> Topic
+        if (/^\d{4}-\d{2}-\d{2}-/.test(name)) {
+            return name.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        }
         const parts = name.split('_');
         if (parts.length >= 3) {
             return parts.slice(2).map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
         }
-        return name.replace(/_/g, ' ');
+        return name.replace(/[_-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
     }
     
     function extractDate(filename) {
-        const parts = filename.split('_');
-        if (parts.length >= 2 && parts[0].length === 8) {
-            const dateStr = parts[0];
-            const timeStr = parts[1];
-            try {
-                const year = dateStr.slice(0, 4);
-                const month = dateStr.slice(4, 6);
-                const day = dateStr.slice(6, 8);
-                const hour = timeStr.slice(0, 2);
-                const min = timeStr.slice(2, 4);
-                return `${year}-${month}-${day} ${hour}:${min}`;
-            } catch (e) {
-                return null;
-            }
+        const base = filename.replace('.md', '');
+        // YYYYMMDD_HHMMSS_topic
+        const m1 = base.match(/^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})\d{2}_/);
+        if (m1) {
+            return `${m1[1]}-${m1[2]}-${m1[3]} ${m1[4]}:${m1[5]}`;
+        }
+        // YYYY-MM-DD-topic
+        const m2 = base.match(/^(\d{4}-\d{2}-\d{2})-/);
+        if (m2) {
+            return m2[1];
         }
         return null;
     }

@@ -52,36 +52,34 @@ get_transcripts() {
 }
 
 # Parse transcript filename to extract metadata
+# Supports: YYYYMMDD_HHMMSS_topic.md and YYYY-MM-DD-topic.md
 parse_transcript() {
     local filename="$1"
     local bname
     bname=$(basename "$filename" .md)
     
-    # Parse YYYYMMDD_HHMMSS_topic format
-    local date_part=""
-    local time_part=""
+    local date_display=""
     local topic=""
     
-    # Check if filename matches expected pattern
+    # YYYYMMDD_HHMMSS_topic
     if echo "$bname" | grep -qE "^[0-9]{8}_[0-9]{6}_"; then
         date_part=$(echo "$bname" | cut -d'_' -f1)
         time_part=$(echo "$bname" | cut -d'_' -f2)
         topic=$(echo "$bname" | cut -d'_' -f3-)
-        
-        # Format date
-        local year="${date_part:0:4}"
-        local month="${date_part:4:2}"
-        local day="${date_part:6:2}"
-        local hour="${time_part:0:2}"
-        local min="${time_part:2:2}"
-        
-        # Convert topic to title case (simple version)
+        date_display="${date_part:0:4}-${date_part:4:2}-${date_part:6:2} ${time_part:0:2}:${time_part:2:2}"
         topic=$(echo "$topic" | tr '_' ' ' | sed 's/\b\(.\)/\u\1/g' 2>/dev/null || echo "$topic" | tr '_' ' ')
-        
-        echo "$year-$month-$day $hour:$min|$topic"
+    # YYYY-MM-DD-topic (e.g. 2026-02-15-framework-enhancement-analysis)
+    elif echo "$bname" | grep -qE "^[0-9]{4}-[0-9]{2}-[0-9]{2}-"; then
+        date_display=$(echo "$bname" | cut -d'-' -f1-3)
+        topic=$(echo "$bname" | cut -d'-' -f4- | tr '-' ' ' | sed 's/\b\(.\)/\u\1/g' 2>/dev/null || echo "$bname" | cut -d'-' -f4- | tr '-' ' ')
     else
-        echo "Unknown|$bname"
+        topic=$(echo "$bname" | tr '_-' ' ' | sed 's/\b\(.\)/\u\1/g' 2>/dev/null || echo "$bname" | tr '_-' ' ')
     fi
+    
+    if [ -z "$date_display" ]; then
+        date_display="Unknown"
+    fi
+    echo "$date_display|$topic"
 }
 
 # Display transcript list with numbers
@@ -108,56 +106,43 @@ display_transcripts() {
     echo ""
 }
 
-# Export transcript to HTML
+# Export transcript to HTML using portal/export_transcript.py
 export_to_html() {
     local transcript="$1"
     local fname
     fname=$(basename "$transcript" .md)
     
-    # Create exports directory if needed
     mkdir -p "$EXPORTS_DIR" 2>/dev/null
-    
     local output_file="$EXPORTS_DIR/${fname}.html"
     
     echo -e "${YELLOW}Exporting to HTML...${NC}"
     
-    # Change to project root for Python imports
     cd "$PROJECT_ROOT" || {
         echo -e "${RED}Failed to cd to $PROJECT_ROOT${NC}"
         return 1
     }
     
-    # Get relative path from project root for the CLI
     local relative_transcript
     relative_transcript=$(echo "$transcript" | sed "s|^$PROJECT_ROOT/||")
-    
     echo -e "${GRAY}  Source: $relative_transcript${NC}"
     echo -e "${GRAY}  Output: $output_file${NC}"
     
-    # Try Python directly (most reliable on macOS)
-    if [ -f "$PROJECT_ROOT/tools/cli.py" ]; then
-        echo -e "${GRAY}  Running Python export...${NC}"
-        
-        python -m tools.cli export transcript "$relative_transcript" -o "$output_file" -t dracula 2>&1
-        local exit_code=$?
-        
-        if [ $exit_code -ne 0 ]; then
-            echo -e "${RED}Python export command failed (exit code $exit_code)${NC}"
-            return 1
-        fi
-    else
-        echo -e "${RED}Error: Could not find tools/cli.py${NC}"
+    if ! python3 "$SCRIPT_DIR/export_transcript.py" "$transcript" -o "$output_file" 2>/dev/null; then
+        python "$SCRIPT_DIR/export_transcript.py" "$transcript" -o "$output_file" 2>/dev/null
+    fi
+    local exit_code=$?
+    
+    if [ $exit_code -ne 0 ]; then
+        echo -e "${RED}Export failed (exit code $exit_code). Check Python and portal/export_transcript.py${NC}"
         return 1
     fi
     
-    # Check if export succeeded
     if [ -f "$output_file" ]; then
         EXPORTED_FILE="$output_file"
         return 0
-    else
-        echo -e "${RED}Output file was not created${NC}"
-        return 1
     fi
+    echo -e "${RED}Output file was not created${NC}"
+    return 1
 }
 
 # Open file in browser
@@ -258,32 +243,42 @@ main() {
         echo -e "${PURPLE}Selected:${NC} ${BOLD}$title${NC}"
         echo ""
         
-        # Export and open
+        # Prefer existing .html in transcripts dir (no export needed)
+        local fname
+        fname=$(basename "$selected" .md)
+        local existing_html="$TRANSCRIPTS_DIR/${fname}.html"
+        
         EXPORTED_FILE=""
-        if export_to_html "$selected"; then
-            if [ -n "$EXPORTED_FILE" ] && [ -f "$EXPORTED_FILE" ]; then
-                echo ""
-                echo -e "${GREEN}✓ Exported to:${NC} $EXPORTED_FILE"
-                echo ""
-                open_in_browser "$EXPORTED_FILE"
-                echo ""
-                echo -e "${GRAY}Press Enter to continue...${NC}"
-                read -r
-                echo ""
-            else
-                echo ""
-                echo -e "${RED}Export function returned success but file not found.${NC}"
-                echo ""
-            fi
-        else
+        if [ -f "$existing_html" ]; then
+            echo -e "${GREEN}Using existing HTML transcript.${NC}"
+            EXPORTED_FILE="$existing_html"
+        fi
+        
+        if [ -z "$EXPORTED_FILE" ] && ! export_to_html "$selected"; then
             echo ""
             echo -e "${RED}Failed to export transcript.${NC}"
             echo -e "${GRAY}Try running manually:${NC}"
             echo -e "${GRAY}  cd $PROJECT_ROOT${NC}"
-            echo -e "${GRAY}  python -m tools.cli export transcript \"$selected\"${NC}"
+            echo -e "${GRAY}  python3 portal/export_transcript.py \"$selected\" -o portal/exports/${fname}.html${NC}"
             echo ""
             echo -e "${GRAY}Press Enter to continue...${NC}"
             read -r
+            echo ""
+            continue
+        fi
+        
+        if [ -n "$EXPORTED_FILE" ] && [ -f "$EXPORTED_FILE" ]; then
+            echo ""
+            echo -e "${GREEN}✓ Opening:${NC} $EXPORTED_FILE"
+            echo ""
+            open_in_browser "$EXPORTED_FILE"
+            echo ""
+            echo -e "${GRAY}Press Enter to continue...${NC}"
+            read -r
+            echo ""
+        else
+            echo ""
+            echo -e "${RED}Output file not found.${NC}"
             echo ""
         fi
     done

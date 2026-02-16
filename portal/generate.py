@@ -246,27 +246,27 @@ def generate_transcript_index(output_dir):
         if md_file.name == 'README.md':
             continue
         
-        # Parse filename: YYYYMMDD_HHMMSS_topic.md
         name = md_file.stem
-        parts = name.split('_')
+        formatted_date = "Unknown"
+        topic = name
         
-        if len(parts) >= 3:
-            date_str = parts[0]
-            time_str = parts[1]
-            topic = '_'.join(parts[2:])
-            
+        # YYYYMMDD_HHMMSS_topic
+        parts = name.split('_')
+        if len(parts) >= 3 and len(parts[0]) == 8 and len(parts[1]) == 6:
             try:
-                dt = datetime.strptime(f"{date_str}_{time_str}", "%Y%m%d_%H%M%S")
+                dt = datetime.strptime(f"{parts[0]}_{parts[1]}", "%Y%m%d_%H%M%S")
                 formatted_date = dt.strftime("%Y-%m-%d %H:%M")
+                topic = '_'.join(parts[2:]).replace('_', ' ').title()
             except ValueError:
-                formatted_date = "Unknown"
-        else:
-            topic = name
-            formatted_date = "Unknown"
+                topic = name.replace('_', ' ').title()
+        # YYYY-MM-DD-topic
+        elif len(name) >= 10 and name[4] == '-' and name[7] == '-':
+            formatted_date = name[:10]
+            topic = name[11:].replace('-', ' ').title() if len(name) > 11 else name
         
         transcripts.append({
             'filename': md_file.name,
-            'topic': topic.replace('_', ' ').title(),
+            'topic': topic,
             'date': formatted_date,
             'html_name': name + '.html'
         })

@@ -14,8 +14,11 @@ A deliberative AI persona framework that transforms complex decisions into struc
 - [Navigation Index](#navigation-index)
 - [The Court](#the-court)
 - [Command Reference](#command-reference)
+- [Domains & Experts](#domains--experts)
 - [When to Convene](#when-to-convene)
 - [Project Structure](#project-structure)
+- [Repository Map (Complete)](#repository-map-complete)
+- [How to Use This Repository](#how-to-use-this-repository)
 - [Companion Personas](#companion-personas)
 
 ---
@@ -74,7 +77,17 @@ Each personality argues their position (3-5 lines). The Prophet offers a radical
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### 5. Save Progress
+### 5. View Transcripts in Browser
+
+From the project root, run the portal launcher to list deliberations and open them in your browser:
+
+```
+./portal/launch.sh
+```
+
+See [portal/README.md](portal/README.md) for details.
+
+### 6. Save Progress
 
 ```
 /update    # Checkpoint mid-session
@@ -97,6 +110,8 @@ Each personality argues their position (3-5 lines). The Prophet offers a radical
 | [`core/state-schema.md`](core/state-schema.md) | State validation rules | Validating session state |
 | [`core/error-recovery.md`](core/error-recovery.md) | Recovery protocols | When things go wrong |
 | [`core/inter-agent-protocol.md`](core/inter-agent-protocol.md) | Inter-agent handoff rules | MORNINGSTAR ↔ LIL_JEFF |
+| [`courtroom/domains/README.md`](courtroom/domains/README.md) | Domain expert registry usage | Summoning SMEs, adding domains |
+| [`courtroom/domains/experts.yaml`](courtroom/domains/experts.yaml) | Canonical domain definitions | Heuristics, scope, Witness/Specialist |
 
 ### State & Records
 
@@ -107,6 +122,23 @@ Each personality argues their position (3-5 lines). The Prophet offers a radical
 | [`courtroom/precedents.md`](courtroom/precedents.md) | Precedent database | Before deliberating on familiar matters |
 | [`courtroom/transcripts/`](courtroom/transcripts/) | F3+ deliberation records | Historical rulings |
 | [`CHANGELOG.md`](CHANGELOG.md) | Decision history | What was decided and when |
+
+### OCTAVIUS (R/Quarto Data Science)
+
+| File | Purpose | When to Reference |
+|------|---------|-------------------|
+| [`octavius_core/THE_RULES.md`](octavius_core/THE_RULES.md) | Triumvirate binding protocols | Every OCTAVIUS session start |
+| [`octavius_core/state.md`](octavius_core/state.md) | Session state and continuity | Session start and end |
+| [`octavius_summaries/`](octavius_summaries/) | Executive summaries | Post-session review |
+
+### Portal (Transcript Viewer)
+
+| File | Purpose | When to Reference |
+|------|---------|-------------------|
+| [`portal/launch.sh`](portal/launch.sh) | Interactive transcript launcher | **Primary way to open transcripts in browser** |
+| [`portal/export_transcript.py`](portal/export_transcript.py) | Export single .md → HTML | When launch script exports on demand |
+| [`portal/viewer.html`](portal/viewer.html) | Standalone transcript viewer | Browse transcripts (best over HTTP) |
+| [`portal/README.md`](portal/README.md) | Portal documentation | Setup and troubleshooting |
 
 ### Templates
 
@@ -122,6 +154,7 @@ Each personality argues their position (3-5 lines). The Prophet offers a radical
 |------|---------|
 | [`.cursor/agents/morningstar.md`](.cursor/agents/morningstar.md) | MORNINGSTAR agent definition |
 | [`.cursor/agents/lil-jeff.md`](.cursor/agents/lil-jeff.md) | LIL_JEFF (CodeFarm) agent definition |
+| [`.cursor/agents/octavius.md`](.cursor/agents/octavius.md) | OCTAVIUS (Triumvirate) agent definition — R/Quarto data science |
 
 ---
 
@@ -175,17 +208,15 @@ See [`core/personalities.md`](core/personalities.md) for complete personality de
 
 ### Available SME Domains
 
-**Full Participation (Witness or Specialist):**
-- `security` — Authentication, encryption, vulnerabilities
-- `database` — Queries, schemas, replication
-- `compliance` — GDPR, HIPAA, SOC2
-- `infrastructure` — Kubernetes, cloud, networking
-- `performance` — Profiling, caching, optimization
-- `accessibility` — WCAG, screen readers
+The canonical registry is [`courtroom/domains/experts.yaml`](courtroom/domains/experts.yaml). Quick reference:
 
-**Advisory Only (Witness):**
-- `ux` — User research, interaction patterns
-- `legal` — Licensing, IP considerations
+**Full participation (Witness or Specialist):**  
+`security` · `database` · `compliance` · `infrastructure` · `performance` · `accessibility` · `cryptography` · `api_design` · `testing`
+
+**Advisory only (Witness):**  
+`ux` · `legal`
+
+See [Domains & Experts](#domains--experts) and [`courtroom/domains/README.md`](courtroom/domains/README.md) for scope, summoning commands, and how to add domains.
 
 ### Vote Types
 
@@ -206,6 +237,21 @@ See [`core/personalities.md`](core/personalities.md) for complete personality de
 | F3 | Complex | Significant tradeoffs | **Mandatory** |
 | F4 | Critical | Architectural impact | **Mandatory + Transcript** |
 | F5 | Existential | Fundamental direction change | **Mandatory + Full Record** |
+
+---
+
+## Domains & Experts
+
+When deliberations need expertise beyond the core court (e.g. security, compliance, database design), the court can summon **Expert Witnesses** (advisory, 0 votes) or seat **Specialists** (full participation, 1 vote, Judge only, F3+ matters).
+
+| Location | Purpose |
+|----------|---------|
+| [`courtroom/domains/README.md`](courtroom/domains/README.md) | How to use the registry, summoning commands, adding domains |
+| [`courtroom/domains/experts.yaml`](courtroom/domains/experts.yaml) | Canonical definitions: scope, heuristics, signature questions, failure modes |
+
+**Domains (Witness and/or Specialist):** `security`, `database`, `compliance`, `infrastructure`, `performance`, `accessibility`, `cryptography`, `api_design`, `testing`. **Advisory only (Witness):** `ux`, `legal`.
+
+Protocol and tie-breaking rules: [`core/sme-framework.md`](core/sme-framework.md).
 
 ---
 
@@ -237,7 +283,12 @@ LLM_Personas/
 ├── .cursor/
 │   └── agents/
 │       ├── morningstar.md      # MORNINGSTAR agent definition
-│       └── lil-jeff.md         # CodeFarm agent definition
+│       ├── lil-jeff.md         # CodeFarm agent definition
+│       └── octavius.md         # OCTAVIUS Triumvirate (R/Quarto)
+├── octavius_core/
+│   ├── THE_RULES.md            # Triumvirate binding protocols
+│   └── state.md                # Session state and continuity
+├── octavius_summaries/         # Executive summaries (OCTAVIUS)
 ├── core/
 │   ├── personalities.md        # Personality definitions
 │   ├── procedures.md           # Deliberation protocols
@@ -249,7 +300,10 @@ LLM_Personas/
 │   ├── RULES.md                # Formal courtroom rules
 │   ├── BEST_PRACTICES.md       # Practical guidance
 │   ├── precedents.md           # Precedent database
-│   └── transcripts/            # F3+ deliberation records
+│   ├── transcripts/            # F3+ deliberation records (.md + .html)
+│   └── domains/                # SME domain registry
+│       ├── README.md           # Registry usage, summoning, adding domains
+│       └── experts.yaml        # Canonical domain definitions
 ├── state/
 │   ├── current.md              # Active session state
 │   └── metrics.md              # Cumulative statistics
@@ -257,6 +311,13 @@ LLM_Personas/
 │   ├── session-start.md        # Session templates
 │   ├── module-template.md      # Module structure
 │   └── project-dashboard.md    # Project tracking
+├── portal/
+│   ├── launch.sh               # Transcript launcher (run from project root)
+│   ├── export_transcript.py    # .md → HTML export
+│   ├── viewer.html             # Standalone viewer
+│   ├── dracula.css
+│   ├── generate.py             # Optional: gitmal static site
+│   └── README.md
 ├── checklists/
 │   └── critibot-review.md      # Code review checklist
 ├── references/
@@ -267,6 +328,92 @@ LLM_Personas/
 ├── CHANGELOG.md                # Decision history
 └── README.md                   # This file
 ```
+
+---
+
+## Repository Map (Complete)
+
+Every directory and key file added since inception. Use this to find where things live.
+
+| Path | Purpose |
+|------|---------|
+| **.cursor/agents/** | Cursor subagent definitions |
+| `.cursor/agents/morningstar.md` | MORNINGSTAR courtroom agent |
+| `.cursor/agents/lil-jeff.md` | LIL_JEFF (CodeFarm) agent |
+| `.cursor/agents/octavius.md` | OCTAVIUS (R/Quarto) agent |
+| **core/** | Court and framework logic |
+| `core/personalities.md` | Judge, Consultant, Architect, Engineer, Debugger, Prophet, Scribe |
+| `core/procedures.md` | Session lifecycle, deliberation flow, tie-breaking, SME procedures |
+| `core/sme-framework.md` | Expert Witness & Specialist protocol; refs courtroom/domains |
+| `core/state-schema.md` | Validation rules for state/current.md |
+| `core/error-recovery.md` | State corruption recovery, rollback, emergency procedures |
+| `core/inter-agent-protocol.md` | MORNINGSTAR ↔ LIL_JEFF handoff and response formats |
+| **courtroom/** | The law and records |
+| `courtroom/RULES.md` | Formal rules (voting, transcripts, jurisdiction) |
+| `courtroom/BEST_PRACTICES.md` | Practical guidance for deliberations |
+| `courtroom/precedents.md` | Precedent database and index |
+| `courtroom/transcripts/` | Deliberation transcripts (.md and .html) |
+| `courtroom/domains/README.md` | Domain expert registry usage |
+| `courtroom/domains/experts.yaml` | Canonical SME domain definitions |
+| **state/** | Session and metrics |
+| `state/current.md` | Active session state (read at start, updated at end) |
+| `state/metrics.md` | Cumulative stats (deliberations, votes, Prophet, SME) |
+| **octavius_core/** | OCTAVIUS Triumvirate |
+| `octavius_core/THE_RULES.md` | Binding protocols for Apollo, Kronos, Morningstar |
+| `octavius_core/state.md` | R/Quarto session state and continuity |
+| **octavius_summaries/** | OCTAVIUS executive summaries (YYYY-MM-DD_HHMMSS_summary.md) |
+| **portal/** | Transcript viewer and export |
+| `portal/launch.sh` | **Primary:** interactive launcher, list transcripts, open in browser |
+| `portal/export_transcript.py` | Export one .md transcript to HTML (no external deps) |
+| `portal/viewer.html` | Standalone transcript viewer |
+| `portal/dracula.css` | Dracula theme for portal |
+| `portal/generate.py` | Optional: gitmal static site generator |
+| `portal/exports/` | HTML output from launch/export |
+| **templates/** | Reusable templates |
+| `templates/session-start.md` | MORNINGSTAR session init, deliberation, close |
+| `templates/module-template.md` | Module structure (CodeFarm) |
+| `templates/project-dashboard.md` | Project tracking |
+| **checklists/** | Quality and process |
+| `checklists/critibot-review.md` | Code review checklist (CritiBot) |
+| **references/** | Conventions |
+| `references/naming-conventions.md` | Naming patterns for code |
+| **reference_files/** | Original sources (not runtime) |
+| `reference_files/MORNINGSTAR.md` | Original MORNINGSTAR persona |
+| `reference_files/personalities.md` | Original personality definitions |
+| `CHANGELOG.md` | Decision history and implementation log |
+| `README.md` | This file |
+
+---
+
+## How to Use This Repository
+
+### First-time setup
+
+1. **Clone or open** the repo. No install required for MORNINGSTAR or LIL_JEFF (Cursor agents).
+2. **Portal (optional):** For `./portal/launch.sh`, ensure it’s executable: `chmod +x portal/launch.sh`. Python 3 is used for on-demand transcript export.
+3. **OCTAVIUS (optional):** No extra setup; reads `octavius_core/THE_RULES.md` and `octavius_core/state.md` at session start.
+
+### Daily use
+
+| Goal | What to do |
+|------|------------|
+| **Deliberate on a decision** | Invoke the **morningstar** subagent (or `/morningstar`). Present your matter. Court reads `state/current.md`, deliberates, votes, and can update state/changelog/transcripts. |
+| **Implement or scaffold code** | Invoke the **lil-jeff** subagent. Use for full modules, not placeholders. Handoff from MORNINGSTAR is documented in `core/inter-agent-protocol.md`. |
+| **R / Quarto / tidyverse / tidymodels** | Invoke the **octavius** subagent. Session starts by reading `octavius_core/THE_RULES.md` and `octavius_core/state.md`; ends with an Executive Summary in `octavius_summaries/`. |
+| **View deliberation transcripts** | From project root: `./portal/launch.sh`. Pick a transcript; existing .html opens, or .md is exported then opened. |
+| **Summon a domain expert (SME)** | During a MORNINGSTAR session: `/summon <domain>-expert` (e.g. `security-expert`) or `/seat <domain>-specialist` (Judge only, F3+). Domain list: `courtroom/domains/README.md` and `courtroom/domains/experts.yaml`. |
+| **Check precedent** | Open `courtroom/precedents.md` before or after a deliberation. |
+| **Recover from bad state or failed session** | Follow `core/error-recovery.md`. |
+
+### Where to find what
+
+- **Rules and procedures** → `courtroom/RULES.md`, `core/procedures.md`, `courtroom/BEST_PRACTICES.md`
+- **Personality definitions** → `core/personalities.md`
+- **SME domains and how to add them** → `courtroom/domains/README.md`, `courtroom/domains/experts.yaml`, `core/sme-framework.md`
+- **State and metrics** → `state/current.md`, `state/metrics.md`; schema: `core/state-schema.md`
+- **Transcripts** → `courtroom/transcripts/`; launch: `./portal/launch.sh`
+- **Agent handoff (MORNINGSTAR ↔ LIL_JEFF)** → `core/inter-agent-protocol.md`
+- **What changed and when** → `CHANGELOG.md`
 
 ---
 
@@ -288,6 +435,25 @@ When matters require implementation, MORNINGSTAR hands off to LIL_JEFF—a devel
 - Self-documenting names — code explains itself
 
 See [`core/inter-agent-protocol.md`](core/inter-agent-protocol.md) for formal handoff procedures between MORNINGSTAR and LIL_JEFF.
+
+---
+
+### OCTAVIUS (The Triumvirate)
+
+When work is R, Quarto, tidyverse, or tidymodels, invoke OCTAVIUS—a triad of agents working in concert:
+
+| Member | Role |
+|--------|------|
+| **APOLLO** | R/Quarto code authorship, tidyverse/tidymodels |
+| **KRONOS** | QA, time tracking, error flagging |
+| **MORNINGSTAR** | Final verification, scientific integrity, Executive Summary |
+
+**Core principles:**
+- All code in runnable Quarto chunks with proper YAML and chunk options
+- KRONOS CRITICAL issues must be resolved before proceeding
+- Every session ends with an Executive Summary in `octavius_summaries/`
+
+**Invocation:** Use the **octavius** subagent for R code, Quarto documents, or statistical computing. Canonical refs: [`octavius_core/THE_RULES.md`](octavius_core/THE_RULES.md), [`octavius_core/state.md`](octavius_core/state.md).
 
 ---
 

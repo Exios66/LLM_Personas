@@ -2,121 +2,88 @@
 
 > *"The court's rulings are its legacy."*
 
-The Courtroom Portal provides a front-end interface for viewing, analyzing, and exporting deliberation transcripts from the MORNINGSTAR courtroom system.
+The Courtroom Portal provides a front-end interface for viewing and exporting deliberation transcripts from the MORNINGSTAR courtroom system.
 
 ---
 
 ## Features
 
-- **Standalone Viewer** - Local HTML page for browsing transcripts without a server
-- **Gitmal Integration** - Full static site generation with Dracula theme
-- **Export Formats** - HTML and Quarto (.qmd) export with personality color coding
-- **Fullscreen Mode** - Immersive view for analyzing deliberations
-- **Print Support** - Clean print-friendly styles for physical documentation
+- **Launch script** — Interactive launcher: list transcripts, open existing HTML or export .md to HTML, open in browser
+- **Standalone viewer** — Local HTML page for browsing transcripts (best when served over HTTP)
+- **Export script** — `portal/export_transcript.py` converts a single .md transcript to styled HTML (no external deps)
+- **Optional: gitmal** — Full static site generation with Dracula theme via `portal/generate.py`
+- **Personality styling** — Dracula theme with color-coded personalities and vote styling
+- **Print support** — Print-friendly styles for physical documentation
 
 ---
 
 ## Quick Start
 
-### View Transcripts Locally
+### Recommended: Use the launch script
 
-Open the standalone viewer in your browser:
+From the project root:
 
 ```bash
-# Via CLI
-morningstar portal open
+./portal/launch.sh
+```
 
-# Or directly
+This will:
+
+1. List all `.md` transcripts in `courtroom/transcripts/`
+2. Let you pick one by number
+3. Open the transcript in your default browser — using existing `.html` if present, otherwise exporting via `portal/export_transcript.py` and then opening
+
+If you get "permission denied", run `chmod +x portal/launch.sh` once. No other CLI or extra tools required; uses only Bash and Python 3.
+
+### Standalone viewer
+
+Open the viewer in your browser (for full transcript loading, serve via HTTP):
+
+```bash
+# Direct open (file:// — fetch may be restricted for some transcripts)
 open portal/viewer.html
+
+# Or serve the project and open (recommended)
+python3 -m http.server 8080
+# Then open http://localhost:8080/portal/viewer.html
 ```
 
-### Generate Full Portal
-
-Generate a complete static site using gitmal:
+### Generate full static site (optional, requires gitmal)
 
 ```bash
-# Generate with Dracula theme
-morningstar portal generate --theme dracula
-
-# Generate with compression
-morningstar portal generate --minify --gzip
-```
-
-### Serve Locally
-
-Start a local HTTP server to view the portal:
-
-```bash
-# Start server on port 8080
-morningstar portal serve
-
-# Custom port
-morningstar portal serve --port 3000
+python portal/generate.py --theme dracula
+# Or with options
+python portal/generate.py --theme dracula --minify --gzip
 ```
 
 ---
 
-## CLI Commands
+## Exporting a single transcript
 
-### Export Commands
+Without the launch script (e.g. from scripts or CI):
 
-| Command | Description |
-|---------|-------------|
-| `morningstar export transcripts` | List all available transcripts |
-| `morningstar export transcript <file>` | Export transcript to HTML |
-| `morningstar export transcript <file> -f qmd` | Export transcript to Quarto |
+```bash
+# Export to portal/exports/ (default)
+python3 portal/export_transcript.py courtroom/transcripts/2026-02-15-framework-enhancement-analysis.md
 
-### Portal Commands
+# Custom output path
+python3 portal/export_transcript.py courtroom/transcripts/2026-02-15-framework-enhancement-analysis.md -o path/to/output.html
+```
 
-| Command | Description |
-|---------|-------------|
-| `morningstar portal generate` | Generate static site with gitmal |
-| `morningstar portal serve` | Start local HTTP server |
-| `morningstar portal open` | Open viewer in browser |
-| `morningstar portal export-all` | Batch export all transcripts |
+`export_transcript.py` uses only the Python standard library (no pip install). Output is Dracula-themed HTML with personality and vote styling.
 
 ---
 
-## Export Examples
+## Transcript filename formats
 
-### Single Transcript to HTML
+The portal supports two naming conventions:
 
-```bash
-morningstar export transcript 20260214_044300_system_advancement.md
-```
+| Format | Example | Parsed as |
+|--------|---------|-----------|
+| `YYYY-MM-DD-topic.md` | `2026-02-15-framework-enhancement-analysis.md` | Date: 2026-02-15, Topic: Framework Enhancement Analysis |
+| `YYYYMMDD_HHMMSS_topic.md` | `20260214_044300_system_advancement.md` | Date: 2026-02-14 04:43, Topic: System Advancement |
 
-Output: `courtroom/transcripts/20260214_044300_system_advancement.html`
-
-### Single Transcript to Quarto
-
-```bash
-morningstar export transcript 20260214_044300_system_advancement.md -f qmd -o deliberation.qmd
-```
-
-The QMD file includes YAML frontmatter for Quarto rendering:
-
-```yaml
----
-title: "System Advancement"
-date: "2026-02-14"
-format:
-  html:
-    theme: darkly
-    toc: true
-author: "MORNINGSTAR Court"
-categories: [deliberation, courtroom]
----
-```
-
-### Batch Export All Transcripts
-
-```bash
-# Export all as HTML
-morningstar portal export-all
-
-# Export all as both HTML and QMD
-morningstar portal export-all -f both -o exports/
-```
+Place `.md` transcripts in `courtroom/transcripts/`. Pre-built `.html` files in the same directory are opened directly by the launch script (no export step).
 
 ---
 
@@ -147,16 +114,17 @@ The portal uses the Dracula color palette with personality-specific colors:
 
 ```
 portal/
-├── README.md           # This file
-├── viewer.html         # Standalone transcript viewer
-├── dracula.css         # Dracula theme stylesheet
-├── generate.py         # Gitmal wrapper script
-└── output/             # Generated static site (after running generate)
+├── README.md             # This file
+├── launch.sh             # Interactive launcher (recommended entry point)
+├── export_transcript.py  # Single .md → HTML export (no deps)
+├── viewer.html           # Standalone transcript viewer
+├── dracula.css           # Dracula theme stylesheet
+├── generate.py           # Optional: gitmal wrapper for full static site
+├── exports/              # HTML output from launch.sh / export_transcript.py
+└── output/               # Generated static site (after running generate.py)
     ├── index.html
     ├── transcripts.html
-    └── courtroom/
-        └── transcripts/
-            └── *.html
+    └── courtroom/transcripts/*.html
 ```
 
 ---
@@ -294,21 +262,17 @@ Ensure `$GOPATH/bin` is in your PATH.
 
 ### "No transcripts found"
 
-Check that transcripts exist in `courtroom/transcripts/`:
+Ensure `.md` files exist in `courtroom/transcripts/`:
 
 ```bash
 ls courtroom/transcripts/*.md
 ```
 
+Supported names: `YYYY-MM-DD-topic.md` or `YYYYMMDD_HHMMSS_topic.md`.
+
 ### Viewer not loading transcripts
 
-The standalone viewer works best when served via HTTP:
-
-```bash
-morningstar portal serve
-```
-
-Opening `viewer.html` directly (via `file://`) may have limited functionality due to browser security restrictions.
+The viewer uses a hardcoded list of transcript filenames (`KNOWN_TRANSCRIPTS` in `viewer.html`). Add new transcripts there when you create them. For the best experience, serve the project over HTTP and open `http://localhost:8080/portal/viewer.html`; `file://` can block fetch for local files.
 
 ### CSS not applying
 

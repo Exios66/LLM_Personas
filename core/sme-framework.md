@@ -13,6 +13,8 @@ The SME Framework provides structured access to domain expertise when matters ex
 | **Expert Witness** | Advisory testimony | 0 | Any personality or Judge |
 | **Specialist Seat** | Full participation | 1 | Judge only (F3+ matters) |
 
+**Canonical registry:** The authoritative list of domains, heuristics, and metadata is maintained in [`courtroom/domains/experts.yaml`](../courtroom/domains/experts.yaml). See [`courtroom/domains/README.md`](../courtroom/domains/README.md) for usage, summoning commands, and how to add or amend domains.
+
 ---
 
 ## Expert Witnesses

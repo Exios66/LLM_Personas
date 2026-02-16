@@ -16,6 +16,74 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 ---
 
+## [2026-02-15] - Experts/Domains Integration & Root README Overhaul
+
+### Experts and domains integration
+
+- **`core/sme-framework.md`** — Added canonical registry reference: authoritative domain list and metadata in `courtroom/domains/experts.yaml`, usage and summoning in `courtroom/domains/README.md`.
+- **Root `README.md`** — Experts/domains fully integrated:
+  - Navigation Index: links to `courtroom/domains/README.md` and `courtroom/domains/experts.yaml`.
+  - Command Reference: Available SME Domains now point to canonical registry and list all domains (including `cryptography`, `api_design`, `testing`).
+  - New **Domains & Experts** section: purpose, table of locations, domain list, link to `core/sme-framework.md`.
+  - Project Structure: `courtroom/domains/` with README and experts.yaml listed.
+
+### Root README: repository map and instructions
+
+- **Table of Contents** — Added: Domains & Experts, Repository Map (Complete), How to Use This Repository.
+- **Repository Map (Complete)** — New section listing every directory and key file with a one-line purpose (agents, core, courtroom, state, octavius_*, portal, templates, checklists, references, reference_files, CHANGELOG, README).
+- **How to Use This Repository** — New section:
+  - First-time setup (clone, portal `chmod +x`, OCTAVIUS optional).
+  - Daily use table: deliberate (morningstar), implement (lil-jeff), R/Quarto (octavius), view transcripts (portal), summon SME, check precedent, recover (error-recovery).
+  - “Where to find what” quick reference for rules, personalities, SMEs, state, transcripts, handoff, changelog.
+
+---
+
+## [2026-02-15] - Portal Launch and Export Fixes
+
+### Portal: seamless launch and excellence
+
+- **`portal/export_transcript.py`** (new) — Exports a single transcript `.md` to styled HTML. No external dependencies (stdlib only). Used by the launch script when no pre-built `.html` exists. Supports Dracula theme and personality/vote styling.
+- **`portal/launch.sh`** — No longer depends on missing `tools/cli.py`. Now:
+  - Prefers existing `.html` in `courtroom/transcripts/` (opens directly).
+  - Otherwise runs `python3 portal/export_transcript.py` to export, then opens the result.
+  - Supports both transcript filename formats: `YYYY-MM-DD-topic.md` and `YYYYMMDD_HHMMSS_topic.md`.
+- **`portal/viewer.html`** — `KNOWN_TRANSCRIPTS` updated to the real transcript; `extractDate` and `extractTitle` support `YYYY-MM-DD-topic` filenames.
+- **`portal/generate.py`** — Transcript index generation now recognizes `YYYY-MM-DD-topic` as well as `YYYYMMDD_HHMMSS_topic`.
+- **`portal/README.md`** — Aligned with actual behavior: launch script as primary entry point, export script documented, filename formats and troubleshooting updated.
+- **Project `README.md`** — Portal added to Navigation Index and Project Structure; new step "View Transcripts in Browser" (run `./portal/launch.sh`).
+
+Portal use case is now suited to the repo and launches seamlessly via `./portal/launch.sh`.
+
+---
+
+## [2026-02-15] - OCTAVIUS Agent Added
+
+### New Agent: The Octavius Triumvirate
+
+OCTAVIUS added as a project subagent for R/RStudio/Quarto data science work. Implemented and finalized per LIL_JEFF workflow (analyze, improve, execute).
+
+**Deliverables:**
+
+| Item | Location | Purpose |
+|------|----------|---------|
+| Agent definition | `.cursor/agents/octavius.md` | Cursor subagent; Triumvirate persona, workflow, coding standards |
+| Binding protocols | `octavius_core/THE_RULES.md` | Jurisdiction, mandatory actions, KRONOS severity, conflict resolution |
+| Session state | `octavius_core/state.md` | Continuity template; last session, context, notes |
+| Summaries directory | `octavius_summaries/.gitkeep` | Executive summaries (YYYY-MM-DD_HHMMSS_summary.md) |
+
+**Triumvirate:**
+
+- **APOLLO** — R/Quarto code authorship; tidyverse/tidymodels
+- **KRONOS** — QA, time tracking, interventions (CRITICAL/WARNING/SUGGESTION)
+- **MORNINGSTAR** — Final verification, scientific integrity, Executive Summary
+
+**Integration:**
+
+- README updated: Navigation Index (OCTAVIUS section), Project Structure, Agent Definitions table, Companion Personas (OCTAVIUS subsection)
+- Invocation: use the **octavius** subagent for R code, Quarto documents, tidyverse/tidymodels, or statistical computing
+
+---
+
 ## [2026-02-15] - Framework Enhancement Implementation
 
 ### Implementations (by LIL_JEFF)
