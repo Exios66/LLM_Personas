@@ -157,6 +157,16 @@ See [portal/README.md](portal/README.md) for details.
 | [`templates/module-template.md`](templates/module-template.md) | Module structure template | Creating new modules |
 | [`templates/project-dashboard.md`](templates/project-dashboard.md) | Project tracking template | Managing projects |
 
+### GitHub Wiki (Equivalent Docs)
+
+| File | Purpose | When to Reference |
+|------|---------|-------------------|
+| [wiki/README.md](wiki/README.md) | How to add wiki contents to GitHub Wiki | Setting up or updating project Wiki |
+| [wiki/Home.md](wiki/Home.md) | Wiki home page content | Copy to wiki as Home |
+| [wiki/_Sidebar.md](wiki/_Sidebar.md) | Wiki sidebar | Auto-displayed when copied to wiki |
+
+All other `wiki/*.md` files are one-topic-per-page equivalents of this documentation for seamless Wiki use.
+
 ### Agent Definitions
 
 | File | Purpose |
@@ -339,9 +349,20 @@ LLM_Personas/
 ├── reference_files/
 │   ├── MORNINGSTAR.md          # Original persona source
 │   └── personalities.md        # Original personality definitions
+├── wiki/                       # GitHub Wiki–ready docs (copy to repo wiki)
+│   ├── README.md               # Instructions for adding to GitHub Wiki
+│   ├── Home.md                 # Wiki home
+│   ├── _Sidebar.md             # Wiki sidebar
+│   └── *.md                    # One page per topic
 ├── CHANGELOG.md                # Decision history
 └── README.md                   # This file
 ```
+
+---
+
+## GitHub Wiki
+
+The **`wiki/`** subdirectory contains equivalent documentation formatted for seamless use as a GitHub project Wiki. Copy the contents of `wiki/` into your repo’s wiki (clone the wiki repo, paste files, commit). See **[wiki/README.md](wiki/README.md)** for step-by-step instructions and the list of pages (Home, Sidebar, Quick-Start, Court, Commands, Procedures, SME, Portal, Glossary, Runbook, etc.).
 
 ---
 
@@ -403,6 +424,11 @@ Every directory and key file added since inception. Use this to find where thing
 | `reference_files/personalities.md` | Original personality definitions |
 | `CHANGELOG.md` | Decision history and implementation log |
 | `README.md` | This file |
+| **wiki/** | GitHub Wiki–ready documentation |
+| `wiki/README.md` | How to add wiki contents to your GitHub Wiki |
+| `wiki/Home.md` | Wiki home page (copy to wiki repo as Home) |
+| `wiki/_Sidebar.md` | Wiki sidebar (auto-displayed by GitHub) |
+| `wiki/*.md` | One page per topic (Quick-Start, Court, Commands, etc.) |
 
 ---
 

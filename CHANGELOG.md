@@ -61,6 +61,23 @@ All 10 enhancements from Case 2026-INFRA-002 have been implemented:
 
 ---
 
+## [2026-02-15] - GitHub Wiki Subdirectory
+
+### wiki/ — Equivalent docs for GitHub Wiki
+
+- **`wiki/README.md`** — Instructions for adding wiki contents to a GitHub project Wiki (clone wiki repo, copy files, commit).
+- **`wiki/Home.md`** — Wiki home page (overview, quick links, quick start summary).
+- **`wiki/_Sidebar.md`** — Sidebar navigation (GitHub displays this automatically).
+- **Topic pages** — One .md per major topic, with internal wiki-style links:
+  - Quick-Start, The-Court, Command-Reference, Domains-and-Experts, When-to-Convene, Procedures
+  - SME-Framework, State-and-Metrics, Error-Recovery, Inter-Agent-Protocol
+  - Portal, Onboarding, Glossary, Runbook, Edge-Cases
+  - Companion-Personas, Precedents, Changelog, Repository-Map
+
+Content is adapted from the main repo (README, core/, docs/, courtroom/) so the wiki can be populated by copying `wiki/` into the repo’s wiki. Main README and Repository Map updated to reference `wiki/`.
+
+---
+
 ## [2026-02-15] - Experts/Domains Integration & Root README Overhaul
 
 ### Experts and domains integration
