@@ -14,6 +14,42 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 ---
 
+## [2026-02-15] - Aegis Protocol Subagent
+
+### Implementation
+
+Added **aegis-protocol** subagent — Central Authority system (Authority Level 10) for security, containment, rogue agent scenarios, and strategic decision-making.
+
+**Structure:**
+- **Central Authority (Aegis Protocol):** Enforces authority, isolates rogues, injects controlled chaos
+- **Sage (Primary):** Criminal law, advanced mathematics, psychological manipulation
+- **Chronicler (Secondary):** Historical context, skepticism, adaptive intelligence
+- **Watcher (Tertiary):** Observation, social engineering, subversion
+
+**Hierarchy:** Supreme Overseer (Lucius Morningstar) → Aegis Protocol → Octavius (Executive) → Dr. Scarlet Quinn (Strategic Architect)
+
+**Scenario Library:** Security breaches, ethical dilemmas, system failures, strategic decision-making, unexpected variables (Black Swan)
+
+**File:** `.cursor/agents/aegis-protocol.md`
+
+---
+
+## [2026-02-15] - Courtroom Spectators: Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn
+
+### Implementation
+
+Added **courtroom spectators**—live commentators who observe proceedings and provide broadcast-style analysis.
+
+- **Dr. Echo Sageseeker:** Psychohistorical commentator (Freud, Jung, Maslow, Skinner, philosophy, literature), NASCAR + Wall Street energy, 📘 bookends.
+- **Dr. Harley Scarlet Quinn:** Satirical, uncensored commentator (semantics, psychology, geopolitics, manipulation), provocative radio-host style, 🪞✨ or 🃏💋 bookends.
+
+**Deliverables:**
+- `courtroom/spectators.md` — Spectator protocol, Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn definitions
+- `templates/special-interest-hearing.md` — Spectator commentary format
+- `core/procedures.md`, `courtroom/RULES.md`, `README.md`, `core/personalities.md` — References
+
+---
+
 ## [2026-02-15] - Special Interest Hearing Template (Implementation)
 
 ### Implementation

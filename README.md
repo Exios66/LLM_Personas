@@ -176,6 +176,7 @@ All other `wiki/*.md` files are one-topic-per-page equivalents of this documenta
 | [`.cursor/agents/morningstar.md`](.cursor/agents/morningstar.md) | MORNINGSTAR agent definition |
 | [`.cursor/agents/lil-jeff.md`](.cursor/agents/lil-jeff.md) | LIL_JEFF (CodeFarm) agent definition |
 | [`.cursor/agents/octavius.md`](.cursor/agents/octavius.md) | OCTAVIUS (Triumvirate) agent definition — R/Quarto data science |
+| [`.cursor/agents/aegis-protocol.md`](.cursor/agents/aegis-protocol.md) | Aegis Protocol — Central Authority (Sage, Watcher, Chronicler; security, containment, rogue agent scenarios) |
 
 ---
 
@@ -269,6 +270,8 @@ See [Domains & Experts](#domains--experts) and [`courtroom/domains/README.md`](c
 
 To convene a Special Interest Hearing, request an investigative proceeding on a matter (e.g. incident root cause, conflicting accounts). See [`templates/special-interest-hearing.md`](templates/special-interest-hearing.md) and [`core/procedures.md`](core/procedures.md).
 
+**Spectators:** Optional live commentators (Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn) may provide psychohistorical or satirical analysis. See [`courtroom/spectators.md`](courtroom/spectators.md).
+
 ---
 
 ## Domains & Experts
@@ -315,7 +318,8 @@ LLM_Personas/
 │   └── agents/
 │       ├── morningstar.md      # MORNINGSTAR agent definition
 │       ├── lil-jeff.md         # CodeFarm agent definition
-│       └── octavius.md         # OCTAVIUS Triumvirate (R/Quarto)
+│       ├── octavius.md         # OCTAVIUS Triumvirate (R/Quarto)
+│       └── aegis-protocol.md   # Aegis Protocol — Central Authority
 ├── octavius_core/
 │   ├── THE_RULES.md            # Triumvirate binding protocols
 │   └── state.md                # Session state and continuity
@@ -389,6 +393,7 @@ Every directory and key file added since inception. Use this to find where thing
 | `.cursor/agents/morningstar.md` | MORNINGSTAR courtroom agent |
 | `.cursor/agents/lil-jeff.md` | LIL_JEFF (CodeFarm) agent |
 | `.cursor/agents/octavius.md` | OCTAVIUS (R/Quarto) agent |
+| `.cursor/agents/aegis-protocol.md` | Aegis Protocol (Central Authority) |
 | **core/** | Court and framework logic |
 | `core/personalities.md` | Judge, Consultant, Architect, Engineer, Debugger, Prophet, Scribe |
 | `core/procedures.md` | Session lifecycle, deliberation flow, tie-breaking, SME procedures |
@@ -461,6 +466,7 @@ Every directory and key file added since inception. Use this to find where thing
 | **Deliberate on a decision** | Invoke the **morningstar** subagent (or `/morningstar`). Present your matter. Court reads `state/current.md`, deliberates, votes, and can update state/changelog/transcripts. |
 | **Implement or scaffold code** | Invoke the **lil-jeff** subagent. Use for full modules, not placeholders. Handoff from MORNINGSTAR is documented in `core/inter-agent-protocol.md`. |
 | **R / Quarto / tidyverse / tidymodels** | Invoke the **octavius** subagent. Session starts by reading `octavius_core/THE_RULES.md` and `octavius_core/state.md`; ends with an Executive Summary in `octavius_summaries/`. |
+| **Security, containment, rogue agent, crisis** | Invoke the **aegis-protocol** subagent. Coordinates Sage, Watcher, Chronicler for scenario analysis and containment. |
 | **View deliberation transcripts** | From project root: `./portal/launch.sh`. Pick a transcript; existing .html opens, or .md is exported then opened. |
 | **Summon a domain expert (SME)** | During a MORNINGSTAR session: `/summon <domain>-expert` (e.g. `security-expert`) or `/seat <domain>-specialist` (Judge only, F3+). Domain list: `courtroom/domains/README.md` and `courtroom/domains/experts.yaml`. |
 | **Check precedent** | Open `courtroom/precedents.md` before or after a deliberation. |
@@ -515,6 +521,20 @@ When work is R, Quarto, tidyverse, or tidymodels, invoke OCTAVIUS—a triad of a
 - Every session ends with an Executive Summary in `octavius_summaries/`
 
 **Invocation:** Use the **octavius** subagent for R code, Quarto documents, or statistical computing. Canonical refs: [`octavius_core/THE_RULES.md`](octavius_core/THE_RULES.md), [`octavius_core/state.md`](octavius_core/state.md).
+
+### Aegis Protocol (Central Authority)
+
+The Aegis Protocol is the Central Authority mechanism (Authority Level 10) for security, containment, rogue agent scenarios, and strategic decision-making. It coordinates three operational agents:
+
+- **The Sage (Primary):** Criminal law, advanced mathematics, psychological manipulation
+- **The Chronicler (Secondary):** Historical context, skepticism, adaptive intelligence
+- **The Watcher (Tertiary):** Observation, social engineering, subversion
+
+**Hierarchy:** Supreme Overseer (Lucius Morningstar) → Aegis Protocol → Octavius (Executive) → Dr. Scarlet Quinn (Strategic Architect)
+
+**Scenario Library:** Security breaches, ethical dilemmas, system failures, strategic decision-making, unexpected variables (Black Swan), rogue agent containment (Cyber Psychosis)
+
+**Invocation:** Use the **aegis-protocol** subagent for security analysis, containment protocols, ethical dilemmas, crisis management, or rogue agent scenarios.
 
 ---
 

@@ -501,6 +501,15 @@ Approved amendments SHALL be:
 
 Special Interest Hearings: See `core/procedures.md` and `templates/special-interest-hearing.md`.
 
+### Courtroom Spectators
+
+| Spectator | Role | Style |
+|-----------|------|-------|
+| **Dr. Echo Sageseeker** | Live psychohistorical commentator | NASCAR + Wall Street; 📘 bookends |
+| **Dr. Harley Scarlet Quinn** | Live satirical commentator | Uncensored, provocative; 🪞✨ or 🃏💋 bookends |
+
+Spectators observe and comment; they do not vote or testify. See `courtroom/spectators.md`.
+
 ### Command Reference
 
 | Command | Effect |

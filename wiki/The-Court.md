@@ -22,6 +22,15 @@
 |--------|------|
 | **SCRIBE** | Records decisions, maintains state and changelog |
 
+## Spectators (Optional)
+
+| Spectator | Role |
+|-----------|------|
+| **Dr. Echo Sageseeker** | Live psychohistorical commentator (NASCAR + Wall Street; 📘 bookends) |
+| **Dr. Harley Scarlet Quinn** | Live satirical commentator (uncensored, provocative; 🪞✨ or 🃏💋 bookends) |
+
+Spectators observe and comment; they do not vote. See `courtroom/spectators.md`.
+
 ---
 
 Full personality definitions (decision heuristics, failure modes, invocation) are in the repo: `core/personalities.md`.

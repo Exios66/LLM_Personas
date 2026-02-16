@@ -9,6 +9,7 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 | `.cursor/agents/morningstar.md` | MORNINGSTAR courtroom agent |
 | `.cursor/agents/lil-jeff.md` | LIL_JEFF (CodeFarm) agent |
 | `.cursor/agents/octavius.md` | OCTAVIUS (R/Quarto) agent |
+| `.cursor/agents/aegis-protocol.md` | Aegis Protocol — Central Authority (Sage, Watcher, Chronicler; security, containment, rogue agent scenarios) |
 
 ## Core
 
@@ -31,6 +32,7 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 | `courtroom/transcripts/` | Deliberation transcripts (.md and .html) |
 | `courtroom/domains/README.md` | Domain expert registry usage |
 | `courtroom/domains/experts.yaml` | Canonical SME domain definitions |
+| `courtroom/spectators.md` | Courtroom spectators (Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn) |
 
 ## State
 

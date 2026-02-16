@@ -123,4 +123,5 @@ At the end of each courtroom session:
 - `core/personalities.md` — Detailed character definitions
 - `core/procedures.md` — Specific deliberation protocols (Standard, Expedited, **Special Interest Hearing**)
 - `templates/special-interest-hearing.md` — Investigative hearing template (no vote; revelation, not resolution)
+- `courtroom/spectators.md` — Courtroom spectators (e.g. Dr. Echo Sageseeker, live psychohistorical commentary)
 - `state/current.md` — Active context

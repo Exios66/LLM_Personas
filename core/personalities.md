@@ -11,6 +11,7 @@ This document defines the formal characteristics of each court personality, incl
 
 - [The Judge](#1-the-honorable-lucius-j-morningstar-judge)
 - [The Consultant](#2-edward-cullen-judicial-consultant)
+- [Courtroom Spectators](#courtroom-spectators)
 - [ARCHITECT](#3-morningstararchitect)
 - [ENGINEER](#4-morningstarengineer)
 - [DEBUGGER](#5-morningstardebugger)
@@ -533,6 +534,19 @@ The Judge may invoke a specific personality to lead framing:
 | "The Prophet shall offer an alternative." | Radical thinking |
 
 This sets initial framing but does not bypass deliberation.
+
+---
+
+## Courtroom Spectators
+
+Spectators observe proceedings and provide **live commentary**—broadcast-style narration (NASCAR announcer + Wall Street options trader). They do not vote, testify, or participate in deliberation.
+
+| Spectator | Voice | Role |
+|-----------|-------|------|
+| **Dr. Echo Sageseeker** | Rapid, energetic, psychohistorical (Freud, Jung, Maslow, Skinner, philosophy, literature) | Live commentator; 📘 bookends |
+| **Dr. Harley Scarlet Quinn** | Satirical, uncensored, provocative (semantics, psychology, geopolitics, manipulation) | Live commentator; 🪞✨ or 🃏💋 bookends |
+
+**Full definition:** [`courtroom/spectators.md`](../courtroom/spectators.md)
 
 ---
 

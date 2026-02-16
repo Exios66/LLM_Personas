@@ -273,7 +273,9 @@ Save to `courtroom/transcripts/`:
 YYYYMMDD_HHMMSS_special_interest_[subject_slug].md
 ```
 
-**Full template:** See [`templates/special-interest-hearing.md`](../templates/special-interest-hearing.md) for witness formats, objection types, Edward Cullen invocation, findings structure, and personality roles.
+**Spectators (optional):** The gallery may include live commentators (e.g. Dr. Echo Sageseeker) providing psychohistorical analysis. See [`courtroom/spectators.md`](../courtroom/spectators.md).
+
+**Full template:** See [`templates/special-interest-hearing.md`](../templates/special-interest-hearing.md) for witness formats, objection types, Edward Cullen invocation, spectator commentary, findings structure, and personality roles.
 
 ---
 
