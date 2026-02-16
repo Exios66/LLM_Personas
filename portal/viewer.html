@@ -329,7 +329,8 @@
     // Known transcripts (fallback if directory listing not available)
     // Include all .md files in courtroom/transcripts/; add new entries as transcripts are created
     const KNOWN_TRANSCRIPTS = [
-        '2026-02-15-framework-enhancement-analysis.md'
+        '2026-02-15-framework-enhancement-analysis.md',
+        '2026-02-15-second-enhancement-deliberation.md'
     ];
     
     // Initialize
@@ -367,10 +368,31 @@
         listEl.innerHTML = '<div class="loading-spinner"></div>';
         
         try {
-            // Try to load from known files
             transcripts = [];
+            let filenamesToLoad = [];
+            let meta = {}; // filename -> { title, date }
             
-            for (const filename of KNOWN_TRANSCRIPTS) {
+            // Prefer manifest (from portal/generate_manifest.py) when served over HTTP
+            try {
+                const manifestRes = await fetch('transcripts_manifest.json');
+                if (manifestRes.ok) {
+                    const manifest = await manifestRes.json();
+                    if (manifest.transcripts && manifest.transcripts.length > 0) {
+                        manifest.transcripts.forEach(t => {
+                            filenamesToLoad.push(t.filename);
+                            meta[t.filename] = { title: t.title, date: t.date };
+                        });
+                    }
+                }
+            } catch (e) {
+                console.warn('Manifest not available, using KNOWN_TRANSCRIPTS');
+            }
+            
+            if (filenamesToLoad.length === 0) {
+                filenamesToLoad = [...KNOWN_TRANSCRIPTS];
+            }
+            
+            for (const filename of filenamesToLoad) {
                 try {
                     const response = await fetch(TRANSCRIPTS_DIR + filename);
                     if (response.ok) {
@@ -378,8 +400,8 @@
                         transcripts.push({
                             filename: filename,
                             path: TRANSCRIPTS_DIR + filename,
-                            title: extractTitle(filename, content),
-                            date: extractDate(filename),
+                            title: (meta[filename] && meta[filename].title) ? meta[filename].title : extractTitle(filename, content),
+                            date: (meta[filename] && meta[filename].date) ? meta[filename].date : extractDate(filename),
                             content: content
                         });
                     }
@@ -387,9 +409,6 @@
                     console.warn(`Could not load ${filename}:`, e);
                 }
             }
-            
-            // Also check for any local session files
-            // (In a real server environment, this would be an API call)
             
             renderTranscriptList();
         } catch (error) {

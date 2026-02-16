@@ -53,6 +53,7 @@ This document serves as the authoritative index of precedent-setting decisions m
 | Case ID | Date | Matter | Ruling | Vote | Implications | Status |
 |---------|------|--------|--------|------|--------------|--------|
 | 2026-INFRA-001-001 | 2026-02-15 | Framework Enhancement Analysis | 10 enhancements adopted | 4-0-0 | Establishes infrastructure improvement process | BINDING |
+| 2026-INFRA-002-001 | 2026-02-15 | Second Enhancement Deliberation | 10 enhancements adopted (operational excellence) | 4-0-0 | SME failures, dissolution, glossary, handoff, onboarding, portal, runbook, edge cases | BINDING |
 
 ### Index by Category
 
@@ -73,6 +74,7 @@ This document serves as the authoritative index of precedent-setting decisions m
 | Case ID | Date | Matter | Ruling | Vote |
 |---------|------|--------|--------|------|
 | 2026-INFRA-001-001 | 2026-02-15 | Framework Enhancement Analysis | 10 enhancements adopted | 4-0-0 |
+| 2026-INFRA-002-001 | 2026-02-15 | Second Enhancement Deliberation | 10 enhancements adopted | 4-0-0 |
 
 #### Bugs (BUG)
 
@@ -233,6 +235,44 @@ Enhancement implementation may create temporary inconsistency between documentat
 
 ---
 
+### 2026-INFRA-002-001: Second Enhancement Deliberation
+
+**Date:** 2026-02-15  
+**Feasibility:** F4 (Critical)  
+**Vote:** 4-0-0 (Unanimous)  
+**Status:** BINDING  
+**Tags:** #infrastructure #process #approved #operational  
+**Transcript:** [courtroom/transcripts/2026-02-15-second-enhancement-deliberation.md](transcripts/2026-02-15-second-enhancement-deliberation.md)
+
+#### Matter
+
+The court identified and ratified a second slate of 10 enhancements focused on operational excellence, discoverability, and cross-agent coherence (SME failures, dissolution protocol, glossary, precedent citation, OCTAVIUS handoff, onboarding, portal discovery, state backup, runbook, edge-case registry).
+
+#### Ruling
+
+The court adopted all 10 enhancements and delegated implementation to LIL_JEFF (primary) and OCTAVIUS where applicable. Handoff document: courtroom/transcripts/HANDOFF-2026-INFRA-002.md.
+
+#### Rationale
+
+First round delivered infrastructure; this round prioritizes operator experience and reducing memory load (per Consultant). Structural gaps (SME failure tracking, dissolution) closed; handoff matrix (OCTAVIUS) makes the system coherent.
+
+#### Risk Accepted
+
+Implementation touches many files; handoff must be clearly scoped. Mitigated by detailed HANDOFF spec.
+
+#### Implications
+
+1. Establishes second enhancement cycle; confirms pattern from 2026-INFRA-001-001
+2. Dissolution Protocol (when not to convene) is now binding guidance
+3. docs/ and portal manifest improve discoverability
+4. P5 (Dissolution) removed from honorable mention—adopted as Enhancement #2
+
+#### Related Precedent
+
+- 2026-INFRA-001-001: Same enhancement process; first slate
+
+---
+
 *[Additional entries will be added as deliberations occur]*
 
 ---
@@ -265,6 +305,16 @@ Reference format for other documents:
 ```markdown
 See [CASE-ID] in `courtroom/precedents.md` for the ruling on [matter].
 ```
+
+### Shorthand (Transcripts and Rulings)
+
+Use the Case ID alone or with "Case" prefix. Examples:
+
+- `Per 2026-INFRA-001-001`
+- `See Case 2026-INFRA-001-001`
+- `2026-INFRA-001-001 (BINDING)`
+
+No need to repeat date or full title in every citation; the precedent index holds the details.
 
 ---
 

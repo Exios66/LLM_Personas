@@ -16,6 +16,51 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 ---
 
+## [2026-02-15] - Second Enhancement Deliberation (Case 2026-INFRA-002)
+
+### Court Ruling
+
+The Court reconvened and unanimously adopted a second slate of 10 enhancements focused on operational excellence, discoverability, and cross-agent coherence. Vote: 4-0-0.
+
+**Transcript:** `courtroom/transcripts/2026-02-15-second-enhancement-deliberation.md`  
+**Handoff:** `courtroom/transcripts/HANDOFF-2026-INFRA-002.md`  
+**Precedent:** 2026-INFRA-002-001 (BINDING)
+
+**The 10 enhancements:**  
+1. SME Failure Tracking File (`state/sme-failures.md`)  
+2. Dissolution Protocol (when not to convene)  
+3. Glossary / Term Index  
+4. Precedent citation shorthand  
+5. OCTAVIUS handoff in inter-agent protocol  
+6. Onboarding one-pager  
+7. Portal transcript discovery  
+8. State backup recommendation  
+9. Runbook / troubleshooting index  
+10. Edge Case Registry  
+
+Implementation delegated to LIL_JEFF (primary) and OCTAVIUS where applicable.
+
+### Implementation (by LIL_JEFF)
+
+All 10 enhancements from Case 2026-INFRA-002 have been implemented:
+
+| # | Enhancement | Delivered |
+|---|-------------|-----------|
+| 1 | SME Failure Tracking File | `state/sme-failures.md` |
+| 2 | Dissolution Protocol | `core/procedures.md` (When NOT to Convene) |
+| 3 | Glossary / Term Index | `docs/glossary.md` |
+| 4 | Precedent citation shorthand | `courtroom/precedents.md` (Shorthand subsection) |
+| 5 | OCTAVIUS handoff in inter-agent protocol | `core/inter-agent-protocol.md` (section + table) |
+| 6 | Onboarding one-pager | `docs/ONBOARDING.md` |
+| 7 | Portal transcript discovery | `portal/generate_manifest.py`, `portal/transcripts_manifest.json`, viewer.html uses manifest |
+| 8 | State backup recommendation | `core/procedures.md` (State Backup), `core/error-recovery.md` (Prevention) |
+| 9 | Runbook / troubleshooting index | `docs/RUNBOOK.md` |
+| 10 | Edge Case Registry | `docs/edge-cases.md` |
+
+**Also:** Precedent 2026-INFRA-002-001 full entry in `courtroom/precedents.md`; README updated with docs/ in Navigation Index and Repository Map; state and precedents updated for second session.
+
+---
+
 ## [2026-02-15] - Experts/Domains Integration & Root README Overhaul
 
 ### Experts and domains integration

@@ -270,9 +270,13 @@ ls courtroom/transcripts/*.md
 
 Supported names: `YYYY-MM-DD-topic.md` or `YYYYMMDD_HHMMSS_topic.md`.
 
+### Transcript discovery (manifest)
+
+Run `python3 portal/generate_manifest.py` from the project root to generate `portal/transcripts_manifest.json`. When the viewer is served over HTTP, it will try to load this manifest first and list all transcripts from it; otherwise it falls back to the hardcoded `KNOWN_TRANSCRIPTS` in `viewer.html`. Add new transcript filenames to `KNOWN_TRANSCRIPTS` when using the viewer via `file://`.
+
 ### Viewer not loading transcripts
 
-The viewer uses a hardcoded list of transcript filenames (`KNOWN_TRANSCRIPTS` in `viewer.html`). Add new transcripts there when you create them. For the best experience, serve the project over HTTP and open `http://localhost:8080/portal/viewer.html`; `file://` can block fetch for local files.
+The viewer uses either `transcripts_manifest.json` (if present and served over HTTP) or the hardcoded list `KNOWN_TRANSCRIPTS` in `viewer.html`. For the best experience, serve the project over HTTP and run `generate_manifest.py` so the viewer discovers transcripts automatically; `file://` can block fetch for local files.
 
 ### CSS not applying
 

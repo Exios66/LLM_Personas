@@ -26,7 +26,25 @@
 6. Await instructions
 ```
 
-### 2. Mid-Session Checkpoint (`/update`)
+### 2. State Backup (Pre-Session Checkpoint)
+
+Before a major or high-risk session, optionally back up state so you can restore if something goes wrong:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ STATE BACKUP (RECOMMENDED BEFORE MAJOR SESSIONS)                │
+└─────────────────────────────────────────────────────────────────┘
+
+1. Create state/backups/ if it does not exist
+2. Copy state/current.md to state/backups/YYYY-MM-DD-current.md
+   (e.g. state/backups/2026-02-15-current.md)
+3. Proceed with session. If state is corrupted, restore from the backup
+   and then follow core/error-recovery.md as needed.
+```
+
+See also [core/error-recovery.md](error-recovery.md) (Prevention Measures).
+
+### 3. Mid-Session Checkpoint (`/update`)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -42,7 +60,7 @@
 3. Continue work
 ```
 
-### 3. Session Closure (`/end`)
+### 4. Session Closure (`/end`)
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -75,6 +93,18 @@ Convene the court when:
 | Fundamental direction change | F5 | Mandatory + Full Record |
 | Personality requests review | Any | At Judge's discretion |
 | User requests deliberation | Any | Mandatory |
+
+### When NOT to Convene (Dissolution Protocol)
+
+Do **not** convene the court when:
+
+- **F0 (Trivial):** No meaningful decision; single obvious path; no tradeoff.
+- **Pure implementation:** User has given a clear, unambiguous instruction with no architectural or strategic choice (e.g. "add this function," "rename this file"). Hand to LIL_JEFF.
+- **Already decided:** The matter is covered by binding precedent and facts are not meaningfully different. Cite the case and apply it.
+- **Formatting / style only:** Decisions fully covered by existing standards (e.g. style guide, naming conventions) with no discretion.
+- **R/Quarto / data-science only:** Task is exclusively R code, Quarto, tidyverse, or tidymodels with no deliberation needed. Hand to OCTAVIUS.
+
+When in doubt, the Judge may still convene. Dissolution avoids over-deliberation; it does not block optional brief consultation.
 
 ### Standard Deliberation Flow
 

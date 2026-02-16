@@ -140,6 +140,15 @@ See [portal/README.md](portal/README.md) for details.
 | [`portal/viewer.html`](portal/viewer.html) | Standalone transcript viewer | Browse transcripts (best over HTTP) |
 | [`portal/README.md`](portal/README.md) | Portal documentation | Setup and troubleshooting |
 
+### Docs (Onboarding, Glossary, Runbook)
+
+| File | Purpose | When to Reference |
+|------|---------|-------------------|
+| [`docs/ONBOARDING.md`](docs/ONBOARDING.md) | Start here — agents, first steps | New users |
+| [`docs/glossary.md`](docs/glossary.md) | Term index (F0–F5, SME, etc.) | Definitions |
+| [`docs/RUNBOOK.md`](docs/RUNBOOK.md) | Troubleshooting index | When something goes wrong |
+| [`docs/edge-cases.md`](docs/edge-cases.md) | Known limitations and workarounds | Edge cases |
+
 ### Templates
 
 | File | Purpose | When to Reference |
@@ -318,6 +327,11 @@ LLM_Personas/
 │   ├── dracula.css
 │   ├── generate.py             # Optional: gitmal static site
 │   └── README.md
+├── docs/
+│   ├── ONBOARDING.md           # Start here
+│   ├── glossary.md             # Term index
+│   ├── RUNBOOK.md              # Troubleshooting index
+│   └── edge-cases.md           # Known limitations
 ├── checklists/
 │   └── critibot-review.md      # Code review checklist
 ├── references/
@@ -368,7 +382,14 @@ Every directory and key file added since inception. Use this to find where thing
 | `portal/viewer.html` | Standalone transcript viewer |
 | `portal/dracula.css` | Dracula theme for portal |
 | `portal/generate.py` | Optional: gitmal static site generator |
+| `portal/generate_manifest.py` | Generate transcripts_manifest.json for viewer discovery |
+| `portal/transcripts_manifest.json` | Manifest of transcripts (generated) |
 | `portal/exports/` | HTML output from launch/export |
+| **docs/** | Onboarding and reference |
+| `docs/ONBOARDING.md` | Start here — agents, first steps |
+| `docs/glossary.md` | Glossary of terms |
+| `docs/RUNBOOK.md` | Troubleshooting index |
+| `docs/edge-cases.md` | Edge case registry |
 | **templates/** | Reusable templates |
 | `templates/session-start.md` | MORNINGSTAR session init, deliberation, close |
 | `templates/module-template.md` | Module structure (CodeFarm) |

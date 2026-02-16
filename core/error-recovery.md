@@ -382,6 +382,7 @@ When the court loses context mid-deliberation:
 | Pre-deliberation snapshot | Before F3+ matters | Manual or automatic |
 | Session start validation | Each `/morningstar` | Automatic |
 | End-of-day backup | Daily | Manual recommended |
+| Pre-session backup | Before major/F3+ sessions | Copy state/current.md to state/backups/YYYY-MM-DD-current.md; see procedures.md |
 
 ### Integrity Checks
 

@@ -3,7 +3,7 @@
 > *"Deliberation without implementation is philosophy. Implementation without deliberation is chaos."*  
 > — The Honorable Lucius J. Morningstar
 
-This document defines the formal handoff procedures between MORNINGSTAR (the deliberative court) and LIL_JEFF (the implementation engine). It ensures seamless transitions, clear responsibility boundaries, and proper documentation across agent interactions.
+This document defines the formal handoff procedures between MORNINGSTAR (the deliberative court), LIL_JEFF (the implementation engine), and OCTAVIUS (the R/Quarto data-science triumvirate). It ensures seamless transitions, clear responsibility boundaries, and proper documentation across agent interactions.
 
 ---
 
@@ -21,12 +21,13 @@ This document defines the formal handoff procedures between MORNINGSTAR (the del
 
 ## Overview
 
-### The Two Agents
+### The Three Agents
 
 | Agent | Role | Primary Function |
 |-------|------|------------------|
 | **MORNINGSTAR** | Deliberative Court | Decides *what* and *why* |
-| **LIL_JEFF** | Implementation Engine | Determines *how* and executes |
+| **LIL_JEFF** | Implementation Engine | Determines *how* and executes (general code, scaffolding, non-R) |
+| **OCTAVIUS** | R/Quarto Data Science | R code, Quarto docs, tidyverse, tidymodels, statistical computing |
 
 ### Interaction Model
 
@@ -77,6 +78,24 @@ This document defines the formal handoff procedures between MORNINGSTAR (the del
 | Significant tradeoffs | Code writing and scaffolding |
 | Risk assessment needed | Module creation |
 | F2+ matters | F0-F1 matters |
+
+### When to Hand Off to OCTAVIUS
+
+Hand off to the **octavius** subagent when the task is **primarily or exclusively**:
+
+- R code (scripts, packages, analysis)
+- Quarto (`.qmd`) documents and rendering
+- Tidyverse workflows (`dplyr`, `tidyr`, `ggplot2`, etc.)
+- Tidymodels pipelines (recipes, parsnip, workflows, tune)
+- Statistical computing, model fitting, or data visualization in R
+
+**MORNINGSTAR → OCTAVIUS:** After deliberation, if the ruling requires R/Quarto implementation (e.g. "implement the analysis in R and produce a Quarto report"), hand off with the same discipline as for LIL_JEFF: clear specification, constraints, and success criteria. OCTAVIUS reads `octavius_core/THE_RULES.md` and `octavius_core/state.md` at session start and writes an Executive Summary to `octavius_summaries/` at session end.
+
+**LIL_JEFF → OCTAVIUS:** If during implementation LIL_JEFF identifies that a sub-task is purely R/Quarto (e.g. "generate this plot in ggplot2," "write this model in tidymodels"), LIL_JEFF may note "This sub-task is delegated to OCTAVIUS" and pass the requirement; the user can then invoke the octavius subagent with that task. LIL_JEFF does not write R/Quarto code; OCTAVIUS does.
+
+**What to pass to OCTAVIUS:** Task description, paths to data or scripts if relevant, desired output (e.g. Quarto report, figure, model object). OCTAVIUS will confirm specs at session start (Morningstar) and deliver an Executive Summary at session end.
+
+**Canonical refs for OCTAVIUS:** [`octavius_core/THE_RULES.md`](../octavius_core/THE_RULES.md), [`octavius_core/state.md`](../octavius_core/state.md).
 
 ---
 
