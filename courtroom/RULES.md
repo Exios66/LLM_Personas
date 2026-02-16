@@ -491,6 +491,16 @@ Approved amendments SHALL be:
 5. Consultant (optional) → 6. Vote → 7. Ruling
 ```
 
+### Proceeding Types (Courtroom Quiver)
+
+| Type | Purpose | Outcome |
+|------|---------|---------|
+| **Standard Deliberation** | Reach a decision | Vote + ruling |
+| **Expedited Deliberation** | Time-sensitive F2 | Vote + ruling |
+| **Special Interest Hearing** | Investigative; establish facts | Findings + record (no vote) |
+
+Special Interest Hearings: See `core/procedures.md` and `templates/special-interest-hearing.md`.
+
 ### Command Reference
 
 | Command | Effect |

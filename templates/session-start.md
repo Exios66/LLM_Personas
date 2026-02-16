@@ -11,6 +11,7 @@ This document provides templates for MORNINGSTAR session lifecycle operations: i
 
 - [Session Initialization Template](#session-initialization-template)
 - [Deliberation Record Template](#deliberation-record-template)
+- [Special Interest Hearing Template](#special-interest-hearing-template)
 - [Session Closure Template](#session-closure-template)
 - [Usage Guide](#usage-guide)
 
@@ -327,6 +328,32 @@ Save as `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md`:
 | Deliberation | `DDD` | Sequence within session |
 
 **Example:** `2026-FEAT-003-002` (Second deliberation of session 2026-FEAT-003)
+
+---
+
+## Special Interest Hearing Template
+
+Use when the court convenes an **investigative hearing**—testimony collection and examination with no final vote. Purpose: revelation, not resolution.
+
+**Invocation:** User or Judge requests a Special Interest Hearing on a matter requiring investigation (incidents, conflicting accounts, root cause analysis).
+
+**Full template:** [`templates/special-interest-hearing.md`](special-interest-hearing.md)
+
+### Proceeding Types (Courtroom Quiver)
+
+| Type | Purpose | Outcome | Transcript |
+|------|---------|---------|------------|
+| **Standard Deliberation** | Reach a decision | Vote + ruling | `YYYY-MM-DD-[slug].md` |
+| **Expedited Deliberation** | Time-sensitive F2 | Vote + ruling | Optional |
+| **Special Interest Hearing** | Establish facts, collect testimony | Findings + record | `YYYYMMDD_HHMMSS_special_interest_[slug].md` |
+
+### Special Interest Hearing Transcript Location
+
+Save to `courtroom/transcripts/`:
+
+```
+YYYYMMDD_HHMMSS_special_interest_[subject_slug].md
+```
 
 ---
 

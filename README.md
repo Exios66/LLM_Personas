@@ -155,6 +155,7 @@ See [portal/README.md](portal/README.md) for details.
 | File | Purpose | When to Reference |
 |------|---------|-------------------|
 | [`templates/session-start.md`](templates/session-start.md) | Session initialization template | Starting new sessions |
+| [`templates/special-interest-hearing.md`](templates/special-interest-hearing.md) | Special Interest Hearing (investigative, no vote) | Testimony collection, fact-finding |
 | [`templates/module-template.md`](templates/module-template.md) | Module structure template | Creating new modules |
 | [`templates/project-dashboard.md`](templates/project-dashboard.md) | Project tracking template | Managing projects |
 
@@ -257,6 +258,16 @@ See [Domains & Experts](#domains--experts) and [`courtroom/domains/README.md`](c
 | F3 | Complex | Significant tradeoffs | **Mandatory** |
 | F4 | Critical | Architectural impact | **Mandatory + Transcript** |
 | F5 | Existential | Fundamental direction change | **Mandatory + Full Record** |
+
+### Proceeding Types (Courtroom Quiver)
+
+| Type | Purpose | Outcome |
+|------|---------|---------|
+| **Standard Deliberation** | Reach a decision | Vote + ruling |
+| **Expedited Deliberation** | Time-sensitive F2 | Vote + ruling |
+| **Special Interest Hearing** | Investigative; establish facts, collect testimony | Findings + record (no vote) |
+
+To convene a Special Interest Hearing, request an investigative proceeding on a matter (e.g. incident root cause, conflicting accounts). See [`templates/special-interest-hearing.md`](templates/special-interest-hearing.md) and [`core/procedures.md`](core/procedures.md).
 
 ---
 

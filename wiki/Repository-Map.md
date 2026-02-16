@@ -73,7 +73,7 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 
 | Path | Purpose |
 |------|---------|
-| `templates/` | Session, module, project-dashboard templates |
+| `templates/` | Session, module, project-dashboard, special-interest-hearing templates |
 | `checklists/critibot-review.md` | Code review checklist |
 | `references/naming-conventions.md` | Naming patterns |
 | `reference_files/` | Original persona sources |

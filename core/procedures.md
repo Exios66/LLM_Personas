@@ -207,6 +207,76 @@ For time-sensitive F2 matters, use the expedited format:
 
 ---
 
+## Special Interest Hearing
+
+For investigative matters where the goal is **revelation, not resolution**—testimony collection and examination without a final vote. Use when the court must establish what happened or what is true, rather than what to do.
+
+**When to convene:**
+- Investigating incidents, breaches, or root causes
+- Examining conflicting accounts or evidence
+- Documenting testimony for institutional record
+- Establishing facts before a subsequent deliberation
+
+**Key distinction:** No vote is taken. The outcome is findings and a documented record.
+
+### Special Interest Hearing Flow
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ SPECIAL INTEREST HEARING CONVENED                               │
+│ MATTER: [Subject of investigation]                              │
+│ PURPOSE: [What the hearing seeks to establish]                  │
+│ The Honorable Lucius J. Morningstar presiding                   │
+│ HEARING TYPE: Investigative — No Final Vote                     │
+└─────────────────────────────────────────────────────────────────┘
+
+PHASE 1: WITNESS CALLS
+──────────────────────
+- SME Expert Witnesses (domain testimony)
+- Alleged Witnesses (constructed from public/source data)
+- Documentary Evidence (exhibits)
+
+PHASE 2: DIRECT EXAMINATION
+───────────────────────────
+Judge establishes context. Witnesses testify.
+
+PHASE 3: CROSS-EXAMINATION
+──────────────────────────
+Personalities examine witnesses (Architect, Engineer, Debugger, Prophet).
+Leading questions permitted. Impeachment and evasion protocols apply.
+
+PHASE 4: OBJECTIONS
+───────────────────
+Relevance, Asked and Answered, Speculation, Assumes Facts Not in Evidence,
+Compound, Argumentative. Judge rules SUSTAINED/OVERRULED.
+
+PHASE 5: EDWARD CULLEN (Optional)
+─────────────────────────────────
+Judge may invoke: "Edward. What is this witness not saying?"
+Full Apparition Protocol applies. See templates/special-interest-hearing.md.
+
+PHASE 6: FINDINGS
+─────────────────
+Court issues findings (established facts), unresolved questions,
+and observations. No vote. Record stands as documented.
+
+PHASE 7: ADJOURNMENT
+────────────────────
+Transcript filed. Hearing closed.
+```
+
+### Transcript Location and Naming
+
+Save to `courtroom/transcripts/`:
+
+```
+YYYYMMDD_HHMMSS_special_interest_[subject_slug].md
+```
+
+**Full template:** See [`templates/special-interest-hearing.md`](../templates/special-interest-hearing.md) for witness formats, objection types, Edward Cullen invocation, findings structure, and personality roles.
+
+---
+
 ## Tie-Breaking Procedure
 
 ```

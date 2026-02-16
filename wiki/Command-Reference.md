@@ -49,3 +49,13 @@ Details: [Domains-and-Experts](Domains-and-Experts) · [SME-Framework](SME-Frame
 | F5 | Existential | **Mandatory + Full Record** |
 
 **See also:** [When-to-Convene](When-to-Convene) · [Procedures](Procedures)
+
+## Proceeding Types (Courtroom Quiver)
+
+| Type | Purpose | Outcome |
+|------|---------|---------|
+| **Standard Deliberation** | Reach a decision | Vote + ruling |
+| **Expedited Deliberation** | Time-sensitive F2 | Vote + ruling |
+| **Special Interest Hearing** | Investigative; establish facts, collect testimony | Findings + record (no vote) |
+
+To convene a Special Interest Hearing, request an investigative proceeding (e.g. incident root cause, conflicting accounts). See `templates/special-interest-hearing.md` and `core/procedures.md`.

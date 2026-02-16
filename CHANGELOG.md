@@ -14,6 +14,24 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 ---
 
+## [2026-02-15] - Special Interest Hearing Template (Implementation)
+
+### Implementation
+
+Added **Special Interest Hearing** to the courtroom quiver of proceeding types. Investigative format for testimony collection and examination—no final vote; purpose is revelation, not resolution.
+
+**Deliverables:**
+
+- `templates/special-interest-hearing.md` — Full template: hearing header, witness formats (SME, Alleged, Documentary), direct/cross-examination, objections, Edward Cullen Apparition Protocol, findings, closure
+- `core/procedures.md` — Special Interest Hearing flow and phases
+- `templates/session-start.md` — Proceeding Types (Courtroom Quiver) table, Special Interest Hearing section
+- `courtroom/RULES.md` — Proceeding Types appendix
+- `README.md` — Templates table, Proceeding Types section
+
+**Transcript naming:** `YYYYMMDD_HHMMSS_special_interest_[subject_slug].md` in `courtroom/transcripts/`
+
+---
+
 ## [2026-02-15] - Agent Structure Deliberation (Case 2026-ARCH-001)
 
 ### Court Ruling
