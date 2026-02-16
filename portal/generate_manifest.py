@@ -17,6 +17,7 @@ Output: portal/transcripts_manifest.json
 import json
 import re
 from pathlib import Path
+from typing import Optional
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
@@ -40,7 +41,7 @@ def parse_basename(basename: str):
     return "Unknown", basename.replace("_", " ").replace("-", " ").title()
 
 
-def extract_case_number(content: str) -> str | None:
+def extract_case_number(content: str) -> Optional[str]:
     """Extract case number from transcript content (Case No. or Matter ID)."""
     m = re.search(r"\*\*Case No\.\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", content, re.I)
     if m:
