@@ -22,6 +22,7 @@ build/
 *.swo
 
 # Portal generated (optional: commit transcripts_manifest.json for viewer discovery)
+# Output dirs excluded to avoid large repo size / GitHub limits
 portal/exports/
 portal/output/
 

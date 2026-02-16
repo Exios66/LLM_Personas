@@ -469,7 +469,14 @@ def main():
     print("=" * 65)
     print()
     
+    output_path = Path(args.output)
+    
     if not args.skip_gitmal:
+        # Clean output dir before fresh generation to avoid accumulation
+        if output_path.exists():
+            print(f"[→] Cleaning output directory: {output_path}")
+            shutil.rmtree(output_path)
+        output_path.mkdir(parents=True, exist_ok=True)
         # Check gitmal installation
         gitmal_path = check_gitmal()
         print(f"[✓] gitmal found: {gitmal_path}")
