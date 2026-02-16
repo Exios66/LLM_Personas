@@ -30,6 +30,20 @@ Convened an extensive Special Inquiry Hearing into the Bohemian Grove—a privat
 
 ---
 
+## [2026-02-16] - Special Interest Hearing: Internal Security (Aegis-Integrated)
+
+### Special Interest Hearing (MORNINGSTAR + AEGIS PROTOCOL)
+
+Convened an internal security hearing assessing secret leakage risk, operational sensitivity of transcripts/state/agents, portal export surfaces, prompt-injection hazards, and supply-chain volatility. Investigative proceeding (no vote); purpose: establish record + recommendations.
+
+**Transcript:** `courtroom/transcripts/20260216_133000_special_interest_internal_security_aegis.md`
+
+**Aegis:** Full Sage/Watcher/Chronicler Authority Assessment included (with Black Swan chaos injection stress-test).
+
+**Findings (5):** No working-tree secrets detected by common patterns; sensitive operational artifacts exist by design; tracked `portal/exports/` weakens containment boundary; exporter path is plausible untrusted-input→HTML vector; dominant risk is process/tooling gates rather than current detected secrets.
+
+---
+
 ## [2026-02-15] - CodeFarm NeuroPhilosophy as Voting Counsel
 
 ### Implementation (by LIL_JEFF)
