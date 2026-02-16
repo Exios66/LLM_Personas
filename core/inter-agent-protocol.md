@@ -101,6 +101,8 @@ Hand off to the **octavius** subagent when the task is **primarily or exclusivel
 
 ## Agent Responsibilities
 
+**Agent metadata.** Agent definitions (`.cursor/agents/*.md`) may include optional frontmatter `allow_delegation`; when `true`, the agent may hand off to other agents per this protocol. See `docs/agent-schema.md` for the full frontmatter schema.
+
 ### MORNINGSTAR Responsibilities
 
 | Responsibility | Description |

@@ -64,6 +64,7 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 | Path | Purpose |
 |------|---------|
 | `docs/ONBOARDING.md` | Start here |
+| `docs/agent-schema.md` | Agent frontmatter schema (CrewAI-style) |
 | `docs/glossary.md` | Glossary |
 | `docs/RUNBOOK.md` | Troubleshooting index |
 | `docs/edge-cases.md` | Edge case registry |

@@ -10,23 +10,25 @@
 ### Current Task
 <!-- What is the court currently working on? -->
 
-**Task:** Second Enhancement Slate (10 items) — Handoff to LIL_JEFF and OCTAVIUS for implementation
-**Status:** `deliberation complete; implementation in progress`
-**Feasibility:** F4
+**Task:** Agent Structure Enhancement (2026-ARCH-001) — Handoff to LIL_JEFF for implementation
+**Status:** `deliberation complete; handoff issued`
+**Feasibility:** F3
 **Started:** 2026-02-15
 
 ### Working Files
 <!-- Files currently under consideration or modification -->
 
-- `courtroom/transcripts/2026-02-15-second-enhancement-deliberation.md` (new)
-- `courtroom/transcripts/HANDOFF-2026-INFRA-002.md` (new)
-- Handoff deliverables: state/sme-failures.md, docs/*, core/* updates, portal/*
+- `docs/agent-structure-investigation.md` (new)
+- `courtroom/transcripts/2026-02-15-agent-structure-deliberation.md` (new)
+- `courtroom/transcripts/HANDOFF-2026-ARCH-001.md` (new)
+- Prior: HANDOFF-2026-INFRA-002 (second slate) — implementation by LIL_JEFF
 
 ### Recent Decisions
 <!-- Last 3-5 decisions for quick reference -->
 
 | Decision | Ruling | Vote | Date |
 |----------|--------|------|------|
+| Agent Structure (CrewAI-style attributes) | Adopted | 4-0-0 | 2026-02-15 |
 | Second Enhancement Slate (10 items) | Adopted | 4-0-0 | 2026-02-15 |
 | Framework Enhancements (10 items) | Adopted | 4-0-0 | 2026-02-15 |
 | Enhancement Implementation (1st slate) | Complete | N/A (handoff) | 2026-02-15 |
@@ -59,6 +61,7 @@
 ### Key Context
 <!-- Critical information the court must remember across interactions -->
 
+- Agent structure (2026-ARCH-001): Optional frontmatter (role, goal, backstory, allow_delegation) adopted; handoff to LIL_JEFF. See HANDOFF-2026-ARCH-001.md.
 - Second slate (2026-INFRA-002): 10 enhancements adopted unanimously; handoff to LIL_JEFF and OCTAVIUS
 - Edward: favor reducing operator memory load over adding features
 - First slate (2026-INFRA-001) implemented; framework operational
@@ -150,6 +153,8 @@ First formal deliberation of the MORNINGSTAR framework. Unanimous ratification o
 The framework is now fully operational with comprehensive documentation.
 
 **Second deliberation (2026-02-15):** Case 2026-INFRA-002. Court adopted second slate of 10 enhancements (SME failures, Dissolution Protocol, glossary, precedent citation, OCTAVIUS handoff, onboarding, portal discovery, state backup, runbook, edge-case registry). Handoff: LIL_JEFF primary, OCTAVIUS where applicable. See courtroom/transcripts/HANDOFF-2026-INFRA-002.md.
+
+**Agent structure deliberation (2026-02-15):** Case 2026-ARCH-001. Court adopted CrewAI-inspired optional agent frontmatter (role, goal, backstory, allow_delegation, response_format). Investigation: docs/agent-structure-investigation.md. Transcript: courtroom/transcripts/2026-02-15-agent-structure-deliberation.md. Handoff to LIL_JEFF: courtroom/transcripts/HANDOFF-2026-ARCH-001.md.
 
 ---
 

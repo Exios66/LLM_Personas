@@ -1,0 +1,13 @@
+# LLM_Personas — Python dependencies
+#
+# Portal scripts use the standard library only (no pip install required):
+#   - portal/export_transcript.py  (argparse, re, pathlib)
+#   - portal/generate_manifest.py  (json, re, pathlib)
+#   - portal/generate.py           (argparse, subprocess, pathlib, etc.; calls external 'gitmal' for full site gen)
+#
+# Python 3.9+ recommended. Create and use the venv for a consistent environment:
+#   python3 -m venv .venv
+#   source .venv/bin/activate   # Windows: .venv\Scripts\activate
+#   pip install -r requirements.txt
+#
+# (No packages below; add any future project dependencies here.)

@@ -54,6 +54,7 @@ This document serves as the authoritative index of precedent-setting decisions m
 |---------|------|--------|--------|------|--------------|--------|
 | 2026-INFRA-001-001 | 2026-02-15 | Framework Enhancement Analysis | 10 enhancements adopted | 4-0-0 | Establishes infrastructure improvement process | BINDING |
 | 2026-INFRA-002-001 | 2026-02-15 | Second Enhancement Deliberation | 10 enhancements adopted (operational excellence) | 4-0-0 | SME failures, dissolution, glossary, handoff, onboarding, portal, runbook, edge cases | BINDING |
+| 2026-ARCH-001-001 | 2026-02-15 | Agent Structure (CrewAI-Style Attributes) | Optional frontmatter adopted: role, goal, backstory, allow_delegation, response_format | 4-0-0 | Agent schema doc; extend all three agents; inter-agent protocol note | BINDING |
 
 ### Index by Category
 
@@ -61,7 +62,7 @@ This document serves as the authoritative index of precedent-setting decisions m
 
 | Case ID | Date | Matter | Ruling | Vote |
 |---------|------|--------|--------|------|
-| *No entries yet* | | | | |
+| 2026-ARCH-001-001 | 2026-02-15 | Agent Structure (CrewAI-Style Attributes) | Optional frontmatter adopted | 4-0-0 |
 
 #### Features (FEAT)
 
@@ -270,6 +271,42 @@ Implementation touches many files; handoff must be clearly scoped. Mitigated by 
 #### Related Precedent
 
 - 2026-INFRA-001-001: Same enhancement process; first slate
+
+---
+
+### 2026-ARCH-001-001: Agent Structure (CrewAI-Style Attributes)
+
+**Date:** 2026-02-15  
+**Feasibility:** F3  
+**Vote:** 4-0-0 (Unanimous)  
+**Status:** BINDING  
+**Tags:** #architecture #process #approved  
+**Transcript:** [courtroom/transcripts/2026-02-15-agent-structure-deliberation.md](transcripts/2026-02-15-agent-structure-deliberation.md)
+
+#### Matter
+
+Whether to add CrewAI-inspired optional attributes (role, goal, backstory, allow_delegation, response_format) to Cursor subagent definitions in `.cursor/agents/*.md`. Runtime-only attributes (max RPM, cache, max iter, etc.) were deemed out of scope.
+
+#### Ruling
+
+Adopt optional frontmatter: `role`, `goal`, optional `backstory`, `allow_delegation`, and optional `response_format`. Add `docs/agent-schema.md`; extend all three agents; add one-line note in inter-agent protocol. Frontmatter is canonical summary; body elaborates.
+
+#### Rationale
+
+Improves clarity, discoverability, and future-proofing without breaking Cursor. Consistency rule mitigates drift between frontmatter and body.
+
+#### Risk Accepted
+
+Minor duplication if maintainers update body but not frontmatter; mitigated by documenting the contract.
+
+#### Implications
+
+- New or updated agents should follow the schema when adding optional fields.
+- Template agent and `crew_style` flag deferred to optional follow-up.
+
+#### Related Precedent
+
+*First ARCH precedent.*
 
 ---
 

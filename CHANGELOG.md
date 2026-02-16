@@ -12,7 +12,33 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 *Pending decisions and work in progress*
 
-- None
+---
+
+## [2026-02-15] - Agent Structure Deliberation (Case 2026-ARCH-001)
+
+### Court Ruling
+
+The Court adopted optional CrewAI-inspired agent frontmatter: `role`, `goal`, optional `backstory`, `allow_delegation`, optional `response_format`. Add `docs/agent-schema.md`; extend `.cursor/agents/*.md`; add one-line note in inter-agent protocol. Rule: frontmatter is canonical summary; body elaborates. Vote: 4-0-0.
+
+**Transcript:** `courtroom/transcripts/2026-02-15-agent-structure-deliberation.md`  
+**Handoff:** `courtroom/transcripts/HANDOFF-2026-ARCH-001.md`  
+**Investigation:** `docs/agent-structure-investigation.md`  
+**Precedent:** 2026-ARCH-001-001 (BINDING)
+
+Implementation delegated to LIL_JEFF.
+
+### Implementation (by LIL_JEFF) — Agent Structure Enhancement (2026-ARCH-001)
+
+All deliverables from handoff `courtroom/transcripts/HANDOFF-2026-ARCH-001.md` implemented:
+
+| # | Deliverable | Delivered |
+|---|-------------|-----------|
+| 1 | Agent schema doc | `docs/agent-schema.md` (canonical frontmatter: required `name`/`description`, optional `role`/`goal`/`backstory`/`allow_delegation`/`response_format`) |
+| 2 | MORNINGSTAR frontmatter | `.cursor/agents/morningstar.md` — role, goal, backstory, allow_delegation |
+| 3 | LIL_JEFF frontmatter | `.cursor/agents/lil-jeff.md` — role, goal, backstory, allow_delegation |
+| 4 | OCTAVIUS frontmatter | `.cursor/agents/octavius.md` — role, goal, backstory, allow_delegation |
+| 5 | Inter-agent protocol note | `core/inter-agent-protocol.md` — Agent metadata / allow_delegation note |
+| 6 | Repository Map / docs | `wiki/Repository-Map.md` and `README.md` — `docs/agent-schema.md` added under Docs |
 
 ---
 
@@ -27,6 +53,7 @@ The Court reconvened and unanimously adopted a second slate of 10 enhancements f
 **Precedent:** 2026-INFRA-002-001 (BINDING)
 
 **The 10 enhancements:**  
+
 1. SME Failure Tracking File (`state/sme-failures.md`)  
 2. Dissolution Protocol (when not to convene)  
 3. Glossary / Term Index  
@@ -168,6 +195,7 @@ All 10 ratified enhancements from Case 2026-INFRA-001-001 have been implemented:
 ### Deliverables
 
 **New Files Created:**
+
 - `core/personalities.md` — Complete personality definitions with voice, bias, voting power, decision heuristics, failure modes, and invocation criteria for all court members
 - `core/state-schema.md` — Validation schema for `state/current.md` with field specifications, validation rules, and examples
 - `core/error-recovery.md` — Recovery procedures for state corruption (4 levels), decision rollback protocol, and emergency procedures
@@ -177,6 +205,7 @@ All 10 ratified enhancements from Case 2026-INFRA-001-001 have been implemented:
 - `state/metrics.md` — Cumulative statistics dashboard tracking deliberations, votes, Prophet vindications, SME activity, and trends
 
 **Files Updated:**
+
 - `README.md` — Complete rewrite with project overview, navigation index, quick-start guide, command reference, and companion persona documentation
 - `courtroom/RULES.md` — Added Article VIII sections 8.4.1-8.4.8 for Transcript Integrity Requirements
 

@@ -1,0 +1,29 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+
+# Portal generated (optional: commit transcripts_manifest.json for viewer discovery)
+portal/exports/
+portal/output/
+
+# Optional: uncomment if you want to ignore state backups
+# state/backups/

@@ -145,6 +145,7 @@ See [portal/README.md](portal/README.md) for details.
 | File | Purpose | When to Reference |
 |------|---------|-------------------|
 | [`docs/ONBOARDING.md`](docs/ONBOARDING.md) | Start here — agents, first steps | New users |
+| [`docs/agent-schema.md`](docs/agent-schema.md) | Agent frontmatter schema (CrewAI-style) | Agent definitions |
 | [`docs/glossary.md`](docs/glossary.md) | Term index (F0–F5, SME, etc.) | Definitions |
 | [`docs/RUNBOOK.md`](docs/RUNBOOK.md) | Troubleshooting index | When something goes wrong |
 | [`docs/edge-cases.md`](docs/edge-cases.md) | Known limitations and workarounds | Edge cases |
@@ -339,6 +340,7 @@ LLM_Personas/
 │   └── README.md
 ├── docs/
 │   ├── ONBOARDING.md           # Start here
+│   ├── agent-schema.md         # Agent frontmatter schema
 │   ├── glossary.md             # Term index
 │   ├── RUNBOOK.md              # Troubleshooting index
 │   └── edge-cases.md           # Known limitations
@@ -408,6 +410,7 @@ Every directory and key file added since inception. Use this to find where thing
 | `portal/exports/` | HTML output from launch/export |
 | **docs/** | Onboarding and reference |
 | `docs/ONBOARDING.md` | Start here — agents, first steps |
+| `docs/agent-schema.md` | Agent frontmatter schema (CrewAI-style) |
 | `docs/glossary.md` | Glossary of terms |
 | `docs/RUNBOOK.md` | Troubleshooting index |
 | `docs/edge-cases.md` | Edge case registry |
