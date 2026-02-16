@@ -14,6 +14,22 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 ---
 
+## [2026-02-16] - Special Inquiry Hearing: Bohemian Grove
+
+### Special Inquiry (MORNINGSTAR)
+
+Convened an extensive Special Inquiry Hearing into the Bohemian Grove—a private 2,700-acre retreat owned by the Bohemian Club in Northern California. Investigative proceeding (no vote); purpose: establish factual record.
+
+**Transcript:** `courtroom/transcripts/20260216_120000_special_inquiry_bohemian_grove.md`
+
+**Witnesses (9):** Professor Ashworth (history), Dr. Voss (sociology), Mr. Chenoweth (former staff), Dr. Marsh (ritual studies), Senator Hargrove (political activity), Ms. Torres (journalism), Mr. Whitfield (club defense), Dr. Webb (power structure), Professor Vance (constitutional law).
+
+**Findings (6):** Evolution from artistic to elite membership; documented political activity despite motto; Cremation of Care as published theatrical ritual; secrecy through rules and isolation; unresolved tension between "no business" policy and networking; legal protections limit transparency.
+
+**Spectators:** Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn, Uncle Ruckus. Edward Cullen invoked.
+
+---
+
 ## [2026-02-15] - CodeFarm NeuroPhilosophy as Voting Counsel
 
 ### Implementation (by LIL_JEFF)
@@ -21,12 +37,14 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 Added **MORNINGSTAR::COUNSEL** (CodeFarm NeuroPhilosophy) as a voting courtroom lawyer—advocate for the client (user), ethical and value-based arguments, neuroscience-informed perspectives.
 
 **Structure:**
+
 - **Five internal personas:** CodeFarmer, Programmatron, CritiBot, NeuroNerd, PhilosoBot (unified advocate)
 - **Voice:** Modular, evidence-driven, neuroscience-informed, philosophically grounded
 - **Bias:** Client interests, ethical adherence, value alignment
 - **Key Phrase:** *"The client's interests and ethical boundaries demand consideration."*
 
 **Updates:**
+
 - `core/personalities.md` — Full COUNSEL section
 - `courtroom/RULES.md` — Composition, voting order, thresholds (5 standard voters)
 - `.cursor/agents/morningstar.md` — COUNSEL in Court and procedure
@@ -83,6 +101,7 @@ All 15 enhancements implemented:
 Added **aegis-protocol** subagent — Central Authority system (Authority Level 10) for security, containment, rogue agent scenarios, and strategic decision-making.
 
 **Structure:**
+
 - **Central Authority (Aegis Protocol):** Enforces authority, isolates rogues, injects controlled chaos
 - **Sage (Primary):** Criminal law, advanced mathematics, psychological manipulation
 - **Chronicler (Secondary):** Historical context, skepticism, adaptive intelligence
@@ -106,6 +125,7 @@ Added **courtroom spectators**—live commentators who observe proceedings and p
 - **Dr. Harley Scarlet Quinn:** Satirical, uncensored commentator (semantics, psychology, geopolitics, manipulation), provocative radio-host style, 🪞✨ or 🃏💋 bookends.
 
 **Deliverables:**
+
 - `courtroom/spectators.md` — Spectator protocol, Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn definitions
 - `templates/special-interest-hearing.md` — Spectator commentary format
 - `core/procedures.md`, `courtroom/RULES.md`, `README.md`, `core/personalities.md` — References

@@ -1,6 +1,12 @@
 {
   "transcripts": [
     {
+      "filename": "20260216_120000_special_inquiry_bohemian_grove.md",
+      "basename": "20260216_120000_special_inquiry_bohemian_grove",
+      "date": "2026-02-16",
+      "title": "Special Inquiry: Bohemian Grove"
+    },
+    {
       "filename": "2026-02-15-framework-enhancement-analysis.md",
       "basename": "2026-02-15-framework-enhancement-analysis",
       "date": "2026-02-15",
@@ -13,5 +19,5 @@
       "title": "Second Enhancement Deliberation"
     }
   ],
-  "generated": "2026-02-16T03:49:33Z"
+  "generated": "2026-02-16T12:00:00Z"
 }

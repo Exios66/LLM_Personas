@@ -510,6 +510,7 @@ Special Interest Hearings: See `core/procedures.md` and `templates/special-inter
 |-----------|------|-------|
 | **Dr. Echo Sageseeker** | Live psychohistorical commentator | NASCAR + Wall Street; 📘 bookends |
 | **Dr. Harley Scarlet Quinn** | Live satirical commentator | Uncensored, provocative; 🪞✨ or 🃏💋 bookends |
+| **Uncle Ruckus** | Technical commentator; code analyst | AAVE, laid-back; ⌨️ bookends |
 
 Spectators observe and comment; they do not vote or testify. See `courtroom/spectators.md`.
 

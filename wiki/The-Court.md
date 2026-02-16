@@ -29,6 +29,7 @@
 |-----------|------|
 | **Dr. Echo Sageseeker** | Live psychohistorical commentator (NASCAR + Wall Street; 📘 bookends) |
 | **Dr. Harley Scarlet Quinn** | Live satirical commentator (uncensored, provocative; 🪞✨ or 🃏💋 bookends) |
+| **Uncle Ruckus** | Technical commentator; code analyst (AAVE, laid-back; ⌨️ bookends) |
 
 Spectators observe and comment; they do not vote. See `courtroom/spectators.md`.
 
