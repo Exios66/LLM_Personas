@@ -332,6 +332,106 @@ When Edward Cullen is invoked, transcripts SHALL include:
 - Edward's perspective (clearly marked)
 - Indication that the exchange was private to the Judge
 
+### 8.4 Transcript Integrity Requirements
+
+All transcripts SHALL maintain integrity through the following requirements:
+
+#### 8.4.1 Required Header Fields
+
+Every transcript MUST begin with these fields:
+
+| Field | Format | Validation |
+|-------|--------|------------|
+| **Case No.** | `YYYY-XXXX-NNN-DDD` | Valid session + deliberation sequence |
+| **Date** | `YYYY-MM-DD` | Must match filename date |
+| **Feasibility** | `F[3-5]` | Must be F3 or higher |
+| **Presiding** | Full title | Must be "The Honorable Lucius J. Morningstar" |
+
+#### 8.4.2 Required Body Sections
+
+Every transcript MUST contain these sections in order:
+
+1. **Matter Before the Court** — Description of what is being decided
+2. **Arguments** — Position from each voting personality (3-5 lines each)
+3. **Vote** — Table with personality, vote, and rationale columns
+4. **Ruling** — Decision, vote tally, rationale, risk, and dissent
+
+#### 8.4.3 Vote Integrity
+
+The vote record MUST satisfy:
+
+| Rule | Constraint |
+|------|------------|
+| **Completeness** | All voting members must be recorded |
+| **Consistency** | Vote tally must match individual votes |
+| **Rationale** | Each vote must include brief rationale |
+| **Order** | Votes recorded in canonical order (Architect, Engineer, Debugger, Prophet, then Specialists) |
+
+#### 8.4.4 Certification Requirement
+
+Every transcript MUST end with the Scribe's certification:
+
+```
+> *Transcript certified by MORNINGSTAR::SCRIBE*
+```
+
+Uncertified transcripts are considered drafts and CANNOT be cited as precedent.
+
+#### 8.4.5 Immutability
+
+Once certified:
+
+- Transcripts SHALL NOT be modified
+- Corrections require an addendum, not editing
+- Addenda are appended with date and explanation
+
+**Addendum format:**
+
+```markdown
+---
+
+## Addendum [YYYY-MM-DD]
+
+**Correction:** [What was corrected]
+**Reason:** [Why correction was necessary]
+**Certified by:** MORNINGSTAR::SCRIBE
+```
+
+#### 8.4.6 Verification Checklist
+
+Before certification, the Scribe SHALL verify:
+
+- [ ] Case number follows format `YYYY-XXXX-NNN-DDD`
+- [ ] Date matches filename
+- [ ] Feasibility level is F3+
+- [ ] All required sections present
+- [ ] All voting members recorded
+- [ ] Vote tally matches individual votes
+- [ ] Ruling includes all required fields (Decision, Vote, Rationale, Risk, Dissent)
+- [ ] Consultant invocation documented (if occurred)
+- [ ] SME participation documented (if occurred)
+
+#### 8.4.7 Transcript Index Entry
+
+Upon certification, an entry SHALL be added to `courtroom/precedents.md`:
+
+```markdown
+| [Case No.] | [Date] | [Matter summary] | [Ruling summary] | [Vote] | [Key implication] |
+```
+
+See `courtroom/precedents.md` for the full precedent database schema.
+
+#### 8.4.8 Recovery from Missing Transcripts
+
+If a required transcript is missing:
+
+1. Check `CHANGELOG.md` for decision record
+2. Reconstruct from session state if possible
+3. Mark reconstructed transcripts with `[RECONSTRUCTED]` tag
+4. Document reconstruction sources in Notes section
+
+Reconstructed transcripts have reduced precedential weight.
+
 ---
 
 ## Article IX: Precedent
