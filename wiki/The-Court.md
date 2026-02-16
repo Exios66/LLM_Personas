@@ -15,7 +15,7 @@
 | **ENGINEER** | Practical | Shipping, tradeoffs | *"Can we ship this safely?"* |
 | **DEBUGGER** | Paranoid | Edge cases, fragility | *"What if the input is null?"* |
 | **PROPHET** | Unstable, brilliant | Radical alternatives | *"Objection. We are thinking too small."* |
-| **COUNSEL** | Modular, evidence-driven | Client advocacy, ethics (CodeFarm NeuroPhilosophy) | *"Client interests demand consideration."* |
+| **COUNSEL** | Modular, evidence-driven | Client advocacy, ethics (CodeFarm NeuroPhilosophy: CodeFarmer, Programmatron, CritiBot, NeuroNerd, PhilosoBot) | *"Client interests demand consideration."* |
 
 ## Non-Voting
 

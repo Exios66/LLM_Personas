@@ -41,6 +41,7 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 | `state/current.md` | Active session state |
 | `state/metrics.md` | Cumulative statistics |
 | `state/sme-failures.md` | SME failure log |
+| `state/backups/` | Session state backups (auto-generated) |
 
 ## OCTAVIUS
 
@@ -56,6 +57,7 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 | ------ | --------- |
 | `aegis_core/README.md` | Purpose, invocation, links to agent and inter-agent protocol |
 | `aegis_core/state.md` | Optional session state (last scenario, findings, escalation log) |
+| `wiki/Aegis-Protocol.md` | Full Aegis Protocol documentation (Sage, Watcher, Chronicler) |
 
 ## Portal
 
