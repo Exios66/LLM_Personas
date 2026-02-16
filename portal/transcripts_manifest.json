@@ -1,28 +1,39 @@
 {
   "transcripts": [
     {
+      "filename": "20260216_160000_special_interest_xenon_fraud_elon_musk.md",
+      "basename": "20260216_160000_special_interest_xenon_fraud_elon_musk",
+      "date": "2026-02-16",
+      "title": "The Department of Existential Justice vs. Elon Musk",
+      "case_number": "2026-CONT-002"
+    },
+    {
       "filename": "20260216_133000_special_interest_internal_security_aegis.md",
       "basename": "20260216_133000_special_interest_internal_security_aegis",
       "date": "2026-02-16",
-      "title": "Special Interest: Internal Security (Aegis-Integrated)"
+      "title": "Special Inquiry: Internal Security — Operational Posture Review",
+      "case_number": "2026-SEC-001"
     },
     {
       "filename": "20260216_120000_special_inquiry_bohemian_grove.md",
       "basename": "20260216_120000_special_inquiry_bohemian_grove",
       "date": "2026-02-16",
-      "title": "Special Inquiry: Bohemian Grove"
+      "title": "Special Inquiry: Bohemian Grove — Structure, Influence, Secrecy",
+      "case_number": "2026-INQ-001"
     },
     {
       "filename": "2026-02-15-framework-enhancement-analysis.md",
       "basename": "2026-02-15-framework-enhancement-analysis",
       "date": "2026-02-15",
-      "title": "Framework Enhancement Analysis"
+      "title": "In Re: Framework Enhancements — Analysis",
+      "case_number": "2026-INFRA-001"
     },
     {
       "filename": "2026-02-15-second-enhancement-deliberation.md",
       "basename": "2026-02-15-second-enhancement-deliberation",
       "date": "2026-02-15",
-      "title": "Second Enhancement Deliberation"
+      "title": "In Re: Second Enhancement Slate — Ratification",
+      "case_number": "2026-INFRA-002"
     }
   ],
   "generated": "2026-02-16T13:30:00Z"

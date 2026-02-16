@@ -40,6 +40,15 @@ def parse_basename(basename: str):
     return "Unknown", basename.replace("_", " ").replace("-", " ").title()
 
 
+def extract_case_number(content: str) -> str | None:
+    """Extract case number from transcript content (Case No. or Matter ID)."""
+    m = re.search(r"\*\*Case No\.\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", content, re.I)
+    if m:
+        return m.group(1)
+    m = re.search(r"\*\*Matter ID\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", content, re.I)
+    return m.group(1) if m else None
+
+
 def main() -> None:
     if not TRANSCRIPTS_DIR.exists():
         manifest = {"transcripts": [], "generated": ""}
@@ -52,12 +61,17 @@ def main() -> None:
             continue
         basename = path.stem
         date_display, title = parse_basename(basename)
-        transcripts.append({
+        content = path.read_text(encoding="utf-8")
+        case_number = extract_case_number(content)
+        entry = {
             "filename": path.name,
             "basename": basename,
             "date": date_display,
             "title": title,
-        })
+        }
+        if case_number:
+            entry["case_number"] = case_number
+        transcripts.append(entry)
 
     from datetime import datetime
     manifest = {

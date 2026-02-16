@@ -10,15 +10,16 @@
 ### Current Task
 <!-- What is the court currently working on? -->
 
-**Task:** Internal Security Hearing (Aegis-Integrated) — Operational Posture Review
+**Task:** Contempt & Prosecution Hearing — The People vs. Elon Musk (Xenon Fraud)
 **Status:** `complete`
-**Feasibility:** F3
+**Feasibility:** F3 (Special Interest)
 **Started:** 2026-02-16
 
 ### Working Files
 <!-- Files currently under consideration or modification -->
 
-- `courtroom/transcripts/20260216_133000_special_interest_internal_security_aegis.md` (new)
+- `courtroom/transcripts/20260216_160000_special_interest_xenon_fraud_elon_musk.md` (new)
+- `courtroom/transcripts/20260216_133000_special_interest_internal_security_aegis.md`
 - `portal/export_transcript.py` (export surface)
 - `portal/viewer.html` (viewer escape baseline)
 - `portal/transcripts_manifest.json` (discovery)
@@ -29,6 +30,7 @@
 
 | Decision | Ruling | Vote | Date |
 |----------|--------|------|------|
+| Xenon Fraud Contempt Hearing (People vs. Elon Musk) | Findings recorded | N/A (hearing) | 2026-02-16 |
 | Internal Security Hearing (Aegis-integrated) | Findings recorded | N/A (hearing) | 2026-02-16 |
 | Aegis Protocol Enhancements (15 items) | Adopted | 4-0-0 | 2026-02-15 |
 | Agent Structure (CrewAI-style attributes) | Adopted | 4-0-0 | 2026-02-15 |
@@ -66,6 +68,7 @@
 ### Key Context
 <!-- Critical information the court must remember across interactions -->
 
+- Xenon Fraud Hearing (2026-CONT-002): Special Interest Hearing held for *The People vs. Elon Musk*; 3 witnesses (Forensic Accountant, Xenon Engineer, Elon Musk hostile); 5 findings; Edward Cullen invoked (unspoken: need to be right over honest). Transcript: `courtroom/transcripts/20260216_160000_special_interest_xenon_fraud_elon_musk.md`.
 - Security posture (2026-SEC-001): No working-tree secrets detected by common patterns; primary risks are process-driven (future accidental inclusion), historical (git history), and portal export surface (untrusted input → HTML). Transcript filed: `courtroom/transcripts/20260216_133000_special_interest_internal_security_aegis.md`.
 - Aegis Protocol (2026-ARCH-002): 15 enhancements adopted; handoff to LIL_JEFF. See HANDOFF-2026-ARCH-002.md.
 - Agent structure (2026-ARCH-001): Optional frontmatter adopted; implementation complete.

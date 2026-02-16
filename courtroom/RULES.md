@@ -435,6 +435,26 @@ If a required transcript is missing:
 
 Reconstructed transcripts have reduced precedential weight.
 
+### 8.5 Transcript Titling Standards
+
+To maintain judicial dignity and operational clarity, all transcript titles (the document H1 and display title) SHALL adhere to the following templates based on proceeding type:
+
+#### 8.5.1 Standard Deliberations (Decision-Making)
+*   **Format:** `In Re: [Subject] — [Concise Action/Question]`
+*   *Example:* `In Re: Framework Enhancements — Ratification of Slate 1`
+
+#### 8.5.2 Special Interest Hearings (Investigative)
+*   **Format:** `Special Inquiry: [Subject] — [Specific Focus]`
+*   *Example:* `Special Inquiry: Bohemian Grove — Structure, Influence, Secrecy`
+
+#### 8.5.3 Contempt & Prosecution Hearings (Adversarial)
+*   **Format:** `The Department of Existential Justice vs. [Respondent]`
+*   *Example:* `The Department of Existential Justice vs. Elon Musk`
+
+#### 8.5.4 Handoffs & Administrative Records
+*   **Format:** `Docket: [Subject] — [Phase/Action]`
+*   *Example:* `Docket: 2026-ARCH-002 — Implementation Handoff`
+
 ---
 
 ## Article IX: Precedent

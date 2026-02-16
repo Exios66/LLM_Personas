@@ -79,6 +79,12 @@
             color: var(--comment);
         }
         
+        .transcript-item-case {
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            color: var(--cyan);
+        }
+        
         .viewer-container {
             background: var(--bg-lighter);
             border-radius: 8px;
@@ -380,7 +386,7 @@
                     if (manifest.transcripts && manifest.transcripts.length > 0) {
                         manifest.transcripts.forEach(t => {
                             filenamesToLoad.push(t.filename);
-                            meta[t.filename] = { title: t.title, date: t.date };
+                            meta[t.filename] = { title: t.title, date: t.date, case_number: t.case_number };
                         });
                     }
                 }
@@ -402,6 +408,7 @@
                             path: TRANSCRIPTS_DIR + filename,
                             title: (meta[filename] && meta[filename].title) ? meta[filename].title : extractTitle(filename, content),
                             date: (meta[filename] && meta[filename].date) ? meta[filename].date : extractDate(filename),
+                            case_number: (meta[filename] && meta[filename].case_number) ? meta[filename].case_number : extractCaseNumber(content),
                             content: content
                         });
                     }
@@ -454,6 +461,12 @@
         return null;
     }
     
+    function extractCaseNumber(content) {
+        const m = content.match(/\*\*Case No\.\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)/i) || 
+                  content.match(/\*\*Matter ID\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)/i);
+        return m ? m[1] : null;
+    }
+    
     function renderTranscriptList() {
         const listEl = document.getElementById('transcriptList');
         
@@ -472,15 +485,18 @@
             return 0;
         });
         
-        listEl.innerHTML = sorted.map((t, i) => `
+        listEl.innerHTML = sorted.map((t, i) => {
+            const searchable = ((t.title || '') + ' ' + (t.case_number || '')).trim().replace(/"/g, '&quot;');
+            return `
             <div class="transcript-item ${currentTranscript === t.path ? 'active' : ''}" 
-                 onclick="selectTranscript('${t.path}')">
+                 onclick="selectTranscript('${t.path}')" data-searchable="${searchable}">
                 <div class="transcript-item-title">${escapeHtml(t.title)}</div>
                 <div class="transcript-item-meta">
-                    ${t.date ? t.date : 'Unknown date'}
+                    ${t.case_number ? `<span class="transcript-item-case">${escapeHtml(t.case_number)}</span> · ` : ''}${t.date ? t.date : 'Unknown date'}
                 </div>
             </div>
-        `).join('');
+        `;
+        }).join('');
     }
     
     function filterTranscripts(query) {
@@ -488,8 +504,8 @@
         const lowerQuery = query.toLowerCase();
         
         items.forEach(item => {
-            const title = item.querySelector('.transcript-item-title').textContent.toLowerCase();
-            const visible = title.includes(lowerQuery);
+            const searchable = (item.getAttribute('data-searchable') || '').toLowerCase();
+            const visible = searchable.includes(lowerQuery);
             item.style.display = visible ? 'block' : 'none';
         });
     }

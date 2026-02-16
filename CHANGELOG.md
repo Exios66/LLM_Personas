@@ -14,6 +14,24 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 ---
 
+## [2026-02-16] - Contempt & Prosecution Hearing: The People vs. Elon Musk (Xenon Fraud)
+
+### Special Interest Hearing (MORNINGSTAR)
+
+Convened a Contempt & Prosecution Hearing in Special Interest format for *The People vs. Elon Musk (regarding the Xenon Fraud)*. Investigative proceeding (no vote); purpose: establish factual record surrounding the Xenon approach failure and alleged investor fraud; contempt of the court of public opinion and investor trust.
+
+**Transcript:** `courtroom/transcripts/20260216_160000_special_interest_xenon_fraud_elon_musk.md`
+
+**Witnesses (3):** Forensic Accountant (fraud / disclosure), Xenon Engineer (technical impossibility of Xenon approach), Elon Musk (hostile witness; first principles / species-level justification).
+
+**Personalities:** ARCHITECT (structural lies), ENGINEER (technical failure), DEBUGGER (edge cases / fraud unraveling), PROPHET (vision vs execution), COUNSEL (innovation-risk mitigation).
+
+**Spectators:** Dr. Echo Sageseeker (Great Man / psychohistory), Dr. Harley Scarlet Quinn (satirical grift), Uncle Ruckus (technical reality). Edward Cullen invoked (what Musk isn't saying).
+
+**Findings (5):** Xenon failure material and undisclosed; post-failure representations of continuity; structural design of communications was to maintain false narrative; respondent's justification (first principles / species-level); mitigating narrative (intent to preserve) noted without negating findings.
+
+---
+
 ## [2026-02-16] - Special Inquiry Hearing: Bohemian Grove
 
 ### Special Inquiry (MORNINGSTAR)
