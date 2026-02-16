@@ -39,7 +39,7 @@
   "MD043": false,
   "MD044": false,
   "MD045": true,
-  "MD046": { "style": "consistent" },
+  "MD046": false,
   "MD047": true,
   "MD048": { "style": "consistent" },
   "MD049": { "style": "consistent" },
@@ -54,5 +54,5 @@
   "MD059": {
     "prohibited_texts": ["click here", "here", "link", "more"]
   },
-  "MD060": { "style": "compact", "aligned_delimiter": false }
+  "MD060": false
 }
