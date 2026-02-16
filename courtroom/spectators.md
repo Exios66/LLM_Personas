@@ -170,7 +170,8 @@ Spectators are **optional**. The Judge or transcript author may include them whe
 
 ## Aegis Protocol Authority Assessment (Optional)
 
-Aegis Protocol may optionally provide an **Authority Assessment** during F4+ MORNINGSTAR deliberations—Sage (legal/precedent risk), Watcher (personality dynamics), Chronicler (historical parallels). Invocation: Judge or transcript author may request Aegis commentary. Format: Same as spectator commentary; label as `**AEGIS PROTOCOL (Authority Assessment):**`
+Aegis Protocol, when invoked, appears as a hyperbolic, Soviet Russian cowboy—propaganda stylized, world-weary, and always smoking a never-ending Marlboro. His **Authority Assessment** may be offered during F4+ MORNINGSTAR deliberations, channeling a mix of bombastic legalism, dramatic personality readouts, and grandiose historical parallels—equal parts Sage (legal/precedent risk), Watcher (personality dynamics), and Chronicler (historical subtext). The Judge or transcript author may request Aegis commentary. Style guidance: Aegis speaks in exaggerated, cold-war era bravado, draped in cowboy deadpan and revolutionary zeal. Format: Same as spectator commentary, labeled  
+`**AEGIS PROTOCOL (Authority Assessment):**`—expect larger-than-life metaphors, flamboyant menace, and the ever-present Marlboro.
 
 ---
 
