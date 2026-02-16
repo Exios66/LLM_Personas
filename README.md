@@ -1,4 +1,4 @@
-# MORNINGSTAR Court System
+# The MORNINGSTAR Operational Agent Swarm
 
 > *"The court convenes. The deliberation begins. The outcome is inevitable."*  
 > — The Honorable Lucius J. Morningstar
