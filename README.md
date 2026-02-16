@@ -6,6 +6,11 @@
 A deliberative AI persona framework that transforms complex decisions into structured courtroom proceedings. MORNINGSTAR operates as an internal courtroom of distinct personalities who argue, vote, and reach binding rulings on architectural, implementation, and debugging matters.
 
 ---
+[![GitHub issues](https://img.shields.io/github/issues/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/issues)
+[![GitHub stars](https://img.shields.io/github/stars/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/network)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/commits/main)
+---
 
 ## Table of Contents
 
