@@ -11,7 +11,6 @@ import re
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
 
 # Add project root for imports
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -49,19 +48,6 @@ def slugify(text: str) -> str:
     s = text.lower()[:60]
     s = re.sub(r"[^a-z0-9]+", "-", s)
     return s.strip("-") or "matter"
-
-
-def load_state_summary() -> Optional[str]:
-    """Load brief summary from state/current.md for context."""
-    state_path = REPO_ROOT / "state" / "current.md"
-    if not state_path.exists():
-        return None
-    try:
-        content = state_path.read_text(encoding="utf-8")
-        # First 500 chars as context
-        return content[:500] + "..." if len(content) > 500 else content
-    except Exception:
-        return None
 
 
 def save_transcript(matter: str, deliberation: str) -> Path:
@@ -155,15 +141,12 @@ def main() -> None:
         print(f"Configuration error: {e}", file=sys.stderr)
         raise SystemExit(1)
 
-    # Build prompts
-    from litigation.prompts import (
-        load_morningstar_system_prompt,
-        build_deliberation_user_prompt,
-    )
+    # Build prompts (full framework: procedures, rules, personalities, checklists)
+    from litigation.prompts import FrameworkLoader, build_deliberation_prompts
 
-    system_prompt = load_morningstar_system_prompt()
-    state_summary = load_state_summary()
-    user_prompt = build_deliberation_user_prompt(
+    loader = FrameworkLoader()
+    state_summary = loader.state_summary()
+    system_prompt, user_prompt = build_deliberation_prompts(
         matter=matter,
         feasibility=args.feasibility,
         state_summary=state_summary,

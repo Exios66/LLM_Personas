@@ -374,6 +374,7 @@ LLM_Personas/
 │   ├── README.md              # Setup and usage
 │   ├── run.py                 # Main deliberation runner
 │   ├── config.example.yaml    # Provider config template
+│   ├── prompts/               # Framework loader (procedures, rules, checklists)
 │   ├── providers/             # LLM provider adapters
 │   └── requirements.txt       # ollama, openai, pyyaml
 ├── checklists/
@@ -461,6 +462,7 @@ Every directory and key file added since inception. Use this to find where thing
 | **litigation/** | Courtroom runner (local/free LLMs) |
 | `litigation/run.py` | Main deliberation runner |
 | `litigation/README.md` | Setup for Ollama, LM Studio, OpenRouter |
+| `litigation/prompts/` | Framework loader (procedures, rules, personalities, checklists) |
 | `litigation/providers/` | LLM provider adapters |
 | **checklists/** | Quality and process |
 | `checklists/aegis-protocol.md` | Aegis Protocol invocation & execution |

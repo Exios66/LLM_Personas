@@ -6,7 +6,7 @@ Run the MORNINGSTAR courtroom litigation protocol using local or free-tier LLMs.
 
 ## Overview
 
-This directory orchestrates the deliberation flow defined in `core/procedures.md` and agent documentation. It:
+This directory orchestrates the deliberation flow defined in `core/procedures.md` and agent documentation. The `litigation/prompts/` subdirectory loads the full MORNINGSTAR framework (procedures, rules, personalities, checklists, best practices). It:
 
 1. Loads session state from `state/current.md`
 2. Presents a matter for deliberation
@@ -126,6 +126,21 @@ python litigation/run.py
 - **Transcripts:** `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md`
 - **State:** `state/current.md` updated with session outcome
 - **CHANGELOG:** Updated if decisions were made (F3+)
+
+---
+
+## Prompts Subdirectory
+
+`litigation/prompts/` loads and assembles all framework components:
+
+- Agent (`agents/morningstar.md`)
+- Procedures (`core/procedures.md`)
+- Personalities (`core/personalities.md`)
+- Rules (`courtroom/RULES.md`)
+- Checklists (`checklists/judge-morningstar.md`, `checklists/courtroom-scribe.md`)
+- Best practices (`courtroom/BEST_PRACTICES.md`)
+
+See `litigation/prompts/README.md` for the full source map.
 
 ---
 
