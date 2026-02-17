@@ -15,7 +15,7 @@ def get_provider(
     ollama_base_url: str = "http://localhost:11434",
     lm_studio_base_url: str = "http://localhost:1234",
     openrouter_base_url: str = "https://openrouter.ai/api",
-    openrouter_api_key: str | None = None,
+    openrouter_api_key: Optional[str] = None,
 ) -> BaseProvider:
     """
     Create an LLM provider instance.
