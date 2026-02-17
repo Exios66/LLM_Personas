@@ -105,6 +105,17 @@ def main() -> None:
         "--model",
         help="Override config model",
     )
+    model_group = parser.add_mutually_exclusive_group()
+    model_group.add_argument(
+        "--model-select",
+        action="store_true",
+        help="[OpenRouter] Prompt to select model from list",
+    )
+    model_group.add_argument(
+        "--model-spin",
+        action="store_true",
+        help="[OpenRouter] Slot machine: random model from list (default when no model set)",
+    )
     parser.add_argument(
         "--no-save",
         action="store_true",
@@ -121,8 +132,30 @@ def main() -> None:
         raise SystemExit(1)
 
     config = load_config()
-    provider_name = args.provider or config.get("provider", "ollama")
-    model = args.model or config.get("model", "llama3.2")
+    provider_name = args.provider or config.get("provider", "openrouter")
+    model = args.model or config.get("model") or "llama3.2"
+    # Provider-specific model override (only when not set via --model)
+    if not args.model:
+        provider_config = config.get(provider_name, {})
+        if isinstance(provider_config, dict) and provider_config.get("model"):
+            model = provider_config["model"]
+
+    # OpenRouter: model selection from list (interactive or slot machine)
+    # When no --model: default to slot machine; use --model-select for interactive
+    if provider_name == "openrouter" and not args.model:
+        from litigation.models import (
+            OPENROUTER_MODELS,
+            select_model_interactive,
+            select_model_spin,
+        )
+        models = (
+            config.get("openrouter", {}).get("models")
+            or OPENROUTER_MODELS
+        )
+        if args.model_select:
+            model = select_model_interactive(models)
+        else:
+            model = select_model_spin(models)
     max_tokens = config.get("max_tokens", 2048)
     temperature = config.get("temperature", 0.7)
 
@@ -165,6 +198,23 @@ def main() -> None:
         )
     except ProviderError as e:
         print(f"LLM request failed: {e}", file=sys.stderr)
+        print("", file=sys.stderr)
+        print("Install or configure one of the following:", file=sys.stderr)
+        print("", file=sys.stderr)
+        print("  OpenRouter (default):", file=sys.stderr)
+        print("    export OPENROUTER_API_KEY=sk-or-v1-your-key", file=sys.stderr)
+        print("    Edit litigation/config.yaml and set provider: openrouter", file=sys.stderr)
+        print("", file=sys.stderr)
+        print("  Ollama:", file=sys.stderr)
+        print("    pip install ollama", file=sys.stderr)
+        print("    ollama pull llama3.2", file=sys.stderr)
+        print("    Edit litigation/config.yaml and set provider: ollama", file=sys.stderr)
+        print("", file=sys.stderr)
+        print("  LM Studio:", file=sys.stderr)
+        print("    Install from lmstudio.ai, load model, Start Server", file=sys.stderr)
+        print("    Edit litigation/config.yaml and set provider: lm_studio", file=sys.stderr)
+        print("", file=sys.stderr)
+        print("See litigation/README.md for setup.", file=sys.stderr)
         raise SystemExit(1)
 
     print(response)
