@@ -198,6 +198,12 @@ Question for court: [Z]
 
 ---
 
+## Skills
+
+Skills for this agent (source of truth): **`docs/agent-skills.md` § aegis-protocol.** Do not duplicate skill text here; follow the index for escalation to MORNINGSTAR and chaos injection note.
+
+---
+
 ## Invocation
 
 Use the **aegis-protocol** subagent when:

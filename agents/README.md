@@ -6,7 +6,10 @@ Root folder for agent definitions and agent-related assets used by the LLM Perso
 
 | Directory | Purpose |
 |-----------|---------|
-| **`tasks/`** | Task definitions, templates, and task specs that agents can invoke or follow. |
+| **`skills/`** | Individual SKILL.md documents per agent capability (state read/write, transcript certification, handoff, etc.). Index: `docs/agent-skills.md`. |
+| **`protocols/`** | Interaction and task protocols: inter-agent handoff, invocation and delegation, Aegis escalation, task deliberation. |
+| **`templates/`** | Reusable output templates: session state init, transcript certification, handoff blocks, escalation blocks, Octavius executive summary. |
+| **`tasks/`** | Task definitions and task specs that agents can invoke or follow (e.g. standard deliberation). |
 | **`tools/`** | Tool specifications and references for agent-invokable tools (APIs, scripts, MCP tools). |
 | **`core/`** | Shared agent primitives: conventions, shared prompts, and cross-agent reference material. Distinct from repo root `core/` (MORNINGSTAR framework). |
 | **`prompts/`** | Agent-specific prompt fragments, system-prompt building blocks, and reusable prompt templates. |

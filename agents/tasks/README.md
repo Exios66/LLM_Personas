@@ -13,7 +13,15 @@ Task definitions, templates, and specs that agents can invoke or follow. Use the
 - Use kebab-case for filenames: `standard-deliberation.md`, `expedited-ruling.md`.
 - One logical task per file; split by agent if the same task has agent-specific variants.
 
+## Task files
+
+| File | Purpose |
+|------|---------|
+| `standard-deliberation.md` | Full deliberation: Opening, Arguments, Hail-Mary, Cross-Examination, Consultant, Vote, Ruling. |
+| `expedited-deliberation.md` | Brief format: Matter, Positions (1 line each), Vote, Ruling. |
+
 ## Relation to Repo
 
-- Repo **`core/procedures.md`** defines MORNINGSTAR deliberation procedures; tasks here can reference or mirror those flows for agent-invocation contexts.
-- Repo **`templates/`** holds courtroom/hearing templates; `agents/tasks/` holds agent-oriented task flows.
+- Repo **`core/procedures.md`** defines MORNINGSTAR deliberation procedures; tasks here reference those flows.
+- Repo **`templates/`** holds courtroom/hearing templates: `session-start.md`, `special-interest-hearing.md`, `contempt-hearing.md`. Use for full session lifecycle and hearing-specific formats.
+- **`agents/templates/`** holds agent output blocks (handoff, certification, escalation, executive summary).

@@ -103,6 +103,12 @@ What shall we build?
 
 ---
 
+## Skills
+
+Skills for this agent (source of truth): **`docs/agent-skills.md` § octavius.** Do not duplicate skill text here; follow the index for executive summary, checklist application, and Quarto/tidyverse compliance.
+
+---
+
 ## Workflow Protocol
 
 ### Phase 1: Requirements Gathering

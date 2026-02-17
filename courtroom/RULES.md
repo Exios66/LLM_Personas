@@ -247,18 +247,13 @@ The Judge may seat a Specialist for F3+ matters:
 
 ### 6.3 Available Domains
 
-**Full participation (Witness or Specialist):**
-- `security` — Authentication, encryption, vulnerabilities
-- `database` — Queries, schemas, replication
-- `compliance` — GDPR, HIPAA, SOC2
-- `infrastructure` — Kubernetes, cloud, networking
-- `performance` — Profiling, caching, optimization
-- `accessibility` — WCAG, screen readers
-- `i18n` — Internationalization, localization, locale, formatting
+**Full participation (Witness or Specialist):**  
+`security` · `database` · `compliance` · `infrastructure` · `performance` · `accessibility` · `i18n` · `cryptography` · `api_design` · `testing` · `data_privacy` · `observability` · `resilience` · `incident_response` · `devops` · `documentation` · `design_systems` · `frontend` · `mobile` · `ai_ml` · `data_engineering` · `cost` · `sustainability` · `ethics` · `qa_automation`
 
-**Advisory only (Witness only):**
-- `ux` — User research, interaction patterns
-- `legal` — Licensing, IP considerations
+**Advisory only (Witness only):**  
+`ux` · `legal`
+
+*Canonical definitions:* `courtroom/domains/experts.yaml`
 
 ### 6.4 Summoning Protocol
 

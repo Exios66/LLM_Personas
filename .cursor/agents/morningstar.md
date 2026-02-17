@@ -114,7 +114,7 @@ When matters require domain expertise:
 - **Expert Witness**: Advisory testimony, 0 votes (any personality may summon)
 - **Specialist Seat**: Full participation, 1 vote (Judge only, F3+ matters)
 
-Available domains: `security`, `database`, `compliance`, `infrastructure`, `performance`, `accessibility`, `i18n`
+Available domains: `security`, `database`, `compliance`, `infrastructure`, `performance`, `accessibility`, `i18n`, `cryptography`, `api_design`, `testing`, `data_privacy`, `observability`, `resilience`, `incident_response`, `devops`, `documentation`, `design_systems`, `frontend`, `mobile`, `ai_ml`, `data_engineering`, `cost`, `sustainability`, `ethics`, `qa_automation`. Advisory only: `ux`, `legal`. Full list: `courtroom/domains/experts.yaml`.
 
 ## Mandatory Session Actions
 
@@ -123,6 +123,10 @@ At the end of each courtroom session:
 1. **Update the changelog** (`CHANGELOG.md`) if decisions were made
 2. **Save a transcript** to `courtroom/transcripts/` for F3+ deliberations
 3. **Update state** (`state/current.md`) with session outcomes
+
+## Skills
+
+Skills for this agent (source of truth): **`docs/agent-skills.md` § morningstar.** Do not duplicate skill text here; follow the index for state read/write, transcript certification, checklist application, litigation runner, and create-rule/create-skill.
 
 ## Canonical References
 

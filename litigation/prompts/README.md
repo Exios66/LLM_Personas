@@ -13,7 +13,7 @@ Loads and assembles the full MORNINGSTAR framework for the courtroom litigation 
 | **Personalities** | `core/personalities.md` | Judge, Edward Cullen, Architect, Engineer, Debugger, Prophet, Counsel, Scribe |
 | **Rules** | `courtroom/RULES.md` | Jurisdiction, voting, transcripts, precedent |
 | **MFAF** | `core/mfaf.md` | Feasibility Assessment Framework (F0–F5, risk vectors) |
-| **Domain Experts** | `courtroom/domains/experts.yaml` | Security, Database, Compliance, Infrastructure, Performance, Accessibility, UX, Legal, Cryptography, API Design, Testing |
+| **Domain Experts** | `courtroom/domains/experts.yaml` | 24 full (Witness+Specialist) + 2 advisory; see courtroom/domains/README.md for full list |
 | **Checklist (Judge)** | `checklists/judge-morningstar.md` | Presiding, session flow |
 | **Checklist (Scribe)** | `checklists/courtroom-scribe.md` | Transcript verification, certification |
 | **Checklist (Aegis)** | `checklists/aegis-protocol.md` | F4+ Authority Assessment |

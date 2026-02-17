@@ -22,7 +22,7 @@
 ## Available SME Domains
 
 **Full participation (Witness or Specialist):**  
-`security` · `database` · `compliance` · `infrastructure` · `performance` · `accessibility` · `cryptography` · `api_design` · `testing`
+`security` · `database` · `compliance` · `infrastructure` · `performance` · `accessibility` · `i18n` · `cryptography` · `api_design` · `testing` · `data_privacy` · `observability` · `resilience` · `incident_response` · `devops` · `documentation` · `design_systems` · `frontend` · `mobile` · `ai_ml` · `data_engineering` · `cost` · `sustainability` · `ethics` · `qa_automation`. Advisory: `ux`, `legal`. Full list: courtroom/domains/experts.yaml
 
 **Advisory only (Witness):**  
 `ux` · `legal`

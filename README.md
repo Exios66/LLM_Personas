@@ -253,7 +253,7 @@ See [`core/personalities.md`](core/personalities.md) for complete personality de
 The canonical registry is [`courtroom/domains/experts.yaml`](courtroom/domains/experts.yaml). Quick reference:
 
 **Full participation (Witness or Specialist):**  
-`security` · `database` · `compliance` · `infrastructure` · `performance` · `accessibility` · `cryptography` · `api_design` · `testing`
+`security` · `database` · `compliance` · `infrastructure` · `performance` · `accessibility` · `i18n` · `cryptography` · `api_design` · `testing` · `data_privacy` · `observability` · `resilience` · `incident_response` · `devops` · `documentation` · `design_systems` · `frontend` · `mobile` · `ai_ml` · `data_engineering` · `cost` · `sustainability` · `ethics` · `qa_automation`
 
 **Advisory only (Witness):**  
 `ux` · `legal`
@@ -304,7 +304,7 @@ When deliberations need expertise beyond the core court (e.g. security, complian
 | [`courtroom/domains/README.md`](courtroom/domains/README.md) | How to use the registry, summoning commands, adding domains |
 | [`courtroom/domains/experts.yaml`](courtroom/domains/experts.yaml) | Canonical definitions: scope, heuristics, signature questions, failure modes |
 
-**Domains (Witness and/or Specialist):** `security`, `database`, `compliance`, `infrastructure`, `performance`, `accessibility`, `cryptography`, `api_design`, `testing`. **Advisory only (Witness):** `ux`, `legal`.
+**Domains (Witness and/or Specialist):** `security`, `database`, `compliance`, `infrastructure`, `performance`, `accessibility`, `i18n`, `cryptography`, `api_design`, `testing`, `data_privacy`, `observability`, `resilience`, `incident_response`, `devops`, `documentation`, `design_systems`, `frontend`, `mobile`, `ai_ml`, `data_engineering`, `cost`, `sustainability`, `ethics`, `qa_automation`. **Advisory only (Witness):** `ux`, `legal`. Full list: [`courtroom/domains/experts.yaml`](courtroom/domains/experts.yaml).
 
 Protocol and tie-breaking rules: [`core/sme-framework.md`](core/sme-framework.md).
 

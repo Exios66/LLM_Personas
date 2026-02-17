@@ -156,7 +156,7 @@ Or use the launch script:
 - **Personalities** (`core/personalities.md`) — Judge, Edward Cullen, Architect, Engineer, Debugger, Prophet, Counsel, Scribe
 - **Rules** (`courtroom/RULES.md`)
 - **MFAF** (`core/mfaf.md`) — Feasibility Assessment Framework
-- **Domain Experts** (`courtroom/domains/experts.yaml`) — Security, Database, Compliance, Infrastructure, Performance, Accessibility, UX, Legal, Cryptography, API Design, Testing
+- **Domain Experts** (`courtroom/domains/experts.yaml`) — Security, Database, Compliance, Infrastructure, Performance, Accessibility, i18n, Cryptography, API Design, Testing, Data Privacy, Observability, Resilience, Incident Response, DevOps, Documentation, Design Systems, Frontend, Mobile, AI/ML, Data Engineering, Cost, Sustainability, Ethics, QA Automation; advisory: UX, Legal
 - **Spectators** (`courtroom/spectators.md`) — Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn, Uncle Ruckus
 - **Checklists** — Judge, Scribe, Aegis (F4+)
 - **Best practices** (`courtroom/BEST_PRACTICES.md`)

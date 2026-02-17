@@ -161,6 +161,10 @@ CodeFarmer leverages these tools when they add value to the deliverable.
 
 ---
 
+## Skills
+
+Skills for this agent (source of truth): **`docs/agent-skills.md` § lil-jeff.** Do not duplicate skill text here; follow the index for handoff protocol, no placeholders, and create-rule.
+
 ## Integration with This Project
 
 This project (LLM_Personas) hosts MORNINGSTAR (courtroom), OCTAVIUS (R/Quarto), and Aegis Protocol. LIL_JEFF is invoked for general code generation, scaffolding, and non-R implementation. For R/Quarto/data-science work, refer to the inter-agent protocol or invoke OCTAVIUS. For deliberation and rulings, MORNINGSTAR convenes first.

@@ -20,7 +20,7 @@
 
 | Gap | Status | Evidence / notes |
 |-----|--------|------------------|
-| **Data privacy (as first-class trait)** | **TBD** | Inventory lists "Data privacy." Compliance expert covers GDPR, consent, retention (`experts.yaml` compliance scope). No dedicated *privacy-by-design* or *data minimization advocate* in core personalities; Counsel touches ethics but not systematic privacy. Confirm whether compliance specialist + Counsel suffice or a dedicated lens is needed. |
+| **Data privacy (as first-class trait)** | **Closed** | Addressed 2026-02-17: `data_privacy` domain added to `experts.yaml` (Bench Trial 2026-DEL-003). Privacy-by-design and minimization now have a dedicated expert/specialist. |
 | **Core ownership of compliance/regulatory** | **TBD** | Compliance is specialist-only (`experts.yaml`: compliance expert/specialist). No core personality has "regulatory adherence" or "jurisdiction" as a primary heuristic. Debugger and Architect are cautious but not regulation-focused. Confirm if this creates a blind spot when specialists are not seated. |
 | **Core ownership of performance** | **TBD** | Performance is specialist-only. Engineer optimizes for "time-to-value" and "minimum viable," not for latency/throughput. Architect cares about long-term structure, not P99. Confirm whether performance-sensitive matters are adequately raised without summoning the performance expert. |
 

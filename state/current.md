@@ -34,6 +34,8 @@ Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching
 
 | Decision | Ruling | Vote | Date |
 |----------|--------|------|------|
+| Full session: Skills to add to each agent | Skills index at docs/agent-skills.md; all four agents reference it | 5-0-0 | 2026-02-17 |
+| Bench trial: 15 experts added to repertoire | 15 domains in experts.yaml (data_privacy, observability, resilience, incident_response, devops, documentation, design_systems, frontend, mobile, ai_ml, data_engineering, cost, sustainability, ethics, qa_automation) | 6-1-0 (Judge 2×) | 2026-02-17 |
 | Full deliberation: Gap analysis (Phase 2–4) | i18n in registry; matter-triage + F4+ pilot adopted | 5-0-0 | 2026-02-17 |
 | Xenon Fraud Contempt Hearing (People vs. Elon Musk) | Findings recorded | N/A (hearing) | 2026-02-16 |
 | Internal Security Hearing (Aegis-integrated) | Findings recorded | N/A (hearing) | 2026-02-16 |

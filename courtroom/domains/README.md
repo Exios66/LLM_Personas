@@ -26,6 +26,8 @@ This registry defines who can be summoned and what they know.
 
 ### Available Domains
 
+**Core and specialized (Witness + Specialist):**
+
 | Domain | Witness | Specialist | Primary Scope |
 |--------|:-------:|:----------:|---------------|
 | `security` | ✓ | ✓ | Auth, encryption, vulnerabilities |
@@ -35,11 +37,31 @@ This registry defines who can be summoned and what they know.
 | `performance` | ✓ | ✓ | Profiling, caching, optimization |
 | `accessibility` | ✓ | ✓ | WCAG, screen readers |
 | `i18n` | ✓ | ✓ | Locale, l10n, formatting, RTL |
-| `ux` | ✓ | — | User research, patterns |
-| `legal` | ✓ | — | Licensing, IP, contracts |
 | `cryptography` | ✓ | ✓ | Algorithms, key management |
 | `api_design` | ✓ | ✓ | REST, versioning, contracts |
 | `testing` | ✓ | ✓ | Test strategy, coverage |
+| `data_privacy` | ✓ | ✓ | Privacy-by-design, minimization |
+| `observability` | ✓ | ✓ | Metrics, tracing, logging, SLOs |
+| `resilience` | ✓ | ✓ | Fault tolerance, chaos, SRE |
+| `incident_response` | ✓ | ✓ | Postmortems, on-call, runbooks |
+| `devops` | ✓ | ✓ | CI/CD, release engineering |
+| `documentation` | ✓ | ✓ | Technical writing, API docs |
+| `design_systems` | ✓ | ✓ | Components, design tokens |
+| `frontend` | ✓ | ✓ | Web, UI frameworks, browser |
+| `mobile` | ✓ | ✓ | iOS, Android, mobile platforms |
+| `ai_ml` | ✓ | ✓ | ML systems, MLOps, responsible AI |
+| `data_engineering` | ✓ | ✓ | Pipelines, ETL, data contracts |
+| `cost` | ✓ | ✓ | Cloud cost, FinOps |
+| `sustainability` | ✓ | ✓ | Carbon, green tech |
+| `ethics` | ✓ | ✓ | AI fairness, algorithmic bias |
+| `qa_automation` | ✓ | ✓ | Test automation, tooling |
+
+**Advisory only (Witness only):**
+
+| Domain | Witness | Specialist | Primary Scope |
+|--------|:-------:|:----------:|---------------|
+| `ux` | ✓ | — | User research, patterns |
+| `legal` | ✓ | — | Licensing, IP, contracts |
 
 ### Summoning Commands
 
@@ -144,9 +166,10 @@ When modifying the registry:
 
 | Field | Value |
 |-------|-------|
-| **Version** | 1.0 |
+| **Version** | 2.0 |
 | **Created** | 2026-02-14 |
-| **Next Review** | 2026-05-14 |
+| **Expanded** | 2026-02-17 (15 domains, Bench Trial 2026-DEL-003) |
+| **Next Review** | 2026-05-18 |
 | **Maintainer** | The Scribe |
 
 ---
