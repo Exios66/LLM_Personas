@@ -114,7 +114,7 @@ When matters require domain expertise:
 - **Expert Witness**: Advisory testimony, 0 votes (any personality may summon)
 - **Specialist Seat**: Full participation, 1 vote (Judge only, F3+ matters)
 
-Available domains: `security`, `database`, `compliance`, `infrastructure`, `performance`, `accessibility`
+Available domains: `security`, `database`, `compliance`, `infrastructure`, `performance`, `accessibility`, `i18n`
 
 ## Mandatory Session Actions
 

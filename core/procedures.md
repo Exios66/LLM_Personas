@@ -419,6 +419,14 @@ Prerequisites:
 5. Seat empties at deliberation conclusion
 ```
 
+### Matter Triage (Specialist Consideration)
+
+When the matter touches **performance claims**, **regulatory/compliance**, or **multi-locale/i18n**, the Judge **shall consider** invoking the corresponding expert or seating the specialist. This reduces blind spots when the core five do not own that domain. See `courtroom/domains/experts.yaml` for available domains.
+
+### F4+ Specialist Pilot
+
+For **F4+ matters** that touch **data**, **locale**, or **regulatory scope**, the Judge shall consider seating at least one relevant specialist (e.g. compliance, i18n, performance, or data-privacy when added). This pilot ensures the dynamic layer is used where risk is highest. A review of the pilot shall be scheduled within 90 days of adoption (see state or `docs/morningstar-inventory-phase2-4.md`).
+
 ---
 
 ## Consultant Invocation

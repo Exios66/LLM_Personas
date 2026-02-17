@@ -1,11 +1,15 @@
 # MORNINGSTAR Session State
 
-> *Last updated: 2026-02-16*
+> *Last updated: 2026-02-17*
 > *Session: 2026-SEC-001*
 
 ---
 
 ## Active Context
+
+### F4+ Specialist Pilot (in effect)
+
+Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching data, locale, or regulatory scope, the Judge shall consider seating at least one relevant specialist. **Pilot review due: 2026-05-18.** See `docs/morningstar-inventory-phase2-4.md` and `core/procedures.md` (§ Matter Triage, § F4+ Specialist Pilot).
 
 ### Current Task
 <!-- What is the court currently working on? -->
@@ -30,6 +34,7 @@
 
 | Decision | Ruling | Vote | Date |
 |----------|--------|------|------|
+| Full deliberation: Gap analysis (Phase 2–4) | i18n in registry; matter-triage + F4+ pilot adopted | 5-0-0 | 2026-02-17 |
 | Xenon Fraud Contempt Hearing (People vs. Elon Musk) | Findings recorded | N/A (hearing) | 2026-02-16 |
 | Internal Security Hearing (Aegis-integrated) | Findings recorded | N/A (hearing) | 2026-02-16 |
 | Aegis Protocol Enhancements (15 items) | Adopted | 4-0-0 | 2026-02-15 |

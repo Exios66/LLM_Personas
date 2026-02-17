@@ -34,6 +34,7 @@ This registry defines who can be summoned and what they know.
 | `infrastructure` | ✓ | ✓ | K8s, cloud, networking |
 | `performance` | ✓ | ✓ | Profiling, caching, optimization |
 | `accessibility` | ✓ | ✓ | WCAG, screen readers |
+| `i18n` | ✓ | ✓ | Locale, l10n, formatting, RTL |
 | `ux` | ✓ | — | User research, patterns |
 | `legal` | ✓ | — | Licensing, IP, contracts |
 | `cryptography` | ✓ | ✓ | Algorithms, key management |

@@ -254,6 +254,7 @@ The Judge may seat a Specialist for F3+ matters:
 - `infrastructure` — Kubernetes, cloud, networking
 - `performance` — Profiling, caching, optimization
 - `accessibility` — WCAG, screen readers
+- `i18n` — Internationalization, localization, locale, formatting
 
 **Advisory only (Witness only):**
 - `ux` — User research, interaction patterns
