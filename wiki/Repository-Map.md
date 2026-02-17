@@ -33,6 +33,15 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 | `courtroom/domains/README.md` | Domain expert registry usage |
 | `courtroom/domains/experts.yaml` | Canonical SME domain definitions |
 | `courtroom/spectators.md` | Courtroom spectators (Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn) |
+| **courtroom/portal/** | Transcript viewer and export |
+| `courtroom/portal/launch.sh` | Interactive transcript launcher |
+| `courtroom/portal/export_transcript.py` | Export one .md → HTML |
+| `courtroom/portal/viewer.html` | Standalone viewer |
+| `courtroom/portal/generate_manifest.py` | Generate transcripts_manifest.json |
+| `courtroom/portal/transcripts_manifest.json` | Manifest (generated) |
+| `courtroom/portal/generate.py` | Optional: gitmal static site generator |
+| `courtroom/portal/exports/` | HTML output |
+| `courtroom/portal/output/` | Generated static site (gitmal) |
 
 ## State
 
@@ -59,17 +68,6 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 | `aegis_core/state.md` | Optional session state (last scenario, findings, escalation log) |
 | `wiki/Aegis-Protocol.md` | Full Aegis Protocol documentation (Sage, Watcher, Chronicler) |
 
-## Portal
-
-| Path | Purpose |
-| ------ | --------- |
-| `portal/launch.sh` | Interactive transcript launcher |
-| `portal/export_transcript.py` | Export one .md → HTML |
-| `portal/viewer.html` | Standalone viewer |
-| `portal/generate_manifest.py` | Generate transcripts_manifest.json |
-| `portal/transcripts_manifest.json` | Manifest (generated) |
-| `portal/exports/` | HTML output |
-
 ## Docs
 
 | Path | Purpose |
@@ -85,7 +83,11 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 | Path | Purpose |
 | ------ | --------- |
 | `templates/` | Session, module, project-dashboard, special-interest-hearing templates |
+| `checklists/aegis-protocol.md` | Aegis Protocol invocation & execution |
+| `checklists/courtroom-scribe.md` | Scribe transcript & certification |
 | `checklists/critibot-review.md` | Code review checklist |
+| `checklists/judge-morningstar.md` | Judge deliberation & session flow |
+| `checklists/octavius.md` | Octavius triumvirate workflow |
 | `references/naming-conventions.md` | Naming patterns |
 | `reference_files/` | Original persona sources |
 | `CHANGELOG.md` | Decision history |

@@ -49,6 +49,8 @@ Details: [Domains-and-Experts](Domains-and-Experts) · [SME-Framework](SME-Frame
 | F4 | Critical | **Mandatory + Transcript** |
 | F5 | Existential | **Mandatory + Full Record** |
 
+**Checklists:** `checklists/judge-morningstar.md`, `checklists/courtroom-scribe.md`, `checklists/octavius.md`, `checklists/aegis-protocol.md`.
+
 **See also:** [When-to-Convene](When-to-Convene) · [Procedures](Procedures)
 
 ## Proceeding Types (Courtroom Quiver)

@@ -402,7 +402,7 @@ Once certified:
 
 #### 8.4.6 Verification Checklist
 
-Before certification, the Scribe SHALL verify:
+Before certification, the Scribe SHALL verify (see `checklists/courtroom-scribe.md` for full routine):
 
 - [ ] Case number follows format `YYYY-XXXX-NNN-DDD`
 - [ ] Date matches filename

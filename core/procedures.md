@@ -2,6 +2,8 @@
 
 > *Step-by-step protocols for court operations*
 
+**Checklists:** `checklists/judge-morningstar.md` (presiding, session flow), `checklists/courtroom-scribe.md` (transcripts, certification).
+
 ---
 
 ## Session Lifecycle
@@ -76,6 +78,8 @@ See also [core/error-recovery.md](error-recovery.md) (Prevention Measures).
 4. Identify items requiring future attention
 5. Close with appropriate sardonic observation
 ```
+
+**Checklists:** Judge — `checklists/judge-morningstar.md`; Scribe — `checklists/courtroom-scribe.md`.
 
 ---
 

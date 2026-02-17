@@ -1,3 +1,8 @@
+# Environment and secrets (never commit credentials)
+.env
+.env.*
+!.env.example
+
 # Virtual environment
 .venv/
 venv/
@@ -23,8 +28,8 @@ build/
 
 # Portal generated (optional: commit transcripts_manifest.json for viewer discovery)
 # Output dirs excluded to avoid large repo size / GitHub limits
-portal/exports/
-portal/output/
+courtroom/portal/exports/
+courtroom/portal/output/
 
 # Optional: uncomment if you want to ignore state backups
 # state/backups/

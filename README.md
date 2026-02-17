@@ -370,7 +370,11 @@ LLM_Personas/
 │   ├── RUNBOOK.md              # Troubleshooting index
 │   └── edge-cases.md           # Known limitations
 ├── checklists/
-│   └── critibot-review.md      # Code review checklist
+│   ├── aegis-protocol.md      # Aegis invocation & execution
+│   ├── courtroom-scribe.md    # Scribe transcript & certification
+│   ├── critibot-review.md     # Code review checklist
+│   ├── judge-morningstar.md   # Judge deliberation & session flow
+│   └── octavius.md            # Octavius triumvirate workflow
 ├── references/
 │   └── naming-conventions.md   # Naming patterns
 ├── reference_files/
@@ -418,6 +422,16 @@ Every directory and key file added since inception. Use this to find where thing
 | `courtroom/transcripts/` | Deliberation transcripts (.md and .html) |
 | `courtroom/domains/README.md` | Domain expert registry usage |
 | `courtroom/domains/experts.yaml` | Canonical SME domain definitions |
+| `courtroom/spectators.md` | Courtroom spectators |
+| **courtroom/portal/** | Transcript viewer and export |
+| `courtroom/portal/launch.sh` | Interactive transcript launcher |
+| `courtroom/portal/export_transcript.py` | Export one .md → HTML |
+| `courtroom/portal/viewer.html` | Standalone viewer |
+| `courtroom/portal/generate_manifest.py` | Generate transcripts_manifest.json |
+| `courtroom/portal/transcripts_manifest.json` | Manifest (generated) |
+| `courtroom/portal/generate.py` | Optional: gitmal static site generator |
+| `courtroom/portal/exports/` | HTML output |
+| `courtroom/portal/output/` | Generated static site (gitmal) |
 | **state/** | Session and metrics |
 | `state/current.md` | Active session state (read at start, updated at end) |
 | `state/metrics.md` | Cumulative stats (deliberations, votes, Prophet, SME) |
@@ -425,15 +439,6 @@ Every directory and key file added since inception. Use this to find where thing
 | `octavius_core/THE_RULES.md` | Binding protocols for Apollo, Kronos, Morningstar |
 | `octavius_core/state.md` | R/Quarto session state and continuity |
 | **octavius_summaries/** | OCTAVIUS executive summaries (YYYY-MM-DD_HHMMSS_summary.md) |
-| **portal/** | Transcript viewer and export |
-| `portal/launch.sh` | **Primary:** interactive launcher, list transcripts, open in browser |
-| `portal/export_transcript.py` | Export one .md transcript to HTML (no external deps) |
-| `portal/viewer.html` | Standalone transcript viewer |
-| `portal/dracula.css` | Dracula theme for portal |
-| `portal/generate.py` | Optional: gitmal static site generator |
-| `portal/generate_manifest.py` | Generate transcripts_manifest.json for viewer discovery |
-| `portal/transcripts_manifest.json` | Manifest of transcripts (generated) |
-| `portal/exports/` | HTML output from launch/export |
 | **docs/** | Onboarding and reference |
 | `docs/ONBOARDING.md` | Start here — agents, first steps |
 | `docs/agent-schema.md` | Agent frontmatter schema (CrewAI-style) |
@@ -445,7 +450,11 @@ Every directory and key file added since inception. Use this to find where thing
 | `templates/module-template.md` | Module structure (CodeFarm) |
 | `templates/project-dashboard.md` | Project tracking |
 | **checklists/** | Quality and process |
+| `checklists/aegis-protocol.md` | Aegis Protocol invocation & execution |
+| `checklists/courtroom-scribe.md` | Scribe transcript & certification |
 | `checklists/critibot-review.md` | Code review checklist (CritiBot) |
+| `checklists/judge-morningstar.md` | Judge deliberation & session flow |
+| `checklists/octavius.md` | Octavius triumvirate workflow |
 | **references/** | Conventions |
 | `references/naming-conventions.md` | Naming patterns for code |
 | **reference_files/** | Original sources (not runtime) |
@@ -485,6 +494,7 @@ Every directory and key file added since inception. Use this to find where thing
 ### Where to find what
 
 - **Rules and procedures** → `courtroom/RULES.md`, `core/procedures.md`, `courtroom/BEST_PRACTICES.md`
+- **Checklists** → `checklists/` (judge-morningstar, courtroom-scribe, octavius, aegis-protocol, critibot-review)
 - **Personality definitions** → `core/personalities.md`
 - **SME domains and how to add them** → `courtroom/domains/README.md`, `courtroom/domains/experts.yaml`, `core/sme-framework.md`
 - **State and metrics** → `state/current.md`, `state/metrics.md`; schema: `core/state-schema.md`
@@ -530,7 +540,7 @@ When work is R, Quarto, tidyverse, or tidymodels, invoke OCTAVIUS—a triad of a
 - KRONOS CRITICAL issues must be resolved before proceeding
 - Every session ends with an Executive Summary in `octavius_summaries/`
 
-**Invocation:** Use the **octavius** subagent for R code, Quarto documents, or statistical computing. Canonical refs: [`octavius_core/THE_RULES.md`](octavius_core/THE_RULES.md), [`octavius_core/state.md`](octavius_core/state.md).
+**Invocation:** Use the **octavius** subagent for R code, Quarto documents, or statistical computing. Canonical refs: [`octavius_core/THE_RULES.md`](octavius_core/THE_RULES.md), [`octavius_core/state.md`](octavius_core/state.md), [`checklists/octavius.md`](checklists/octavius.md).
 
 ### Aegis Protocol (Central Authority)
 
@@ -546,7 +556,7 @@ The Aegis Protocol is the Central Authority mechanism (Authority Level 10) for s
 
 **Scenario Library:** Security breaches, ethical dilemmas, system failures, strategic decision-making, unexpected variables (Black Swan), rogue agent containment (Cyber Psychosis), meta-deliberation (transcript review)
 
-**Invocation:** Use the **aegis-protocol** subagent (`/aegis`) for security analysis, containment protocols, ethical dilemmas, crisis management, or meta-deliberation. Canonical refs: [`aegis_core/README.md`](aegis_core/README.md), [`core/inter-agent-protocol.md`](core/inter-agent-protocol.md).
+**Invocation:** Use the **aegis-protocol** subagent (`/aegis`) for security analysis, containment protocols, ethical dilemmas, crisis management, or meta-deliberation. Canonical refs: [`aegis_core/README.md`](aegis_core/README.md), [`core/inter-agent-protocol.md`](core/inter-agent-protocol.md), [`checklists/aegis-protocol.md`](checklists/aegis-protocol.md).
 
 ---
 

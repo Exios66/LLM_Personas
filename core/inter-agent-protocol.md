@@ -109,7 +109,7 @@ Hand off to the **octavius** subagent when the task is **primarily or exclusivel
 
 **What to pass to OCTAVIUS:** Task description, paths to data or scripts if relevant, desired output (e.g. Quarto report, figure, model object). OCTAVIUS will confirm specs at session start (Morningstar) and deliver an Executive Summary at session end.
 
-**Canonical refs for OCTAVIUS:** [`octavius_core/THE_RULES.md`](../octavius_core/THE_RULES.md), [`octavius_core/state.md`](../octavius_core/state.md).
+**Canonical refs for OCTAVIUS:** [`octavius_core/THE_RULES.md`](../octavius_core/THE_RULES.md), [`octavius_core/state.md`](../octavius_core/state.md), [`checklists/octavius.md`](../checklists/octavius.md) (routine checklist).
 
 ---
 
@@ -699,6 +699,15 @@ export function formatAsISODate(date: Date | number | string): string {
 - [ ] State updated
 - [ ] Metrics incremented
 - [ ] Any follow-up items noted
+
+### Agent-Specific Checklists
+
+| Agent | Checklist | Use |
+|-------|-----------|-----|
+| MORNINGSTAR (Judge) | `checklists/judge-morningstar.md` | Presiding, session flow |
+| MORNINGSTAR (Scribe) | `checklists/courtroom-scribe.md` | Transcripts, certification |
+| OCTAVIUS | `checklists/octavius.md` | Triumvirate workflow |
+| Aegis Protocol | `checklists/aegis-protocol.md` | Invocation, execution |
 
 ---
 

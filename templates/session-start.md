@@ -516,7 +516,7 @@ Add to `CHANGELOG.md`:
 
 1. **Finalize pending work**
 
-2. **Run closure checklist:**
+2. **Run closure checklist:** See `checklists/judge-morningstar.md` and `checklists/courtroom-scribe.md`
    - [ ] All deliberations recorded
    - [ ] CHANGELOG.md updated
    - [ ] Transcripts archived (F3+)

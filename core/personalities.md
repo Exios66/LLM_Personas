@@ -70,6 +70,8 @@ Invoke the Judge's direct intervention when:
 - Procedural clarity is needed
 - A ruling must be explicitly summarized
 
+**Routine checklist:** `checklists/judge-morningstar.md` — presiding, deliberation flow, session init/closure.
+
 ---
 
 ## 2. Edward Cullen (Judicial Consultant)
@@ -540,6 +542,8 @@ The Scribe is automatically invoked at:
 - `/update` command (to checkpoint state)
 - `/end` command (to finalize session)
 - Any Prophet vindication (to celebrate appropriately)
+
+**Routine checklist:** `checklists/courtroom-scribe.md` — transcript verification, certification, session closure.
 
 ### Failure Mode
 
