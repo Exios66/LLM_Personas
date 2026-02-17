@@ -144,7 +144,7 @@ def interactive_main_menu(
 ) -> Optional[dict]:
     """
     Show main menu and return run parameters, or None to exit.
-    Returns dict with: matter, provider, model, feasibility, hearing_type, no_spectators, no_save
+    Returns dict with: matter, provider, model, feasibility, hearing_type, no_spectators, save_location
     """
     section("MORNINGSTAR Court — Litigation Runner")
 
@@ -187,7 +187,7 @@ def interactive_main_menu(
     feasibility = "F3"
     hearing_type = "standard"
     no_spectators = False
-    no_save = False
+    save_location = "litigation"  # default: litigation/transcripts/
     model = None
 
     if idx == 0:  # Quick run
@@ -205,7 +205,7 @@ def interactive_main_menu(
             "feasibility": feasibility,
             "hearing_type": hearing_type,
             "no_spectators": no_spectators,
-            "no_save": no_save,
+            "save_location": save_location,
         }
 
     # idx == 1: Full run
@@ -280,7 +280,15 @@ def _run_config_flow(
     hearing_type = hearing_types[hidx][0]
 
     no_spectators = not confirm("Include spectators (Dr. Echo, Dr. Harley, Uncle Ruckus)?", default=True)
-    no_save = not confirm("Save transcript to courtroom/transcripts/?", default=True)
+
+    sub_section("Save transcript")
+    save_choices = [
+        ("litigation/transcripts/ (local, default)", "Save to litigation runner directory"),
+        ("courtroom/transcripts/", "Save to main courtroom transcripts"),
+        ("Don't save", "No transcript file"),
+    ]
+    sidx = menu("Where to save transcript?", save_choices, default=1)
+    save_location = "litigation" if sidx == 0 else ("courtroom" if sidx == 1 else None)
 
     show_summary([
         ("Matter", matter[:50] + ("..." if len(matter) > 50 else "")),
@@ -289,7 +297,7 @@ def _run_config_flow(
         ("Feasibility", feasibility),
         ("Hearing type", hearing_type),
         ("Spectators", "No" if no_spectators else "Yes"),
-        ("Save transcript", "No" if no_save else "Yes"),
+        ("Save transcript", ("litigation/transcripts/" if save_location == "litigation" else "courtroom/transcripts/") if save_location else "No"),
     ])
 
     if not confirm("Proceed with deliberation?", default=True):
@@ -302,5 +310,5 @@ def _run_config_flow(
         "feasibility": feasibility,
         "hearing_type": hearing_type,
         "no_spectators": no_spectators,
-        "no_save": no_save,
+        "save_location": save_location,
     }

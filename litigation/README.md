@@ -140,7 +140,8 @@ Or use the launch script:
 
 ## Output
 
-- **Transcripts:** `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md`
+- **Transcripts (default):** `litigation/transcripts/YYYY-MM-DD-[matter-slug].md`
+- **Transcripts (optional):** `courtroom/transcripts/` — use `--save-to courtroom` or choose in menu
 - **State:** `state/current.md` updated with session outcome
 - **CHANGELOG:** Updated if decisions were made (F3+)
 
@@ -176,6 +177,8 @@ See `litigation/prompts/README.md` for the full source map.
 
 - `--menu` — Show interactive menu (even when matter is provided)
 - `--no-spectators` — Exclude spectator commentary (Dr. Echo, Dr. Harley, Uncle Ruckus) from system prompt
+- `--no-save` — Do not save transcript
+- `--save-to litigation|courtroom` — Save to `litigation/transcripts/` (default) or `courtroom/transcripts/`
 
 ---
 

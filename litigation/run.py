@@ -59,11 +59,14 @@ def slugify(text: str) -> str:
     return s.strip("-") or "matter"
 
 
-def save_transcript(matter: str, deliberation: str) -> Path:
-    """Save transcript to courtroom/transcripts/."""
+def save_transcript(matter: str, deliberation: str, *, location: str = "litigation") -> Path:
+    """Save transcript to litigation/transcripts/ (default) or courtroom/transcripts/."""
     today = datetime.now().strftime("%Y-%m-%d")
     slug = slugify(matter)
-    transcripts_dir = REPO_ROOT / "courtroom" / "transcripts"
+    if location == "courtroom":
+        transcripts_dir = REPO_ROOT / "courtroom" / "transcripts"
+    else:
+        transcripts_dir = Path(__file__).resolve().parent / "transcripts"
     transcripts_dir.mkdir(parents=True, exist_ok=True)
 
     # Avoid overwriting
@@ -128,7 +131,13 @@ def main() -> None:
     parser.add_argument(
         "--no-save",
         action="store_true",
-        help="Do not save transcript to courtroom/transcripts/",
+        help="Do not save transcript",
+    )
+    parser.add_argument(
+        "--save-to",
+        choices=["litigation", "courtroom"],
+        default="litigation",
+        help="Save transcript to litigation/transcripts/ (default) or courtroom/transcripts/",
     )
     parser.add_argument(
         "--hearing-type",
@@ -169,7 +178,9 @@ def main() -> None:
         args.feasibility = params.get("feasibility", args.feasibility)
         args.hearing_type = params.get("hearing_type", args.hearing_type)
         args.no_spectators = params.get("no_spectators", args.no_spectators)
-        args.no_save = params.get("no_save", args.no_save)
+        save_loc = params.get("save_location", "litigation")
+        args.no_save = save_loc is None
+        args.save_to = save_loc if save_loc else "litigation"
         # Override provider; model handled below
         args.provider = provider_name
         if model is not None:
@@ -207,7 +218,9 @@ def main() -> None:
             model = select_model_interactive(models)
         else:
             model = select_model_spin(models)
-    max_tokens = config.get("max_tokens", 2048)
+    max_tokens = config.get("max_tokens", 8192)
+    # Cap to avoid "maximum context length" errors (most models: 8k–128k)
+    max_tokens = min(int(max_tokens), 32768)
     temperature = config.get("temperature", 0.7)
 
     # Resolve provider
@@ -253,8 +266,13 @@ def main() -> None:
     except ProviderError as e:
         err_str = str(e)
         is_data_policy = "data policy" in err_str.lower() or "openrouter.ai/settings/privacy" in err_str
+        is_context_length = "context length" in err_str.lower() or "maximum context" in err_str.lower()
         print(f"LLM request failed: {e}", file=sys.stderr)
         print("", file=sys.stderr)
+        if is_context_length:
+            print("  Context limit: Reduce max_tokens in litigation/config.yaml (capped at 32k).", file=sys.stderr)
+            print("  Or exclude components: --no-spectators, or use a smaller framework.", file=sys.stderr)
+            print("", file=sys.stderr)
         if is_data_policy:
             print("  OpenRouter free models: Configure privacy at https://openrouter.ai/settings/privacy", file=sys.stderr)
             print("  Enable 'Model Training' or relax restrictions for free model access.", file=sys.stderr)
@@ -282,7 +300,8 @@ def main() -> None:
     print(response)
 
     if not args.no_save:
-        path = save_transcript(matter, response)
+        save_to = getattr(args, "save_to", "litigation")
+        path = save_transcript(matter, response, location=save_to)
         print("-" * 60, file=sys.stderr)
         print(f"Transcript saved: {path}", file=sys.stderr)
 
