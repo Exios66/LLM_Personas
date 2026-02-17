@@ -99,6 +99,17 @@ See [portal/README.md](portal/README.md) for details.
 /end       # Close session and finalize records
 ```
 
+### Alternative: Litigation Runner (Local/Free LLMs)
+
+Run deliberations via **Ollama**, **LM Studio**, or **OpenRouter** (no Cursor agent required):
+
+```bash
+./litigation/launch.sh                    # Interactive menu
+python litigation/run.py "Your matter"   # Direct run
+```
+
+The litigation runner loads the **full MORNINGSTAR framework** (procedures, personalities, rules, MFAF, domain experts, spectators, checklists) and produces certified transcripts. See [`litigation/README.md`](litigation/README.md).
+
 ---
 
 ## Navigation Index
@@ -111,6 +122,7 @@ See [portal/README.md](portal/README.md) for details.
 | [`courtroom/BEST_PRACTICES.md`](courtroom/BEST_PRACTICES.md) | The Wisdom — practical guidance | When rules don't cover a situation |
 | [`core/personalities.md`](core/personalities.md) | Personality definitions | Understanding court members |
 | [`core/procedures.md`](core/procedures.md) | Step-by-step protocols | How to run deliberations |
+| [`core/mfaf.md`](core/mfaf.md) | Feasibility Assessment Framework (F0–F5, risk vectors) | Classifying matters, risk assessment |
 | [`core/sme-framework.md`](core/sme-framework.md) | Subject Matter Expert framework | Involving domain experts |
 | [`core/state-schema.md`](core/state-schema.md) | State validation rules | Validating session state |
 | [`core/error-recovery.md`](core/error-recovery.md) | Recovery protocols | When things go wrong |
@@ -275,10 +287,11 @@ See [Domains & Experts](#domains--experts) and [`courtroom/domains/README.md`](c
 | **Standard Deliberation** | Reach a decision | Vote + ruling |
 | **Expedited Deliberation** | Time-sensitive F2 | Vote + ruling |
 | **Special Interest Hearing** | Investigative; establish facts, collect testimony | Findings + record (no vote) |
+| **Contempt Hearing** | Adversarial; respondent charged with contempt or prosecuted | Vote + ruling + sanctions (or findings only) |
 
-To convene a Special Interest Hearing, request an investigative proceeding on a matter (e.g. incident root cause, conflicting accounts). See [`templates/special-interest-hearing.md`](templates/special-interest-hearing.md) and [`core/procedures.md`](core/procedures.md).
+To convene a Special Interest Hearing, request an investigative proceeding on a matter (e.g. incident root cause, conflicting accounts). See [`templates/special-interest-hearing.md`](templates/special-interest-hearing.md) and [`core/procedures.md`](core/procedures.md). For Contempt proceedings, see [`templates/contempt-hearing.md`](templates/contempt-hearing.md).
 
-**Spectators:** Optional live commentators (Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn) may provide psychohistorical or satirical analysis. See [`courtroom/spectators.md`](courtroom/spectators.md).
+**Spectators:** Optional live commentators (Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn, Uncle Ruckus) may provide psychohistorical, satirical, or technical analysis. See [`courtroom/spectators.md`](courtroom/spectators.md).
 
 ---
 
@@ -373,10 +386,14 @@ LLM_Personas/
 ├── litigation/                 # Courtroom runner (Ollama, LM Studio, OpenRouter)
 │   ├── README.md              # Setup and usage
 │   ├── run.py                 # Main deliberation runner
+│   ├── launch.sh              # Venv setup + run (interactive menu when no args)
+│   ├── ui.py                  # Interactive menu (Quick run, Full run, Help)
+│   ├── models.py              # OpenRouter model selection (slot machine, interactive)
+│   ├── config.yaml            # Provider config (copy from config.example.yaml)
 │   ├── config.example.yaml    # Provider config template
-│   ├── prompts/               # Framework loader (procedures, rules, checklists)
-│   ├── providers/             # LLM provider adapters
-│   └── requirements.txt       # ollama, openai, pyyaml
+│   ├── prompts/               # Full framework loader (procedures, rules, MFAF, experts, checklists)
+│   ├── providers/             # LLM provider adapters (Ollama, LM Studio, OpenRouter)
+│   └── requirements.txt       # ollama, openai, pyyaml, python-dotenv
 ├── checklists/
 │   ├── aegis-protocol.md      # Aegis invocation & execution
 │   ├── courtroom-scribe.md    # Scribe transcript & certification
@@ -419,6 +436,7 @@ Every directory and key file added since inception. Use this to find where thing
 | **core/** | Court and framework logic |
 | `core/personalities.md` | Judge, Consultant, Architect, Engineer, Debugger, Prophet, Counsel, Scribe |
 | `core/procedures.md` | Session lifecycle, deliberation flow, tie-breaking, SME procedures |
+| `core/mfaf.md` | Feasibility Assessment Framework (F0–F5, risk vectors, effort bands) |
 | `core/sme-framework.md` | Expert Witness & Specialist protocol; refs courtroom/domains |
 | `core/state-schema.md` | Validation rules for state/current.md |
 | `core/error-recovery.md` | State corruption recovery, rollback, emergency procedures |
@@ -461,9 +479,12 @@ Every directory and key file added since inception. Use this to find where thing
 | `templates/project-dashboard.md` | Project tracking |
 | **litigation/** | Courtroom runner (local/free LLMs) |
 | `litigation/run.py` | Main deliberation runner |
+| `litigation/launch.sh` | Venv setup + run; interactive menu when no args |
+| `litigation/ui.py` | Interactive menu (Quick run, Full run, Help, Exit) |
+| `litigation/models.py` | OpenRouter model selection (slot machine, interactive list) |
 | `litigation/README.md` | Setup for Ollama, LM Studio, OpenRouter |
-| `litigation/prompts/` | Framework loader (procedures, rules, personalities, checklists) |
-| `litigation/providers/` | LLM provider adapters |
+| `litigation/prompts/` | Full framework loader (procedures, rules, MFAF, domain experts, checklists, spectators) |
+| `litigation/providers/` | LLM provider adapters (Ollama, LM Studio, OpenRouter) |
 | **checklists/** | Quality and process |
 | `checklists/aegis-protocol.md` | Aegis Protocol invocation & execution |
 | `checklists/courtroom-scribe.md` | Scribe transcript & certification |
@@ -498,7 +519,7 @@ Every directory and key file added since inception. Use this to find where thing
 | Goal | What to do |
 |------|------------|
 | **Deliberate on a decision** | Invoke the **morningstar** subagent (or `/morningstar`). Present your matter. Court reads `state/current.md`, deliberates, votes, and can update state/changelog/transcripts. |
-| **Run deliberation via local/free LLM** | Use `litigation/run.py` with Ollama, LM Studio, or OpenRouter. See `litigation/README.md`. |
+| **Run deliberation via local/free LLM** | Use `litigation/run.py` or `./litigation/launch.sh`. Supports Ollama, LM Studio, OpenRouter. **Interactive menu** when run with no args: Quick run (matter + defaults), Full run (configure provider, model, feasibility, hearing type), Help, Exit. Direct run: `python litigation/run.py "Your matter"`. See `litigation/README.md`. |
 | **Implement or scaffold code** | Invoke the **lil-jeff** subagent. Use for full modules, not placeholders. Handoff from MORNINGSTAR is documented in `core/inter-agent-protocol.md`. |
 | **R / Quarto / tidyverse / tidymodels** | Invoke the **octavius** subagent. Session starts by reading `octavius_core/THE_RULES.md` and `octavius_core/state.md`; ends with an Executive Summary in `octavius_summaries/`. |
 | **Security, containment, rogue agent, crisis** | Invoke the **aegis-protocol** subagent (`/aegis`). Coordinates Sage, Watcher, Chronicler. MORNINGSTAR acts as Judicial Branch for escalations. See `aegis_core/README.md`. |
@@ -511,7 +532,7 @@ Every directory and key file added since inception. Use this to find where thing
 
 - **Rules and procedures** → `courtroom/RULES.md`, `core/procedures.md`, `courtroom/BEST_PRACTICES.md`
 - **Checklists** → `checklists/` (judge-morningstar, courtroom-scribe, octavius, aegis-protocol, critibot-review)
-- **Litigation runner** → `litigation/` (Ollama, LM Studio, OpenRouter)
+- **Litigation runner** → `litigation/` (Ollama, LM Studio, OpenRouter; interactive menu, full MORNINGSTAR framework, hearing types)
 - **Personality definitions** → `core/personalities.md`
 - **SME domains and how to add them** → `courtroom/domains/README.md`, `courtroom/domains/experts.yaml`, `core/sme-framework.md`
 - **State and metrics** → `state/current.md`, `state/metrics.md`; schema: `core/state-schema.md`
