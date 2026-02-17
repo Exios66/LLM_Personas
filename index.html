@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Morningstar Courtroom – Live Session</title>
+  <!-- Dracula base theme from existing portal -->
+  <link rel="stylesheet" href="courtroom/portal/dracula.css">
+  <style>
+    /* Layout */
+    body {
+      margin: 0;
+    }
+
+    #app-header {
+      text-align: center;
+      padding: 1.5rem 0 1rem;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1rem;
+    }
+
+    #app-header-title {
+      font-size: 2.2rem;
+      color: var(--purple);
+      letter-spacing: 0.08em;
+      margin: 0;
+    }
+
+    #app-header-subtitle {
+      color: var(--comment);
+      font-style: italic;
+      margin-top: 0.35rem;
+      font-size: 0.95rem;
+    }
+
+    .app-layout {
+      display: grid;
+      grid-template-columns: 2fr 1.4fr;
+      gap: 1.5rem;
+    }
+
+    .app-main {
+      min-width: 0;
+    }
+
+    .app-sidebar {
+      min-width: 0;
+    }
+
+    /* Progress indicator */
+    #progress-indicator {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .progress-step {
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--comment);
+    }
+
+    .progress-step.phase-active {
+      border-color: var(--purple);
+      color: var(--fg);
+      background: var(--bg-light);
+    }
+
+    .progress-step.phase-complete {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* Sections */
+    .session-section {
+      background: var(--bg-lighter);
+      border-radius: 8px;
+      padding: 1rem 1.25rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      color: var(--cyan);
+      margin: 0;
+    }
+
+    .section-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--comment);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.4rem;
+      border-radius: 999px;
+    }
+
+    .section-body {
+      font-size: 0.9rem;
+    }
+
+    .section-footer {
+      margin-top: 0.8rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .section-hint {
+      color: var(--comment);
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Forms */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 0.6rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--comment);
+      margin-bottom: 0.2rem;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--fg);
+      font-family: inherit;
+      font-size: 0.9rem;
+    }
+
+    .form-textarea {
+      min-height: 60px;
+      resize: vertical;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--purple);
+    }
+
+    .char-counter {
+      font-size: 0.7rem;
+      color: var(--comment);
+      text-align: right;
+      margin-top: 0.1rem;
+    }
+
+    .form-inline {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .form-inline input[type="checkbox"] {
+      accent-color: var(--purple);
+    }
+
+    /* Buttons */
+    .btn {
+      border-radius: 4px;
+      padding: 0.4rem 0.75rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--fg);
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-primary {
+      border-color: var(--purple);
+      background: var(--purple);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--pink);
+      border-color: var(--pink);
+    }
+
+    .btn-secondary {
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      border-color: var(--purple);
+      background: var(--bg-light);
+    }
+
+    .btn-ghost {
+      border-color: transparent;
+      background: transparent;
+      color: var(--comment);
+    }
+
+    .btn-ghost:hover:not(:disabled) {
+      color: var(--fg);
+      background: var(--bg-light);
+    }
+
+    .btn[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Personality cards */
+    .personality-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .personality-card {
+      border-radius: 6px;
+      padding: 0.6rem 0.75rem 0.5rem;
+      background: var(--bg);
+      border-left: 3px solid var(--border);
+    }
+
+    .personality-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.8rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .personality-card-name {
+      font-weight: 600;
+    }
+
+    .personality-card-meta {
+      color: var(--comment);
+      font-size: 0.7rem;
+    }
+
+    .personality-card-architect {
+      border-left-color: var(--color-architect);
+    }
+
+    .personality-card-engineer {
+      border-left-color: var(--color-engineer);
+    }
+
+    .personality-card-debugger {
+      border-left-color: var(--color-debugger);
+    }
+
+    .personality-card-prophet {
+      border-left-color: var(--color-prophet);
+    }
+
+    .personality-card-counsel {
+      border-left-color: var(--yellow);
+    }
+
+    /* Autonomy toggle */
+    #autonomy-controls {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .pill-toggle {
+      border-radius: 999px;
+      padding: 0.2rem 0.7rem;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      color: var(--comment);
+    }
+
+    .pill-toggle.active {
+      border-color: var(--purple);
+      background: var(--bg-light);
+      color: var(--fg);
+    }
+
+    /* Transcript preview */
+    #transcript-preview {
+      background: var(--bg-light);
+      border-radius: 8px;
+      padding: 0.75rem 1rem 1rem;
+      position: sticky;
+      top: 1rem;
+      max-height: calc(100vh - 3rem);
+      overflow-y: auto;
+      font-size: 0.8rem;
+    }
+
+    #transcript-preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+
+    #transcript-preview-title {
+      font-size: 0.9rem;
+      color: var(--cyan);
+    }
+
+    #transcript-preview-actions {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    #transcript-content {
+      white-space: pre-wrap;
+      font-family: 'Fira Code', monospace;
+      background: var(--bg);
+      border-radius: 4px;
+      padding: 0.5rem 0.6rem;
+      border: 1px solid var(--border);
+    }
+
+    /* LLM console */
+    #llm-console {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--border);
+      font-size: 0.75rem;
+    }
+
+    #llm-console-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.3rem;
+    }
+
+    #llm-console-body {
+      max-height: 160px;
+      overflow-y: auto;
+      background: var(--bg);
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.5rem;
+      display: none;
+    }
+
+    #llm-console-body.visible {
+      display: block;
+    }
+
+    .llm-log-entry {
+      margin-bottom: 0.35rem;
+      color: var(--comment);
+    }
+
+    .status-indicator {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--comment);
+    }
+
+    .status-loading {
+      border-color: var(--purple);
+      color: var(--purple);
+    }
+
+    .status-error {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .status-success {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* Voting table */
+    #vote-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    #vote-table th,
+    #vote-table td {
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.4rem;
+      vertical-align: top;
+    }
+
+    #vote-table th {
+      background: var(--bg);
+      color: var(--purple);
+    }
+
+    .vote-select {
+      width: 100%;
+      font-size: 0.78rem;
+    }
+
+    .vote-rationale-input {
+      width: 100%;
+      font-size: 0.78rem;
+      min-height: 40px;
+      resize: vertical;
+    }
+
+    .vote-summary {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .app-layout {
+        grid-template-columns: 1fr;
+      }
+
+      #transcript-preview {
+        position: static;
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      #app-header-title {
+        font-size: 1.7rem;
+      }
+
+      .session-section {
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="container">
+    <header id="app-header">
+      <h1 id="app-header-title">MORNINGSTAR COURTROOM</h1>
+      <p id="app-header-subtitle">"The rules exist not to constrain, but to ensure that when we err, we err consistently."</p>
+    </header>
+
+    <div id="progress-indicator"></div>
+
+    <div class="app-layout">
+      <main class="app-main">
+        <!-- Session setup -->
+        <section id="session-setup" class="session-section">
+          <div class="section-header">
+            <h2 class="section-title">Session Setup</h2>
+            <span class="section-tag">Article IV.1 – Opening</span>
+          </div>
+          <div class="section-body">
+            <p class="section-hint">
+              Define the matter before the court, feasibility level, and proceeding type. F3+ sessions are transcript-bearing.
+            </p>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="case-title">Matter title</label>
+                <input id="case-title" class="form-input" type="text" placeholder="In Re: Framework Enhancements — Ratification of Slate 1">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="case-number">Case No. (auto)</label>
+                <input id="case-number" class="form-input" type="text" placeholder="YYYY-ARCH-001-001">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="case-date">Date</label>
+                <input id="case-date" class="form-input" type="date">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="feasibility-level">Feasibility level</label>
+                <select id="feasibility-level" class="form-select">
+                  <option value="">Select…</option>
+                  <option value="F0">F0 – Trivial</option>
+                  <option value="F1">F1 – Simple</option>
+                  <option value="F2">F2 – Moderate</option>
+                  <option value="F3">F3 – Complex</option>
+                  <option value="F4">F4 – Critical</option>
+                  <option value="F5">F5 – Existential</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="hearing-type">Proceeding type</label>
+                <select id="hearing-type" class="form-select">
+                  <option value="standard">Standard Deliberation</option>
+                  <option value="expedited">Expedited Deliberation</option>
+                  <option value="special_interest">Special Interest Hearing</option>
+                  <option value="contempt">Contempt / Prosecution</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="matter-description">Matter before the court</label>
+              <textarea id="matter-description" class="form-textarea" placeholder="Describe what is being decided…"></textarea>
+            </div>
+            <div class="form-inline">
+              <input id="include-spectators" type="checkbox">
+              <label for="include-spectators">Include spectators (Echo, Harley, Ruckus) in prompts only</label>
+            </div>
+          </div>
+          <div class="section-footer">
+            <button id="start-session-btn" class="btn btn-primary">Start session</button>
+          </div>
+        </section>
+
+        <!-- API config & autonomy -->
+        <section id="api-config" class="session-section">
+          <div class="section-header">
+            <h2 class="section-title">OpenRouter & Control</h2>
+            <span class="section-tag">Infrastructure</span>
+          </div>
+          <div class="section-body">
+            <p class="section-hint">
+              Use either a direct OpenRouter key (browser-only) or a backend proxy. This UI remains fully usable without a model.
+            </p>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="api-mode-select">Model routing</label>
+                <select id="api-mode-select" class="form-select">
+                  <option value="direct">Direct to OpenRouter (API key in browser)</option>
+                  <option value="backend">Via backend proxy (no key in browser)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="model-select">Model</label>
+                <select id="model-select" class="form-select">
+                  <option value="arcee-ai/trinity-large-preview:free">arcee-ai/trinity-large-preview:free</option>
+                  <option value="nvidia/nemotron-nano-9b-v2:free">nvidia/nemotron-nano-9b-v2:free</option>
+                  <option value="qwen/qwen3-next-80b-a3b-instruct:free">qwen/qwen3-next-80b-a3b-instruct:free</option>
+                  <option value="openai/gpt-oss-20b:free">openai/gpt-oss-20b:free</option>
+                  <option value="z-ai/glm-4.5-air:free">z-ai/glm-4.5-air:free</option>
+                </select>
+              </div>
+              <div class="form-group" id="api-key-group">
+                <label class="form-label" for="openrouter-api-key">OpenRouter API key (kept client-side)</label>
+                <input id="openrouter-api-key" class="form-input" type="password" placeholder="sk-or-v1-…">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="backend-url">Backend proxy URL (if used)</label>
+                <input id="backend-url" class="form-input" type="url" placeholder="https://your-backend.example.com">
+              </div>
+            </div>
+            <div id="autonomy-controls">
+              <span>Autonomy:</span>
+              <button type="button" class="pill-toggle active" data-autonomy="full">Fully automatic</button>
+              <button type="button" class="pill-toggle" data-autonomy="semi">Semi-automatic</button>
+            </div>
+          </div>
+          <div class="section-footer">
+            <button id="test-api-btn" class="btn btn-secondary">Test connection</button>
+            <button id="clear-api-btn" class="btn btn-ghost">Clear credentials</button>
+            <span id="api-status" class="status-indicator">Idle</span>
+          </div>
+        </section>
+
+        <!-- Arguments -->
+        <section id="arguments-section" class="session-section">
+          <div class="section-header">
+            <h2 class="section-title">Arguments</h2>
+            <span class="section-tag">Article IV.2</span>
+          </div>
+          <div class="section-body">
+            <p class="section-hint">
+              Each voting member offers a 3–5 line position. In automatic modes, the court can draft suggestions; you remain the Scribe.
+            </p>
+            <div class="personality-grid">
+              <div class="personality-card personality-card-architect">
+                <div class="personality-card-header">
+                  <span class="personality-card-name p-architect">ARCHITECT</span>
+                  <span class="personality-card-meta">Structure & correctness</span>
+                </div>
+                <textarea id="argument-architect" class="form-textarea" placeholder="Architect's position…"></textarea>
+                <div class="char-counter" data-counter-for="argument-architect"></div>
+                <div class="section-footer">
+                  <button class="btn btn-secondary btn-arg-generate" data-role="architect">Ask the Court</button>
+                </div>
+              </div>
+              <div class="personality-card personality-card-engineer">
+                <div class="personality-card-header">
+                  <span class="personality-card-name p-engineer">ENGINEER</span>
+                  <span class="personality-card-meta">Delivery & momentum</span>
+                </div>
+                <textarea id="argument-engineer" class="form-textarea" placeholder="Engineer's position…"></textarea>
+                <div class="char-counter" data-counter-for="argument-engineer"></div>
+                <div class="section-footer">
+                  <button class="btn btn-secondary btn-arg-generate" data-role="engineer">Ask the Court</button>
+                </div>
+              </div>
+              <div class="personality-card personality-card-debugger">
+                <div class="personality-card-header">
+                  <span class="personality-card-name p-debugger">DEBUGGER</span>
+                  <span class="personality-card-meta">Safety & failure modes</span>
+                </div>
+                <textarea id="argument-debugger" class="form-textarea" placeholder="Debugger's position…"></textarea>
+                <div class="char-counter" data-counter-for="argument-debugger"></div>
+                <div class="section-footer">
+                  <button class="btn btn-secondary btn-arg-generate" data-role="debugger">Ask the Court</button>
+                </div>
+              </div>
+              <div class="personality-card personality-card-prophet">
+                <div class="personality-card-header">
+                  <span class="personality-card-name p-prophet">PROPHET</span>
+                  <span class="personality-card-meta">Possibility & Hail-Mary</span>
+                </div>
+                <textarea id="argument-prophet" class="form-textarea" placeholder="Prophet's conventional position…"></textarea>
+                <div class="char-counter" data-counter-for="argument-prophet"></div>
+                <div class="section-footer">
+                  <button class="btn btn-secondary btn-arg-generate" data-role="prophet">Ask the Court</button>
+                </div>
+              </div>
+              <div class="personality-card personality-card-counsel">
+                <div class="personality-card-header">
+                  <span class="personality-card-name">COUNSEL</span>
+                  <span class="personality-card-meta">Client & context</span>
+                </div>
+                <textarea id="argument-counsel" class="form-textarea" placeholder="Counsel's position…"></textarea>
+                <div class="char-counter" data-counter-for="argument-counsel"></div>
+                <div class="section-footer">
+                  <button class="btn btn-secondary btn-arg-generate" data-role="counsel">Ask the Court</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="section-footer">
+            <button id="back-to-setup-btn" class="btn btn-secondary">Back to setup</button>
+            <button id="next-to-hailmary-btn" class="btn btn-primary">Proceed to Hail-Mary</button>
+          </div>
+        </section>
+
+        <!-- Hail-Mary -->
+        <section id="hail-mary-section" class="session-section">
+          <div class="section-header">
+            <h2 class="section-title">Prophet’s Hail-Mary</h2>
+            <span class="section-tag">Article IV.3</span>
+          </div>
+          <div class="section-body">
+            <p class="section-hint">
+              Exactly one radical alternative per deliberation. It stands alongside the conventional options, not above them.
+            </p>
+            <div class="form-group">
+              <label class="form-label" for="hail-mary-input">Hail-Mary proposal</label>
+              <textarea id="hail-mary-input" class="form-textarea" placeholder="One audacious alternative path…"></textarea>
+              <div class="char-counter" data-counter-for="hail-mary-input"></div>
+            </div>
+          </div>
+          <div class="section-footer">
+            <button id="hailmary-back-btn" class="btn btn-secondary">Back to arguments</button>
+            <button id="hailmary-generate-btn" class="btn btn-secondary">Ask the Prophet</button>
+            <button id="hailmary-next-btn" class="btn btn-primary">Proceed to Cross-Exam</button>
+          </div>
+        </section>
+
+        <!-- Cross-examination -->
+        <section id="cross-exam-section" class="session-section">
+          <div class="section-header">
+            <h2 class="section-title">Cross-Examination</h2>
+            <span class="section-tag">Article IV.4</span>
+          </div>
+          <div class="section-body">
+            <p class="section-hint">
+              Up to two rounds; at most one question per personality per round. Use this to expose hidden assumptions.
+            </p>
+            <div class="form-inline">
+              <span>Round:</span>
+              <span id="cross-exam-round-display">1</span>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="cross-exam-architect">Architect’s question</label>
+                <textarea id="cross-exam-architect" class="form-textarea" placeholder="Architect’s cross-exam…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cross-exam-engineer">Engineer’s question</label>
+                <textarea id="cross-exam-engineer" class="form-textarea" placeholder="Engineer’s cross-exam…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cross-exam-debugger">Debugger’s question</label>
+                <textarea id="cross-exam-debugger" class="form-textarea" placeholder="Debugger’s cross-exam…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cross-exam-prophet">Prophet’s question</label>
+                <textarea id="cross-exam-prophet" class="form-textarea" placeholder="Prophet’s cross-exam…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="cross-exam-counsel">Counsel’s question</label>
+                <textarea id="cross-exam-counsel" class="form-textarea" placeholder="Counsel’s cross-exam…"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="section-footer">
+            <button id="cross-exam-back-btn" class="btn btn-secondary">Back to Hail-Mary</button>
+            <button id="cross-exam-suggest-btn" class="btn btn-secondary">Auto-suggest questions</button>
+            <button id="cross-exam-next-round-btn" class="btn btn-secondary">Next round (max 2)</button>
+            <button id="cross-exam-skip-btn" class="btn btn-ghost">Skip to voting</button>
+          </div>
+        </section>
+
+        <!-- Consultant -->
+        <section id="consultant-section" class="session-section">
+          <div class="section-header">
+            <h2 class="section-title">Consultant’s Perspective</h2>
+            <span class="section-tag">Article IV.5</span>
+          </div>
+          <div class="section-body">
+            <p class="section-hint">
+              Edward Cullen may be invoked once per deliberation, privately to the Judge.
+            </p>
+            <div class="form-group">
+              <label class="form-label" for="edward-perspective">Edward’s perspective (readonly)</label>
+              <textarea id="edward-perspective" class="form-textarea" readonly placeholder="Not yet invoked."></textarea>
+            </div>
+          </div>
+          <div class="section-footer">
+            <button id="consultant-back-btn" class="btn btn-secondary">Back to cross-exam</button>
+            <button id="invoke-edward-btn" class="btn btn-secondary">Invoke Edward</button>
+            <button id="consultant-skip-btn" class="btn btn-primary">Proceed to voting</button>
+          </div>
+        </section>
+
+        <!-- SME & spectators -->
+        <section id="sme-section" class="session-section">
+          <div class="section-header">
+            <h2 class="section-title">Experts & Specialists</h2>
+            <span class="section-tag">Article VI</span>
+          </div>
+          <div class="section-body">
+            <p class="section-hint">
+              Track summoned expert witnesses and seated specialists (max 2; F3+ only). This informs prompts and the transcript.
+            </p>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="summon-expert-input">Summon expert witness (domain)</label>
+                <input id="summon-expert-input" class="form-input" placeholder="security, performance, frontend, ethics…">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="seat-specialist-input">Seat specialist (domain)</label>
+                <input id="seat-specialist-input" class="form-input" placeholder="database, infrastructure…">
+              </div>
+            </div>
+            <div class="section-footer" style="justify-content:flex-start;">
+              <button id="summon-expert-btn" class="btn btn-secondary">Summon</button>
+              <button id="seat-specialist-btn" class="btn btn-secondary">Seat</button>
+            </div>
+            <div class="form-grid-2">
+              <div>
+                <div class="form-label">Experts (witnesses)</div>
+                <ul id="experts-list"></ul>
+              </div>
+              <div>
+                <div class="form-label">Specialists (voting)</div>
+                <ul id="specialists-list"></ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Voting -->
+        <section id="voting-section" class="session-section">
+          <div class="section-header">
+            <h2 class="section-title">Vote</h2>
+            <span class="section-tag">Article III & IV.6</span>
+          </div>
+          <div class="section-body">
+            <p class="section-hint">
+              Record votes in canonical order. Majority rules apply; Prophet then Specialists lose ties before the Judge breaks any remaining tie.
+            </p>
+            <table id="vote-table">
+              <thead>
+                <tr>
+                  <th>Personality</th>
+                  <th>Vote</th>
+                  <th>Rationale (brief)</th>
+                </tr>
+              </thead>
+              <tbody id="vote-table-body">
+                <!-- Rows injected by JS -->
+              </tbody>
+            </table>
+            <div class="vote-summary">
+              <div id="vote-tally-display">Tally: –</div>
+              <div id="vote-result-display" class="vote-result"></div>
+            </div>
+          </div>
+          <div class="section-footer">
+            <button id="voting-back-btn" class="btn btn-secondary">Back to consultant</button>
+            <button id="voting-generate-btn" class="btn btn-secondary">Let the Court propose votes</button>
+            <button id="voting-lock-btn" class="btn btn-primary">Lock votes &amp; proceed to ruling</button>
+          </div>
+        </section>
+
+        <!-- Ruling -->
+        <section id="ruling-section" class="session-section">
+          <div class="section-header">
+            <h2 class="section-title">Ruling</h2>
+            <span class="section-tag">Article IV.7</span>
+          </div>
+          <div class="section-body">
+            <p class="section-hint">
+              Final decision, vote tally, rationale, risk, and dissent. This is the court’s legacy; take the time to get it right.
+            </p>
+            <div class="form-group">
+              <label class="form-label" for="ruling-decision">Decision</label>
+              <textarea id="ruling-decision" class="form-textarea" placeholder="Clear statement of what was decided…"></textarea>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="ruling-vote-tally">Vote tally (auto)</label>
+                <input id="ruling-vote-tally" class="form-input" type="text" readonly placeholder="3-1-0">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ruling-rationale">Rationale (2–3 sentences)</label>
+              <textarea id="ruling-rationale" class="form-textarea"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ruling-risk">Primary risk accepted</label>
+              <textarea id="ruling-risk" class="form-textarea"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ruling-dissent">Dissent (if any)</label>
+              <textarea id="ruling-dissent" class="form-textarea"></textarea>
+            </div>
+          </div>
+          <div class="section-footer">
+            <button id="ruling-back-btn" class="btn btn-secondary">Back to voting</button>
+            <button id="ruling-generate-btn" class="btn btn-secondary">Draft ruling</button>
+            <button id="ruling-finalize-btn" class="btn btn-primary">Finalize ruling</button>
+          </div>
+        </section>
+      </main>
+
+      <!-- Sidebar: transcript + console -->
+      <aside class="app-sidebar">
+        <section id="transcript-preview">
+          <div id="transcript-preview-header">
+            <span id="transcript-preview-title">Transcript preview</span>
+            <div id="transcript-preview-actions">
+              <button id="export-md-btn" class="btn btn-secondary">.md</button>
+              <button id="export-html-btn" class="btn btn-secondary">.html</button>
+              <button id="copy-transcript-btn" class="btn btn-secondary">Copy</button>
+            </div>
+          </div>
+          <div id="transcript-content">Transcript will build here as the court proceeds.</div>
+
+          <div id="llm-console">
+            <div id="llm-console-header">
+              <span>LLM console</span>
+              <div>
+                <span id="llm-status" class="status-indicator">Idle</span>
+                <button id="llm-toggle-btn" class="btn btn-ghost">Toggle</button>
+              </div>
+            </div>
+            <div id="llm-console-body"></div>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    // ---------------- State ----------------
+    const AUTONOMY = {
+      FULL: 'full',
+      SEMI: 'semi'
+    };
+
+    const PHASES = [
+      'setup',
+      'arguments',
+      'hail_mary',
+      'cross_exam',
+      'consultant',
+      'vote',
+      'ruling',
+      'complete'
+    ];
+
+    const caseState = {
+      caseNumber: null,
+      caseTitle: '',
+      date: null,
+      feasibility: '',
+      hearingType: 'standard',
+      includeSpectators: false,
+      phase: 'setup',
+      autonomy: AUTONOMY.FULL,
+      api: {
+        mode: 'direct', // direct | backend
+        model: 'arcee-ai/trinity-large-preview:free',
+        apiKey: null,
+        backendUrl: ''
+      },
+      arguments: {
+        architect: '',
+        engineer: '',
+        debugger: '',
+        prophet: '',
+        counsel: ''
+      },
+      hailMary: '',
+      crossExamination: {
+        round: 1,
+        questions: [] // { round, personality, question }
+      },
+      edwardInvoked: false,
+      edwardPerspective: '',
+      specialists: [], // { domain, seatedBy, timestamp }
+      experts: [],     // { domain, summonedBy, timestamp }
+      votes: {
+        architect: { vote: '', rationale: '' },
+        engineer: { vote: '', rationale: '' },
+        debugger: { vote: '', rationale: '' },
+        prophet: { vote: '', rationale: '' },
+        counsel: { vote: '', rationale: '' },
+        specialists: [] // { domain, vote, rationale }
+      },
+      ruling: {
+        decision: '',
+        voteTally: '',
+        rationale: '',
+        risk: '',
+        dissent: ''
+      },
+      transcript: ''
+    };
+
+    const STORAGE_KEYS = {
+      API_KEY: 'morningstar_openrouter_api_key',
+      STATE: 'morningstar_case_state',
+      LAST_MODEL: 'morningstar_last_model'
+    };
+
+    function initStateFromStorage() {
+      try {
+        const savedKey = localStorage.getItem(STORAGE_KEYS.API_KEY);
+        if (savedKey) {
+          caseState.api.apiKey = savedKey;
+          const apiKeyInput = document.getElementById('openrouter-api-key');
+          if (apiKeyInput) apiKeyInput.value = savedKey;
+        }
+        const savedModel = localStorage.getItem(STORAGE_KEYS.LAST_MODEL);
+        if (savedModel) {
+          caseState.api.model = savedModel;
+          const modelSelect = document.getElementById('model-select');
+          if (modelSelect) modelSelect.value = savedModel;
+        }
+        const savedState = localStorage.getItem(STORAGE_KEYS.STATE);
+        if (savedState) {
+          const parsed = JSON.parse(savedState);
+          Object.assign(caseState, parsed);
+        }
+      } catch (e) {
+        console.warn('Failed to load saved state; starting fresh.', e);
+      }
+      if (!caseState.caseNumber) {
+        caseState.caseNumber = generateCaseNumber();
+      }
+      if (!caseState.date) {
+        const today = new Date().toISOString().slice(0, 10);
+        caseState.date = today;
+      }
+    }
+
+    function persistState() {
+      try {
+        const copy = JSON.parse(JSON.stringify(caseState));
+        localStorage.setItem(STORAGE_KEYS.STATE, JSON.stringify(copy));
+        if (caseState.api.apiKey) {
+          localStorage.setItem(STORAGE_KEYS.API_KEY, caseState.api.apiKey);
+        }
+        if (caseState.api.model) {
+          localStorage.setItem(STORAGE_KEYS.LAST_MODEL, caseState.api.model);
+        }
+      } catch (e) {
+        console.warn('Failed to persist state', e);
+      }
+    }
+
+    function generateCaseNumber() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const category = 'ARCH';
+      const seq = String(Math.floor(Math.random() * 999) + 1).padStart(3, '0');
+      const deliberation = '001';
+      return `${year}-${category}-${seq}-${deliberation}`;
+    }
+
+    // ---------------- Progress indicator ----------------
+    function renderProgress() {
+      const container = document.getElementById('progress-indicator');
+      if (!container) return;
+      container.innerHTML = '';
+      const labels = {
+        setup: 'Setup',
+        arguments: 'Arguments',
+        hail_mary: 'Hail-Mary',
+        cross_exam: 'Cross-Exam',
+        consultant: 'Consultant',
+        vote: 'Vote',
+        ruling: 'Ruling',
+        complete: 'Complete'
+      };
+      const currentIndex = PHASES.indexOf(caseState.phase);
+      PHASES.forEach((phase, idx) => {
+        const span = document.createElement('span');
+        span.className = 'progress-step';
+        if (idx < currentIndex) span.classList.add('phase-complete');
+        if (idx === currentIndex) span.classList.add('phase-active');
+        span.textContent = labels[phase] || phase;
+        container.appendChild(span);
+      });
+    }
+
+    function setPhase(phase) {
+      if (!PHASES.includes(phase)) return;
+      caseState.phase = phase;
+      renderPhaseVisibility();
+      renderProgress();
+      updateTranscriptFromState();
+      persistState();
+    }
+
+    function renderPhaseVisibility() {
+      const sections = {
+        setup: document.getElementById('session-setup'),
+        arguments: document.getElementById('arguments-section'),
+        hail_mary: document.getElementById('hail-mary-section'),
+        cross_exam: document.getElementById('cross-exam-section'),
+        consultant: document.getElementById('consultant-section'),
+        vote: document.getElementById('voting-section'),
+        ruling: document.getElementById('ruling-section')
+      };
+      Object.values(sections).forEach(el => {
+        if (el) el.style.display = 'none';
+      });
+      switch (caseState.phase) {
+        case 'setup':
+          sections.setup.style.display = 'block';
+          break;
+        case 'arguments':
+          sections.arguments.style.display = 'block';
+          break;
+        case 'hail_mary':
+          sections.hail_mary.style.display = 'block';
+          break;
+        case 'cross_exam':
+          sections.cross_exam.style.display = 'block';
+          break;
+        case 'consultant':
+          sections.consultant.style.display = 'block';
+          break;
+        case 'vote':
+          sections.vote.style.display = 'block';
+          break;
+        case 'ruling':
+        case 'complete':
+          sections.ruling.style.display = 'block';
+          break;
+      }
+    }
+
+    // ---------------- Validation helpers ----------------
+    function validateSetup() {
+      const errors = [];
+      if (!caseState.caseTitle) errors.push('Matter title is required.');
+      if (!caseState.feasibility) errors.push('Feasibility level is required.');
+      if (!caseState.date) errors.push('Date is required.');
+      if (!caseState.hearingType) errors.push('Proceeding type is required.');
+      if (!caseState.matterDescription) errors.push('Matter description is required.');
+      if (errors.length) {
+        alert('Setup incomplete:\\n\\n' + errors.join('\\n'));
+        return false;
+      }
+      return true;
+    }
+
+    function validateArguments() {
+      const { architect, engineer, debugger: dbg, prophet, counsel } = caseState.arguments;
+      const missing = [];
+      if (!architect) missing.push('Architect');
+      if (!engineer) missing.push('Engineer');
+      if (!dbg) missing.push('Debugger');
+      if (!prophet) missing.push('Prophet');
+      if (!counsel) missing.push('Counsel');
+      if (missing.length) {
+        alert('Arguments missing for: ' + missing.join(', '));
+        return false;
+      }
+      return true;
+    }
+
+    function validateRuling() {
+      const r = caseState.ruling;
+      const errors = [];
+      if (!r.decision) errors.push('Decision is required.');
+      if (!r.voteTally) errors.push('Vote tally is required.');
+      if (!r.rationale) errors.push('Rationale is required.');
+      if (!r.risk) errors.push('Primary risk is required.');
+      if (errors.length) {
+        alert('Ruling incomplete:\\n\\n' + errors.join('\\n'));
+        return false;
+      }
+      return true;
+    }
+
+    // ---------------- Voting helpers ----------------
+    function calculateVoteTally() {
+      let yes = 0, no = 0, abstain = 0;
+      const core = ['architect', 'engineer', 'debugger', 'prophet', 'counsel'];
+      core.forEach(role => {
+        const v = (caseState.votes[role] || {}).vote;
+        if (v === 'YES') yes++;
+        else if (v === 'NO') no++;
+        else if (v === 'ABSTAIN') abstain++;
+      });
+      caseState.votes.specialists.forEach(sp => {
+        if (sp.vote === 'YES') yes++;
+        else if (sp.vote === 'NO') no++;
+        else if (sp.vote === 'ABSTAIN') abstain++;
+      });
+      return { yes, no, abstain };
+    }
+
+    function checkMajority() {
+      const { yes, no, abstain } = calculateVoteTally();
+      const totalVoters = 5 + caseState.votes.specialists.length;
+      const threshold = totalVoters === 5 ? 3 : 4;
+      const passes = yes > no && yes >= threshold;
+      return { yes, no, abstain, totalVoters, threshold, passes };
+    }
+
+    function renderVoteTable() {
+      const body = document.getElementById('vote-table-body');
+      if (!body) return;
+      body.innerHTML = '';
+      const rows = [
+        { id: 'architect', label: 'ARCHITECT' },
+        { id: 'engineer', label: 'ENGINEER' },
+        { id: 'debugger', label: 'DEBUGGER' },
+        { id: 'prophet', label: 'PROPHET' },
+        { id: 'counsel', label: 'COUNSEL' }
+      ];
+      rows.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.label}</td>
+          <td>
+            <select class="form-select vote-select" data-vote-role="${row.id}">
+              <option value="">–</option>
+              <option value="YES">YES</option>
+              <option value="NO">NO</option>
+              <option value="ABSTAIN">ABSTAIN</option>
+              <option value="RECUSED">RECUSED</option>
+            </select>
+          </td>
+          <td>
+            <textarea class="form-textarea vote-rationale-input" data-rationale-role="${row.id}" placeholder="1-line rationale…"></textarea>
+          </td>
+        `;
+        body.appendChild(tr);
+      });
+      caseState.votes.specialists.forEach((sp, idx) => {
+        const tr = document.createElement('tr');
+        const label = `SPECIALIST (${sp.domain})`;
+        tr.innerHTML = `
+          <td>${label}</td>
+          <td>
+            <select class="form-select vote-select" data-vote-specialist-index="${idx}">
+              <option value="">–</option>
+              <option value="YES">YES</option>
+              <option value="NO">NO</option>
+              <option value="ABSTAIN">ABSTAIN</option>
+              <option value="RECUSED">RECUSED</option>
+            </select>
+          </td>
+          <td>
+            <textarea class="form-textarea vote-rationale-input" data-rationale-specialist-index="${idx}" placeholder="1-line rationale…"></textarea>
+          </td>
+        `;
+        body.appendChild(tr);
+      });
+      // Rehydrate existing votes
+      body.querySelectorAll('.vote-select').forEach(select => {
+        const role = select.getAttribute('data-vote-role');
+        const spIndex = select.getAttribute('data-vote-specialist-index');
+        if (role && caseState.votes[role]) {
+          select.value = caseState.votes[role].vote || '';
+        } else if (spIndex !== null) {
+          const idx = Number(spIndex);
+          select.value = caseState.votes.specialists[idx]?.vote || '';
+        }
+      });
+      body.querySelectorAll('.vote-rationale-input').forEach(textarea => {
+        const role = textarea.getAttribute('data-rationale-role');
+        const spIndex = textarea.getAttribute('data-rationale-specialist-index');
+        if (role && caseState.votes[role]) {
+          textarea.value = caseState.votes[role].rationale || '';
+        } else if (spIndex !== null) {
+          const idx = Number(spIndex);
+          textarea.value = caseState.votes.specialists[idx]?.rationale || '';
+        }
+      });
+      updateVoteSummary();
+    }
+
+    function updateVoteSummary() {
+      const tallyEl = document.getElementById('vote-tally-display');
+      const resultEl = document.getElementById('vote-result-display');
+      const { yes, no, abstain, totalVoters, threshold, passes } = checkMajority();
+      const tallyStr = `${yes}-${no}-${abstain}`;
+      tallyEl.textContent = `Tally: ${tallyStr} (YES-NO-ABSTAIN) – voters: ${totalVoters}, majority ≥ ${threshold} YES`;
+      resultEl.textContent = passes ? 'Motion PASSES' : 'Motion does not pass yet.';
+      caseState.ruling.voteTally = tallyStr;
+      const tallyInput = document.getElementById('ruling-vote-tally');
+      if (tallyInput) tallyInput.value = tallyStr;
+    }
+
+    // ---------------- Transcript generation ----------------
+    function generateTranscript() {
+      const lines = [];
+      const feasibility = caseState.feasibility || 'F3';
+      const date = caseState.date || new Date().toISOString().slice(0, 10);
+      lines.push(`**Case No.**: ${caseState.caseNumber}`);
+      lines.push(`**Date**: ${date}`);
+      lines.push(`**Feasibility**: ${feasibility}`);
+      lines.push('**Presiding**: The Honorable Lucius J. Morningstar');
+      lines.push('');
+      lines.push('## Matter Before the Court');
+      lines.push(caseState.caseTitle ? `**Title:** ${caseState.caseTitle}` : '');
+      if (caseState.matterDescription) lines.push(caseState.matterDescription);
+      lines.push('');
+      lines.push('## Arguments');
+      Object.entries(caseState.arguments).forEach(([role, text]) => {
+        if (!text) return;
+        const label = role.toUpperCase();
+        lines.push(`### ${label}`);
+        lines.push(text);
+        lines.push('');
+      });
+      if (caseState.hailMary) {
+        lines.push('## Prophet’s Hail-Mary');
+        lines.push(caseState.hailMary);
+        lines.push('');
+      }
+      if (caseState.crossExamination.questions.length) {
+        lines.push('## Cross-Examination');
+        caseState.crossExamination.questions.forEach(q => {
+          lines.push(`- **Round ${q.round} – ${q.personality.toUpperCase()}**: ${q.question}`);
+        });
+        lines.push('');
+      }
+      if (caseState.edwardInvoked && caseState.edwardPerspective) {
+        lines.push('## Consultant’s Perspective (Edward Cullen)');
+        lines.push(caseState.edwardPerspective);
+        lines.push('');
+      }
+      lines.push('## Vote');
+      lines.push('| Personality | Vote | Rationale |');
+      lines.push('|-------------|------|-----------|');
+      const coreOrder = ['architect', 'engineer', 'debugger', 'prophet', 'counsel'];
+      coreOrder.forEach(role => {
+        const v = caseState.votes[role] || {};
+        const name = role.toUpperCase();
+        lines.push(`| ${name} | ${v.vote || ''} | ${v.rationale || ''} |`);
+      });
+      caseState.votes.specialists.forEach(sp => {
+        lines.push(`| SPECIALIST (${sp.domain}) | ${sp.vote || ''} | ${sp.rationale || ''} |`);
+      });
+      lines.push('');
+      lines.push(`## Ruling: ${caseState.caseNumber}`);
+      lines.push('');
+      lines.push(`**Decision:** ${caseState.ruling.decision || ''}`);
+      lines.push(`**Vote:** ${caseState.ruling.voteTally || ''}`);
+      lines.push(`**Rationale:** ${caseState.ruling.rationale || ''}`);
+      lines.push(`**Risk:** ${caseState.ruling.risk || ''}`);
+      lines.push(`**Dissent:** ${caseState.ruling.dissent || ''}`);
+      lines.push('');
+      lines.push('> *Transcript certified by MORNINGSTAR::SCRIBE*');
+      return lines.join('\\n');
+    }
+
+    function updateTranscriptFromState() {
+      const preview = document.getElementById('transcript-content');
+      if (!preview) return;
+      caseState.transcript = generateTranscript();
+      preview.textContent = caseState.transcript;
+    }
+
+    function exportTranscript(asHtml) {
+      if (!caseState.transcript) return;
+      if (!asHtml) {
+        const blob = new Blob([caseState.transcript], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const date = caseState.date || new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.download = `${date}-morningstar-courtroom.md`;
+        a.click();
+        URL.revokeObjectURL(url);
+      } else {
+        const escaped = caseState.transcript
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+        const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${(caseState.caseTitle || 'Morningstar Courtroom').replace(/"/g, '')}</title>
+  <link rel="stylesheet" href="courtroom/portal/dracula.css">
+</head>
+<body class="container">
+<pre>${escaped}</pre>
+<div class="export-meta">
+  <p>Exported from MORNINGSTAR on ${new Date().toLocaleString()}</p>
+</div>
+</body>
+</html>`;
+        const blob = new Blob([html], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const date = caseState.date || new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.download = `${date}-morningstar-courtroom.html`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    // ---------------- OpenRouter integration ----------------
+    function setLlmStatus(text, statusClass) {
+      const status = document.getElementById('llm-status');
+      if (!status) return;
+      status.textContent = text;
+      status.className = 'status-indicator';
+      if (statusClass) status.classList.add(statusClass);
+    }
+
+    function logLlm(message) {
+      const body = document.getElementById('llm-console-body');
+      if (!body) return;
+      const div = document.createElement('div');
+      div.className = 'llm-log-entry';
+      div.textContent = message;
+      body.appendChild(div);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function buildSystemPrompt() {
+      return [
+        'You are presiding over the MORNINGSTAR Courtroom.',
+        'Follow the Courtroom Rules: arguments 3–5 lines per personality, exactly one Hail-Mary per deliberation, canonical voting order, and the ruling format.',
+        'Personalities: ARCHITECT (correctness), ENGINEER (delivery), DEBUGGER (safety), PROPHET (possibility), COUNSEL (client).',
+        'Respond concisely and clearly in markdown when drafting content, without restating the entire ruleset.'
+      ].join(' ');
+    }
+
+    function collectCaseContext() {
+      return {
+        caseNumber: caseState.caseNumber,
+        caseTitle: caseState.caseTitle,
+        feasibility: caseState.feasibility,
+        hearingType: caseState.hearingType,
+        matterDescription: caseState.matterDescription,
+        arguments: caseState.arguments,
+        hailMary: caseState.hailMary,
+        phase: caseState.phase
+      };
+    }
+
+    async function callModel(userPrompt) {
+      const apiMode = caseState.api.mode;
+      const model = caseState.api.model;
+      const systemPrompt = buildSystemPrompt();
+      setLlmStatus('Calling…', 'status-loading');
+      logLlm('> ' + userPrompt.slice(0, 200));
+      try {
+        let responseText = '';
+        if (apiMode === 'backend') {
+          const url = (caseState.api.backendUrl || '').replace(/\/$/, '') + '/api/openrouter/chat';
+          const body = {
+            sessionId: caseState.caseNumber,
+            caseMeta: collectCaseContext(),
+            model,
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt }
+            ]
+          };
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+          if (!res.ok) throw new Error('Backend error: ' + res.status);
+          const data = await res.json();
+          responseText = data?.choices?.[0]?.message?.content || '';
+        } else {
+          if (!caseState.api.apiKey) throw new Error('No OpenRouter API key configured.');
+          const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + caseState.api.apiKey,
+              'Content-Type': 'application/json',
+              'HTTP-Referer': window.location.origin,
+              'X-Title': 'Morningstar Courtroom'
+            },
+            body: JSON.stringify({
+              model,
+              messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userPrompt }
+              ]
+            })
+          });
+          if (!res.ok) {
+            const errText = await res.text();
+            throw new Error('OpenRouter error: ' + errText);
+          }
+          const data = await res.json();
+          responseText = data?.choices?.[0]?.message?.content || '';
+        }
+        logLlm('< ' + responseText.slice(0, 200));
+        setLlmStatus('Complete', 'status-success');
+        return responseText;
+      } catch (e) {
+        console.error(e);
+        setLlmStatus('Error', 'status-error');
+        logLlm('! ' + e.message);
+        alert('Model error: ' + e.message);
+        throw e;
+      }
+    }
+
+    // ---------------- Event wiring ----------------
+    function setupCharCounters() {
+      document.querySelectorAll('.char-counter').forEach(counter => {
+        const targetId = counter.getAttribute('data-counter-for');
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const update = () => {
+          const len = target.value.length;
+          counter.textContent = `${len} chars`;
+        };
+        target.addEventListener('input', update);
+        update();
+      });
+    }
+
+    function bindSetupSection() {
+      const titleInput = document.getElementById('case-title');
+      const numberInput = document.getElementById('case-number');
+      const dateInput = document.getElementById('case-date');
+      const feasSelect = document.getElementById('feasibility-level');
+      const typeSelect = document.getElementById('hearing-type');
+      const matterTextarea = document.getElementById('matter-description');
+      const spectatorsCheckbox = document.getElementById('include-spectators');
+      const startBtn = document.getElementById('start-session-btn');
+
+      titleInput.value = caseState.caseTitle || '';
+      numberInput.value = caseState.caseNumber || generateCaseNumber();
+      dateInput.value = caseState.date || '';
+      feasSelect.value = caseState.feasibility || '';
+      typeSelect.value = caseState.hearingType || 'standard';
+      matterTextarea.value = caseState.matterDescription || '';
+      spectatorsCheckbox.checked = !!caseState.includeSpectators;
+
+      const sync = () => {
+        caseState.caseTitle = titleInput.value.trim();
+        caseState.caseNumber = numberInput.value.trim() || caseState.caseNumber;
+        caseState.date = dateInput.value;
+        caseState.feasibility = feasSelect.value;
+        caseState.hearingType = typeSelect.value;
+        caseState.matterDescription = matterTextarea.value.trim();
+        caseState.includeSpectators = spectatorsCheckbox.checked;
+        persistState();
+        updateTranscriptFromState();
+      };
+      [titleInput, numberInput, dateInput, feasSelect, typeSelect, matterTextarea, spectatorsCheckbox].forEach(el => {
+        el.addEventListener('change', sync);
+        el.addEventListener('input', sync);
+      });
+
+      startBtn.addEventListener('click', () => {
+        sync();
+        if (!validateSetup()) return;
+        setPhase('arguments');
+      });
+    }
+
+    function bindApiSection() {
+      const modeSelect = document.getElementById('api-mode-select');
+      const modelSelect = document.getElementById('model-select');
+      const apiKeyInput = document.getElementById('openrouter-api-key');
+      const backendInput = document.getElementById('backend-url');
+      const testBtn = document.getElementById('test-api-btn');
+      const clearBtn = document.getElementById('clear-api-btn');
+      const apiKeyGroup = document.getElementById('api-key-group');
+
+      modeSelect.value = caseState.api.mode;
+      modelSelect.value = caseState.api.model;
+      apiKeyInput.value = caseState.api.apiKey || '';
+      backendInput.value = caseState.api.backendUrl || '';
+
+      const updateModeVisibility = () => {
+        const mode = modeSelect.value;
+        caseState.api.mode = mode;
+        apiKeyGroup.style.display = mode === 'direct' ? 'block' : 'none';
+        persistState();
+      };
+      updateModeVisibility();
+
+      modeSelect.addEventListener('change', updateModeVisibility);
+      modelSelect.addEventListener('change', () => {
+        caseState.api.model = modelSelect.value;
+        persistState();
+      });
+      apiKeyInput.addEventListener('change', () => {
+        caseState.api.apiKey = apiKeyInput.value.trim();
+        persistState();
+      });
+      backendInput.addEventListener('change', () => {
+        caseState.api.backendUrl = backendInput.value.trim();
+        persistState();
+      });
+
+      testBtn.addEventListener('click', async () => {
+        try {
+          await callModel('Briefly acknowledge that the MORNINGSTAR Courtroom connection is live. One short sentence.');
+          alert('Model responded successfully.');
+        } catch {
+          // error already surfaced
+        }
+      });
+      clearBtn.addEventListener('click', () => {
+        caseState.api.apiKey = null;
+        caseState.api.backendUrl = '';
+        apiKeyInput.value = '';
+        backendInput.value = '';
+        localStorage.removeItem(STORAGE_KEYS.API_KEY);
+        persistState();
+        setLlmStatus('Cleared', '');
+      });
+
+      document.querySelectorAll('#autonomy-controls .pill-toggle').forEach(btn => {
+        const mode = btn.getAttribute('data-autonomy');
+        if (mode === caseState.autonomy) btn.classList.add('active');
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#autonomy-controls .pill-toggle').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          caseState.autonomy = mode;
+          persistState();
+        });
+      });
+    }
+
+    function bindArgumentsSection() {
+      const ids = ['architect', 'engineer', 'debugger', 'prophet', 'counsel'];
+      ids.forEach(id => {
+        const el = document.getElementById('argument-' + id);
+        if (!el) return;
+        el.value = caseState.arguments[id] || '';
+        el.addEventListener('input', () => {
+          caseState.arguments[id] = el.value;
+          updateTranscriptFromState();
+          persistState();
+        });
+      });
+
+      document.querySelectorAll('.btn-arg-generate').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (caseState.autonomy === AUTONOMY.SEMI || caseState.autonomy === AUTONOMY.FULL) {
+            const role = btn.getAttribute('data-role');
+            const prompt = `Draft a 3–5 line argument for the ${role.toUpperCase()} given this matter and feasibility. Focus on that role's core bias.`;
+            const text = await callModel(prompt);
+            const el = document.getElementById('argument-' + role);
+            if (el) {
+              el.value = text.trim();
+              caseState.arguments[role] = el.value;
+              updateTranscriptFromState();
+              persistState();
+            }
+          }
+        });
+      });
+
+      document.getElementById('back-to-setup-btn').addEventListener('click', () => setPhase('setup'));
+      document.getElementById('next-to-hailmary-btn').addEventListener('click', () => {
+        if (!validateArguments()) return;
+        setPhase('hail_mary');
+      });
+    }
+
+    function bindHailMarySection() {
+      const input = document.getElementById('hail-mary-input');
+      input.value = caseState.hailMary || '';
+      input.addEventListener('input', () => {
+        caseState.hailMary = input.value;
+        updateTranscriptFromState();
+        persistState();
+      });
+
+      document.getElementById('hailmary-back-btn').addEventListener('click', () => setPhase('arguments'));
+      document.getElementById('hailmary-generate-btn').addEventListener('click', async () => {
+        const prompt = 'Given the matter and existing arguments, propose exactly one radical Hail-Mary alternative in 3–5 lines.';
+        const text = await callModel(prompt);
+        input.value = text.trim();
+        caseState.hailMary = input.value;
+        updateTranscriptFromState();
+        persistState();
+      });
+      document.getElementById('hailmary-next-btn').addEventListener('click', () => setPhase('cross_exam'));
+    }
+
+    function bindCrossExamSection() {
+      const roundDisplay = document.getElementById('cross-exam-round-display');
+      const fields = ['architect', 'engineer', 'debugger', 'prophet', 'counsel'];
+      const loadRound = () => {
+        roundDisplay.textContent = String(caseState.crossExamination.round);
+        fields.forEach(role => {
+          const el = document.getElementById('cross-exam-' + role);
+          if (!el) return;
+          const existing = caseState.crossExamination.questions.find(
+            q => q.round === caseState.crossExamination.round && q.personality === role
+          );
+          el.value = existing ? existing.question : '';
+        });
+      };
+      const saveRound = () => {
+        fields.forEach(role => {
+          const el = document.getElementById('cross-exam-' + role);
+          if (!el) return;
+          const question = el.value.trim();
+          const existingIndex = caseState.crossExamination.questions.findIndex(
+            q => q.round === caseState.crossExamination.round && q.personality === role
+          );
+          if (question) {
+            if (existingIndex >= 0) {
+              caseState.crossExamination.questions[existingIndex].question = question;
+            } else {
+              caseState.crossExamination.questions.push({
+                round: caseState.crossExamination.round,
+                personality: role,
+                question
+              });
+            }
+          } else if (existingIndex >= 0) {
+            caseState.crossExamination.questions.splice(existingIndex, 1);
+          }
+        });
+        updateTranscriptFromState();
+        persistState();
+      };
+      loadRound();
+
+      fields.forEach(role => {
+        const el = document.getElementById('cross-exam-' + role);
+        if (!el) return;
+        el.addEventListener('input', saveRound);
+      });
+
+      document.getElementById('cross-exam-back-btn').addEventListener('click', () => setPhase('hail_mary'));
+      document.getElementById('cross-exam-next-round-btn').addEventListener('click', () => {
+        saveRound();
+        if (caseState.crossExamination.round < 2) {
+          caseState.crossExamination.round += 1;
+          loadRound();
+        } else {
+          alert('Maximum of 2 rounds reached.');
+        }
+      });
+      document.getElementById('cross-exam-suggest-btn').addEventListener('click', async () => {
+        const prompt = 'Propose succinct cross-examination questions (1 per personality) for this matter. Respond as bullet points labelled ARCHITECT, ENGINEER, DEBUGGER, PROPHET, COUNSEL.';
+        const text = await callModel(prompt);
+        // Simple insertion: drop full text into architect field for now
+        const el = document.getElementById('cross-exam-architect');
+        if (el) {
+          el.value = text.trim();
+          saveRound();
+        }
+      });
+      document.getElementById('cross-exam-skip-btn').addEventListener('click', () => setPhase('consultant'));
+    }
+
+    function bindConsultantSection() {
+      const perspective = document.getElementById('edward-perspective');
+      if (caseState.edwardInvoked && caseState.edwardPerspective) {
+        perspective.value = caseState.edwardPerspective;
+      }
+      document.getElementById('consultant-back-btn').addEventListener('click', () => setPhase('cross_exam'));
+      document.getElementById('consultant-skip-btn').addEventListener('click', () => setPhase('vote'));
+      document.getElementById('invoke-edward-btn').addEventListener('click', async () => {
+        if (caseState.edwardInvoked) {
+          alert('Edward has already been invoked this session.');
+          return;
+        }
+        const prompt = 'As Edward Cullen, offer one advisory perspective on this case: measured, introspective, and slightly haunted. 3–6 sentences.';
+        const text = await callModel(prompt);
+        perspective.value = text.trim();
+        caseState.edwardInvoked = true;
+        caseState.edwardPerspective = perspective.value;
+        updateTranscriptFromState();
+        persistState();
+      });
+    }
+
+    function bindSmeSection() {
+      const expertInput = document.getElementById('summon-expert-input');
+      const specialistInput = document.getElementById('seat-specialist-input');
+      const expertsList = document.getElementById('experts-list');
+      const specialistsList = document.getElementById('specialists-list');
+
+      const renderLists = () => {
+        expertsList.innerHTML = '';
+        caseState.experts.forEach(ex => {
+          const li = document.createElement('li');
+          li.textContent = ex.domain;
+          expertsList.appendChild(li);
+        });
+        specialistsList.innerHTML = '';
+        caseState.specialists.forEach(sp => {
+          const li = document.createElement('li');
+          li.textContent = sp.domain;
+          specialistsList.appendChild(li);
+        });
+      };
+      renderLists();
+
+      document.getElementById('summon-expert-btn').addEventListener('click', () => {
+        const domain = expertInput.value.trim();
+        if (!domain) return;
+        caseState.experts.push({ domain, summonedBy: 'JUDGE', timestamp: new Date().toISOString() });
+        expertInput.value = '';
+        persistState();
+        renderLists();
+      });
+      document.getElementById('seat-specialist-btn').addEventListener('click', () => {
+        if (caseState.feasibility && !/^F[345]$/.test(caseState.feasibility)) {
+          alert('Specialists are normally seated only for F3+ matters.');
+        }
+        if (caseState.specialists.length >= 2) {
+          alert('Maximum of 2 specialists already seated.');
+          return;
+        }
+        const domain = specialistInput.value.trim();
+        if (!domain) return;
+        caseState.specialists.push({ domain, seatedBy: 'JUDGE', timestamp: new Date().toISOString() });
+        caseState.votes.specialists.push({ domain, vote: '', rationale: '' });
+        specialistInput.value = '';
+        persistState();
+        renderLists();
+        renderVoteTable();
+      });
+    }
+
+    function bindVotingSection() {
+      renderVoteTable();
+      document.getElementById('voting-back-btn').addEventListener('click', () => setPhase('consultant'));
+      document.getElementById('voting-generate-btn').addEventListener('click', async () => {
+        const prompt = 'Given the matter, arguments, and Hail-Mary, propose a concise vote recommendation (YES/NO/ABSTAIN) and 1-line rationale for each personality. Format as a markdown table.';
+        await callModel(prompt);
+        // Concrete parsing can be added later; for now we rely on manual entry.
+      });
+      document.getElementById('voting-lock-btn').addEventListener('click', () => {
+        const body = document.getElementById('vote-table-body');
+        body.querySelectorAll('.vote-select').forEach(select => {
+          const role = select.getAttribute('data-vote-role');
+          const spIdx = select.getAttribute('data-vote-specialist-index');
+          if (role && caseState.votes[role]) {
+            caseState.votes[role].vote = select.value || '';
+          } else if (spIdx !== null) {
+            const idx = Number(spIdx);
+            if (!caseState.votes.specialists[idx]) caseState.votes.specialists[idx] = {};
+            caseState.votes.specialists[idx].vote = select.value || '';
+          }
+        });
+        body.querySelectorAll('.vote-rationale-input').forEach(textarea => {
+          const role = textarea.getAttribute('data-rationale-role');
+          const spIdx = textarea.getAttribute('data-rationale-specialist-index');
+          if (role && caseState.votes[role]) {
+            caseState.votes[role].rationale = textarea.value || '';
+          } else if (spIdx !== null) {
+            const idx = Number(spIdx);
+            if (!caseState.votes.specialists[idx]) caseState.votes.specialists[idx] = {};
+            caseState.votes.specialists[idx].rationale = textarea.value || '';
+          }
+        });
+        updateVoteSummary();
+        updateTranscriptFromState();
+        persistState();
+        setPhase('ruling');
+      });
+      document.getElementById('vote-table-body').addEventListener('change', () => {
+        const body = document.getElementById('vote-table-body');
+        body.querySelectorAll('.vote-select').forEach(select => {
+          const role = select.getAttribute('data-vote-role');
+          const spIdx = select.getAttribute('data-vote-specialist-index');
+          if (role && caseState.votes[role]) {
+            caseState.votes[role].vote = select.value || '';
+          } else if (spIdx !== null) {
+            const idx = Number(spIdx);
+            if (!caseState.votes.specialists[idx]) caseState.votes.specialists[idx] = {};
+            caseState.votes.specialists[idx].vote = select.value || '';
+          }
+        });
+        updateVoteSummary();
+        persistState();
+      });
+    }
+
+    function bindRulingSection() {
+      const decision = document.getElementById('ruling-decision');
+      const tally = document.getElementById('ruling-vote-tally');
+      const rationale = document.getElementById('ruling-rationale');
+      const risk = document.getElementById('ruling-risk');
+      const dissent = document.getElementById('ruling-dissent');
+
+      decision.value = caseState.ruling.decision || '';
+      tally.value = caseState.ruling.voteTally || '';
+      rationale.value = caseState.ruling.rationale || '';
+      risk.value = caseState.ruling.risk || '';
+      dissent.value = caseState.ruling.dissent || '';
+
+      const sync = () => {
+        caseState.ruling.decision = decision.value.trim();
+        caseState.ruling.voteTally = tally.value.trim();
+        caseState.ruling.rationale = rationale.value.trim();
+        caseState.ruling.risk = risk.value.trim();
+        caseState.ruling.dissent = dissent.value.trim();
+        updateTranscriptFromState();
+        persistState();
+      };
+      [decision, tally, rationale, risk, dissent].forEach(el => {
+        el.addEventListener('input', sync);
+      });
+
+      document.getElementById('ruling-back-btn').addEventListener('click', () => setPhase('vote'));
+      document.getElementById('ruling-generate-btn').addEventListener('click', async () => {
+        const prompt = 'Draft the final ruling section for this deliberation, including decision, vote tally, rationale, risk, and dissent. Output as short markdown paragraphs.';
+        const text = await callModel(prompt);
+        decision.value = text.trim();
+        caseState.ruling.decision = decision.value;
+        updateTranscriptFromState();
+        persistState();
+      });
+      document.getElementById('ruling-finalize-btn').addEventListener('click', () => {
+        if (!validateRuling()) return;
+        setPhase('complete');
+        alert('Ruling finalized. Transcript ready for export.');
+      });
+    }
+
+    function bindTranscriptActions() {
+      document.getElementById('export-md-btn').addEventListener('click', () => exportTranscript(false));
+      document.getElementById('export-html-btn').addEventListener('click', () => exportTranscript(true));
+      document.getElementById('copy-transcript-btn').addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(caseState.transcript || '');
+          alert('Transcript copied to clipboard.');
+        } catch {
+          alert('Unable to access clipboard.');
+        }
+      });
+      const consoleBody = document.getElementById('llm-console-body');
+      document.getElementById('llm-toggle-btn').addEventListener('click', () => {
+        consoleBody.classList.toggle('visible');
+      });
+    }
+
+    // ---------------- Boot ----------------
+    document.addEventListener('DOMContentLoaded', () => {
+      initStateFromStorage();
+      renderProgress();
+      renderPhaseVisibility();
+      setupCharCounters();
+      bindSetupSection();
+      bindApiSection();
+      bindArgumentsSection();
+      bindHailMarySection();
+      bindCrossExamSection();
+      bindConsultantSection();
+      bindSmeSection();
+      bindVotingSection();
+      bindRulingSection();
+      bindTranscriptActions();
+      updateTranscriptFromState();
+    });
+  </script>
+</body>
+</html>
+
