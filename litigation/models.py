@@ -25,14 +25,16 @@ def select_model_interactive(models=None):
     Returns the selected model string.
     """
     models = _free_only(models or OPENROUTER_MODELS)
-    print("\nOpenRouter models:", file=sys.stderr)
+    print("\n  OpenRouter models (free tier):", file=sys.stderr)
+    print("  " + "-" * 50, file=sys.stderr)
     for i, m in enumerate(models, 1):
-        print(f"  {i}. {m}", file=sys.stderr)
-    print("  0. Random (slot machine)", file=sys.stderr)
+        short = m.split("/")[-1].replace(":free", "") if "/" in m else m
+        print(f"    {i}. {short}", file=sys.stderr)
+    print(f"    0. Random (slot machine)", file=sys.stderr)
     print("", file=sys.stderr)
     while True:
         try:
-            choice = input("Select model [1-{}] (or 0 for random): ".format(len(models))).strip()
+            choice = input(f"  Select [1-{len(models)} or 0 for random]: ").strip()
             if not choice:
                 return select_model_spin(models)
             n = int(choice)
@@ -40,11 +42,16 @@ def select_model_interactive(models=None):
                 return select_model_spin(models)
             if 1 <= n <= len(models):
                 model = models[n - 1]
-                print("\nSelected: {}".format(model), file=sys.stderr)
+                print(f"\n  Selected: {model}", file=sys.stderr)
                 return model
         except ValueError:
             pass
-        print("Invalid choice. Try again.", file=sys.stderr)
+        print("  Invalid. Enter a number from the list.", file=sys.stderr)
+
+
+def _short_model(m: str) -> str:
+    """Short display name for model."""
+    return m.split("/")[-1].replace(":free", "") if "/" in m else m[:45]
 
 
 def select_model_spin(models=None):
@@ -54,15 +61,14 @@ def select_model_spin(models=None):
     """
     models = _free_only(models or OPENROUTER_MODELS)
     model = random.choice(models)
-    # Spin: show random models cycling, slowing down
-    spins = 14
+    width = 50
+    spins = 12
     for i in range(spins):
         display = random.choice(models)
-        print("\r  [ {} ]".format(display[:60].ljust(60)), end="", file=sys.stderr)
+        print("\r  [ {} ]".format(_short_model(display)[:width].ljust(width)), end="", file=sys.stderr)
         sys.stderr.flush()
-        # Slow down as we approach the end
-        delay = 0.04 + (i / spins) * 0.3
+        delay = 0.05 + (i / spins) * 0.25
         time.sleep(delay)
-    print("\r  [ {} ]".format(model[:60].ljust(60)), file=sys.stderr)
+    print("\r  [ {} ]".format(_short_model(model)[:width].ljust(width)), file=sys.stderr)
     print("\n  Selected: {}".format(model), file=sys.stderr)
     return model

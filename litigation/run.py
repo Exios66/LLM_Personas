@@ -141,17 +141,48 @@ def main() -> None:
         action="store_true",
         help="Exclude spectators (Dr. Echo, Dr. Harley, Uncle Ruckus) from system prompt",
     )
+    parser.add_argument(
+        "--menu",
+        action="store_true",
+        help="Show interactive menu (even when matter is provided)",
+    )
     args = parser.parse_args()
 
-    matter = args.matter
-    if not matter:
-        print("Enter the matter for the court to deliberate:")
-        matter = input().strip()
+    config = load_config()
+    providers = ["ollama", "lm_studio", "openrouter"]
+    hearing_types = [
+        ("standard", "Full deliberation — Opening, Arguments, Hail-Mary, Vote, Ruling"),
+        ("expedited", "Brief format for F2 matters"),
+        ("special_inquiry", "Investigative hearing, no vote"),
+        ("contempt", "Adversarial proceeding"),
+    ]
+
+    # Interactive menu when no matter, or when --menu requested
+    if not args.matter or args.menu:
+        from litigation.ui import interactive_main_menu
+        params = interactive_main_menu(config, providers, hearing_types)
+        if params is None:
+            raise SystemExit(0)
+        matter = params["matter"]
+        provider_name = params["provider"]
+        model = params.get("model")
+        args.feasibility = params.get("feasibility", args.feasibility)
+        args.hearing_type = params.get("hearing_type", args.hearing_type)
+        args.no_spectators = params.get("no_spectators", args.no_spectators)
+        args.no_save = params.get("no_save", args.no_save)
+        # Override provider; model handled below
+        args.provider = provider_name
+        if model is not None:
+            args.model = model
+    else:
+        matter = args.matter
+        provider_name = args.provider or config.get("provider", "openrouter")
+        model = args.model
+
     if not matter:
         print("No matter provided.", file=sys.stderr)
         raise SystemExit(1)
 
-    config = load_config()
     provider_name = args.provider or config.get("provider", "openrouter")
     model = args.model or config.get("model") or "llama3.2"
     # Provider-specific model override (only when not set via --model)
@@ -207,8 +238,9 @@ def main() -> None:
         include_spectators=not args.no_spectators,
     )
 
+    print("", file=sys.stderr)
     print("Convening the court...", file=sys.stderr)
-    print(f"Provider: {provider_name} | Model: {model}", file=sys.stderr)
+    print(f"  Provider: {provider_name}  |  Model: {model}", file=sys.stderr)
     print("-" * 60, file=sys.stderr)
 
     try:

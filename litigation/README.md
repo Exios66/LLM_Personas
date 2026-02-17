@@ -87,24 +87,28 @@ For OpenRouter, set your API key either:
 
 From project root:
 
-**OpenRouter model selection** (when `provider: openrouter` and no `--model`):
-- Default: slot machine animation picks a random model from the list
-- `--model-select`: prompt to choose from the list (or 0 for random)
+**Interactive menu** (when no matter provided):
+- Run `python litigation/run.py` for the main menu
+- **Quick run** — Enter matter, use defaults (fastest)
+- **Full run** — Configure provider, model, feasibility, hearing type, then run
+- **Help** — Show command-line options
+- **Exit** — Quit
+- Press Enter alone at any prompt to return to the previous menu
 
+**Direct run** (matter on command line):
 ```bash
 python litigation/run.py "Should we adopt a new naming convention for API endpoints?"
 ```
+
+**OpenRouter model selection** (when `provider: openrouter` and no `--model`):
+- Default: slot machine animation picks a random model from the list
+- `--model-select`: prompt to choose from the list (or 0 for random)
 
 Or use the launch script:
 
 ```bash
 ./litigation/launch.sh "Should we adopt a new naming convention for API endpoints?"
-```
-
-Interactive mode (enter matter when prompted):
-
-```bash
-python litigation/run.py
+./litigation/launch.sh          # Interactive menu
 ```
 
 ---
@@ -169,6 +173,7 @@ See `litigation/prompts/README.md` for the full source map.
 
 ### Options
 
+- `--menu` — Show interactive menu (even when matter is provided)
 - `--no-spectators` — Exclude spectator commentary (Dr. Echo, Dr. Harley, Uncle Ruckus) from system prompt
 
 ---
