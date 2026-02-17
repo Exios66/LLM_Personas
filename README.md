@@ -333,7 +333,7 @@ See [`courtroom/RULES.md`](courtroom/RULES.md) Article I for complete jurisdicti
 
 ## Project Structure
 
-```
+```bash
 LLM_Personas/
 ├── .cursor/
 │   └── agents/
