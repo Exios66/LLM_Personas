@@ -149,9 +149,9 @@ def interactive_main_menu(
     section("MORNINGSTAR Court — Litigation Runner")
 
     choices = [
-        ("Quick run", "Enter matter, use defaults — fastest path"),
-        ("Full run", "Configure provider, model, hearing type, then run"),
-        ("Help", "Show command-line options"),
+        ("Quick run", "Enter matter + optional configure (all CLI options available)"),
+        ("Full run", "Configure: provider, model, feasibility, hearing-type, spectators, save"),
+        ("Help", "Show all command-line options"),
         ("Exit", "Quit"),
     ]
     idx = menu("What would you like to do?", choices, default=1)
@@ -161,18 +161,22 @@ def interactive_main_menu(
         _out("  Command-line usage:")
         _out("    python litigation/run.py [MATTER] [OPTIONS]")
         _out()
-        _out("  Options:")
-        _out("    -f, --feasibility F0-F5    Feasibility level (default: F3)")
+        _out("  Options (all available in Full run / Configure):")
+        _out("    -f, --feasibility F0-F5   Feasibility level (default: F3)")
         _out("    --provider NAME           ollama | lm_studio | openrouter")
-        _out("    --model NAME              Override model")
-        _out("    --model-select            [OpenRouter] Pick model from list")
+        _out("    --model NAME              Override model (e.g. llama3.2, openai/gpt-4o)")
+        _out("    --model-select            [OpenRouter] Pick model from list (interactive)")
+        _out("    --model-spin              [OpenRouter] Slot machine: random from list (default)")
         _out("    --hearing-type TYPE       standard | expedited | special_inquiry | contempt")
         _out("    --no-spectators           Exclude spectator commentary")
         _out("    --no-save                  Don't save transcript")
+        _out("    --menu                    Show this interactive menu")
         _out()
         _out("  Examples:")
         _out('    python litigation/run.py "Should we adopt a new API convention?"')
-        _out("    python litigation/run.py --hearing-type expedited")
+        _out("    python litigation/run.py --hearing-type expedited -f F2")
+        _out("    python litigation/run.py --provider ollama --model llama3.2")
+        _out("    python litigation/run.py --menu")
         _out()
         return interactive_main_menu(config, providers, hearing_types)  # Show menu again
 
@@ -192,6 +196,8 @@ def interactive_main_menu(
         matter = prompt_text("Matter", required=False)
         if not matter:
             return interactive_main_menu(config, providers, hearing_types)
+        if confirm("Configure options (provider, model, feasibility, hearing type, etc.)?", default=False):
+            return _run_config_flow(config, providers, hearing_types, matter, provider_name)
         return {
             "matter": matter,
             "provider": provider_name,
@@ -209,27 +215,45 @@ def interactive_main_menu(
     if not matter:
         return interactive_main_menu(config, providers, hearing_types)
 
+    return _run_config_flow(config, providers, hearing_types, matter, provider_name)
+
+
+def _run_config_flow(
+    config: dict,
+    providers: List[str],
+    hearing_types: List[Tuple[str, str]],
+    matter: str,
+    provider_name: str,
+) -> Optional[dict]:
+    """Run through provider, model, feasibility, hearing type, spectators, save. Returns params dict."""
     sub_section("Provider")
     provider_choices = [(p, "") for p in providers]
-    pidx = menu("Select provider", provider_choices, default=providers.index(provider_name) + 1 if provider_name in providers else 1)
+    pidx = menu("Select provider", provider_choices, default=(providers.index(provider_name) + 1) if provider_name in providers else 1)
     provider_name = providers[pidx]
 
     model = None
     if provider_name == "openrouter":
         sub_section("Model (OpenRouter)")
         model_choices = [
-            ("Random (slot machine)", "Let the court choose"),
-            ("Select from list", "Pick a specific model"),
+            ("Random (slot machine)", "Let the court choose (--model-spin)"),
+            ("Select from list", "Pick from list (--model-select)"),
+            ("Enter model name", "Override with specific model (e.g. openai/gpt-4o)"),
         ]
         midx = menu("Model selection", model_choices, default=1)
-        if midx == 1:
+        if midx == 0:
+            from litigation.models import select_model_spin, OPENROUTER_MODELS
+            models = config.get("openrouter", {}).get("models") or OPENROUTER_MODELS
+            model = select_model_spin(models)
+        elif midx == 1:
             from litigation.models import select_model_interactive, OPENROUTER_MODELS
             models = config.get("openrouter", {}).get("models") or OPENROUTER_MODELS
             model = select_model_interactive(models)
         else:
-            from litigation.models import select_model_spin, OPENROUTER_MODELS
-            models = config.get("openrouter", {}).get("models") or OPENROUTER_MODELS
-            model = select_model_spin(models)
+            model = prompt_text("Model name (e.g. openai/gpt-4o, nvidia/nemotron-nano-9b-v2:free)", default="", required=False)
+            if not model:
+                from litigation.models import select_model_spin, OPENROUTER_MODELS
+                models = config.get("openrouter", {}).get("models") or OPENROUTER_MODELS
+                model = select_model_spin(models)
     else:
         prov_cfg = config.get(provider_name, {}) or {}
         model = prov_cfg.get("model") or ("llama3.2" if provider_name == "ollama" else "")

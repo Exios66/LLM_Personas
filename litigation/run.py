@@ -251,12 +251,20 @@ def main() -> None:
             temperature=temperature,
         )
     except ProviderError as e:
+        err_str = str(e)
+        is_data_policy = "data policy" in err_str.lower() or "openrouter.ai/settings/privacy" in err_str
         print(f"LLM request failed: {e}", file=sys.stderr)
         print("", file=sys.stderr)
+        if is_data_policy:
+            print("  OpenRouter free models: Configure privacy at https://openrouter.ai/settings/privacy", file=sys.stderr)
+            print("  Enable 'Model Training' or relax restrictions for free model access.", file=sys.stderr)
+            print("", file=sys.stderr)
         print("Install or configure one of the following:", file=sys.stderr)
         print("", file=sys.stderr)
         print("  OpenRouter (default):", file=sys.stderr)
         print("    export OPENROUTER_API_KEY=sk-or-v1-your-key", file=sys.stderr)
+        if not is_data_policy:
+            print("    Privacy (free models): https://openrouter.ai/settings/privacy", file=sys.stderr)
         print("    Edit litigation/config.yaml and set provider: openrouter", file=sys.stderr)
         print("", file=sys.stderr)
         print("  Ollama:", file=sys.stderr)

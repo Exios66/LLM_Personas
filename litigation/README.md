@@ -41,6 +41,7 @@ This directory orchestrates the deliberation flow defined in `core/procedures.md
 - **URL:** `https://openrouter.ai/api/v1`
 - **Models:** When no `--model` is set, a model is chosen from the list (slot machine by default; `--model-select` for interactive). Only free-tier models (`:free` suffix) are used to avoid "insufficient funds" errors.
 - **Setup:** Create API key at [openrouter.ai/keys](https://openrouter.ai/keys) → set `OPENROUTER_API_KEY`
+- **Free models:** If you see "No endpoints found matching your data policy", configure [Privacy Settings](https://openrouter.ai/settings/privacy) — enable "Model Training" or relax restrictions for free model access.
 
 ---
 
