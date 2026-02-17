@@ -3,6 +3,9 @@
 .env.*
 !.env.example
 
+# Litigation runner config (may contain API keys)
+litigation/config.yaml
+
 # Virtual environment
 .venv/
 venv/

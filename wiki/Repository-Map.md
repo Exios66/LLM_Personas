@@ -82,7 +82,10 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 
 | Path | Purpose |
 | ------ | --------- |
-| `templates/` | Session, module, project-dashboard, special-interest-hearing templates |
+| `templates/` | Session, module, project-dashboard, special-interest-hearing, contempt-hearing templates |
+| `litigation/` | Courtroom runner (Ollama, LM Studio, OpenRouter) |
+| `litigation/run.py` | Main deliberation runner |
+| `litigation/README.md` | Setup and usage |
 | `checklists/aegis-protocol.md` | Aegis Protocol invocation & execution |
 | `checklists/courtroom-scribe.md` | Scribe transcript & certification |
 | `checklists/critibot-review.md` | Code review checklist |

@@ -1,0 +1,21 @@
+# Courtroom Litigation Runner — Configuration
+# Copy to config.yaml and edit as needed.
+
+provider: ollama   # ollama | lm_studio | openrouter
+model: llama3.2    # Model name for your provider
+
+# Provider-specific overrides (optional)
+ollama:
+  base_url: http://localhost:11434
+
+lm_studio:
+  base_url: http://localhost:1234
+  # No API key required for local server
+
+openrouter:
+  base_url: https://openrouter.ai/api
+  # Set OPENROUTER_API_KEY in environment
+
+# Generation parameters
+max_tokens: 2048
+temperature: 0.7

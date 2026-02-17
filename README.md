@@ -161,6 +161,7 @@ See [portal/README.md](portal/README.md) for details.
 |------|---------|-------------------|
 | [`templates/session-start.md`](templates/session-start.md) | Session initialization template | Starting new sessions |
 | [`templates/special-interest-hearing.md`](templates/special-interest-hearing.md) | Special Interest Hearing (investigative, no vote) | Testimony collection, fact-finding |
+| [`templates/contempt-hearing.md`](templates/contempt-hearing.md) | Contempt & Prosecution Hearing | Adversarial proceedings, sanctions |
 | [`templates/module-template.md`](templates/module-template.md) | Module structure template | Creating new modules |
 | [`templates/project-dashboard.md`](templates/project-dashboard.md) | Project tracking template | Managing projects |
 
@@ -369,6 +370,12 @@ LLM_Personas/
 │   ├── glossary.md             # Term index
 │   ├── RUNBOOK.md              # Troubleshooting index
 │   └── edge-cases.md           # Known limitations
+├── litigation/                 # Courtroom runner (Ollama, LM Studio, OpenRouter)
+│   ├── README.md              # Setup and usage
+│   ├── run.py                 # Main deliberation runner
+│   ├── config.example.yaml    # Provider config template
+│   ├── providers/             # LLM provider adapters
+│   └── requirements.txt       # ollama, openai, pyyaml
 ├── checklists/
 │   ├── aegis-protocol.md      # Aegis invocation & execution
 │   ├── courtroom-scribe.md    # Scribe transcript & certification
@@ -447,8 +454,14 @@ Every directory and key file added since inception. Use this to find where thing
 | `docs/edge-cases.md` | Edge case registry |
 | **templates/** | Reusable templates |
 | `templates/session-start.md` | MORNINGSTAR session init, deliberation, close |
+| `templates/special-interest-hearing.md` | Special Interest Hearing (investigative) |
+| `templates/contempt-hearing.md` | Contempt & Prosecution Hearing |
 | `templates/module-template.md` | Module structure (CodeFarm) |
 | `templates/project-dashboard.md` | Project tracking |
+| **litigation/** | Courtroom runner (local/free LLMs) |
+| `litigation/run.py` | Main deliberation runner |
+| `litigation/README.md` | Setup for Ollama, LM Studio, OpenRouter |
+| `litigation/providers/` | LLM provider adapters |
 | **checklists/** | Quality and process |
 | `checklists/aegis-protocol.md` | Aegis Protocol invocation & execution |
 | `checklists/courtroom-scribe.md` | Scribe transcript & certification |
@@ -483,6 +496,7 @@ Every directory and key file added since inception. Use this to find where thing
 | Goal | What to do |
 |------|------------|
 | **Deliberate on a decision** | Invoke the **morningstar** subagent (or `/morningstar`). Present your matter. Court reads `state/current.md`, deliberates, votes, and can update state/changelog/transcripts. |
+| **Run deliberation via local/free LLM** | Use `litigation/run.py` with Ollama, LM Studio, or OpenRouter. See `litigation/README.md`. |
 | **Implement or scaffold code** | Invoke the **lil-jeff** subagent. Use for full modules, not placeholders. Handoff from MORNINGSTAR is documented in `core/inter-agent-protocol.md`. |
 | **R / Quarto / tidyverse / tidymodels** | Invoke the **octavius** subagent. Session starts by reading `octavius_core/THE_RULES.md` and `octavius_core/state.md`; ends with an Executive Summary in `octavius_summaries/`. |
 | **Security, containment, rogue agent, crisis** | Invoke the **aegis-protocol** subagent (`/aegis`). Coordinates Sage, Watcher, Chronicler. MORNINGSTAR acts as Judicial Branch for escalations. See `aegis_core/README.md`. |
@@ -495,6 +509,7 @@ Every directory and key file added since inception. Use this to find where thing
 
 - **Rules and procedures** → `courtroom/RULES.md`, `core/procedures.md`, `courtroom/BEST_PRACTICES.md`
 - **Checklists** → `checklists/` (judge-morningstar, courtroom-scribe, octavius, aegis-protocol, critibot-review)
+- **Litigation runner** → `litigation/` (Ollama, LM Studio, OpenRouter)
 - **Personality definitions** → `core/personalities.md`
 - **SME domains and how to add them** → `courtroom/domains/README.md`, `courtroom/domains/experts.yaml`, `core/sme-framework.md`
 - **State and metrics** → `state/current.md`, `state/metrics.md`; schema: `core/state-schema.md`

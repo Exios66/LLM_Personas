@@ -1,0 +1,196 @@
+#!/usr/bin/env python3
+"""
+Courtroom Litigation Runner
+
+Run MORNINGSTAR deliberation protocol via Ollama, LM Studio, or OpenRouter.
+"""
+
+import argparse
+import os
+import re
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Optional
+
+# Add project root for imports
+REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO_ROOT))
+
+
+def load_config() -> dict:
+    """Load config from YAML file."""
+    config_path = os.environ.get(
+        "LITIGATION_CONFIG",
+        REPO_ROOT / "litigation" / "config.yaml",
+    )
+    path = Path(config_path)
+    if not path.exists():
+        example = REPO_ROOT / "litigation" / "config.example.yaml"
+        if example.exists():
+            print(
+                f"Config not found at {path}. Copy from config.example.yaml:\n"
+                f"  cp litigation/config.example.yaml litigation/config.yaml",
+                file=sys.stderr,
+            )
+        raise SystemExit(1)
+
+    try:
+        import yaml
+
+        return yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except Exception as e:
+        print(f"Failed to load config: {e}", file=sys.stderr)
+        raise SystemExit(1)
+
+
+def slugify(text: str) -> str:
+    """Create a URL-safe slug from matter text."""
+    s = text.lower()[:60]
+    s = re.sub(r"[^a-z0-9]+", "-", s)
+    return s.strip("-") or "matter"
+
+
+def load_state_summary() -> Optional[str]:
+    """Load brief summary from state/current.md for context."""
+    state_path = REPO_ROOT / "state" / "current.md"
+    if not state_path.exists():
+        return None
+    try:
+        content = state_path.read_text(encoding="utf-8")
+        # First 500 chars as context
+        return content[:500] + "..." if len(content) > 500 else content
+    except Exception:
+        return None
+
+
+def save_transcript(matter: str, deliberation: str) -> Path:
+    """Save transcript to courtroom/transcripts/."""
+    today = datetime.now().strftime("%Y-%m-%d")
+    slug = slugify(matter)
+    transcripts_dir = REPO_ROOT / "courtroom" / "transcripts"
+    transcripts_dir.mkdir(parents=True, exist_ok=True)
+
+    # Avoid overwriting
+    base_name = f"{today}-{slug}"
+    path = transcripts_dir / f"{base_name}.md"
+    counter = 1
+    while path.exists():
+        path = transcripts_dir / f"{base_name}-{counter}.md"
+        counter += 1
+
+    header = f"""# Transcript: In Re: {matter[:80]}{'...' if len(matter) > 80 else ''}
+
+**Case No.:** {datetime.now().strftime('%Y')}-DEL-{counter:03d}
+**Date:** {today}
+**Feasibility:** F3
+**Presiding:** The Honorable Lucius J. Morningstar
+
+---
+
+"""
+    full_content = header + deliberation
+    if not full_content.strip().endswith("\n\n> *Transcript certified by MORNINGSTAR::SCRIBE*"):
+        full_content = full_content.rstrip() + "\n\n---\n\n> *Transcript certified by MORNINGSTAR::SCRIBE*\n"
+
+    path.write_text(full_content, encoding="utf-8")
+    return path
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Run MORNINGSTAR courtroom deliberation via local/free LLMs",
+    )
+    parser.add_argument(
+        "matter",
+        nargs="?",
+        help="Matter for the court to deliberate (or enter interactively)",
+    )
+    parser.add_argument(
+        "-f", "--feasibility",
+        default="F3",
+        help="Feasibility level F0-F5 (default: F3)",
+    )
+    parser.add_argument(
+        "--provider",
+        help="Override config provider (ollama, lm_studio, openrouter)",
+    )
+    parser.add_argument(
+        "--model",
+        help="Override config model",
+    )
+    parser.add_argument(
+        "--no-save",
+        action="store_true",
+        help="Do not save transcript to courtroom/transcripts/",
+    )
+    args = parser.parse_args()
+
+    matter = args.matter
+    if not matter:
+        print("Enter the matter for the court to deliberate:")
+        matter = input().strip()
+    if not matter:
+        print("No matter provided.", file=sys.stderr)
+        raise SystemExit(1)
+
+    config = load_config()
+    provider_name = args.provider or config.get("provider", "ollama")
+    model = args.model or config.get("model", "llama3.2")
+    max_tokens = config.get("max_tokens", 2048)
+    temperature = config.get("temperature", 0.7)
+
+    # Resolve provider
+    from litigation.providers import get_provider, ProviderError
+
+    try:
+        provider = get_provider(
+            provider=provider_name,
+            model=model,
+            ollama_base_url=config.get("ollama", {}).get("base_url", "http://localhost:11434"),
+            lm_studio_base_url=config.get("lm_studio", {}).get("base_url", "http://localhost:1234"),
+            openrouter_base_url=config.get("openrouter", {}).get("base_url", "https://openrouter.ai/api"),
+        )
+    except ValueError as e:
+        print(f"Configuration error: {e}", file=sys.stderr)
+        raise SystemExit(1)
+
+    # Build prompts
+    from litigation.prompts import (
+        load_morningstar_system_prompt,
+        build_deliberation_user_prompt,
+    )
+
+    system_prompt = load_morningstar_system_prompt()
+    state_summary = load_state_summary()
+    user_prompt = build_deliberation_user_prompt(
+        matter=matter,
+        feasibility=args.feasibility,
+        state_summary=state_summary,
+    )
+
+    print("Convening the court...", file=sys.stderr)
+    print(f"Provider: {provider_name} | Model: {model}", file=sys.stderr)
+    print("-" * 60, file=sys.stderr)
+
+    try:
+        response = provider.complete(
+            system_prompt=system_prompt,
+            user_prompt=user_prompt,
+            max_tokens=max_tokens,
+            temperature=temperature,
+        )
+    except ProviderError as e:
+        print(f"LLM request failed: {e}", file=sys.stderr)
+        raise SystemExit(1)
+
+    print(response)
+
+    if not args.no_save:
+        path = save_transcript(matter, response)
+        print("-" * 60, file=sys.stderr)
+        print(f"Transcript saved: {path}", file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()

@@ -288,6 +288,28 @@ YYYYMMDD_HHMMSS_special_interest_[subject_slug].md
 
 ---
 
+## Contempt Hearing
+
+For adversarial proceedings in which a respondent is charged with contempt of court or prosecuted before the Department of Existential Justice. Two modes:
+
+| Mode | Purpose | Outcome |
+|------|---------|---------|
+| **Contempt (Vote)** | Conduct tending to obstruct/degrade court authority | Vote + ruling + sanctions (if applicable) |
+| **Investigative Prosecution** | Establish facts; revelation, not resolution | Findings only; no vote |
+
+**When to convene:**
+- Respondent alleged to have obstructed or degraded court authority
+- Prosecution of conduct before the Department of Existential Justice
+- Adversarial fact-finding requiring testimony and cross-examination
+
+**Title formats (RULES §8.5.3):**
+- Internal contempt: `In Re: [Respondent] — Alleged Contempt of Court`
+- Prosecution: `The Department of Existential Justice vs. [Respondent]`
+
+**Full template:** See [`templates/contempt-hearing.md`](../templates/contempt-hearing.md) for phases, respondent/witness formats, arguments, vote, ruling, sanctions, and personality roles.
+
+---
+
 ## Tie-Breaking Procedure
 
 ```

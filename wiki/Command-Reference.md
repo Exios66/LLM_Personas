@@ -60,5 +60,8 @@ Details: [Domains-and-Experts](Domains-and-Experts) · [SME-Framework](SME-Frame
 | **Standard Deliberation** | Reach a decision | Vote + ruling |
 | **Expedited Deliberation** | Time-sensitive F2 | Vote + ruling |
 | **Special Interest Hearing** | Investigative; establish facts, collect testimony | Findings + record (no vote) |
+| **Contempt Hearing** | Adversarial; charge respondent with contempt or prosecute | Vote + ruling + sanctions, or findings only |
 
 To convene a Special Interest Hearing, request an investigative proceeding (e.g. incident root cause, conflicting accounts). See `templates/special-interest-hearing.md` and `core/procedures.md`.
+
+To convene a Contempt Hearing, charge a respondent with conduct tending to obstruct or degrade court authority, or prosecute before the Department of Existential Justice. See `templates/contempt-hearing.md` and `core/procedures.md`.
