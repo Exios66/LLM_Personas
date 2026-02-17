@@ -16,6 +16,15 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
+# Load .env from litigation/providers/ (OPENROUTER_API_KEY, etc.)
+_env_path = Path(__file__).resolve().parent / "providers" / ".env"
+if _env_path.exists():
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(_env_path)
+    except ImportError:
+        pass  # python-dotenv not installed; rely on system env
+
 
 def load_config() -> dict:
     """Load config from YAML file."""
@@ -121,6 +130,17 @@ def main() -> None:
         action="store_true",
         help="Do not save transcript to courtroom/transcripts/",
     )
+    parser.add_argument(
+        "--hearing-type",
+        choices=["standard", "expedited", "special_inquiry", "contempt"],
+        default="standard",
+        help="Hearing type: standard (full deliberation), expedited (F2 brief), special_inquiry (investigative, no vote), contempt",
+    )
+    parser.add_argument(
+        "--no-spectators",
+        action="store_true",
+        help="Exclude spectators (Dr. Echo, Dr. Harley, Uncle Ruckus) from system prompt",
+    )
     args = parser.parse_args()
 
     matter = args.matter
@@ -167,14 +187,14 @@ def main() -> None:
             provider=provider_name,
             model=model,
             ollama_base_url=config.get("ollama", {}).get("base_url", "http://localhost:11434"),
-            lm_studio_base_url=config.get("lm_studio", {}).get("base_url", "http://localhost:1234"),
-            openrouter_base_url=config.get("openrouter", {}).get("base_url", "https://openrouter.ai/api"),
+            lm_studio_base_url=config.get("lm_studio", {}).get("base_url", "http://localhost:1234/v1"),
+            openrouter_base_url=config.get("openrouter", {}).get("base_url", "https://openrouter.ai/api/v1"),
         )
     except ValueError as e:
         print(f"Configuration error: {e}", file=sys.stderr)
         raise SystemExit(1)
 
-    # Build prompts (full framework: procedures, rules, personalities, checklists)
+    # Build prompts (full framework: procedures, rules, personalities, checklists, experts, MFAF)
     from litigation.prompts import FrameworkLoader, build_deliberation_prompts
 
     loader = FrameworkLoader()
@@ -183,6 +203,8 @@ def main() -> None:
         matter=matter,
         feasibility=args.feasibility,
         state_summary=state_summary,
+        hearing_type=args.hearing_type,
+        include_spectators=not args.no_spectators,
     )
 
     print("Convening the court...", file=sys.stderr)

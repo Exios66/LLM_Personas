@@ -9,19 +9,19 @@ ollama:
   base_url: http://localhost:11434
 
 lm_studio:
-  base_url: http://localhost:1234
+  base_url: http://localhost:1234/v1
   # No API key required for local server
 
 openrouter:
-  base_url: https://openrouter.ai/api
+  base_url: https://openrouter.ai/api/v1
   # When --model not set: slot machine selects from models list (use --model-select for interactive)
+  # Free tier only (:free suffix required to avoid insufficient funds)
   models:
     - arcee-ai/trinity-large-preview:free
     - nvidia/nemotron-nano-9b-v2:free
     - qwen/qwen3-next-80b-a3b-instruct:free
     - openai/gpt-oss-20b:free
     - z-ai/glm-4.5-air:free
-    - qwen/qwen3-235b-a22b-thinking-2507
   # Set OPENROUTER_API_KEY in environment
 
 # Generation parameters

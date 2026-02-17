@@ -13,8 +13,8 @@ def get_provider(
     model: str,
     *,
     ollama_base_url: str = "http://localhost:11434",
-    lm_studio_base_url: str = "http://localhost:1234",
-    openrouter_base_url: str = "https://openrouter.ai/api",
+    lm_studio_base_url: str = "http://localhost:1234/v1",
+    openrouter_base_url: str = "https://openrouter.ai/api/v1",
     openrouter_api_key: Optional[str] = None,
 ) -> BaseProvider:
     """

@@ -19,10 +19,9 @@ class OpenAICompatProvider(BaseProvider):
         api_key: Optional[str] = None,
     ):
         self.model = model
-        # OpenAI client expects base_url without trailing /v1 (it appends /v1/chat/completions)
+        # OpenAI client appends /chat/completions to base_url. Use base_url with /v1 for
+        # OpenRouter (https://openrouter.ai/api/v1) and LM Studio (http://localhost:1234/v1).
         self.base_url = base_url.rstrip("/")
-        if self.base_url.endswith("/v1"):
-            self.base_url = self.base_url[:-3]
         self.api_key = api_key or "not-needed"  # LM Studio often accepts any key
 
     def complete(
@@ -49,6 +48,13 @@ class OpenAICompatProvider(BaseProvider):
                 max_tokens=max_tokens,
                 temperature=temperature,
             )
+            if isinstance(response, str):
+                raise ProviderError(f"API returned error or unexpected format: {response[:200]}")
+            if not hasattr(response, "choices"):
+                raise ProviderError(
+                    f"Unexpected API response (no choices): {type(response).__name__}. "
+                    "Check model name and API status."
+                )
             choice = response.choices[0] if response.choices else None
             if choice is None:
                 raise ProviderError("OpenAI-compat API returned no choices")

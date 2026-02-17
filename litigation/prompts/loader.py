@@ -3,7 +3,6 @@
 from pathlib import Path
 from typing import Dict, Optional
 
-
 from .sources import SOURCES, repo_root
 
 
@@ -97,6 +96,80 @@ When given a matter to deliberate, follow the Standard Deliberation Flow. Output
     def contempt_template(self) -> str:
         """Contempt Hearing template."""
         return self._get("contempt_template")
+
+    @property
+    def mfaf(self) -> str:
+        """Feasibility Assessment Framework."""
+        return self._get("mfaf")
+
+    @property
+    def checklist_aegis(self) -> str:
+        """Aegis Protocol checklist (F4+ Authority Assessment)."""
+        return self._get("checklist_aegis")
+
+    @property
+    def domain_experts(self) -> str:
+        """Domain Expert Registry (formatted from experts.yaml)."""
+        if "domain_experts" not in self._cache:
+            self._cache["domain_experts"] = self._load_domain_experts()
+        return self._cache["domain_experts"]
+
+    def _load_domain_experts(self) -> str:
+        """Load and format domain experts from experts.yaml."""
+        path = self._root / "courtroom" / "domains" / "experts.yaml"
+        if not path.exists():
+            return ""
+        try:
+            import yaml
+            # experts.yaml may have multiple documents (---); merge them
+            data = {}
+            for doc in yaml.safe_load_all(path.read_text(encoding="utf-8")):
+                if isinstance(doc, dict):
+                    data.update(doc)
+        except Exception:
+            return ""
+        if not data:
+            return ""
+        lines = [
+            "# Domain Expert Registry",
+            "",
+            "The court may summon Expert Witnesses (/summon [domain]-expert) or seat Specialists (/seat [domain]-specialist, Judge only, F3+).",
+            "",
+            "## Available Domains",
+            "",
+        ]
+        for key, val in data.items():
+            if key.startswith("_") or not isinstance(val, dict):
+                continue
+            name = val.get("name", key)
+            available = val.get("available_as", [])
+            scope = val.get("scope", "")
+            if isinstance(scope, str):
+                scope = scope.strip()
+            heuristics = val.get("heuristics", [])
+            sig_questions = val.get("signature_questions", [])
+            voice = val.get("voice", "")
+            failure = val.get("failure_mode", "")
+            witness = "witness" in available
+            specialist = "specialist" in available
+            roles = []
+            if witness:
+                roles.append("Witness")
+            if specialist:
+                roles.append("Specialist")
+            lines.append(f"### {name} ({key})")
+            lines.append(f"- **Roles:** {', '.join(roles)}")
+            lines.append(f"- **Scope:** {scope}")
+            lines.append(f"- **Voice:** {voice}")
+            lines.append("- **Heuristics:**")
+            for h in heuristics[:5]:
+                lines.append(f"  - {h}")
+            lines.append("- **Signature Questions:**")
+            for q in sig_questions[:3]:
+                lines.append(f"  - {q}")
+            lines.append(f"- **Failure Mode:** {failure}")
+            lines.append("")
+        return "\n".join(lines).rstrip()
 
     def state_summary(self, max_chars: int = 800) -> Optional[str]:
         """Load brief summary from state/current.md."""

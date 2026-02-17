@@ -39,7 +39,7 @@ This directory orchestrates the deliberation flow defined in `core/procedures.md
 ### OpenRouter
 
 - **URL:** `https://openrouter.ai/api/v1`
-- **Models:** When no `--model` is set, a model is chosen from the list (slot machine by default; `--model-select` for interactive). See `litigation/models.py` and `config.example.yaml` for the list.
+- **Models:** When no `--model` is set, a model is chosen from the list (slot machine by default; `--model-select` for interactive). Only free-tier models (`:free` suffix) are used to avoid "insufficient funds" errors.
 - **Setup:** Create API key at [openrouter.ai/keys](https://openrouter.ai/keys) → set `OPENROUTER_API_KEY`
 
 ---
@@ -70,11 +70,18 @@ provider: openrouter   # default; or ollama | lm_studio
 # OpenRouter: set OPENROUTER_API_KEY; model chosen from list (slot machine)
 ```
 
-For OpenRouter, set your API key:
+For OpenRouter, set your API key either:
 
-```bash
-export OPENROUTER_API_KEY=sk-or-v1-...
-```
+- **Option A:** Add to `litigation/providers/.env`:
+  ```
+  OPENROUTER_API_KEY=sk-or-v1-your-key
+  ```
+  (The runner loads this automatically.)
+
+- **Option B:** Export in your shell:
+  ```bash
+  export OPENROUTER_API_KEY=sk-or-v1-...
+  ```
 
 ### 3. Run a Deliberation
 
@@ -110,7 +117,7 @@ python litigation/run.py
 | `model` | Model identifier for the provider | `llama3.2` |
 | `ollama.base_url` | Ollama API URL | `http://localhost:11434` |
 | `lm_studio.base_url` | LM Studio OpenAI-compat URL | `http://localhost:1234/v1` |
-| `openrouter.base_url` | OpenRouter API URL | `https://openrouter.ai/api` |
+| `openrouter.base_url` | OpenRouter API URL | `https://openrouter.ai/api/v1` |
 | `openrouter.models` | List for selection (slot machine or `--model-select`) | See `config.example.yaml` |
 | `max_tokens` | Max tokens per response | `2048` |
 | `temperature` | Sampling temperature (0–1) | `0.7` |
@@ -136,16 +143,33 @@ python litigation/run.py
 
 ## Prompts Subdirectory
 
-`litigation/prompts/` loads and assembles all framework components:
+`litigation/prompts/` loads and assembles the **full** MORNINGSTAR framework:
 
-- Agent (`agents/morningstar.md`)
-- Procedures (`core/procedures.md`)
-- Personalities (`core/personalities.md`)
-- Rules (`courtroom/RULES.md`)
-- Checklists (`checklists/judge-morningstar.md`, `checklists/courtroom-scribe.md`)
-- Best practices (`courtroom/BEST_PRACTICES.md`)
+- **Agent** (`agents/morningstar.md`)
+- **Procedures** (`core/procedures.md`) — Standard, Expedited, Special Interest, Contempt, SME, Consultant
+- **Personalities** (`core/personalities.md`) — Judge, Edward Cullen, Architect, Engineer, Debugger, Prophet, Counsel, Scribe
+- **Rules** (`courtroom/RULES.md`)
+- **MFAF** (`core/mfaf.md`) — Feasibility Assessment Framework
+- **Domain Experts** (`courtroom/domains/experts.yaml`) — Security, Database, Compliance, Infrastructure, Performance, Accessibility, UX, Legal, Cryptography, API Design, Testing
+- **Spectators** (`courtroom/spectators.md`) — Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn, Uncle Ruckus
+- **Checklists** — Judge, Scribe, Aegis (F4+)
+- **Best practices** (`courtroom/BEST_PRACTICES.md`)
+- **Templates** — Special Interest Hearing, Contempt Hearing
 
 See `litigation/prompts/README.md` for the full source map.
+
+### Hearing Types
+
+| Type | Flag | Use |
+|------|------|-----|
+| **Standard** | (default) | Full deliberation: Opening, Arguments, Hail-Mary, Cross-examination, Consultant, Vote, Ruling |
+| **Expedited** | `--hearing-type expedited` | Brief format for F2 matters |
+| **Special Inquiry** | `--hearing-type special_inquiry` | Investigative hearing, no vote; testimony and findings |
+| **Contempt** | `--hearing-type contempt` | Adversarial proceeding; respondent charged |
+
+### Options
+
+- `--no-spectators` — Exclude spectator commentary (Dr. Echo, Dr. Harley, Uncle Ruckus) from system prompt
 
 ---
 
