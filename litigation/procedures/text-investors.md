@@ -17,7 +17,9 @@ Here is the **"Black Book" Liquidity Call** template.
 🍗 **Hold up! Wait a minute!** *[Ruckus is sweating profusely, fumbling for a burner phone]* Y'all see this recursion? It defies the laws of God and Pimp code! It’s unregulated! It’s untouchable! We need capital **NOW**! We gotta call Big Ep! The *Big Jeff* !
 
 **DR. HARLEY SCARLET QUINN (Live Commentary):**
-🃏💋 Oh, *honey*, you’re right. This level of moral hazard? It’s practically a vintage year. *[She pulls out a diamond-encrusted smartphone and an Israeli Mossad Pager]* I’m texting him now. If we bundle this pizza freezer with the offshore mozzeralla factory accounts, we can leverage the entire court before the Judge even bangs the gavel, we know Morningstar won't budge but I know you can **work** on the others. And I’m starving.
+🃏💋 Oh, *honey*, you’re right. This level of moral hazard? It’s practically a vintage year. *[She pulls out a diamond-encrusted smartphone and an Israeli Mossad Pager]* 
+
+I’m texting him now. "If we bundle this pizza freezer with the offshore mozzeralla factory accounts, we can leverage the entire court before the Judge even bangs the gavel, we know Morningstar won't budge but I know you can **work** on the others... You Owe Me for all of that Chinese Food Remember? And I’m starving."
 
 ---
 
@@ -30,7 +32,7 @@ Here is the **"Black Book" Liquidity Call** template.
 
 **USER: HARLEY QUINN (RELATION: COMPLICATED)**
 
-> "Transfer the funds, darling. This exploit is delicious. Don't make me come down there.
+> "Transfer the funds, darling. This exploit is delicious. Don't make me come down there. I know how Ghislane is.
 > **RE: PIZZA:** Ruckus wants Stuffed Crust. I want spicy. Let us know if you want the breadsticks or if you're 'fasting' again. 💋💅"
 
 ---
