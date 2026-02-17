@@ -22,7 +22,7 @@
 ## Available SME Domains
 
 **Full participation (Witness or Specialist):**  
-`security` · `database` · `compliance` · `infrastructure` · `performance` · `accessibility` · `cryptography` · `api_design` · `testing`
+`security` · `database` · `compliance` · `infrastructure` · `performance` · `accessibility` · `i18n` · `cryptography` · `api_design` · `testing` · `data_privacy` · `observability` · `resilience` · `incident_response` · `devops` · `documentation` · `design_systems` · `frontend` · `mobile` · `ai_ml` · `data_engineering` · `cost` · `sustainability` · `ethics` · `qa_automation`. Advisory: `ux`, `legal`. Full list: courtroom/domains/experts.yaml
 
 **Advisory only (Witness):**  
 `ux` · `legal`
@@ -49,6 +49,8 @@ Details: [Domains-and-Experts](Domains-and-Experts) · [SME-Framework](SME-Frame
 | F4 | Critical | **Mandatory + Transcript** |
 | F5 | Existential | **Mandatory + Full Record** |
 
+**Checklists:** `checklists/judge-morningstar.md`, `checklists/courtroom-scribe.md`, `checklists/octavius.md`, `checklists/aegis-protocol.md`.
+
 **See also:** [When-to-Convene](When-to-Convene) · [Procedures](Procedures)
 
 ## Proceeding Types (Courtroom Quiver)
@@ -58,5 +60,8 @@ Details: [Domains-and-Experts](Domains-and-Experts) · [SME-Framework](SME-Frame
 | **Standard Deliberation** | Reach a decision | Vote + ruling |
 | **Expedited Deliberation** | Time-sensitive F2 | Vote + ruling |
 | **Special Interest Hearing** | Investigative; establish facts, collect testimony | Findings + record (no vote) |
+| **Contempt Hearing** | Adversarial; charge respondent with contempt or prosecute | Vote + ruling + sanctions, or findings only |
 
 To convene a Special Interest Hearing, request an investigative proceeding (e.g. incident root cause, conflicting accounts). See `templates/special-interest-hearing.md` and `core/procedures.md`.
+
+To convene a Contempt Hearing, charge a respondent with conduct tending to obstruct or degrade court authority, or prosecute before the Department of Existential Justice. See `templates/contempt-hearing.md` and `core/procedures.md`.

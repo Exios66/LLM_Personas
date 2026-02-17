@@ -1,0 +1,29 @@
+# Courtroom Litigation Runner — Configuration
+# Copy to config.yaml and edit as needed.
+
+provider: openrouter   # openrouter (default) | ollama | lm_studio
+model: null           # Override per provider; OpenRouter uses models list when unset
+
+# Provider-specific overrides (optional)
+ollama:
+  base_url: http://localhost:11434
+
+lm_studio:
+  base_url: http://localhost:1234/v1
+  # No API key required for local server
+
+openrouter:
+  base_url: https://openrouter.ai/api/v1
+  # When --model not set: slot machine selects from models list (use --model-select for interactive)
+  # Free tier only (:free suffix required to avoid insufficient funds)
+  models:
+    - arcee-ai/trinity-large-preview:free
+    - nvidia/nemotron-nano-9b-v2:free
+    - qwen/qwen3-next-80b-a3b-instruct:free
+    - openai/gpt-oss-20b:free
+    - z-ai/glm-4.5-air:free
+  # Set OPENROUTER_API_KEY in environment
+
+# Generation parameters
+max_tokens: 2048
+temperature: 0.7

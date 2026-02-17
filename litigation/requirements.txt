@@ -1,0 +1,7 @@
+# Courtroom Litigation Runner — Python dependencies
+# Install: pip install -r litigation/requirements.txt
+
+ollama>=0.3.0        # Ollama local LLM
+openai>=1.0.0        # OpenAI-compatible API (LM Studio, OpenRouter)
+pyyaml>=6.0          # Config parsing
+python-dotenv>=1.0.0 # Load .env from litigation/providers/

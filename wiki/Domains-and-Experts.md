@@ -12,7 +12,7 @@ When deliberations need expertise beyond the core court (e.g. security, complian
 ## Domains Summary
 
 **Witness and/or Specialist:**  
-`security` · `database` · `compliance` · `infrastructure` · `performance` · `accessibility` · `cryptography` · `api_design` · `testing`
+`security` · `database` · `compliance` · `infrastructure` · `performance` · `accessibility` · `i18n` · `cryptography` · `api_design` · `testing` · `data_privacy` · `observability` · `resilience` · `incident_response` · `devops` · `documentation` · `design_systems` · `frontend` · `mobile` · `ai_ml` · `data_engineering` · `cost` · `sustainability` · `ethics` · `qa_automation`. **Advisory only (Witness):** `ux`, `legal`. See courtroom/domains/experts.yaml for full definitions.
 
 **Advisory only (Witness):**  
 `ux` · `legal`

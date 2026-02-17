@@ -418,25 +418,11 @@ The Specialist Seat transforms the court from four voices to five (or six) for m
 
 ### Available Domains
 
-Core domains available as both Witness and Specialist:
+Core and expansion domains available as both Witness and Specialist (see courtroom/domains/experts.yaml for full list): security, database, compliance, infrastructure, performance, accessibility, i18n, cryptography, api_design, testing, data_privacy, observability, resilience, incident_response, devops, documentation, design_systems, frontend, mobile, ai_ml, data_engineering, cost, sustainability, ethics, qa_automation.
 
-| Domain | Scope |
-|--------|-------|
-| `security` | Auth, encryption, vulnerabilities |
-| `database` | Queries, schema, replication |
-| `compliance` | GDPR, HIPAA, SOC2 |
-| `infrastructure` | K8s, cloud, networking |
-| `performance` | Profiling, caching, optimization |
-| `accessibility` | WCAG, screen readers |
+Advisory-only domains (Witness only): ux, legal.
 
-Advisory-only domains (Witness only):
-
-| Domain | Scope |
-|--------|-------|
-| `ux` | User research, interaction patterns |
-| `legal` | Licensing, IP (not actual legal advice) |
-
-See `domains/experts.yaml` for complete registry.
+See `courtroom/domains/experts.yaml` for complete registry and scope.
 
 ### Summoning Commands
 

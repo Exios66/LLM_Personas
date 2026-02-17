@@ -21,7 +21,7 @@
 
 | Member | Role |
 |--------|------|
-| **SCRIBE** | Records decisions, maintains state and changelog |
+| **SCRIBE** | Records decisions, maintains state and changelog. Checklist: `checklists/courtroom-scribe.md` |
 
 ## Spectators (Optional)
 

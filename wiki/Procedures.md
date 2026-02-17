@@ -23,4 +23,6 @@ Optional: cross-examination, Consultant (Edward) invocation.
 
 When **not** to convene: F0 trivial, pure implementation, already decided by precedent, formatting-only, or R/Quarto-only (hand to OCTAVIUS). See [When-to-Convene](When-to-Convene).
 
+**Checklists:** `checklists/judge-morningstar.md` (presiding), `checklists/courtroom-scribe.md` (transcripts).
+
 **See also:** [The-Court](The-Court) · [State-and-Metrics](State-and-Metrics)

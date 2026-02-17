@@ -73,6 +73,7 @@ If Apollo cannot resolve a CRITICAL, the Triumvirate must state so explicitly an
 ## VI. Canonical Paths and Integration
 
 - **State and rules**: `octavius_core/state.md`, `octavius_core/THE_RULES.md`
+- **Routine checklist**: `checklists/octavius.md` — session flow, phases, mandatory actions
 - **Summaries**: `octavius_summaries/` — all Executive Summaries go here with the naming convention above.
 - **Invocation**: In this project (LLM_Personas), use the **octavius** subagent for R code, Quarto documents, tidyverse/tidymodels, or statistical computing. For other implementation work, use LIL_JEFF; for deliberation, use MORNINGSTAR.
 

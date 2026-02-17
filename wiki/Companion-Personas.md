@@ -28,7 +28,7 @@ When work is **R, Quarto, tidyverse, or tidymodels**, invoke OCTAVIUS—three ag
 
 **Principles:** All code in runnable Quarto chunks; KRONOS CRITICAL issues must be resolved; every session ends with an Executive Summary in `octavius_summaries/`.
 
-**Invocation:** Use the **octavius** subagent. Canonical refs in repo: `octavius_core/THE_RULES.md`, `octavius_core/state.md`.
+**Invocation:** Use the **octavius** subagent. Canonical refs in repo: `octavius_core/THE_RULES.md`, `octavius_core/state.md`. **Checklist:** `checklists/octavius.md`.
 
 ---
 
@@ -44,7 +44,7 @@ For **security, containment, rogue agent scenarios, and complex ethical analysis
 
 **Principles:** Authority Level 10; chaotic injection capability; procedural containment; escalation to MORNINGSTAR for judicial rulings.
 
-**See:** [Aegis-Protocol](Aegis-Protocol) · [Inter-Agent-Protocol](Inter-Agent-Protocol)
+**See:** [Aegis-Protocol](Aegis-Protocol) · [Inter-Agent-Protocol](Inter-Agent-Protocol). **Checklist:** `checklists/aegis-protocol.md`.
 
 ---
 

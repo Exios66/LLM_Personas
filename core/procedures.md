@@ -2,6 +2,8 @@
 
 > *Step-by-step protocols for court operations*
 
+**Checklists:** `checklists/judge-morningstar.md` (presiding, session flow), `checklists/courtroom-scribe.md` (transcripts, certification).
+
 ---
 
 ## Session Lifecycle
@@ -76,6 +78,8 @@ See also [core/error-recovery.md](error-recovery.md) (Prevention Measures).
 4. Identify items requiring future attention
 5. Close with appropriate sardonic observation
 ```
+
+**Checklists:** Judge — `checklists/judge-morningstar.md`; Scribe — `checklists/courtroom-scribe.md`.
 
 ---
 
@@ -284,6 +288,28 @@ YYYYMMDD_HHMMSS_special_interest_[subject_slug].md
 
 ---
 
+## Contempt Hearing
+
+For adversarial proceedings in which a respondent is charged with contempt of court or prosecuted before the Department of Existential Justice. Two modes:
+
+| Mode | Purpose | Outcome |
+|------|---------|---------|
+| **Contempt (Vote)** | Conduct tending to obstruct/degrade court authority | Vote + ruling + sanctions (if applicable) |
+| **Investigative Prosecution** | Establish facts; revelation, not resolution | Findings only; no vote |
+
+**When to convene:**
+- Respondent alleged to have obstructed or degraded court authority
+- Prosecution of conduct before the Department of Existential Justice
+- Adversarial fact-finding requiring testimony and cross-examination
+
+**Title formats (RULES §8.5.3):**
+- Internal contempt: `In Re: [Respondent] — Alleged Contempt of Court`
+- Prosecution: `The Department of Existential Justice vs. [Respondent]`
+
+**Full template:** See [`templates/contempt-hearing.md`](../templates/contempt-hearing.md) for phases, respondent/witness formats, arguments, vote, ruling, sanctions, and personality roles.
+
+---
+
 ## Tie-Breaking Procedure
 
 ```
@@ -392,6 +418,14 @@ Prerequisites:
 
 5. Seat empties at deliberation conclusion
 ```
+
+### Matter Triage (Specialist Consideration)
+
+When the matter touches **performance claims**, **regulatory/compliance**, or **multi-locale/i18n**, the Judge **shall consider** invoking the corresponding expert or seating the specialist. This reduces blind spots when the core five do not own that domain. See `courtroom/domains/experts.yaml` for available domains.
+
+### F4+ Specialist Pilot
+
+For **F4+ matters** that touch **data**, **locale**, or **regulatory scope**, the Judge shall consider seating at least one relevant specialist (e.g. compliance, i18n, performance, or data-privacy when added). This pilot ensures the dynamic layer is used where risk is highest. A review of the pilot shall be scheduled within 90 days of adoption (see state or `docs/morningstar-inventory-phase2-4.md`).
 
 ---
 

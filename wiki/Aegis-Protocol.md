@@ -93,3 +93,5 @@ Question for court: [Z]
 ```
 
 **Source of Truth:** `.cursor/agents/aegis-protocol.md`, `aegis_core/README.md`
+
+**Routine checklist:** `checklists/aegis-protocol.md`

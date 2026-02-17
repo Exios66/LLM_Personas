@@ -14,6 +14,32 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 ---
 
+## [2026-02-17] - Agent Skills Index and Skills per Agent
+
+### Full Session 2026-DEL-004 (5-0-0)
+
+Convened a full session to debate and adopt **what skills to add to each agent** in `.cursor/agents/` (morningstar, octavius, aegis-protocol, lil-jeff). Court adopted a **single skills index** at `docs/agent-skills.md` as source of truth, with skill name, source path, when to use, and fallback per agent. Each agent file (in both `.cursor/agents/` and `agents/`) now has a **Skills** section pointing to the index.
+
+**Transcript:** `courtroom/transcripts/2026-02-17-full-session-skills-to-add-to-each-agent.md`
+
+**Slate:** morningstar (state, transcript, checklists, litigation runner, create-rule/skill); octavius (executive summary, checklist, Quarto compliance); aegis-protocol (escalation to MORNINGSTAR, chaos injection note); lil-jeff (handoff protocol, no placeholders, create-rule).
+
+---
+
+## [2026-02-17] - Domain Expert Registry Expansion (15 Domains)
+
+### Bench Trial 2026-DEL-003 (6-1-0, Judge 2×)
+
+Convened a full bench trial to adopt the **15 most important expert domains** to add to the court's repertoire. Judge's vote counted as 2× the average of other members. Full gallery; witnesses (Compliance, Security, Performance, Accessibility) testified.
+
+**Transcript:** `courtroom/transcripts/2026-02-17-bench-trial-fifteen-experts-to-add-to-repertoire.md`
+
+**15 domains added to `courtroom/domains/experts.yaml`:** data_privacy, observability, resilience, incident_response, devops, documentation, design_systems, frontend, mobile, ai_ml, data_engineering, cost, sustainability, ethics, qa_automation. All witness + specialist. Registry version 2.0; next review 2026-05-18.
+
+**References updated:** courtroom/domains/README.md, courtroom/RULES.md § 6.3, agents/morningstar.md, .cursor/agents/morningstar.md, README.md, litigation/README.md, litigation/prompts/README.md, wiki/Command-Reference.md, wiki/Domains-and-Experts.md.
+
+---
+
 ## [2026-02-16] - Contempt & Prosecution Hearing: The People vs. Elon Musk (Xenon Fraud)
 
 ### Special Interest Hearing (MORNINGSTAR)

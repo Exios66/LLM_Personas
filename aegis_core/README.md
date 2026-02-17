@@ -52,3 +52,4 @@ State is optional; Aegis may run stateless for ad-hoc scenarios.
 |-----------|------|
 | Agent definition | `.cursor/agents/aegis-protocol.md` |
 | Inter-agent protocol | `core/inter-agent-protocol.md` (Aegis Protocol Handoffs) |
+| Routine checklist | `checklists/aegis-protocol.md` |
