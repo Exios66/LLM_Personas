@@ -47,9 +47,9 @@ def menu(
     _out()
     _out(f"  {title}")
     _out()
-    for i, item in enumerate(choices, 1):
-        label = item[0]
-        desc = item[1] if len(item) > 1 else ""
+    for i, item in enumerate([tuple[str, str] for tuple in choices], 1):
+        label = tuple[0]
+        desc = tuple[1] if len(tuple) > 1 else ""
         if desc:
             _out(f"    {i}. {label}")
             _out(f"       {desc}")

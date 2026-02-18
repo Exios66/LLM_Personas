@@ -49,10 +49,21 @@ This directory orchestrates the deliberation flow defined in `core/procedures.md
 
 ### 1. Install Dependencies
 
+**Option A — Venv in `litigation/` (recommended for local litigation work):**
+
+```bash
+cd /path/to/LLM_Personas
+python3 -m venv litigation/.venv
+source litigation/.venv/bin/activate   # Windows: litigation\.venv\Scripts\activate
+pip install -r litigation/requirements.txt
+```
+
+**Option B — Repo-root venv:**
+
 ```bash
 cd /path/to/LLM_Personas
 python3 -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+source .venv/bin/activate
 pip install -r litigation/requirements.txt
 ```
 
@@ -144,6 +155,32 @@ Or use the launch script:
 - **Transcripts (optional):** `courtroom/transcripts/` — use `--save-to courtroom` or choose in menu
 - **State:** `state/current.md` updated with session outcome
 - **CHANGELOG:** Updated if decisions were made (F3+)
+
+---
+
+## Transcript Viewer (local portal)
+
+View transcripts from the terminal or in a browser. All operations are local to `litigation/`.
+
+**List transcripts:**
+```bash
+python litigation/viewer.py list
+python litigation/viewer.py list --plain   # One filename per line
+```
+
+**Show a transcript (terminal):**
+```bash
+python litigation/viewer.py show                    # Latest
+python litigation/viewer.py show 2026-02-17         # By name/prefix
+python litigation/viewer.py show 2026-02-17 --pager # Through less
+```
+
+**Serve in browser (index + rendered markdown):**
+```bash
+python litigation/viewer.py serve        # http://127.0.0.1:8765/
+python litigation/viewer.py serve 9000   # Custom port
+```
+Then open http://127.0.0.1:8765/ in a browser. Styling matches the courtroom portal (Dracula-like, personality/vote highlighting).
 
 ---
 
