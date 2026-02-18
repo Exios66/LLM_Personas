@@ -1,6 +1,8 @@
 This is a specific "Special Event" template. It triggers when the Courtroom Spectators (excluding the moral compass, Dr. Echo) decide that a specific argument or code implementation is so delightfully corrupt, risky, or high-yield that they need to call in the "Silent Partner."
 
-Here is the **"Black Book" Liquidity Call** template.
+**Canonical protocol and behavior:** Integrated into `courtroom/spectators.md` and `litigation/procedures/spectators.md` under **Special Event: "Black Book" Liquidity Call**. Use those sections for trigger, participants, and transcript format.
+
+Here is the **"Black Book" Liquidity Call** template (reference).
 
 ---
 

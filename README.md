@@ -84,13 +84,13 @@ Each personality argues their position (3-5 lines). The Prophet offers a radical
 
 ### 5. View Transcripts in Browser
 
-From the project root, run the portal launcher to list deliberations and open them in your browser:
+From the project root, run the courtroom portal launcher to list deliberations and open them in your browser:
 
 ```
-./portal/launch.sh
+./courtroom/portal/launch.sh
 ```
 
-See [portal/README.md](portal/README.md) for details.
+See [courtroom/portal/README.md](courtroom/portal/README.md) for details. For a local transcript viewer tied to the litigation runner (list/show/serve), see [litigation/README.md](litigation/README.md#transcript-viewer-local-portal).
 
 ### 6. Save Progress
 
@@ -108,7 +108,7 @@ Run deliberations via **Ollama**, **LM Studio**, or **OpenRouter** (no Cursor ag
 python litigation/run.py "Your matter"   # Direct run
 ```
 
-The litigation runner loads the **full MORNINGSTAR framework** (procedures, personalities, rules, MFAF, domain experts, spectators, checklists) and produces certified transcripts. See [`litigation/README.md`](litigation/README.md).
+The litigation runner loads the **full MORNINGSTAR framework** (procedures, personalities, rules, MFAF, domain experts, spectators, checklists) and produces certified transcripts. It also provides a **local transcript viewer** (`litigation/viewer.py` — list, show, serve). See [`litigation/README.md`](litigation/README.md).
 
 ---
 
@@ -150,12 +150,14 @@ The litigation runner loads the **full MORNINGSTAR framework** (procedures, pers
 
 ### Portal (Transcript Viewer)
 
+The transcript portal lives under **`courtroom/portal/`**.
+
 | File | Purpose | When to Reference |
 |------|---------|-------------------|
-| [`portal/launch.sh`](portal/launch.sh) | Interactive transcript launcher | **Primary way to open transcripts in browser** |
-| [`portal/export_transcript.py`](portal/export_transcript.py) | Export single .md → HTML | When launch script exports on demand |
-| [`portal/viewer.html`](portal/viewer.html) | Standalone transcript viewer | Browse transcripts (best over HTTP) |
-| [`portal/README.md`](portal/README.md) | Portal documentation | Setup and troubleshooting |
+| [`courtroom/portal/launch.sh`](courtroom/portal/launch.sh) | Interactive transcript launcher | **Primary way to open transcripts in browser** |
+| [`courtroom/portal/export_transcript.py`](courtroom/portal/export_transcript.py) | Export single .md → HTML | When launch script exports on demand |
+| [`courtroom/portal/viewer.html`](courtroom/portal/viewer.html) | Standalone transcript viewer | Browse transcripts (best over HTTP) |
+| [`courtroom/portal/README.md`](courtroom/portal/README.md) | Portal documentation | Setup and troubleshooting |
 
 ### Docs (Onboarding, Glossary, Runbook)
 
@@ -370,13 +372,14 @@ LLM_Personas/
 │   ├── session-start.md        # Session templates
 │   ├── module-template.md      # Module structure
 │   └── project-dashboard.md    # Project tracking
-├── portal/
-│   ├── launch.sh               # Transcript launcher (run from project root)
-│   ├── export_transcript.py    # .md → HTML export
-│   ├── viewer.html             # Standalone viewer
-│   ├── dracula.css
-│   ├── generate.py             # Optional: gitmal static site
-│   └── README.md
+├── courtroom/
+│   ├── portal/                  # Transcript viewer & export (launch from project root)
+│   │   ├── launch.sh            # Transcript launcher
+│   │   ├── export_transcript.py # .md → HTML export
+│   │   ├── viewer.html          # Standalone viewer
+│   │   ├── dracula.css
+│   │   ├── generate.py          # Optional: gitmal static site
+│   │   └── README.md
 ├── docs/
 │   ├── ONBOARDING.md           # Start here
 │   ├── agent-schema.md         # Agent frontmatter schema

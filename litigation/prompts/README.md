@@ -1,10 +1,25 @@
 # Litigation Prompts
 
-Loads and assembles the full MORNINGSTAR framework for the courtroom litigation runner. All content is loaded from repository paths at runtime.
+Loads and assembles the full MORNINGSTAR framework for the courtroom litigation runner. Framework content is loaded from repository paths at runtime; litigation-specific prompt fragments live in this subdirectory.
 
 ---
 
-## Framework Components
+## Prompts in This Subdirectory
+
+| File | Purpose |
+|------|---------|
+| **runner-instruction.md** | Final system-prompt tail: instructs the model to produce a full deliberation transcript in markdown with Scribe certification. |
+| **user-prefix.md** | Opening line of the user prompt (e.g. "The court will now consider the following matter."). |
+| **user/standard.md** | Standard Deliberation Flow instructions (Opening → Arguments → Hail-Mary → Cross-Examination → Consultant → Vote → Ruling, SME/recusal/tie-breaking/spectators). |
+| **user/expedited.md** | Expedited format: Matter, Positions, Vote, Ruling (brief). |
+| **user/special_inquiry.md** | Special Interest Hearing: Witness Calls, Direct/Cross-Examination, Objections, Edward Cullen, Findings, Adjournment. |
+| **user/contempt.md** | Contempt Hearing: Opening, Charges, Arguments, Vote, Ruling/sanctions. |
+
+The assembler uses these files when building prompts; if a file is missing, it falls back to built-in default text. Edit these files to change litigation runner behavior without changing Python code.
+
+---
+
+## Framework Components (Repository Paths)
 
 | Component | Source | Purpose |
 |-----------|--------|---------|
@@ -50,7 +65,8 @@ rules = loader.rules
 
 ## Source Paths
 
-Content is loaded from the repository root. The loader prefers `agents/` over `.cursor/agents/` for the MORNINGSTAR agent. Paths are defined in `sources.py`.
+- **Framework content:** Loaded from the repository root (`agents/`, `core/`, `courtroom/`, `checklists/`, `templates/`). Paths are defined in `sources.py`. The loader prefers `agents/` over `.cursor/agents/` for the MORNINGSTAR agent.
+- **Litigation prompt fragments:** Loaded from this directory (`litigation/prompts/`) via `litigation_prompt_path()` in `sources.py`; see `loader.runner_instruction`, `loader.user_prefix`, and `loader.user_instructions(hearing_type)`.
 
 ---
 
