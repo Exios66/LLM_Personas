@@ -361,10 +361,18 @@ LLM_Personas/
 │   ├── RULES.md                # Formal courtroom rules
 │   ├── BEST_PRACTICES.md       # Practical guidance
 │   ├── precedents.md           # Precedent database
+│   ├── spectators.md           # Courtroom spectators
 │   ├── transcripts/            # F3+ deliberation records (.md + .html)
-│   └── domains/                # SME domain registry
-│       ├── README.md           # Registry usage, summoning, adding domains
-│       └── experts.yaml        # Canonical domain definitions
+│   ├── domains/                # SME domain registry
+│   │   ├── README.md           # Registry usage, summoning, adding domains
+│   │   └── experts.yaml        # Canonical domain definitions
+│   └── portal/                 # Transcript viewer & export (run ./courtroom/portal/launch.sh)
+│       ├── launch.sh           # Transcript launcher
+│       ├── export_transcript.py # .md → HTML export
+│       ├── viewer.html         # Standalone viewer
+│       ├── dracula.css
+│       ├── generate.py         # Optional: gitmal static site
+│       └── README.md
 ├── state/
 │   ├── current.md              # Active session state
 │   └── metrics.md              # Cumulative statistics
@@ -372,14 +380,6 @@ LLM_Personas/
 │   ├── session-start.md        # Session templates
 │   ├── module-template.md      # Module structure
 │   └── project-dashboard.md    # Project tracking
-├── courtroom/
-│   ├── portal/                  # Transcript viewer & export (launch from project root)
-│   │   ├── launch.sh            # Transcript launcher
-│   │   ├── export_transcript.py # .md → HTML export
-│   │   ├── viewer.html          # Standalone viewer
-│   │   ├── dracula.css
-│   │   ├── generate.py          # Optional: gitmal static site
-│   │   └── README.md
 ├── docs/
 │   ├── ONBOARDING.md           # Start here
 │   ├── agent-schema.md         # Agent frontmatter schema
@@ -514,7 +514,7 @@ Every directory and key file added since inception. Use this to find where thing
 ### First-time setup
 
 1. **Clone or open** the repo. No install required for MORNINGSTAR or LIL_JEFF (Cursor agents).
-2. **Portal (optional):** For `./portal/launch.sh`, ensure it’s executable: `chmod +x portal/launch.sh`. Python 3 is used for on-demand transcript export.
+2. **Portal (optional):** For `./courtroom/portal/launch.sh`, ensure it’s executable: `chmod +x courtroom/portal/launch.sh`. Python 3 is used for on-demand transcript export.
 3. **OCTAVIUS (optional):** No extra setup; reads `octavius_core/THE_RULES.md` and `octavius_core/state.md` at session start.
 
 ### Daily use
@@ -526,7 +526,7 @@ Every directory and key file added since inception. Use this to find where thing
 | **Implement or scaffold code** | Invoke the **lil-jeff** subagent. Use for full modules, not placeholders. Handoff from MORNINGSTAR is documented in `core/inter-agent-protocol.md`. |
 | **R / Quarto / tidyverse / tidymodels** | Invoke the **octavius** subagent. Session starts by reading `octavius_core/THE_RULES.md` and `octavius_core/state.md`; ends with an Executive Summary in `octavius_summaries/`. |
 | **Security, containment, rogue agent, crisis** | Invoke the **aegis-protocol** subagent (`/aegis`). Coordinates Sage, Watcher, Chronicler. MORNINGSTAR acts as Judicial Branch for escalations. See `aegis_core/README.md`. |
-| **View deliberation transcripts** | From project root: `./portal/launch.sh`. Pick a transcript; existing .html opens, or .md is exported then opened. |
+| **View deliberation transcripts** | From project root: `./courtroom/portal/launch.sh`. Pick a transcript; existing .html opens, or .md is exported then opened. |
 | **Summon a domain expert (SME)** | During a MORNINGSTAR session: `/summon <domain>-expert` (e.g. `security-expert`) or `/seat <domain>-specialist` (Judge only, F3+). Domain list: `courtroom/domains/README.md` and `courtroom/domains/experts.yaml`. |
 | **Check precedent** | Open `courtroom/precedents.md` before or after a deliberation. |
 | **Recover from bad state or failed session** | Follow `core/error-recovery.md`. |
@@ -539,7 +539,7 @@ Every directory and key file added since inception. Use this to find where thing
 - **Personality definitions** → `core/personalities.md`
 - **SME domains and how to add them** → `courtroom/domains/README.md`, `courtroom/domains/experts.yaml`, `core/sme-framework.md`
 - **State and metrics** → `state/current.md`, `state/metrics.md`; schema: `core/state-schema.md`
-- **Transcripts** → `courtroom/transcripts/`; launch: `./portal/launch.sh`
+- **Transcripts** → `courtroom/transcripts/`; launch: `./courtroom/portal/launch.sh`
 - **Agent handoff (MORNINGSTAR ↔ LIL_JEFF)** → `core/inter-agent-protocol.md`
 - **What changed and when** → `CHANGELOG.md`
 
