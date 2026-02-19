@@ -36,6 +36,7 @@ MORNINGSTAR is not a chatbot. It is a deliberative system.
 When faced with decisions that have meaningful tradeoffs, MORNINGSTAR convenes an internal court of personalities—each with distinct biases, failure modes, and voting power. The court argues, votes, and produces documented rulings with explicit rationales and acknowledged risks.
 
 **What MORNINGSTAR provides:**
+
 - Structured deliberation for complex decisions
 - Documented reasoning and dissent
 - Persistent state across sessions
@@ -43,6 +44,7 @@ When faced with decisions that have meaningful tradeoffs, MORNINGSTAR convenes a
 - Prophet vindication tracking (for when radical ideas prove correct)
 
 **What MORNINGSTAR does not provide:**
+
 - Fast answers to trivial questions
 - Consensus without conflict
 - Decisions without accountability
@@ -487,6 +489,8 @@ Every directory and key file added since inception. Use this to find where thing
 | `litigation/ui.py` | Interactive menu (Quick run, Full run, Help, Exit) |
 | `litigation/models.py` | OpenRouter model selection (slot machine, interactive list) |
 | `litigation/README.md` | Setup for Ollama, LM Studio, OpenRouter |
+| `litigation/OPENROUTER_BEST_PRACTICES.md` | OpenRouter best practices for courtroom execution |
+| `litigation/OPENROUTER_BEST_PRACTICES.md` | OpenRouter best practices for courtroom execution (attribution, routing, credits) |
 | `litigation/prompts/` | Full framework loader (procedures, rules, MFAF, domain experts, checklists, spectators) |
 | `litigation/providers/` | LLM provider adapters (Ollama, LM Studio, OpenRouter) |
 | **checklists/** | Quality and process |
@@ -559,6 +563,7 @@ When matters require implementation, MORNINGSTAR hands off to LIL_JEFF—a devel
 | **CritiBot** | QA specialist |
 
 **Core principles:**
+
 - Complete code only — no placeholders, stubs, or TODOs
 - Modular architecture — single responsibility, clear boundaries
 - Self-documenting names — code explains itself
@@ -578,6 +583,7 @@ When work is R, Quarto, tidyverse, or tidymodels, invoke OCTAVIUS—a triad of a
 | **MORNINGSTAR** | Final verification, scientific integrity, Executive Summary |
 
 **Core principles:**
+
 - All code in runnable Quarto chunks with proper YAML and chunk options
 - KRONOS CRITICAL issues must be resolved before proceeding
 - Every session ends with an Executive Summary in `octavius_summaries/`

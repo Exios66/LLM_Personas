@@ -14,6 +14,16 @@ lm_studio:
 
 openrouter:
   base_url: https://openrouter.ai/api/v1
+  # Set OPENROUTER_API_KEY in environment
+  # Best practices: litigation/OPENROUTER_BEST_PRACTICES.md
+  app_attribution:
+    http_referer: "https://github.com/Exios66/LLM_Personas"
+    x_title: "MORNINGSTAR Courtroom"
+  provider:
+    allow_fallbacks: true
+    sort: "price"   # price | latency | throughput (use "latency" for expedited hearings)
+    # data_collection: "deny"   # Uncomment for sensitive matters
+    # zdr: true                  # Zero Data Retention
   # When --model not set: slot machine selects from models list (use --model-select for interactive)
   # Free tier only (:free suffix required to avoid insufficient funds)
   models:
