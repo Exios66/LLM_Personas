@@ -13,3 +13,7 @@ pyyaml           # For YAML config parsing
 ollama           # https://pypi.org/project/ollama/
 # OpenAI-compatible API (for LM Studio, OpenRouter, etc.)
 openai           # https://pypi.org/project/openai/
+# Research Report workflow (agents/workflows/research_report.py)
+python-dotenv    # Load .env for API keys
+tavily-python    # Web search (primary; 1000 free credits/mo)
+duckduckgo-search  # Web search fallback when TAVILY_API_KEY not set
