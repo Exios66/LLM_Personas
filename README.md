@@ -10,6 +10,7 @@ A deliberative AI persona framework that transforms complex decisions into struc
 [![GitHub stars](https://img.shields.io/github/stars/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/network)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/commits/main)
+
 ---
 
 ## Table of Contents
