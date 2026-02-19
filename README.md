@@ -171,6 +171,7 @@ The transcript portal lives under **`courtroom/portal/`**.
 | [`docs/glossary.md`](docs/glossary.md) | Term index (F0–F5, SME, etc.) | Definitions |
 | [`docs/RUNBOOK.md`](docs/RUNBOOK.md) | Troubleshooting index | When something goes wrong |
 | [`docs/edge-cases.md`](docs/edge-cases.md) | Known limitations and workarounds | Edge cases |
+| [`docs/court-reporter.md`](docs/court-reporter.md) | Court Reporter — doc integration (every 3h) | Syncing transcripts, precedents, metrics |
 
 ### Templates
 

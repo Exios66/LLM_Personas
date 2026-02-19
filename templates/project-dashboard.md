@@ -154,6 +154,10 @@ python agents/workflows/research_report.py "Topic" [--to email@example.com]
 # Transcript viewer
 ./courtroom/portal/launch.sh
 
+# Court Reporter (sync docs every 3h)
+python courtroom/reporter.py
+# Cron: 0 */3 * * * cd /path/to/LLM_Personas && python courtroom/reporter.py
+
 # State checkpoint
 /update   # Mid-session
 /end      # Close session
