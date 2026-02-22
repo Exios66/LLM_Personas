@@ -10,8 +10,8 @@ The Courtroom Portal provides a front-end interface for viewing and exporting de
 
 - **Launch script** — Interactive launcher: list transcripts, open existing HTML or export .md to HTML, open in browser
 - **Standalone viewer** — Local HTML page for browsing transcripts (best when served over HTTP)
-- **Export script** — `portal/export_transcript.py` converts a single .md transcript to styled HTML (no external deps)
-- **Optional: gitmal** — Full static site generation with Dracula theme via `portal/generate.py`
+- **Export script** — `courtroom/portal/export_transcript.py` converts a single .md transcript to styled HTML (no external deps)
+- **Optional: gitmal** — Full static site generation with Dracula theme via `courtroom/portal/generate.py`
 - **Personality styling** — Dracula theme with color-coded personalities and vote styling
 - **Print support** — Print-friendly styles for physical documentation
 
@@ -24,16 +24,16 @@ The Courtroom Portal provides a front-end interface for viewing and exporting de
 From the project root:
 
 ```bash
-./portal/launch.sh
+./courtroom/portal/launch.sh
 ```
 
 This will:
 
 1. List all `.md` transcripts in `courtroom/transcripts/`
 2. Let you pick one by number
-3. Open the transcript in your default browser — using existing `.html` if present, otherwise exporting via `portal/export_transcript.py` and then opening
+3. Open the transcript in your default browser — using existing `.html` if present, otherwise exporting via `courtroom/portal/export_transcript.py` and then opening
 
-If you get "permission denied", run `chmod +x portal/launch.sh` once. No other CLI or extra tools required; uses only Bash and Python 3.
+If you get "permission denied", run `chmod +x courtroom/portal/launch.sh` once. No other CLI or extra tools required; uses only Bash and Python 3.
 
 ### Standalone viewer
 
@@ -41,19 +41,19 @@ Open the viewer in your browser (for full transcript loading, serve via HTTP):
 
 ```bash
 # Direct open (file:// — fetch may be restricted for some transcripts)
-open portal/viewer.html
+open courtroom/portal/viewer.html
 
 # Or serve the project and open (recommended)
 python3 -m http.server 8080
-# Then open http://localhost:8080/portal/viewer.html
+# Then open http://localhost:8080/courtroom/portal/viewer.html
 ```
 
 ### Generate full static site (optional, requires gitmal)
 
 ```bash
-python portal/generate.py --theme dracula
+python courtroom/portal/generate.py --theme dracula
 # Or with options
-python portal/generate.py --theme dracula --minify --gzip
+python courtroom/portal/generate.py --theme dracula --minify --gzip
 ```
 
 ---
@@ -63,11 +63,11 @@ python portal/generate.py --theme dracula --minify --gzip
 Without the launch script (e.g. from scripts or CI):
 
 ```bash
-# Export to portal/exports/ (default)
-python3 portal/export_transcript.py courtroom/transcripts/2026-02-15-framework-enhancement-analysis.md
+# Export to courtroom/portal/exports/ (default)
+python3 courtroom/portal/export_transcript.py courtroom/transcripts/2026-02-15-framework-enhancement-analysis.md
 
 # Custom output path
-python3 portal/export_transcript.py courtroom/transcripts/2026-02-15-framework-enhancement-analysis.md -o path/to/output.html
+python3 courtroom/portal/export_transcript.py courtroom/transcripts/2026-02-15-framework-enhancement-analysis.md -o path/to/output.html
 ```
 
 `export_transcript.py` uses only the Python standard library (no pip install). Output is Dracula-themed HTML with personality and vote styling.
@@ -112,8 +112,10 @@ The portal uses the Dracula color palette with personality-specific colors:
 
 ## Directory Structure
 
+From project root, the portal lives at `courtroom/portal/`:
+
 ```
-portal/
+courtroom/portal/
 ├── README.md             # This file
 ├── launch.sh             # Interactive launcher (recommended entry point)
 ├── export_transcript.py  # Single .md → HTML export (no deps)
@@ -134,14 +136,14 @@ portal/
 The `generate.py` script can be run directly:
 
 ```bash
-# Generate with defaults
-python portal/generate.py
+# Generate with defaults (from project root)
+python courtroom/portal/generate.py
 
 # With options
-python portal/generate.py --theme dracula --minify --gzip
+python courtroom/portal/generate.py --theme dracula --minify --gzip
 
 # Skip gitmal, only post-process
-python portal/generate.py --skip-gitmal
+python courtroom/portal/generate.py --skip-gitmal
 ```
 
 ### Generator Options
@@ -149,7 +151,7 @@ python portal/generate.py --skip-gitmal
 | Option | Default | Description |
 |--------|---------|-------------|
 | `--theme`, `-t` | `dracula` | Code highlighting theme |
-| `--output`, `-o` | `portal/output` | Output directory |
+| `--output`, `-o` | `courtroom/portal/output` | Output directory |
 | `--minify` | `false` | Minify generated HTML |
 | `--gzip` | `false` | Compress generated HTML |
 | `--skip-gitmal` | `false` | Only run post-processing |
@@ -179,7 +181,7 @@ Gitmal generates static HTML pages with:
 
 ### Custom CSS
 
-Edit `portal/dracula.css` to customize the appearance. Key sections:
+Edit `courtroom/portal/dracula.css` to customize the appearance. Key sections:
 
 - **Base Colors** - `:root` CSS variables
 - **Personality Styling** - `.p-*` classes
@@ -203,7 +205,7 @@ Available themes for gitmal (via `--theme`):
 
 ### Via Viewer
 
-1. Open `portal/viewer.html`
+1. Open `courtroom/portal/viewer.html`
 2. Select a transcript
 3. Click "⛶ Fullscreen" button
 
@@ -272,7 +274,7 @@ Supported names: `YYYY-MM-DD-topic.md` or `YYYYMMDD_HHMMSS_topic.md`.
 
 ### Transcript discovery (manifest)
 
-Run `python3 portal/generate_manifest.py` from the project root to generate `portal/transcripts_manifest.json`. When the viewer is served over HTTP, it will try to load this manifest first and list all transcripts from it; otherwise it falls back to the hardcoded `KNOWN_TRANSCRIPTS` in `viewer.html`. Add new transcript filenames to `KNOWN_TRANSCRIPTS` when using the viewer via `file://`.
+Run `python3 courtroom/portal/generate_manifest.py` from the project root to generate `courtroom/portal/transcripts_manifest.json`. When the viewer is served over HTTP, it will try to load this manifest first and list all transcripts from it; otherwise it falls back to the hardcoded `KNOWN_TRANSCRIPTS` in `viewer.html`. Add new transcript filenames to `KNOWN_TRANSCRIPTS` when using the viewer via `file://`.
 
 ### Viewer not loading transcripts
 
@@ -288,9 +290,9 @@ Clear browser cache or hard refresh:
 
 ## Related Documentation
 
-- **[courtroom/RULES.md](../courtroom/RULES.md)** - Courtroom procedures
-- **[courtroom/transcripts/README.md](../courtroom/transcripts/README.md)** - Transcript format
-- **[core/personalities.md](../core/personalities.md)** - Personality definitions
+- **[courtroom/RULES.md](../RULES.md)** — Courtroom procedures
+- **[courtroom/transcripts/](../transcripts/)** — Transcript directory
+- **[core/personalities.md](../../core/personalities.md)** — Personality definitions
 
 ---
 

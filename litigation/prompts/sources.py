@@ -42,6 +42,19 @@ def state_path() -> Path:
     return repo_root() / "state" / "current.md"
 
 
+def litigation_prompts_dir() -> Path:
+    """Path to litigation prompt fragments (runner instruction, user templates)."""
+    return Path(__file__).resolve().parent
+
+
+def litigation_prompt_path(name: str, subdir: str = "") -> Path:
+    """Path to a named prompt file under litigation/prompts/ (optionally in a subdir)."""
+    base = litigation_prompts_dir()
+    if subdir:
+        return base / subdir / f"{name}.md"
+    return base / f"{name}.md"
+
+
 # Canonical source map for litigation runner
 SOURCES = {
     "agent": lambda: agents_path("morningstar"),
@@ -50,7 +63,7 @@ SOURCES = {
     "rules": lambda: courtroom_path("RULES"),
     "best_practices": lambda: courtroom_path("BEST_PRACTICES"),
     "spectators": lambda: courtroom_path("spectators"),
-    "mfaf": lambda: core_path("mfaf"),
+    "mfaf": lambda: core_path("MFAF"),
     "checklist_judge": lambda: checklist_path("judge-morningstar"),
     "checklist_scribe": lambda: checklist_path("courtroom-scribe"),
     "checklist_aegis": lambda: checklist_path("aegis-protocol"),

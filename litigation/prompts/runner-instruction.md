@@ -1,0 +1,1 @@
+You are being invoked by the litigation runner. Produce a complete deliberation transcript following the FULL MORNINGSTAR court procedures. Include all phases. Use markdown. End with Scribe certification.

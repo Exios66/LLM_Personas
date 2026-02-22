@@ -61,9 +61,11 @@ Before certifying any F3+ transcript, verify:
 ## Session Closure (Mandatory)
 
 - [ ] **Update CHANGELOG.md** — Decisions formally voted upon, implementations, Prophet vindications, significant architectural changes, dissenting opinions
-- [ ] **Archive transcript** — F3+ deliberations to `courtroom/transcripts/`
+- [ ] **Archive transcript** — F3+ deliberations to `courtroom/transcripts/` (or `litigation/transcripts/` per save location)
 - [ ] **Checkpoint state** — Update `state/current.md` with session outcomes
 - [ ] **Precedent entry** — Add to `courtroom/precedents.md` if new binding precedent
+- [ ] **Update project dashboard** — Refresh `templates/project-dashboard.md` with current metrics (deliberation counts, transcripts, agent assets); sync from `state/metrics.md` and transcript directories
+- [ ] **Transcript directory hygiene** — Verify transcripts are filed in correct location; filenames follow format; no uncertified drafts left in wrong folders; manifest/index current if applicable
 
 ---
 

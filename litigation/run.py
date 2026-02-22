@@ -233,6 +233,7 @@ def main() -> None:
             ollama_base_url=config.get("ollama", {}).get("base_url", "http://localhost:11434"),
             lm_studio_base_url=config.get("lm_studio", {}).get("base_url", "http://localhost:1234/v1"),
             openrouter_base_url=config.get("openrouter", {}).get("base_url", "https://openrouter.ai/api/v1"),
+            openrouter_config=config.get("openrouter") if provider_name == "openrouter" else None,
         )
     except ValueError as e:
         print(f"Configuration error: {e}", file=sys.stderr)

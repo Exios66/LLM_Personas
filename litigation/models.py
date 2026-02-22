@@ -8,9 +8,15 @@ import time
 OPENROUTER_MODELS = [
     "arcee-ai/trinity-large-preview:free",
     "nvidia/nemotron-nano-9b-v2:free",
+    "nvidia/nemotron-nano-12b-v2-vl:free"
     "qwen/qwen3-next-80b-a3b-instruct:free",
-    "openai/gpt-oss-20b:free",
+    "deepseek/deepseek-r1-0528:free"
     "z-ai/glm-4.5-air:free",
+    "openrouter/aurora-alpha",
+    "nousresearch/hermes-3-llama-3.1-405b:free"
+    "mistralai/mistral-small-3.1-24b-instruct:free"
+    "google/gemma-3-27b-it:free"
+    "meta-llama/llama-3.3-70b-instruct:free"
 ]
 
 

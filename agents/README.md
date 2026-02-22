@@ -11,6 +11,8 @@ Root folder for agent definitions and agent-related assets used by the LLM Perso
 | **`templates/`** | Reusable output templates: session state init, transcript certification, handoff blocks, escalation blocks, Octavius executive summary. |
 | **`tasks/`** | Task definitions and task specs that agents can invoke or follow (e.g. standard deliberation). |
 | **`tools/`** | Tool specifications and references for agent-invokable tools (APIs, scripts, MCP tools). |
+| **`workflows/`** | Executable multi-agent workflows (e.g. Research Report: research → fact-check → write → format → Gmail). |
+| **`reports/`** | Output directory for workflow reports (e.g. `RPT_XXXX_YYYYMMDD_HHMMSS.html`). |
 | **`core/`** | Shared agent primitives: conventions, shared prompts, and cross-agent reference material. Distinct from repo root `core/` (MORNINGSTAR framework). |
 | **`prompts/`** | Agent-specific prompt fragments, system-prompt building blocks, and reusable prompt templates. |
 
