@@ -286,7 +286,7 @@ If the transcript author includes the "Island Boys" group chat, use this format:
 
 Then close with a brief **UNCLE RUCKUS (Possessed Commentary)** reaction (e.g. *He typin'! HE SAYS BUY THE DIP…* ⌨️N).
 
-Invocation is at **Judge or transcript author discretion** when the proceeding crosses the trigger threshold. The court does not vote on the event; it is spectator-theater only.
+Spectators are CRITICAL. The Judge or transcript author may include them in their full length and discourse when their commentary would add value—psychohistorical insight, meta-analysis, or dramatic color.
 
 ---
 
