@@ -1,7 +1,7 @@
 # Agent Skills Index
 
 > *Single source of truth for skills assigned to each agent in `.cursor/agents/`.*  
-> **Index version:** 2026-02-17  
+> **Index version:** 2026-02-19  
 > **Authority:** Court ruling 2026-DEL-004 (full session: skills to add to each agent)
 
 When updating skills or sources, update this index and bump the version/date. Each agent file references this document (§ agent name) and does not duplicate skill text.
@@ -17,8 +17,18 @@ When updating skills or sources, update this index and bump the version/date. Ea
 | **State read/write** | `state/current.md` | Session init (read); session end (update) | If missing: proceed with empty context |
 | **Transcript certification** | `courtroom/transcripts/`, `checklists/courtroom-scribe.md` | F3+ deliberations; end of transcript | Apply Scribe checklist; certify with standard line |
 | **Checklist application** | `checklists/judge-morningstar.md`, `checklists/courtroom-scribe.md` | Presiding (Judge); transcript (Scribe) | If checklist missing: proceed with core directives only |
+| **Deliberation runner** | `.cursor/skills/morningstar-deliberation-runner/SKILL.md` | User requests court session, deliberation, convene court, /morningstar deliberation | Proceed with core directives and `core/procedures.md` |
 | **Litigation runner** | `litigation/run.py`, `agents/tools/litigation-runner.md` | When user requests formal bench trial or transcript | Instruct user to run `python litigation/run.py "matter"` or run if environment permits |
 | **Create-rule / create-skill** | Cursor skills: create-rule, create-skill | When user asks for a Cursor rule, RULE.md, or new skill | Delegate to or reference the appropriate Cursor skill; do not improvise format |
+| **Court Reporter invocation** | `.cursor/agents/court-reporter.md` | When user requests sync of courtroom docs, periodic integration, or "run Court Reporter" | Delegate to Court Reporter; reporter MUST act on output (precedents, metrics, dashboard) or face contempt |
+
+---
+
+## court-reporter
+
+| Skill | Source | When to use | Fallback |
+|-------|--------|-------------|----------|
+| **Documentation integration** | `.cursor/skills/morningstar-court-reporter/SKILL.md` | Every 3 hours (cron) or when invoked; sync transcripts, precedents, metrics, dashboard | Run `courtroom/reporter.py`; apply checklist manually |
 
 ---
 

@@ -1,0 +1,12 @@
+# Research Report Workflow — Configuration
+# Optional. Defaults work with OPENROUTER_API_KEY.
+
+provider: openrouter
+model: openai/gpt-4.1-mini
+
+openrouter:
+  base_url: https://openrouter.ai/api/v1
+
+# Generation
+max_tokens: 4096
+temperature: 0.5

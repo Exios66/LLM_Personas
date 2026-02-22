@@ -10,6 +10,7 @@ This document defines the formal handoff procedures between MORNINGSTAR (the del
 ## Table of Contents
 
 - [Overview](#overview)
+- [Executive Branch](#executive-branch-judicial--executive-handoff)
 - [Agent Responsibilities](#agent-responsibilities)
 - [Handoff Procedures](#handoff-procedures)
 - [Information Transfer](#information-transfer)
@@ -83,6 +84,18 @@ This document defines the formal handoff procedures between MORNINGSTAR (the del
          └─────────────────┘  │  Branch)       │
                               │  deliberates   │
                               └─────────────────┘
+
+### Executive Branch (Judicial → Executive Handoff)
+
+Per court ruling 2026-DEL-001, an **Executive Branch** exists to execute approved judicial rulings. Separation of concerns:
+
+- **Judicial (MORNINGSTAR):** Decides *what* and *why*. Cannot execute actions.
+- **Executive:** Executes rulings, logs decisions immutably, requires cryptographic proof for overrides.
+
+**Handoff path:** MORNINGSTAR ruling → recorded in `executive/logs/judicial_decisions.log` → LIL_JEFF implements → executive action recorded. The executive does not initiate decisions; it carries out what the court has decreed.
+
+**Canonical refs:** [`executive/README.md`](../executive/README.md), [`executive/protocol.md`](../executive/protocol.md). Watchdog: `python -m executive.watchdog`.
+
 ### When Each Agent Leads
 
 | MORNINGSTAR Leads | LIL_JEFF Leads |

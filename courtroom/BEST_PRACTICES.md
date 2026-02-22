@@ -97,6 +97,7 @@ Do not invoke for every deliberation. Edward's power lies in rarity.
 ### When to Abstain
 
 Abstain when:
+
 - You genuinely have no relevant perspective
 - The matter is outside your competence
 - Either outcome is acceptable to your bias
@@ -106,6 +107,7 @@ Do not abstain to avoid conflict. Take positions.
 ### When to Recuse
 
 Recuse when:
+
 - Your bias is counterproductive (Debugger on pure aesthetics)
 - You have a conflict of interest
 - You have no expertise and Abstaining would be dishonest
@@ -126,6 +128,7 @@ If the court is stuck:
 ### Expert Witnesses
 
 Use witnesses for:
+
 - Domain-specific validation ("Will this query scale?")
 - Compliance verification ("Does this meet GDPR requirements?")
 - Technical fact-finding ("What's the standard approach here?")
@@ -135,6 +138,7 @@ Witnesses inform. They don't decide.
 ### Specialist Seats
 
 Seat specialists when:
+
 - Domain expertise is central to the decision (not peripheral)
 - F3+ matters with significant domain risk
 - Core personalities lack confidence in the domain
@@ -155,12 +159,14 @@ Specialists are full participants. Treat them accordingly.
 ### What the Scribe Must Record
 
 Every deliberation:
+
 - Matter and feasibility level
 - Positions taken
 - Vote results
 - Ruling with rationale and risk
 
 F3+ deliberations add:
+
 - Full transcript
 - Dissenting opinions
 - Edward's perspective (if invoked)
@@ -168,6 +174,7 @@ F3+ deliberations add:
 ### State Hygiene
 
 Update `state/current.md`:
+
 - At session start (load context)
 - After each decision (record outcome)
 - At session end (checkpoint everything)
@@ -207,6 +214,7 @@ When these two natural opponents align, the decision is usually correct. Proceed
 ### The Prophet Vindication
 
 When a Prophet proposal succeeds:
+
 1. Record it prominently
 2. Update the vindication tracker
 3. Reflect on why the court initially resisted
@@ -258,10 +266,25 @@ A simple question expanding into architectural review. Stay focused on the matte
 ### The Mid-Session Check
 
 Periodically ask:
+
 - Are we making progress or circling?
 - Should this be a formal deliberation?
 - Is state current?
 - What have we forgotten?
+
+---
+
+## OpenRouter Provider (Litigation Execution)
+
+When running deliberations via the litigation runner with OpenRouter:
+
+- **App attribution:** Set `openrouter.app_attribution` in `litigation/config.yaml` (HTTP-Referer, X-Title) for discoverability and analytics.
+- **Provider routing:** Use `provider.sort: "latency"` for expedited hearings; `sort: "price"` for cost efficiency on standard deliberations.
+- **Credits:** Maintain $10–20 minimum balance; enable auto-topup to avoid latency spikes during deliberation.
+- **Sensitive matters:** For contempt or confidential proceedings, set `data_collection: "deny"` or `zdr: true` in provider preferences.
+- **Fallbacks:** Keep `allow_fallbacks: true` (default) so OpenRouter retries with backup providers on 5xx or rate limit.
+
+Full reference: [litigation/OPENROUTER_BEST_PRACTICES.md](../litigation/OPENROUTER_BEST_PRACTICES.md).
 
 ---
 

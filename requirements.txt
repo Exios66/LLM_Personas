@@ -1,6 +1,7 @@
 # LLM_Personas — Python dependencies
 #
-# Portal scripts use the standard library only (no pip install required):
+# Executive branch (executive/*.py): stdlib only — no extra deps.
+# Portal scripts: stdlib only (no pip install required).
 #
 # Python 3.9+ recommended. To install:
 #   python3 -m venv .venv
@@ -13,3 +14,7 @@ pyyaml           # For YAML config parsing
 ollama           # https://pypi.org/project/ollama/
 # OpenAI-compatible API (for LM Studio, OpenRouter, etc.)
 openai           # https://pypi.org/project/openai/
+# Research Report workflow (agents/workflows/research_report.py)
+python-dotenv    # Load .env for API keys
+tavily-python    # Web search (primary; 1000 free credits/mo)
+duckduckgo-search  # Web search fallback when TAVILY_API_KEY not set

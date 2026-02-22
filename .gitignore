@@ -6,6 +6,9 @@
 # Litigation runner config (may contain API keys)
 litigation/config.yaml
 
+# Executive branch override proof secret (never commit)
+executive/.executive_secret
+
 # Virtual environment
 .venv/
 venv/

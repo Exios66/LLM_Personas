@@ -3,7 +3,7 @@
 from pathlib import Path
 from typing import Dict, Optional
 
-from .sources import SOURCES, repo_root
+from .sources import SOURCES, litigation_prompt_path, repo_root
 
 
 def _read(path: Path, default: str = "") -> str:
@@ -183,3 +183,18 @@ When given a matter to deliberate, follow the Standard Deliberation Flow. Output
             return content
         except Exception:
             return None
+
+    @property
+    def runner_instruction(self) -> str:
+        """Litigation runner tail instruction (litigation/prompts/runner-instruction.md)."""
+        return _read(litigation_prompt_path("runner-instruction")).strip()
+
+    @property
+    def user_prefix(self) -> str:
+        """Common user prompt opening line (litigation/prompts/user-prefix.md)."""
+        return _read(litigation_prompt_path("user-prefix")).strip()
+
+    def user_instructions(self, hearing_type: str) -> str:
+        """Hearing-type instructions from litigation/prompts/user/<hearing_type>.md."""
+        path = litigation_prompt_path(hearing_type, "user")
+        return _read(path).strip()

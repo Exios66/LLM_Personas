@@ -4,4 +4,5 @@
 ollama>=0.3.0        # Ollama local LLM
 openai>=1.0.0        # OpenAI-compatible API (LM Studio, OpenRouter)
 pyyaml>=6.0          # Config parsing
+markdown>=3.5        # Transcript viewer: markdown → HTML
 python-dotenv>=1.0.0 # Load .env from litigation/providers/

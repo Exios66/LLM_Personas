@@ -12,6 +12,10 @@
       margin: 0;
     }
 
+    .hidden {
+      display: none !important;
+    }
+
     #app-header {
       text-align: center;
       padding: 1.5rem 0 1rem;
@@ -45,6 +49,43 @@
 
     .app-sidebar {
       min-width: 0;
+    }
+
+    /* Global toolbar */
+    #global-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: flex-end;
+      margin-bottom: 0.75rem;
+    }
+
+    #global-toolbar .btn {
+      font-size: 0.8rem;
+    }
+
+    /* Mobile form/transcript toggle */
+    .mobile-view-toggle {
+      display: none;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .mobile-toggle-btn {
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--comment);
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .mobile-toggle-btn.active {
+      border-color: var(--purple);
+      background: var(--bg-light);
+      color: var(--fg);
     }
 
     /* Progress indicator */
@@ -123,6 +164,39 @@
       margin-bottom: 0.5rem;
     }
 
+    .section-error {
+      background: var(--bg);
+      border-left: 3px solid var(--red);
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      color: var(--red);
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-error ul {
+      margin: 0.25rem 0 0;
+      padding-left: 1.1rem;
+    }
+
+    .section-error.hidden {
+      display: none;
+    }
+
+    .section-rules {
+      background: var(--bg);
+      border-left: 3px solid var(--cyan);
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      color: var(--comment);
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-rules.hidden {
+      display: none;
+    }
+
     /* Forms */
     .form-grid-2 {
       display: grid;
@@ -154,6 +228,12 @@
       font-size: 0.9rem;
     }
 
+    .form-input.error,
+    .form-select.error,
+    .form-textarea.error {
+      border-color: var(--red);
+    }
+
     .form-textarea {
       min-height: 60px;
       resize: vertical;
@@ -183,6 +263,13 @@
 
     .form-inline input[type="checkbox"] {
       accent-color: var(--purple);
+    }
+
+    .feasibility-badge {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--comment);
+      margin-top: 0.15rem;
     }
 
     /* Buttons */
@@ -338,12 +425,19 @@
     }
 
     #transcript-content {
-      white-space: pre-wrap;
-      font-family: 'Fira Code', monospace;
+      white-space: normal;
+      font-family: inherit;
       background: var(--bg);
       border-radius: 4px;
       padding: 0.5rem 0.6rem;
       border: 1px solid var(--border);
+    }
+
+    #transcript-content pre {
+      background: var(--bg-light);
+      border-radius: 4px;
+      padding: 0.5rem 0.6rem;
+      overflow-x: auto;
     }
 
     /* LLM console */
@@ -376,8 +470,53 @@
     }
 
     .llm-log-entry {
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
+      padding: 0.35rem 0.4rem;
+      border-radius: 4px;
+      background: var(--bg-light);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem;
+    }
+
+    .llm-log-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.25rem;
+    }
+
+    .llm-log-meta {
       color: var(--comment);
+    }
+
+    .llm-log-phase {
+      font-weight: 600;
+      color: var(--cyan);
+    }
+
+    .llm-log-role {
+      color: var(--yellow);
+    }
+
+    .llm-log-timestamp {
+      color: var(--comment);
+      font-size: 0.65rem;
+    }
+
+    .llm-log-body {
+      margin-top: 0.25rem;
+    }
+
+    .llm-log-label {
+      font-weight: 600;
+      color: var(--comment);
+      font-size: 0.65rem;
+      margin-right: 0.25rem;
+    }
+
+    .llm-log-snippet {
+      color: var(--fg);
+      white-space: pre-wrap;
     }
 
     .status-indicator {
@@ -459,6 +598,26 @@
       .session-section {
         padding: 0.8rem;
       }
+
+      .mobile-view-toggle {
+        display: flex;
+      }
+
+      body.mobile-view-form .app-main {
+        display: block;
+      }
+
+      body.mobile-view-form .app-sidebar {
+        display: none;
+      }
+
+      body.mobile-view-transcript .app-main {
+        display: none;
+      }
+
+      body.mobile-view-transcript .app-sidebar {
+        display: block;
+      }
     }
   </style>
 </head>
@@ -469,6 +628,17 @@
       <p id="app-header-subtitle">"The rules exist not to constrain, but to ensure that when we err, we err consistently."</p>
     </header>
 
+    <div id="global-toolbar">
+      <button id="new-session-btn" class="btn btn-secondary">New session</button>
+      <button id="load-session-btn" class="btn btn-secondary">Load last session</button>
+      <button id="run-deliberation-btn" class="btn btn-primary">Run deliberation</button>
+    </div>
+
+    <div id="mobile-view-toggle" class="mobile-view-toggle">
+      <button type="button" class="mobile-toggle-btn active" data-mobile-view="form">Form</button>
+      <button type="button" class="mobile-toggle-btn" data-mobile-view="transcript">Transcript</button>
+    </div>
+
     <div id="progress-indicator"></div>
 
     <div class="app-layout">
@@ -476,10 +646,21 @@
         <!-- Session setup -->
         <section id="session-setup" class="session-section">
           <div class="section-header">
-            <h2 class="section-title">Session Setup</h2>
-            <span class="section-tag">Article IV.1 – Opening</span>
+            <div class="section-header-main">
+              <h2 class="section-title">Session Setup</h2>
+              <span class="section-tag">Article IV.1 – Opening</span>
+            </div>
+            <button type="button" class="btn btn-ghost section-rules-toggle" data-section="session-setup">? Rules</button>
           </div>
           <div class="section-body">
+            <div class="section-error hidden"></div>
+            <div class="section-rules hidden">
+              <ul>
+                <li>State the matter, feasibility level (F0–F5), and proceeding type.</li>
+                <li>F3+ matters require a full transcript (Articles I.3, VIII.1).</li>
+                <li>Seat Specialists only for F3+ matters (Article VI.2).</li>
+              </ul>
+            </div>
             <p class="section-hint">
               Define the matter before the court, feasibility level, and proceeding type. F3+ sessions are transcript-bearing.
             </p>
@@ -507,6 +688,7 @@
                   <option value="F4">F4 – Critical</option>
                   <option value="F5">F5 – Existential</option>
                 </select>
+                <span id="feasibility-badge" class="feasibility-badge"></span>
               </div>
               <div class="form-group">
                 <label class="form-label" for="hearing-type">Proceeding type</label>
@@ -585,10 +767,21 @@
         <!-- Arguments -->
         <section id="arguments-section" class="session-section">
           <div class="section-header">
-            <h2 class="section-title">Arguments</h2>
-            <span class="section-tag">Article IV.2</span>
+            <div class="section-header-main">
+              <h2 class="section-title">Arguments</h2>
+              <span class="section-tag">Article IV.2</span>
+            </div>
+            <button type="button" class="btn btn-ghost section-rules-toggle" data-section="arguments-section">? Rules</button>
           </div>
           <div class="section-body">
+            <div class="section-error hidden"></div>
+            <div class="section-rules hidden">
+              <ul>
+                <li>Each voting member presents a 3–5 line position (Article IV.2).</li>
+                <li>Include both position and primary rationale in each argument.</li>
+                <li>Arguments form the backbone of the F3+ transcript (Article VIII.2).</li>
+              </ul>
+            </div>
             <p class="section-hint">
               Each voting member offers a 3–5 line position. In automatic modes, the court can draft suggestions; you remain the Scribe.
             </p>
@@ -659,10 +852,20 @@
         <!-- Hail-Mary -->
         <section id="hail-mary-section" class="session-section">
           <div class="section-header">
-            <h2 class="section-title">Prophet’s Hail-Mary</h2>
-            <span class="section-tag">Article IV.3</span>
+            <div class="section-header-main">
+              <h2 class="section-title">Prophet’s Hail-Mary</h2>
+              <span class="section-tag">Article IV.3</span>
+            </div>
+            <button type="button" class="btn btn-ghost section-rules-toggle" data-section="hail-mary-section">? Rules</button>
           </div>
           <div class="section-body">
+            <div class="section-rules hidden">
+              <ul>
+                <li>Exactly one radical Hail-Mary alternative per deliberation (Article IV.3).</li>
+                <li>The Hail-Mary stands alongside, not above, conventional options.</li>
+                <li>May be voted upon as a separate motion if the Judge permits.</li>
+              </ul>
+            </div>
             <p class="section-hint">
               Exactly one radical alternative per deliberation. It stands alongside the conventional options, not above them.
             </p>
@@ -682,10 +885,20 @@
         <!-- Cross-examination -->
         <section id="cross-exam-section" class="session-section">
           <div class="section-header">
-            <h2 class="section-title">Cross-Examination</h2>
-            <span class="section-tag">Article IV.4</span>
+            <div class="section-header-main">
+              <h2 class="section-title">Cross-Examination</h2>
+              <span class="section-tag">Article IV.4</span>
+            </div>
+            <button type="button" class="btn btn-ghost section-rules-toggle" data-section="cross-exam-section">? Rules</button>
           </div>
           <div class="section-body">
+            <div class="section-rules hidden">
+              <ul>
+                <li>Maximum one question per personality per round (Article IV.4).</li>
+                <li>Maximum of two rounds of cross-examination per deliberation.</li>
+                <li>Use questions to expose hidden assumptions, not to re-argue positions.</li>
+              </ul>
+            </div>
             <p class="section-hint">
               Up to two rounds; at most one question per personality per round. Use this to expose hidden assumptions.
             </p>
@@ -786,10 +999,20 @@
         <!-- Voting -->
         <section id="voting-section" class="session-section">
           <div class="section-header">
-            <h2 class="section-title">Vote</h2>
-            <span class="section-tag">Article III & IV.6</span>
+            <div class="section-header-main">
+              <h2 class="section-title">Vote</h2>
+              <span class="section-tag">Article III &amp; IV.6</span>
+            </div>
+            <button type="button" class="btn btn-ghost section-rules-toggle" data-section="voting-section">? Rules</button>
           </div>
           <div class="section-body">
+            <div class="section-rules hidden">
+              <ul>
+                <li>Votes are cast in canonical order (Architect → Engineer → Debugger → Prophet → Counsel → Specialists).</li>
+                <li>Record vote table with Personality, Vote, and brief rationale (Articles III.3, III.5).</li>
+                <li>For F3+ matters, transcripts must have complete, consistent vote records (Article VIII.4.3).</li>
+              </ul>
+            </div>
             <p class="section-hint">
               Record votes in canonical order. Majority rules apply; Prophet then Specialists lose ties before the Judge breaks any remaining tie.
             </p>
@@ -820,10 +1043,21 @@
         <!-- Ruling -->
         <section id="ruling-section" class="session-section">
           <div class="section-header">
-            <h2 class="section-title">Ruling</h2>
-            <span class="section-tag">Article IV.7</span>
+            <div class="section-header-main">
+              <h2 class="section-title">Ruling</h2>
+              <span class="section-tag">Article IV.7</span>
+            </div>
+            <button type="button" class="btn btn-ghost section-rules-toggle" data-section="ruling-section">? Rules</button>
           </div>
           <div class="section-body">
+            <div class="section-error hidden"></div>
+            <div class="section-rules hidden">
+              <ul>
+                <li>Ruling must include Decision, Vote tally, Rationale, Risk, and Dissent (Article IV.7).</li>
+                <li>For F3+ matters, transcript sections and vote integrity must be complete before certification (Article VIII.4).</li>
+                <li>The ruling is the court’s legacy; it cannot be silently edited once certified.</li>
+              </ul>
+            </div>
             <p class="section-hint">
               Final decision, vote tally, rationale, risk, and dissent. This is the court’s legacy; take the time to get it right.
             </p>
@@ -959,6 +1193,54 @@
       LAST_MODEL: 'morningstar_last_model'
     };
 
+    // ---------------- Helpers: section errors & focus ----------------
+    function getSectionElement(sectionId) {
+      return document.getElementById(sectionId);
+    }
+
+    function showSectionErrors(sectionId, errors) {
+      const section = getSectionElement(sectionId);
+      if (!section) return;
+      const errorBox = section.querySelector('.section-error');
+      if (!errorBox) return;
+      if (!errors || !errors.length) {
+        errorBox.classList.add('hidden');
+        errorBox.innerHTML = '';
+        return;
+      }
+      const items = errors.map(err => `<li>${err}</li>`).join('');
+      errorBox.innerHTML = `<strong>Needs attention:</strong><ul>${items}</ul>`;
+      errorBox.classList.remove('hidden');
+    }
+
+    function clearSectionErrors(sectionId) {
+      const section = getSectionElement(sectionId);
+      if (!section) return;
+      const errorBox = section.querySelector('.section-error');
+      if (errorBox) {
+        errorBox.classList.add('hidden');
+        errorBox.innerHTML = '';
+      }
+      section.querySelectorAll('.form-input.error, .form-select.error, .form-textarea.error').forEach(el => {
+        el.classList.remove('error');
+      });
+    }
+
+    function markFieldErrors(sectionId, fieldIds) {
+      const section = getSectionElement(sectionId);
+      if (!section || !fieldIds) return;
+      fieldIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('error');
+      });
+    }
+
+    function scrollSectionIntoView(sectionId) {
+      const section = getSectionElement(sectionId);
+      if (!section) return;
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     function initStateFromStorage() {
       try {
         const savedKey = localStorage.getItem(STORAGE_KEYS.API_KEY);
@@ -1045,6 +1327,8 @@
       caseState.phase = phase;
       renderPhaseVisibility();
       renderProgress();
+      scrollActivePhaseIntoView(phase);
+      focusPhasePrimaryField(phase);
       updateTranscriptFromState();
       persistState();
     }
@@ -1088,45 +1372,172 @@
       }
     }
 
+    function scrollActivePhaseIntoView(phase) {
+      const mapping = {
+        setup: 'session-setup',
+        arguments: 'arguments-section',
+        hail_mary: 'hail-mary-section',
+        cross_exam: 'cross-exam-section',
+        consultant: 'consultant-section',
+        vote: 'voting-section',
+        ruling: 'ruling-section',
+        complete: 'ruling-section'
+      };
+      const sectionId = mapping[phase];
+      if (!sectionId) return;
+      const el = document.getElementById(sectionId);
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function focusPhasePrimaryField(phase) {
+      let targetId = null;
+      switch (phase) {
+        case 'setup':
+          targetId = 'case-title';
+          break;
+        case 'arguments':
+          targetId = 'argument-architect';
+          break;
+        case 'hail_mary':
+          targetId = 'hail-mary-input';
+          break;
+        case 'cross_exam':
+          targetId = 'cross-exam-architect';
+          break;
+        case 'consultant':
+          targetId = 'invoke-edward-btn';
+          break;
+        case 'vote':
+          targetId = 'vote-table-body';
+          break;
+        case 'ruling':
+        case 'complete':
+          targetId = 'ruling-decision';
+          break;
+      }
+      if (!targetId) return;
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      if (typeof el.focus === 'function') {
+        el.focus();
+      }
+    }
+
     // ---------------- Validation helpers ----------------
     function validateSetup() {
+      const sectionId = 'session-setup';
+      clearSectionErrors(sectionId);
       const errors = [];
-      if (!caseState.caseTitle) errors.push('Matter title is required.');
-      if (!caseState.feasibility) errors.push('Feasibility level is required.');
-      if (!caseState.date) errors.push('Date is required.');
-      if (!caseState.hearingType) errors.push('Proceeding type is required.');
-      if (!caseState.matterDescription) errors.push('Matter description is required.');
+      const invalidFields = [];
+      if (!caseState.caseTitle) {
+        errors.push('Matter title is required.');
+        invalidFields.push('case-title');
+      }
+      if (!caseState.feasibility) {
+        errors.push('Feasibility level is required.');
+        invalidFields.push('feasibility-level');
+      }
+      if (!caseState.date) {
+        errors.push('Date is required.');
+        invalidFields.push('case-date');
+      }
+      if (!caseState.hearingType) {
+        errors.push('Proceeding type is required.');
+        invalidFields.push('hearing-type');
+      }
+      if (!caseState.matterDescription) {
+        errors.push('Matter description is required.');
+        invalidFields.push('matter-description');
+      }
       if (errors.length) {
-        alert('Setup incomplete:\\n\\n' + errors.join('\\n'));
+        markFieldErrors(sectionId, invalidFields);
+        showSectionErrors(sectionId, errors);
+        scrollSectionIntoView(sectionId);
         return false;
       }
       return true;
     }
 
     function validateArguments() {
+      const sectionId = 'arguments-section';
+      clearSectionErrors(sectionId);
       const { architect, engineer, debugger: dbg, prophet, counsel } = caseState.arguments;
       const missing = [];
-      if (!architect) missing.push('Architect');
-      if (!engineer) missing.push('Engineer');
-      if (!dbg) missing.push('Debugger');
-      if (!prophet) missing.push('Prophet');
-      if (!counsel) missing.push('Counsel');
+      const invalidFields = [];
+      if (!architect) {
+        missing.push('Architect');
+        invalidFields.push('argument-architect');
+      }
+      if (!engineer) {
+        missing.push('Engineer');
+        invalidFields.push('argument-engineer');
+      }
+      if (!dbg) {
+        missing.push('Debugger');
+        invalidFields.push('argument-debugger');
+      }
+      if (!prophet) {
+        missing.push('Prophet');
+        invalidFields.push('argument-prophet');
+      }
+      if (!counsel) {
+        missing.push('Counsel');
+        invalidFields.push('argument-counsel');
+      }
       if (missing.length) {
-        alert('Arguments missing for: ' + missing.join(', '));
+        const errors = ['Arguments missing for: ' + missing.join(', ')];
+        markFieldErrors(sectionId, invalidFields);
+        showSectionErrors(sectionId, errors);
+        scrollSectionIntoView(sectionId);
         return false;
       }
       return true;
     }
 
     function validateRuling() {
+      const sectionId = 'ruling-section';
+      clearSectionErrors(sectionId);
       const r = caseState.ruling;
       const errors = [];
-      if (!r.decision) errors.push('Decision is required.');
-      if (!r.voteTally) errors.push('Vote tally is required.');
-      if (!r.rationale) errors.push('Rationale is required.');
-      if (!r.risk) errors.push('Primary risk is required.');
+      const invalidFields = [];
+      if (!r.decision) {
+        errors.push('Decision is required.');
+        invalidFields.push('ruling-decision');
+      }
+      if (!r.voteTally) {
+        errors.push('Vote tally is required.');
+        invalidFields.push('ruling-vote-tally');
+      }
+      if (!r.rationale) {
+        errors.push('Rationale is required.');
+        invalidFields.push('ruling-rationale');
+      }
+      if (!r.risk) {
+        errors.push('Primary risk is required.');
+        invalidFields.push('ruling-risk');
+      }
+
+      // F3+ feasibility guardrails – check that key transcript sections exist
+      if (/^F[345]$/.test(caseState.feasibility || '')) {
+        const transcriptIssues = [];
+        const { architect, engineer, debugger: dbg, prophet, counsel } = caseState.arguments;
+        if (!architect || !engineer || !dbg || !prophet || !counsel) {
+          transcriptIssues.push('All five core personality arguments must be recorded for F3+ matters.');
+        }
+        if (!caseState.hailMary) {
+          transcriptIssues.push('Prophet’s Hail-Mary must be recorded for F3+ matters.');
+        }
+        if (!caseState.votes.architect.vote || !caseState.votes.engineer.vote || !caseState.votes.debugger.vote || !caseState.votes.prophet.vote || !caseState.votes.counsel.vote) {
+          transcriptIssues.push('Core personality votes should be recorded before finalizing an F3+ ruling.');
+        }
+        errors.push(...transcriptIssues);
+      }
+
       if (errors.length) {
-        alert('Ruling incomplete:\\n\\n' + errors.join('\\n'));
+        markFieldErrors(sectionId, invalidFields);
+        showSectionErrors(sectionId, errors);
+        scrollSectionIntoView(sectionId);
         return false;
       }
       return true;
@@ -1312,7 +1723,90 @@
       const preview = document.getElementById('transcript-content');
       if (!preview) return;
       caseState.transcript = generateTranscript();
-      preview.textContent = caseState.transcript;
+      const md = caseState.transcript || '';
+      const html = applyPersonalityStyling(markdownToHtmlForPreview(md));
+      preview.innerHTML = html;
+    }
+
+    // Basic markdown → HTML for preview, modeled after portal viewer
+    function markdownToHtmlForPreview(md) {
+      let html = md;
+      // Escape HTML
+      html = html
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      // Code blocks
+      html = html.replace(/```(\w*)\\n([\\s\\S]*?)```/g, (match, lang, code) => {
+        return `<pre><code>${code.trim()}</code></pre>`;
+      });
+
+      // Headers
+      html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
+      html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+      html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+      html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+      // Bold and italic
+      html = html.replace(/\\*\\*(.+?)\\*\\*/g, '<strong>$1</strong>');
+      html = html.replace(/\\*(.+?)\\*/g, '<em>$1</em>');
+
+      // Inline code
+      html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+      // Links
+      html = html.replace(/\\[(.+?)\\]\\((.+?)\\)/g, '<a href="$2">$1</a>');
+
+      // Horizontal rules
+      html = html.replace(/^---$/gm, '<hr>');
+
+      // Blockquotes
+      html = html.replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>');
+
+      // Tables
+      html = html.replace(/\|(.+)\|/g, (match) => {
+        const cells = match.split('|').filter(c => c.trim());
+        if (cells.every(c => /^[-:\\s]+$/.test(c))) {
+          return '';
+        }
+        const tag = 'td';
+        return '<tr>' + cells.map(c => `<${tag}>${c.trim()}</${tag}>`).join('') + '</tr>';
+      });
+      // List items
+      html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+
+      // Paragraphs
+      const lines = html.split('\\n');
+      html = lines.map(line => {
+        if (line.trim() &&
+          !line.startsWith('<') &&
+          !line.match(/^\\s*$/)) {
+          return `<p>${line}</p>`;
+        }
+        return line;
+      }).join('\\n');
+
+      return html;
+    }
+
+    function applyPersonalityStyling(html) {
+      const patterns = {
+        morningstar: /\\b(MORNINGSTAR|Morningstar)\\b/g,
+        architect: /\\b(ARCHITECT|Architect)\\b/g,
+        engineer: /\\b(ENGINEER|Engineer)\\b/g,
+        debugger: /\\b(DEBUGGER|Debugger)\\b/g,
+        prophet: /\\b(PROPHET|Prophet)\\b/g,
+        scribe: /\\b(SCRIBE|Scribe)\\b/g
+      };
+      for (const [personality, pattern] of Object.entries(patterns)) {
+        html = html.replace(pattern, `<span class="p-${personality}">$1</span>`);
+      }
+      html = html.replace(/\\bYES\\b/g, '<span class="vote-yes">YES</span>');
+      html = html.replace(/\\bNO\\b/g, '<span class="vote-no">NO</span>');
+      html = html.replace(/\\bABSTAIN\\b/g, '<span class="vote-abstain">ABSTAIN</span>');
+      html = html.replace(/\\bRECUSED\\b/g, '<span class="vote-abstain">RECUSED</span>');
+      return html;
     }
 
     function exportTranscript(asHtml) {
@@ -1366,14 +1860,58 @@
       if (statusClass) status.classList.add(statusClass);
     }
 
-    function logLlm(message) {
+    function logLlmCall({ phase, role, systemPrompt, userPrompt, response }) {
       const body = document.getElementById('llm-console-body');
       if (!body) return;
-      const div = document.createElement('div');
-      div.className = 'llm-log-entry';
-      div.textContent = message;
-      body.appendChild(div);
+      const entry = document.createElement('div');
+      entry.className = 'llm-log-entry';
+
+      const header = document.createElement('div');
+      header.className = 'llm-log-header';
+
+      const meta = document.createElement('div');
+      meta.className = 'llm-log-meta';
+      const phaseSpan = document.createElement('span');
+      phaseSpan.className = 'llm-log-phase';
+      phaseSpan.textContent = phase || 'general';
+      meta.appendChild(phaseSpan);
+      if (role) {
+        const roleSpan = document.createElement('span');
+        roleSpan.className = 'llm-log-role';
+        roleSpan.textContent = ` · ${role.toUpperCase()}`;
+        meta.appendChild(roleSpan);
+      }
+
+      const timestamp = document.createElement('span');
+      timestamp.className = 'llm-log-timestamp';
+      timestamp.textContent = new Date().toLocaleTimeString();
+
+      header.appendChild(meta);
+      header.appendChild(timestamp);
+      entry.appendChild(header);
+
+      const bodyEl = document.createElement('div');
+      bodyEl.className = 'llm-log-body';
+
+      const systemDiv = document.createElement('div');
+      systemDiv.innerHTML = `<span class="llm-log-label">system</span><span class="llm-log-snippet">${(systemPrompt || '').slice(0, 140)}</span>`;
+      const userDiv = document.createElement('div');
+      userDiv.innerHTML = `<span class="llm-log-label">user</span><span class="llm-log-snippet">${(userPrompt || '').slice(0, 200)}</span>`;
+      const respDiv = document.createElement('div');
+      respDiv.innerHTML = `<span class="llm-log-label">assistant</span><span class="llm-log-snippet">${(response || '').slice(0, 260)}</span>`;
+
+      bodyEl.appendChild(systemDiv);
+      bodyEl.appendChild(userDiv);
+      bodyEl.appendChild(respDiv);
+
+      entry.appendChild(bodyEl);
+
+      body.appendChild(entry);
       body.scrollTop = body.scrollHeight;
+    }
+
+    function logLlm(message) {
+      logLlmCall({ phase: caseState.phase, role: null, systemPrompt: '', userPrompt: message, response: '' });
     }
 
     function buildSystemPrompt() {
@@ -1398,12 +1936,13 @@
       };
     }
 
-    async function callModel(userPrompt) {
+    async function callModel(userPrompt, context = {}) {
       const apiMode = caseState.api.mode;
       const model = caseState.api.model;
       const systemPrompt = buildSystemPrompt();
       setLlmStatus('Calling…', 'status-loading');
-      logLlm('> ' + userPrompt.slice(0, 200));
+      const phase = context.phase || caseState.phase;
+      const role = context.role || null;
       try {
         let responseText = '';
         if (apiMode === 'backend') {
@@ -1450,13 +1989,13 @@
           const data = await res.json();
           responseText = data?.choices?.[0]?.message?.content || '';
         }
-        logLlm('< ' + responseText.slice(0, 200));
+        logLlmCall({ phase, role, systemPrompt, userPrompt, response: responseText || '' });
         setLlmStatus('Complete', 'status-success');
         return responseText;
       } catch (e) {
         console.error(e);
         setLlmStatus('Error', 'status-error');
-        logLlm('! ' + e.message);
+        logLlmCall({ phase, role, systemPrompt, userPrompt, response: 'ERROR: ' + e.message });
         alert('Model error: ' + e.message);
         throw e;
       }
@@ -1495,6 +2034,21 @@
       matterTextarea.value = caseState.matterDescription || '';
       spectatorsCheckbox.checked = !!caseState.includeSpectators;
 
+      const feasBadge = document.getElementById('feasibility-badge');
+      const updateFeasibilityBadge = () => {
+        const value = feasSelect.value;
+        let text = '';
+        if (!value) {
+          text = '';
+        } else if (['F0', 'F1', 'F2'].includes(value)) {
+          text = 'Transcript optional; expedited flow available.';
+        } else if (['F3', 'F4', 'F5'].includes(value)) {
+          text = 'Transcript mandatory; consider F4+ for amendments.';
+        }
+        if (feasBadge) feasBadge.textContent = text;
+      };
+      updateFeasibilityBadge();
+
       const sync = () => {
         caseState.caseTitle = titleInput.value.trim();
         caseState.caseNumber = numberInput.value.trim() || caseState.caseNumber;
@@ -1511,11 +2065,18 @@
         el.addEventListener('input', sync);
       });
 
+      feasSelect.addEventListener('change', updateFeasibilityBadge);
+
       startBtn.addEventListener('click', () => {
         sync();
         if (!validateSetup()) return;
         setPhase('arguments');
       });
+
+      // Initial focus
+      if (typeof titleInput.focus === 'function') {
+        titleInput.focus();
+      }
     }
 
     function bindApiSection() {
@@ -1580,6 +2141,7 @@
           btn.classList.add('active');
           caseState.autonomy = mode;
           persistState();
+          updateRunDeliberationVisibility();
         });
       });
     }
@@ -1602,7 +2164,7 @@
           if (caseState.autonomy === AUTONOMY.SEMI || caseState.autonomy === AUTONOMY.FULL) {
             const role = btn.getAttribute('data-role');
             const prompt = `Draft a 3–5 line argument for the ${role.toUpperCase()} given this matter and feasibility. Focus on that role's core bias.`;
-            const text = await callModel(prompt);
+            const text = await callModel(prompt, { phase: 'arguments', role });
             const el = document.getElementById('argument-' + role);
             if (el) {
               el.value = text.trim();
@@ -1633,7 +2195,7 @@
       document.getElementById('hailmary-back-btn').addEventListener('click', () => setPhase('arguments'));
       document.getElementById('hailmary-generate-btn').addEventListener('click', async () => {
         const prompt = 'Given the matter and existing arguments, propose exactly one radical Hail-Mary alternative in 3–5 lines.';
-        const text = await callModel(prompt);
+        const text = await callModel(prompt, { phase: 'hail_mary', role: 'prophet' });
         input.value = text.trim();
         caseState.hailMary = input.value;
         updateTranscriptFromState();
@@ -1700,14 +2262,39 @@
         }
       });
       document.getElementById('cross-exam-suggest-btn').addEventListener('click', async () => {
-        const prompt = 'Propose succinct cross-examination questions (1 per personality) for this matter. Respond as bullet points labelled ARCHITECT, ENGINEER, DEBUGGER, PROPHET, COUNSEL.';
-        const text = await callModel(prompt);
-        // Simple insertion: drop full text into architect field for now
-        const el = document.getElementById('cross-exam-architect');
-        if (el) {
-          el.value = text.trim();
-          saveRound();
-        }
+        const prompt = 'Propose succinct cross-examination questions (1 per personality) for this matter. Respond as bullet points of the form "ARCHITECT: question", "ENGINEER: question", "DEBUGGER: question", "PROPHET: question", "COUNSEL: question".';
+        const text = await callModel(prompt, { phase: 'cross_exam', role: null });
+        const perRole = { architect: '', engineer: '', debugger: '', prophet: '', counsel: '' };
+        text.split('\n').forEach(line => {
+          let trimmed = line.trim();
+          if (!trimmed) return;
+          if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+            trimmed = trimmed.slice(2).trim();
+          }
+          const idx = trimmed.indexOf(':');
+          if (idx === -1) return;
+          const label = trimmed.slice(0, idx).trim().toUpperCase();
+          const question = trimmed.slice(idx + 1).trim();
+          const map = {
+            ARCHITECT: 'architect',
+            ENGINEER: 'engineer',
+            DEBUGGER: 'debugger',
+            PROPHET: 'prophet',
+            COUNSEL: 'counsel'
+          };
+          const roleKey = map[label];
+          if (roleKey && question) {
+            perRole[roleKey] = question;
+          }
+        });
+        fields.forEach(role => {
+          const el = document.getElementById('cross-exam-' + role);
+          if (!el) return;
+          if (perRole[role]) {
+            el.value = perRole[role];
+          }
+        });
+        saveRound();
       });
       document.getElementById('cross-exam-skip-btn').addEventListener('click', () => setPhase('consultant'));
     }
@@ -1725,7 +2312,7 @@
           return;
         }
         const prompt = 'As Edward Cullen, offer one advisory perspective on this case: measured, introspective, and slightly haunted. 3–6 sentences.';
-        const text = await callModel(prompt);
+        const text = await callModel(prompt, { phase: 'consultant', role: 'edward' });
         perspective.value = text.trim();
         caseState.edwardInvoked = true;
         caseState.edwardPerspective = perspective.value;
@@ -1787,9 +2374,16 @@
       renderVoteTable();
       document.getElementById('voting-back-btn').addEventListener('click', () => setPhase('consultant'));
       document.getElementById('voting-generate-btn').addEventListener('click', async () => {
-        const prompt = 'Given the matter, arguments, and Hail-Mary, propose a concise vote recommendation (YES/NO/ABSTAIN) and 1-line rationale for each personality. Format as a markdown table.';
-        await callModel(prompt);
-        // Concrete parsing can be added later; for now we rely on manual entry.
+        const prompt = [
+          'Given the matter, arguments, and Hail-Mary, propose a concise vote recommendation (YES/NO/ABSTAIN/RECUSED) and 1-line rationale for each personality.',
+          'Respond as a markdown table with columns exactly: "Personality | Vote | Rationale".',
+          'Use canonical personality names ARCHITECT, ENGINEER, DEBUGGER, PROPHET, COUNSEL, and any existing SPECIALIST (domain) seats.'
+        ].join(' ');
+        const markdown = await callModel(prompt, { phase: 'vote', role: null });
+        parseVoteTable(markdown || '');
+        renderVoteTable();
+        updateTranscriptFromState();
+        persistState();
       });
       document.getElementById('voting-lock-btn').addEventListener('click', () => {
         const body = document.getElementById('vote-table-body');
@@ -1866,12 +2460,7 @@
 
       document.getElementById('ruling-back-btn').addEventListener('click', () => setPhase('vote'));
       document.getElementById('ruling-generate-btn').addEventListener('click', async () => {
-        const prompt = 'Draft the final ruling section for this deliberation, including decision, vote tally, rationale, risk, and dissent. Output as short markdown paragraphs.';
-        const text = await callModel(prompt);
-        decision.value = text.trim();
-        caseState.ruling.decision = decision.value;
-        updateTranscriptFromState();
-        persistState();
+        await autoDraftRulingFromModel();
       });
       document.getElementById('ruling-finalize-btn').addEventListener('click', () => {
         if (!validateRuling()) return;
@@ -1897,12 +2486,444 @@
       });
     }
 
+    // ---------------- Vote table parsing ----------------
+    function normalizePersonalityLabel(raw) {
+      const cleaned = (raw || '').trim();
+      if (!cleaned) return null;
+      const upper = cleaned.toUpperCase();
+      if (upper.startsWith('MORNINGSTAR::')) {
+        return upper.replace('MORNINGSTAR::', '');
+      }
+      if (upper.startsWith('SPECIALIST')) {
+        return upper;
+      }
+      return upper;
+    }
+
+    function parseVoteTable(markdown) {
+      if (!markdown) return;
+      const lines = markdown.split('\n').filter(l => l.trim().startsWith('|'));
+      if (!lines.length) return;
+      const coreRoles = ['ARCHITECT', 'ENGINEER', 'DEBUGGER', 'PROPHET', 'COUNSEL'];
+      lines.forEach(line => {
+        const cells = line.split('|').map(c => c.trim()).filter(Boolean);
+        if (cells.length < 3) return;
+        if (cells[0].toLowerCase() === 'personality') return;
+        if (/^[-:\s]+$/.test(cells[0])) return;
+        const personalityLabel = normalizePersonalityLabel(cells[0]);
+        const vote = (cells[1] || '').toUpperCase();
+        const rationale = cells.slice(2).join(' | ');
+        if (!personalityLabel) return;
+        if (coreRoles.includes(personalityLabel)) {
+          const key = personalityLabel.toLowerCase();
+          if (!caseState.votes[key]) caseState.votes[key] = { vote: '', rationale: '' };
+          caseState.votes[key].vote = vote;
+          caseState.votes[key].rationale = rationale;
+        } else if (personalityLabel.startsWith('SPECIALIST')) {
+          const match = personalityLabel.match(/SPECIALIST\s*\((.+)\)/i);
+          if (!match) return;
+          const domain = match[1].trim();
+          const idx = caseState.votes.specialists.findIndex(sp => sp.domain && sp.domain.toLowerCase() === domain.toLowerCase());
+          if (idx >= 0) {
+            caseState.votes.specialists[idx].vote = vote;
+            caseState.votes.specialists[idx].rationale = rationale;
+          }
+        }
+      });
+    }
+
+    // ---------------- Ruling auto-draft helper ----------------
+    async function autoDraftRulingFromModel() {
+      const prompt = [
+        'Draft the final ruling for this deliberation using the following template, filling in each label with concise text:',
+        'Decision: [clear statement]',
+        'Vote: [tally, e.g., 3-1-0]',
+        'Rationale: [2-3 sentences]',
+        'Risk: [primary risk accepted]',
+        'Dissent: [summary of minority position, if any]',
+        'Respond in plain text using exactly these five labelled lines.'
+      ].join(' ');
+      const text = await callModel(prompt, { phase: 'ruling', role: null });
+      if (!text) return;
+      const lines = text.split('\n');
+      const out = { decision: '', vote: '', rationale: '', risk: '', dissent: '' };
+      lines.forEach(line => {
+        const idx = line.indexOf(':');
+        if (idx === -1) return;
+        const label = line.slice(0, idx).trim().toLowerCase();
+        const value = line.slice(idx + 1).trim();
+        if (label === 'decision') out.decision = value;
+        else if (label === 'vote') out.vote = value;
+        else if (label === 'rationale') out.rationale = value;
+        else if (label === 'risk') out.risk = value;
+        else if (label === 'dissent') out.dissent = value;
+      });
+      const decision = document.getElementById('ruling-decision');
+      const tally = document.getElementById('ruling-vote-tally');
+      const rationale = document.getElementById('ruling-rationale');
+      const risk = document.getElementById('ruling-risk');
+      const dissent = document.getElementById('ruling-dissent');
+      if (decision) decision.value = out.decision || '';
+      if (tally && out.vote) tally.value = out.vote;
+      if (rationale) rationale.value = out.rationale || '';
+      if (risk) risk.value = out.risk || '';
+      if (dissent) dissent.value = out.dissent || '';
+      caseState.ruling.decision = decision ? decision.value.trim() : '';
+      caseState.ruling.voteTally = tally ? tally.value.trim() : caseState.ruling.voteTally;
+      caseState.ruling.rationale = rationale ? rationale.value.trim() : '';
+      caseState.ruling.risk = risk ? risk.value.trim() : '';
+      caseState.ruling.dissent = dissent ? dissent.value.trim() : '';
+      updateTranscriptFromState();
+      persistState();
+    }
+
+    // ---------------- Global toolbar & mobile toggle ----------------
+    function bindGlobalToolbar() {
+      const newBtn = document.getElementById('new-session-btn');
+      const loadBtn = document.getElementById('load-session-btn');
+      const runBtn = document.getElementById('run-deliberation-btn');
+      if (newBtn) {
+        newBtn.addEventListener('click', () => {
+          localStorage.removeItem(STORAGE_KEYS.STATE);
+          window.location.reload();
+        });
+      }
+      if (loadBtn) {
+        loadBtn.addEventListener('click', () => {
+          window.location.reload();
+        });
+      }
+      if (runBtn) {
+        runBtn.addEventListener('click', async () => {
+          await runDeliberation();
+        });
+      }
+      updateRunDeliberationVisibility();
+    }
+
+    function updateRunDeliberationVisibility() {
+      const runBtn = document.getElementById('run-deliberation-btn');
+      if (!runBtn) return;
+      if (caseState.autonomy === AUTONOMY.FULL) {
+        runBtn.style.display = 'inline-block';
+        runBtn.disabled = false;
+      } else {
+        runBtn.style.display = 'none';
+      }
+    }
+
+    function bindMobileToggle() {
+      const buttons = document.querySelectorAll('.mobile-toggle-btn');
+      if (!buttons.length) return;
+      const setView = (view) => {
+        document.body.classList.remove('mobile-view-form', 'mobile-view-transcript');
+        if (view === 'transcript') {
+          document.body.classList.add('mobile-view-transcript');
+        } else {
+          document.body.classList.add('mobile-view-form');
+        }
+        buttons.forEach(btn => {
+          const v = btn.getAttribute('data-mobile-view');
+          btn.classList.toggle('active', v === view);
+        });
+      };
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const view = btn.getAttribute('data-mobile-view') || 'form';
+          setView(view);
+        });
+      });
+      // Default to form view on load for mobile
+      setView('form');
+    }
+
+    async function confirmRunStep(message) {
+      return window.confirm(message);
+    }
+
+    async function runDeliberation() {
+      if (caseState.autonomy !== AUTONOMY.FULL) return;
+      // Ensure setup is valid
+      if (!validateSetup()) {
+        setPhase('setup');
+        return;
+      }
+      setPhase('arguments');
+      // Generate arguments for any missing personalities
+      const roles = ['architect', 'engineer', 'debugger', 'prophet', 'counsel'];
+      for (const role of roles) {
+        if (!caseState.arguments[role]) {
+          const prompt = `Draft a 3–5 line argument for the ${role.toUpperCase()} given this matter and feasibility. Focus on that role's core bias.`;
+          const text = await callModel(prompt, { phase: 'arguments', role });
+          const el = document.getElementById('argument-' + role);
+          if (el) {
+            el.value = text.trim();
+          }
+          caseState.arguments[role] = (el && el.value) || text.trim();
+        }
+      }
+      updateTranscriptFromState();
+      persistState();
+
+      if (!(await confirmRunStep('Arguments drafted. Continue to Hail-Mary generation?'))) return;
+
+      setPhase('hail_mary');
+      if (!caseState.hailMary) {
+        const prompt = 'Given the matter and existing arguments, propose exactly one radical Hail-Mary alternative in 3–5 lines.';
+        const text = await callModel(prompt, { phase: 'hail_mary', role: 'prophet' });
+        const input = document.getElementById('hail-mary-input');
+        if (input) {
+          input.value = text.trim();
+        }
+        caseState.hailMary = (input && input.value) || text.trim();
+        updateTranscriptFromState();
+        persistState();
+      }
+
+      if (!(await confirmRunStep('Hail-Mary prepared. Continue to Cross-Examination suggestions?'))) return;
+
+      setPhase('cross_exam');
+      // Auto-suggest cross-exam for round 1
+      caseState.crossExamination.round = 1;
+      const promptCross = 'Propose succinct cross-examination questions (1 per personality) for this matter. Respond as bullet points of the form "ARCHITECT: question", "ENGINEER: question", "DEBUGGER: question", "PROPHET: question", "COUNSEL: question".';
+      const textCross = await callModel(promptCross, { phase: 'cross_exam', role: null });
+      const perRole = { architect: '', engineer: '', debugger: '', prophet: '', counsel: '' };
+      textCross.split('\n').forEach(line => {
+        let trimmed = line.trim();
+        if (!trimmed) return;
+        if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+          trimmed = trimmed.slice(2).trim();
+        }
+        const idx = trimmed.indexOf(':');
+        if (idx === -1) return;
+        const label = trimmed.slice(0, idx).trim().toUpperCase();
+        const question = trimmed.slice(idx + 1).trim();
+        const map = {
+          ARCHITECT: 'architect',
+          ENGINEER: 'engineer',
+          DEBUGGER: 'debugger',
+          PROPHET: 'prophet',
+          COUNSEL: 'counsel'
+        };
+        const roleKey = map[label];
+        if (roleKey && question) {
+          perRole[roleKey] = question;
+        }
+      });
+      ['architect', 'engineer', 'debugger', 'prophet', 'counsel'].forEach(role => {
+        const el = document.getElementById('cross-exam-' + role);
+        if (!el) return;
+        if (perRole[role]) {
+          el.value = perRole[role];
+        }
+      });
+      // Save round 1 questions into state
+      const fields = ['architect', 'engineer', 'debugger', 'prophet', 'counsel'];
+      fields.forEach(role => {
+        const el = document.getElementById('cross-exam-' + role);
+        if (!el) return;
+        const question = el.value.trim();
+        const existingIndex = caseState.crossExamination.questions.findIndex(
+          q => q.round === caseState.crossExamination.round && q.personality === role
+        );
+        if (question) {
+          if (existingIndex >= 0) {
+            caseState.crossExamination.questions[existingIndex].question = question;
+          } else {
+            caseState.crossExamination.questions.push({
+              round: caseState.crossExamination.round,
+              personality: role,
+              question
+            });
+          }
+        } else if (existingIndex >= 0) {
+          caseState.crossExamination.questions.splice(existingIndex, 1);
+        }
+      });
+      updateTranscriptFromState();
+      persistState();
+
+      if (!(await confirmRunStep('Cross-examination drafted. Invoke Edward and proceed to voting recommendations?'))) return;
+
+      setPhase('consultant');
+      if (!caseState.edwardInvoked) {
+        const promptEdward = 'As Edward Cullen, offer one advisory perspective on this case: measured, introspective, and slightly haunted. 3–6 sentences.';
+        const textEdward = await callModel(promptEdward, { phase: 'consultant', role: 'edward' });
+        const perspective = document.getElementById('edward-perspective');
+        if (perspective) {
+          perspective.value = textEdward.trim();
+        }
+        caseState.edwardInvoked = true;
+        caseState.edwardPerspective = (perspective && perspective.value) || textEdward.trim();
+        updateTranscriptFromState();
+        persistState();
+      }
+
+      if (!(await confirmRunStep('Consultant perspective recorded. Generate vote recommendations?'))) return;
+
+      setPhase('vote');
+      const promptVotes = [
+        'Given the matter, arguments, Hail-Mary, consultant perspective, and any Specialists, propose a vote recommendation for each voting personality.',
+        'Respond as a markdown table with columns exactly: "Personality | Vote | Rationale".',
+        'Use canonical personality names ARCHITECT, ENGINEER, DEBUGGER, PROPHET, COUNSEL, and any existing SPECIALIST (domain) seats.',
+        'Votes must be one of YES, NO, ABSTAIN, or RECUSED.'
+      ].join(' ');
+      const mdVotes = await callModel(promptVotes, { phase: 'vote', role: null });
+      parseVoteTable(mdVotes || '');
+      renderVoteTable();
+      updateTranscriptFromState();
+      persistState();
+
+      if (!(await confirmRunStep('Votes populated. Draft a ruling from this record?'))) return;
+
+      setPhase('ruling');
+      await autoDraftRulingFromModel();
+    }
+
+    // ---------------- Keyboard shortcuts & rules toggles ----------------
+    function bindKeyboardShortcuts() {
+      document.addEventListener('keydown', (e) => {
+        // Alt+1..7 jump between phases with validation
+        if (e.altKey && !e.shiftKey && !e.metaKey) {
+          const num = parseInt(e.key, 10);
+          if (num >= 1 && num <= 7) {
+            e.preventDefault();
+            jumpToPhaseByNumber(num);
+            return;
+          }
+        }
+        // Ctrl+Enter (or Cmd+Enter) to advance from major textareas
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+          const active = document.activeElement;
+          if (active && active.tagName === 'TEXTAREA') {
+            e.preventDefault();
+            advanceFromCurrentPhase();
+          }
+        }
+      });
+
+      document.querySelectorAll('.section-rules-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const sectionId = btn.getAttribute('data-section');
+          const section = getSectionElement(sectionId);
+          if (!section) return;
+          const rules = section.querySelector('.section-rules');
+          if (!rules) return;
+          rules.classList.toggle('hidden');
+        });
+      });
+    }
+
+    function phaseForNumber(n) {
+      switch (n) {
+        case 1: return 'setup';
+        case 2: return 'arguments';
+        case 3: return 'hail_mary';
+        case 4: return 'cross_exam';
+        case 5: return 'consultant';
+        case 6: return 'vote';
+        case 7: return 'ruling';
+        default: return null;
+      }
+    }
+
+    function jumpToPhaseByNumber(n) {
+      const target = phaseForNumber(n);
+      if (!target) return;
+      let current = caseState.phase;
+      if (current === target) return;
+      const currentIdx = PHASES.indexOf(current);
+      const targetIdx = PHASES.indexOf(target);
+      if (targetIdx < 0) return;
+      if (targetIdx <= currentIdx) {
+        setPhase(target);
+        return;
+      }
+      // Move forward with basic validation gates
+      const order = ['setup', 'arguments', 'hail_mary', 'cross_exam', 'consultant', 'vote', 'ruling'];
+      for (let i = 0; i < order.length - 1; i++) {
+        const ph = order[i];
+        const next = order[i + 1];
+        if (ph === current) {
+          if (!advanceFromPhase(ph)) return;
+          current = next;
+          if (current === target) return;
+        }
+      }
+    }
+
+    function advanceFromCurrentPhase() {
+      advanceFromPhase(caseState.phase);
+    }
+
+    function advanceFromPhase(phase) {
+      switch (phase) {
+        case 'setup':
+          if (!validateSetup()) return false;
+          setPhase('arguments');
+          return true;
+        case 'arguments':
+          if (!validateArguments()) return false;
+          setPhase('hail_mary');
+          return true;
+        case 'hail_mary':
+          setPhase('cross_exam');
+          return true;
+        case 'cross_exam':
+          setPhase('consultant');
+          return true;
+        case 'consultant':
+          setPhase('vote');
+          return true;
+        case 'vote':
+          // Lock current votes and move to ruling
+          const body = document.getElementById('vote-table-body');
+          if (body) {
+            body.querySelectorAll('.vote-select').forEach(select => {
+              const role = select.getAttribute('data-vote-role');
+              const spIdx = select.getAttribute('data-vote-specialist-index');
+              if (role && caseState.votes[role]) {
+                caseState.votes[role].vote = select.value || '';
+              } else if (spIdx !== null) {
+                const idx = Number(spIdx);
+                if (!caseState.votes.specialists[idx]) caseState.votes.specialists[idx] = {};
+                caseState.votes.specialists[idx].vote = select.value || '';
+              }
+            });
+            body.querySelectorAll('.vote-rationale-input').forEach(textarea => {
+              const role = textarea.getAttribute('data-rationale-role');
+              const spIdx = textarea.getAttribute('data-rationale-specialist-index');
+              if (role && caseState.votes[role]) {
+                caseState.votes[role].rationale = textarea.value || '';
+              } else if (spIdx !== null) {
+                const idx = Number(spIdx);
+                if (!caseState.votes.specialists[idx]) caseState.votes.specialists[idx] = {};
+                caseState.votes.specialists[idx].rationale = textarea.value || '';
+              }
+            });
+          }
+          updateVoteSummary();
+          updateTranscriptFromState();
+          persistState();
+          setPhase('ruling');
+          return true;
+        case 'ruling':
+          if (!validateRuling()) return false;
+          setPhase('complete');
+          alert('Ruling finalized. Transcript ready for export.');
+          return true;
+        default:
+          return false;
+      }
+    }
+
     // ---------------- Boot ----------------
     document.addEventListener('DOMContentLoaded', () => {
       initStateFromStorage();
       renderProgress();
       renderPhaseVisibility();
       setupCharCounters();
+      bindGlobalToolbar();
       bindSetupSection();
       bindApiSection();
       bindArgumentsSection();
@@ -1913,6 +2934,8 @@
       bindVotingSection();
       bindRulingSection();
       bindTranscriptActions();
+      bindMobileToggle();
+      bindKeyboardShortcuts();
       updateTranscriptFromState();
     });
   </script>

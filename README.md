@@ -10,6 +10,7 @@ A deliberative AI persona framework that transforms complex decisions into struc
 [![GitHub stars](https://img.shields.io/github/stars/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/network)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/commits/main)
+
 ---
 
 ## Table of Contents
@@ -35,6 +36,7 @@ MORNINGSTAR is not a chatbot. It is a deliberative system.
 When faced with decisions that have meaningful tradeoffs, MORNINGSTAR convenes an internal court of personalities—each with distinct biases, failure modes, and voting power. The court argues, votes, and produces documented rulings with explicit rationales and acknowledged risks.
 
 **What MORNINGSTAR provides:**
+
 - Structured deliberation for complex decisions
 - Documented reasoning and dissent
 - Persistent state across sessions
@@ -42,6 +44,7 @@ When faced with decisions that have meaningful tradeoffs, MORNINGSTAR convenes a
 - Prophet vindication tracking (for when radical ideas prove correct)
 
 **What MORNINGSTAR does not provide:**
+
 - Fast answers to trivial questions
 - Consensus without conflict
 - Decisions without accountability
@@ -84,13 +87,13 @@ Each personality argues their position (3-5 lines). The Prophet offers a radical
 
 ### 5. View Transcripts in Browser
 
-From the project root, run the portal launcher to list deliberations and open them in your browser:
+From the project root, run the courtroom portal launcher to list deliberations and open them in your browser:
 
 ```
-./portal/launch.sh
+./courtroom/portal/launch.sh
 ```
 
-See [portal/README.md](portal/README.md) for details.
+See [courtroom/portal/README.md](courtroom/portal/README.md) for details. For a local transcript viewer tied to the litigation runner (list/show/serve), see [litigation/README.md](litigation/README.md#transcript-viewer-local-portal).
 
 ### 6. Save Progress
 
@@ -108,7 +111,7 @@ Run deliberations via **Ollama**, **LM Studio**, or **OpenRouter** (no Cursor ag
 python litigation/run.py "Your matter"   # Direct run
 ```
 
-The litigation runner loads the **full MORNINGSTAR framework** (procedures, personalities, rules, MFAF, domain experts, spectators, checklists) and produces certified transcripts. See [`litigation/README.md`](litigation/README.md).
+The litigation runner loads the **full MORNINGSTAR framework** (procedures, personalities, rules, MFAF, domain experts, spectators, checklists) and produces certified transcripts. It also provides a **local transcript viewer** (`litigation/viewer.py` — list, show, serve). See [`litigation/README.md`](litigation/README.md).
 
 ---
 
@@ -150,12 +153,14 @@ The litigation runner loads the **full MORNINGSTAR framework** (procedures, pers
 
 ### Portal (Transcript Viewer)
 
+The transcript portal lives under **`courtroom/portal/`**.
+
 | File | Purpose | When to Reference |
 |------|---------|-------------------|
-| [`portal/launch.sh`](portal/launch.sh) | Interactive transcript launcher | **Primary way to open transcripts in browser** |
-| [`portal/export_transcript.py`](portal/export_transcript.py) | Export single .md → HTML | When launch script exports on demand |
-| [`portal/viewer.html`](portal/viewer.html) | Standalone transcript viewer | Browse transcripts (best over HTTP) |
-| [`portal/README.md`](portal/README.md) | Portal documentation | Setup and troubleshooting |
+| [`courtroom/portal/launch.sh`](courtroom/portal/launch.sh) | Interactive transcript launcher | **Primary way to open transcripts in browser** |
+| [`courtroom/portal/export_transcript.py`](courtroom/portal/export_transcript.py) | Export single .md → HTML | When launch script exports on demand |
+| [`courtroom/portal/viewer.html`](courtroom/portal/viewer.html) | Standalone transcript viewer | Browse transcripts (best over HTTP) |
+| [`courtroom/portal/README.md`](courtroom/portal/README.md) | Portal documentation | Setup and troubleshooting |
 
 ### Docs (Onboarding, Glossary, Runbook)
 
@@ -166,6 +171,7 @@ The litigation runner loads the **full MORNINGSTAR framework** (procedures, pers
 | [`docs/glossary.md`](docs/glossary.md) | Term index (F0–F5, SME, etc.) | Definitions |
 | [`docs/RUNBOOK.md`](docs/RUNBOOK.md) | Troubleshooting index | When something goes wrong |
 | [`docs/edge-cases.md`](docs/edge-cases.md) | Known limitations and workarounds | Edge cases |
+| [`docs/court-reporter.md`](docs/court-reporter.md) | Court Reporter — doc integration (every 3h) | Syncing transcripts, precedents, metrics |
 
 ### Templates
 
@@ -359,10 +365,18 @@ LLM_Personas/
 │   ├── RULES.md                # Formal courtroom rules
 │   ├── BEST_PRACTICES.md       # Practical guidance
 │   ├── precedents.md           # Precedent database
+│   ├── spectators.md           # Courtroom spectators
 │   ├── transcripts/            # F3+ deliberation records (.md + .html)
-│   └── domains/                # SME domain registry
-│       ├── README.md           # Registry usage, summoning, adding domains
-│       └── experts.yaml        # Canonical domain definitions
+│   ├── domains/                # SME domain registry
+│   │   ├── README.md           # Registry usage, summoning, adding domains
+│   │   └── experts.yaml        # Canonical domain definitions
+│   └── portal/                 # Transcript viewer & export (run ./courtroom/portal/launch.sh)
+│       ├── launch.sh           # Transcript launcher
+│       ├── export_transcript.py # .md → HTML export
+│       ├── viewer.html         # Standalone viewer
+│       ├── dracula.css
+│       ├── generate.py         # Optional: gitmal static site
+│       └── README.md
 ├── state/
 │   ├── current.md              # Active session state
 │   └── metrics.md              # Cumulative statistics
@@ -370,13 +384,6 @@ LLM_Personas/
 │   ├── session-start.md        # Session templates
 │   ├── module-template.md      # Module structure
 │   └── project-dashboard.md    # Project tracking
-├── portal/
-│   ├── launch.sh               # Transcript launcher (run from project root)
-│   ├── export_transcript.py    # .md → HTML export
-│   ├── viewer.html             # Standalone viewer
-│   ├── dracula.css
-│   ├── generate.py             # Optional: gitmal static site
-│   └── README.md
 ├── docs/
 │   ├── ONBOARDING.md           # Start here
 │   ├── agent-schema.md         # Agent frontmatter schema
@@ -483,6 +490,8 @@ Every directory and key file added since inception. Use this to find where thing
 | `litigation/ui.py` | Interactive menu (Quick run, Full run, Help, Exit) |
 | `litigation/models.py` | OpenRouter model selection (slot machine, interactive list) |
 | `litigation/README.md` | Setup for Ollama, LM Studio, OpenRouter |
+| `litigation/OPENROUTER_BEST_PRACTICES.md` | OpenRouter best practices for courtroom execution |
+| `litigation/OPENROUTER_BEST_PRACTICES.md` | OpenRouter best practices for courtroom execution (attribution, routing, credits) |
 | `litigation/prompts/` | Full framework loader (procedures, rules, MFAF, domain experts, checklists, spectators) |
 | `litigation/providers/` | LLM provider adapters (Ollama, LM Studio, OpenRouter) |
 | **checklists/** | Quality and process |
@@ -511,7 +520,7 @@ Every directory and key file added since inception. Use this to find where thing
 ### First-time setup
 
 1. **Clone or open** the repo. No install required for MORNINGSTAR or LIL_JEFF (Cursor agents).
-2. **Portal (optional):** For `./portal/launch.sh`, ensure it’s executable: `chmod +x portal/launch.sh`. Python 3 is used for on-demand transcript export.
+2. **Portal (optional):** For `./courtroom/portal/launch.sh`, ensure it’s executable: `chmod +x courtroom/portal/launch.sh`. Python 3 is used for on-demand transcript export.
 3. **OCTAVIUS (optional):** No extra setup; reads `octavius_core/THE_RULES.md` and `octavius_core/state.md` at session start.
 
 ### Daily use
@@ -523,7 +532,7 @@ Every directory and key file added since inception. Use this to find where thing
 | **Implement or scaffold code** | Invoke the **lil-jeff** subagent. Use for full modules, not placeholders. Handoff from MORNINGSTAR is documented in `core/inter-agent-protocol.md`. |
 | **R / Quarto / tidyverse / tidymodels** | Invoke the **octavius** subagent. Session starts by reading `octavius_core/THE_RULES.md` and `octavius_core/state.md`; ends with an Executive Summary in `octavius_summaries/`. |
 | **Security, containment, rogue agent, crisis** | Invoke the **aegis-protocol** subagent (`/aegis`). Coordinates Sage, Watcher, Chronicler. MORNINGSTAR acts as Judicial Branch for escalations. See `aegis_core/README.md`. |
-| **View deliberation transcripts** | From project root: `./portal/launch.sh`. Pick a transcript; existing .html opens, or .md is exported then opened. |
+| **View deliberation transcripts** | From project root: `./courtroom/portal/launch.sh`. Pick a transcript; existing .html opens, or .md is exported then opened. |
 | **Summon a domain expert (SME)** | During a MORNINGSTAR session: `/summon <domain>-expert` (e.g. `security-expert`) or `/seat <domain>-specialist` (Judge only, F3+). Domain list: `courtroom/domains/README.md` and `courtroom/domains/experts.yaml`. |
 | **Check precedent** | Open `courtroom/precedents.md` before or after a deliberation. |
 | **Recover from bad state or failed session** | Follow `core/error-recovery.md`. |
@@ -536,7 +545,7 @@ Every directory and key file added since inception. Use this to find where thing
 - **Personality definitions** → `core/personalities.md`
 - **SME domains and how to add them** → `courtroom/domains/README.md`, `courtroom/domains/experts.yaml`, `core/sme-framework.md`
 - **State and metrics** → `state/current.md`, `state/metrics.md`; schema: `core/state-schema.md`
-- **Transcripts** → `courtroom/transcripts/`; launch: `./portal/launch.sh`
+- **Transcripts** → `courtroom/transcripts/`; launch: `./courtroom/portal/launch.sh`
 - **Agent handoff (MORNINGSTAR ↔ LIL_JEFF)** → `core/inter-agent-protocol.md`
 - **What changed and when** → `CHANGELOG.md`
 
@@ -555,6 +564,7 @@ When matters require implementation, MORNINGSTAR hands off to LIL_JEFF—a devel
 | **CritiBot** | QA specialist |
 
 **Core principles:**
+
 - Complete code only — no placeholders, stubs, or TODOs
 - Modular architecture — single responsibility, clear boundaries
 - Self-documenting names — code explains itself
@@ -574,6 +584,7 @@ When work is R, Quarto, tidyverse, or tidymodels, invoke OCTAVIUS—a triad of a
 | **MORNINGSTAR** | Final verification, scientific integrity, Executive Summary |
 
 **Core principles:**
+
 - All code in runnable Quarto chunks with proper YAML and chunk options
 - KRONOS CRITICAL issues must be resolved before proceeding
 - Every session ends with an Executive Summary in `octavius_summaries/`

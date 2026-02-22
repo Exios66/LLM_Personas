@@ -146,14 +146,19 @@ def build_deliberation_prompts(
                 loader.contempt_template,
             ])
 
+    runner_text = loader.runner_instruction
+    if not runner_text:
+        runner_text = (
+            "You are being invoked by the litigation runner. Produce a complete deliberation "
+            "transcript following the FULL MORNINGSTAR court procedures. Include all phases. "
+            "Use markdown. End with Scribe certification."
+        )
     parts.extend([
         "",
         "---",
         "## Litigation Runner Instruction",
         "",
-        "You are being invoked by the litigation runner. Produce a complete deliberation",
-        "transcript following the FULL MORNINGSTAR court procedures. Include all phases.",
-        "Use markdown. End with Scribe certification.",
+        runner_text,
         "",
     ])
 
@@ -188,8 +193,10 @@ def _build_user_prompt(
     hearing_type: str,
 ) -> str:
     """Build user prompt per hearing type."""
+    loader = FrameworkLoader()
+    prefix = loader.user_prefix or "The court will now consider the following matter."
     user_parts = [
-        "The court will now consider the following matter.",
+        prefix,
         "",
         f"**MATTER:** " + matter,
         "",
@@ -204,14 +211,18 @@ def _build_user_prompt(
             state_summary,
         ])
 
-    if hearing_type == "expedited":
-        user_parts.extend(_expedited_instructions())
-    elif hearing_type == "special_inquiry":
-        user_parts.extend(_special_inquiry_instructions())
-    elif hearing_type == "contempt":
-        user_parts.extend(_contempt_instructions())
+    instructions = loader.user_instructions(hearing_type)
+    if not instructions:
+        if hearing_type == "expedited":
+            user_parts.extend(_expedited_instructions())
+        elif hearing_type == "special_inquiry":
+            user_parts.extend(_special_inquiry_instructions())
+        elif hearing_type == "contempt":
+            user_parts.extend(_contempt_instructions())
+        else:
+            user_parts.extend(_standard_instructions())
     else:
-        user_parts.extend(_standard_instructions())
+        user_parts.extend(["", instructions])
 
     return "\n".join(user_parts)
 
