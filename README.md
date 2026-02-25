@@ -8,7 +8,7 @@ A deliberative AI persona framework that transforms complex decisions into struc
 ---
 
 <!-- Project Identity -->
-[![Version](https://img.shields.io/badge/version-0.0.3-pink?style=flat-square)](https://github.com/Exios66/LLM_Personas)
+[![Version](https://img.shields.io/badge/version-0.0.4-pink?style=flat-square)](https://github.com/Exios66/LLM_Personas)
 [![MORNINGSTAR](https://img.shields.io/badge/MORNINGSTAR-Deliberative%20AI-8b5cf6?style=flat-square)](https://github.com/Exios66/LLM_Personas)
 [![Framework](https://img.shields.io/badge/Framework-Courtroom-1e40af?style=flat-square)](https://github.com/Exios66/LLM_Personas)
 
