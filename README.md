@@ -6,11 +6,32 @@
 A deliberative AI persona framework that transforms complex decisions into structured courtroom proceedings. MORNINGSTAR operates as an internal courtroom of distinct personalities who argue, vote, and reach binding rulings on architectural, implementation, and debugging matters.
 
 ---
-[![GitHub issues](https://img.shields.io/github/issues/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/issues)
-[![GitHub stars](https://img.shields.io/github/stars/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/network)
-[![GitHub last commit](https://img.shields.io/github/last-commit/Exios66/LLM_Personas)](https://github.com/Exios66/LLM_Personas/commits/main)
 
+<!-- Project Identity -->
+[![Version](https://img.shields.io/badge/version-0.0.3-pink?style=flat-square)](https://github.com/Exios66/LLM_Personas)
+[![MORNINGSTAR](https://img.shields.io/badge/MORNINGSTAR-Deliberative%20AI-8b5cf6?style=flat-square)](https://github.com/Exios66/LLM_Personas)
+[![Framework](https://img.shields.io/badge/Framework-Courtroom-1e40af?style=flat-square)](https://github.com/Exios66/LLM_Personas)
+
+<!-- Repository Activity -->
+[![Stars](https://img.shields.io/github/stars/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/stargazers)
+[![Forks](https://img.shields.io/github/forks/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/network)
+[![Watchers](https://img.shields.io/github/watchers/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/watchers)
+[![Last Commit](https://img.shields.io/github/last-commit/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/commits/main)
+
+<!-- Development Status -->
+[![Open Issues](https://img.shields.io/github/issues/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/issues)
+[![Open PRs](https://img.shields.io/github/issues-pr/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/pulls)
+[![Contributors](https://img.shields.io/github/contributors/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/graphs/contributors)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/pulse)
+
+<!-- Code & Stack -->
+[![Top Language](https://img.shields.io/github/languages/top/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas)
+[![Languages](https://img.shields.io/github/languages/count/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas)
+[![Repo Size](https://img.shields.io/github/repo-size/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas)
+
+<!-- Platform -->
+[![Cursor](https://img.shields.io/badge/Cursor-Ready-14b8a6?style=flat-square)](https://cursor.com)
+[![Python](https://img.shields.io/badge/Python-3.x-3776ab?style=flat-square)](https://www.python.org/)
 ---
 
 ## Table of Contents
