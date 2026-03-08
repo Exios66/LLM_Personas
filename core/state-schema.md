@@ -55,28 +55,15 @@ Every valid `state/current.md` MUST contain these sections in order:
 # MORNINGSTAR Session State
 
 > *Last updated: YYYY-MM-DD*
-> *Session: YYYY-XXXX-NNN*
+> *Session: YYYY-CATC-NNN*
 ```
 
 | Field | Format | Validation | Required |
 |-------|--------|------------|----------|
 | **Last updated** | `YYYY-MM-DD` | Valid date, not future | YES |
-| **Session** | `YYYY-XXXX-NNN` | Year-Category-Sequence | YES |
+| **Session** | `YYYY-CATC-NNN` | Year-Category-Sequence; per `core/case-format.md` | YES |
 
-**Session ID Format:**
-
-- `YYYY` — Four-digit year
-- `XXXX` — Category code (e.g., `INFRA`, `FEAT`, `BUG`, `ARCH`)
-- `NNN` — Sequence number (001-999)
-
-**Valid categories:**
-
-- `INFRA` — Infrastructure work
-- `FEAT` — Feature development
-- `BUG` — Bug investigation
-- `ARCH` — Architectural decisions
-- `MAINT` — Maintenance tasks
-- `DOC` — Documentation work
+**Session ID Format:** Align with case numbering. See `core/case-format.md` for full category list (ARCH, INFRA, DEL, CONT, SEC, EXEC, FEAT, BUG, MAINT, DOC).
 
 ---
 

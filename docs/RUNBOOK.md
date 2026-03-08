@@ -9,7 +9,7 @@
 | Symptom | Action | Doc |
 |---------|--------|-----|
 | Portal won’t launch or "permission denied" | `chmod +x portal/launch.sh`; run from project root | [portal/README.md](../portal/README.md) |
-| No transcripts found | Ensure `.md` files exist in `courtroom/transcripts/`; naming: `YYYY-MM-DD-topic.md` or `YYYYMMDD_HHMMSS_topic.md` | [portal/README.md](../portal/README.md) |
+| No transcripts found | Ensure `.md` files exist in `courtroom/transcripts/` with naming per [core/case-format.md](../core/case-format.md): `YYYY-MM-DD-[matter-slug].md` or `YYYYMMDD_HHMMSS_special_interest_[subject].md` | [courtroom/portal/README.md](../courtroom/portal/README.md) |
 | Viewer doesn’t list my transcript | Add the filename to `KNOWN_TRANSCRIPTS` in `portal/viewer.html`, or use `./portal/launch.sh` (discovers from directory) | [portal/README.md](../portal/README.md) |
 | Export to HTML fails | Run manually: `python3 portal/export_transcript.py courtroom/transcripts/<file>.md -o portal/exports/<file>.html` | [portal/README.md](../portal/README.md) |
 
@@ -33,7 +33,7 @@
 | When should I convene vs not? | Use Dissolution Protocol: F0, pure implementation, already decided → don’t convene | [core/procedures.md](../core/procedures.md#when-not-to-convene-dissolution-protocol) |
 | How do I summon an expert? | `/summon <domain>-expert` (Witness) or `/seat <domain>-specialist` (Judge only, F3+) | [courtroom/domains/README.md](../courtroom/domains/README.md), [core/sme-framework.md](../core/sme-framework.md) |
 | Which agent for R/Quarto? | Use **octavius** subagent. For general code, use **lil-jeff**. For decisions, use **morningstar**. | [core/inter-agent-protocol.md](../core/inter-agent-protocol.md) |
-| How to cite a prior ruling? | Use Case ID, e.g. `Per 2026-INFRA-001-001` or `See Case 2026-INFRA-001-001` | [courtroom/precedents.md](../courtroom/precedents.md#citation-format) |
+| How to cite a prior ruling? | Use Case ID per [core/case-format.md](../core/case-format.md): `Per 2026-DEL-004-001` or `See Case 2026-DEL-004-001` | [courtroom/precedents.md](../courtroom/precedents.md#citation-format) |
 
 ---
 

@@ -430,7 +430,7 @@ The record stands as documented.*
 
 ### Transcript Naming
 
-Special Interest Hearing transcripts use the naming convention:
+Per `core/case-format.md`. Special Interest Hearing transcripts use the naming convention:
 
 ```
 YYYYMMDD_HHMMSS_special_interest_[subject_slug].md

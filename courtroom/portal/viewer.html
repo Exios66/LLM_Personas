@@ -461,6 +461,7 @@
         return null;
     }
     
+    // Per core/case-format.md: prefer Case No.; Matter ID supported for legacy.
     function extractCaseNumber(content) {
         const m = content.match(/\*\*Case No\.\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)/i) || 
                   content.match(/\*\*Matter ID\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)/i);

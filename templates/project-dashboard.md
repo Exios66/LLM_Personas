@@ -75,12 +75,12 @@
 
 | Metric | Value |
 |--------|-------|
-| Total Sessions | 1 |
-| Total Deliberations | 1 |
-| Decisions Made | 1 |
-| Unanimous Decisions | 1 |
-| Total Precedents | 1 |
-| Handoffs to LIL_JEFF | 1 |
+| Total Sessions | 4+ |
+| Total Deliberations | 9 |
+| Decisions Made | 9 |
+| Unanimous Decisions | 6 |
+| Total Precedents | 9 |
+| Handoffs to LIL_JEFF | 3+ |
 | Prophet Proposals | 5 (4 deferred, 1 honorable mention) |
 | Prophet Vindications | 0 |
 
@@ -90,8 +90,8 @@
 
 | Location | Count |
 |----------|-------|
-| Courtroom transcripts | 24 |
-| Litigation transcripts | 1 |
+| Courtroom transcripts | 19 |
+| Litigation transcripts | 3 |
 | Handoff documents | 4 |
 | Agent reports output | `agents/reports/` (RPT_*_YYYYMMDD_HHMMSS.html) |
 

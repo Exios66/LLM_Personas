@@ -309,7 +309,7 @@ The record stands as documented.*
 
 ## File Naming Convention
 
-Special Interest Hearing transcripts are saved to `courtroom/transcripts/` with the naming convention:
+Per `core/case-format.md`. Special Interest Hearing transcripts are saved to `courtroom/transcripts/` with the naming convention:
 
 ```
 YYYYMMDD_HHMMSS_special_interest_[subject_slug].md

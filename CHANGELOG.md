@@ -14,6 +14,24 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 ---
 
+## [2026-02-19] - Case Naming & Case Numbering Format (2026-DOC-001)
+
+### Court Ruling (4-1-0)
+
+Convened deliberation on formal CASE NAMING & CASE NUMBERING FORMAT. Court adopted canonical format `YYYY-CATC-NNN-DDD` with defined category codes (ARCH, INFRA, DEL, CONT, SEC, EXEC, FEAT, BUG, MAINT, DOC). Single source of truth: `core/case-format.md`. Case registry: `courtroom/case-registry.yaml`. Header: use `Case No.:` only (deprecate Matter ID). Legacy transcripts grandfathered; no mass rename. Dissent: Prophet preferred RFC-style or content-addressed numbering.
+
+**Deliverables:** core/case-format.md, courtroom/case-registry.yaml; RULES §8.4.1, scribe checklist, precedents updated.
+
+---
+
+## [2026-02-19] - Court Reporter Integration
+
+### Documentation Sync (MORNINGSTAR::COURT_REPORTER)
+
+Court Reporter integration run: precedents updated (5 new entries: DEL-002, DEL-003, DEL-004, CONT-001; gap analysis, 15 experts, skills index, Xenon contempt); state/metrics.md synced (9 deliberations, 9 precedents); project dashboard refreshed; state validated.
+
+---
+
 ## [2026-02-19] - Executive Branch Implementation (Case 2026-EXEC-001)
 
 ### Court Ruling 2026-DEL-001 (4-1-0)

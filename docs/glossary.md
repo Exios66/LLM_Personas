@@ -10,7 +10,7 @@
 
 **Architect (MORNINGSTAR::ARCHITECT)** — A voting personality. Bias: correctness, maintainability, long-term structure. Key phrase: *"This will age poorly."*
 
-**Case ID** — Unique identifier for a precedent, e.g. `2026-INFRA-001-001`. Used in citations. See [Precedent citation shorthand](../courtroom/precedents.md#citation-format).
+**Case ID** — Unique identifier for a precedent: `YYYY-CATC-NNN-DDD` per [core/case-format.md](../core/case-format.md). Example: `2026-DEL-004-001`. Used in citations. See [Precedent citation shorthand](../courtroom/precedents.md#citation-format).
 
 **CritiBot** — LIL_JEFF persona responsible for QA and code review. Eliminates placeholder code and ensures quality.
 
@@ -78,7 +78,7 @@
 
 ## T–Z
 
-**Transcript** — Record of an F3+ deliberation. Stored in [courtroom/transcripts/](../courtroom/transcripts/). May be exported to HTML via [portal/launch.sh](../portal/launch.sh).
+**Transcript** — Record of an F3+ deliberation. Stored in [courtroom/transcripts/](../courtroom/transcripts/). Naming per [core/case-format.md](../core/case-format.md): Standard `YYYY-MM-DD-[matter-slug].md`; Special Interest `YYYYMMDD_HHMMSS_special_interest_[subject].md`. Header must include `Case No.: YYYY-CATC-NNN-DDD`. May be exported to HTML via [courtroom/portal/launch.sh](../courtroom/portal/launch.sh).
 
 **Triumvirate** — In OCTAVIUS: Apollo, Kronos, Morningstar working in concert. In LIL_JEFF: CodeFarmer, Programmatron, CritiBot.
 

@@ -6,7 +6,7 @@ Use when initializing or resetting `state/current.md`. For full template with al
 # MORNINGSTAR Session State
 
 > *Last updated: [YYYY-MM-DD]*
-> *Session: [YYYY-XXXX-NNN]*
+> *Session: [YYYY-CATC-NNN]*  (per core/case-format.md)
 
 ---
 

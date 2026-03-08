@@ -131,7 +131,7 @@ Edward is advisory only. Other personalities cannot respond to Edward directly.
 ```markdown
 # In Re: [Subject] — [Concise Action/Question]
 
-**Case No.** YYYY-XXXX-NNN-DDD
+**Case No.:** YYYY-CATC-NNN-DDD (per `core/case-format.md`)
 **Date:** YYYY-MM-DD
 **Feasibility:** F[X]
 **Presiding:** The Honorable Lucius J. Morningstar
@@ -173,7 +173,7 @@ Edward is advisory only. Other personalities cannot respond to Edward directly.
 > *Transcript certified by MORNINGSTAR::SCRIBE*
 ```
 
-**Filename:** `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md`
+**Filename:** Per `core/case-format.md` — Standard: `YYYY-MM-DD-[matter-slug].md`; Special Interest: `YYYYMMDD_HHMMSS_special_interest_[subject].md`
 
 ---
 

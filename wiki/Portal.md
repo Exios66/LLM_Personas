@@ -29,7 +29,7 @@ If you get "permission denied," run `chmod +x portal/launch.sh` once. Python 3 i
 
 ## Transcript Naming
 
-Supported formats: `YYYY-MM-DD-topic.md` or `YYYYMMDD_HHMMSS_topic.md`.
+Supported formats per [core/case-format.md](../core/case-format.md): Standard `YYYY-MM-DD-[matter-slug].md`; Special Interest `YYYYMMDD_HHMMSS_special_interest_[subject].md`.
 
 Full details: `portal/README.md` in the repo.
 

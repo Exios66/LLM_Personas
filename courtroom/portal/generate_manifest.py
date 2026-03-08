@@ -42,7 +42,8 @@ def parse_basename(basename: str):
 
 
 def extract_case_number(content: str) -> Optional[str]:
-    """Extract case number from transcript content (Case No. or Matter ID)."""
+    """Extract case number from transcript content. Per core/case-format.md: Case No.: YYYY-CATC-NNN-DDD.
+    Prefer Case No.; Matter ID supported for legacy transcripts (deprecated)."""
     m = re.search(r"\*\*Case No\.\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", content, re.I)
     if m:
         return m.group(1)

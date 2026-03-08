@@ -79,7 +79,7 @@ def save_transcript(matter: str, deliberation: str, *, location: str = "litigati
 
     header = f"""# Transcript: In Re: {matter[:80]}{'...' if len(matter) > 80 else ''}
 
-**Case No.:** {datetime.now().strftime('%Y')}-DEL-{counter:03d}
+**Case No.:** {datetime.now().strftime('%Y')}-DEL-{counter:03d}-001
 **Date:** {today}
 **Feasibility:** F3
 **Presiding:** The Honorable Lucius J. Morningstar

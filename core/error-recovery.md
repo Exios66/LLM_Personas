@@ -345,7 +345,7 @@ If a transcript is corrupted or missing:
 3. Reconstruct transcript with available information
 4. Mark as [RECONSTRUCTED] in header:
 
-   **Case No.:** [ID] [RECONSTRUCTED]
+   **Case No.:** [YYYY-CATC-NNN-DDD] [RECONSTRUCTED]  (per `core/case-format.md`)
 
 5. Document sources used in reconstruction
 6. Note reduced precedential weight

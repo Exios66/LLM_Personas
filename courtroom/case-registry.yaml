@@ -1,0 +1,21 @@
+# MORNINGSTAR Case Registry
+# Next available NNN per category per year. Scribe increments when assigning new case IDs.
+# Authority: Court ruling 2026-02-19 (Case Naming & Numbering). See core/case-format.md.
+
+year: 2026
+last_updated: "2026-02-19"
+
+categories:
+  ARCH: 3   # Last used: 2026-ARCH-002; 2026-ARCH-001, 002 exist
+  CONT: 2   # Last used: 2026-CONT-002; 2026-CONT-001 exists
+  DEL: 5    # Last used: 2026-DEL-004; 001-004 exist (001 has collisions—legacy)
+  EXEC: 1   # Last used: 2026-EXEC-001
+  INFRA: 2  # Last used: 2026-INFRA-002
+  SEC: 2    # Last used: 2026-SEC-001 (XENON variant); 2026-SEC-002 (Executive) 
+  FEAT: 0
+  BUG: 0
+  MAINT: 0
+  DOC: 0
+
+# Legacy collision note: 2026-DEL-001 claimed by multiple transcripts (death penalty, taxation, 
+# thought experiment, tokens, missing traits). Grandfathered; new matters use next NNN (005+).
