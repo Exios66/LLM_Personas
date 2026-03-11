@@ -7,7 +7,7 @@ Known limitations and expected behavior.
 | Scenario | Behavior / limitation | Workaround |
 |----------|------------------------|------------|
 | Opening `portal/viewer.html` via `file://` | Browser may block fetch of local files. List may be empty or only hardcoded. | Serve over HTTP (e.g. `python3 -m http.server 8080`) and open `http://localhost:8080/portal/viewer.html`; or use `./portal/launch.sh`. |
-| Transcript filename not in supported format | Launch script may show "Unknown" date or parse title incorrectly. | Use `YYYY-MM-DD-topic.md` or `YYYYMMDD_HHMMSS_topic.md`. |
+| Transcript filename not in supported format | Launch script may show "Unknown" date or parse title incorrectly. | Per [core/case-format.md](../core/case-format.md): Standard `YYYY-MM-DD-[matter-slug].md`; Special Interest `YYYYMMDD_HHMMSS_special_interest_[subject].md`. |
 | No `.html` for a given `.md` | Launch script exports on demand via Python. | Requires Python 3. If export fails, run export command manually (see [Runbook](Runbook)). |
 | `portal/launch.sh` not executable | "Permission denied." | `chmod +x portal/launch.sh` once. |
 

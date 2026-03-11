@@ -49,7 +49,7 @@
 
 | Field | Format | Validation |
 |-------|--------|------------|
-| **Case No.** | `YYYY-CONT-NNN` | Contempt sequence |
+| **Case No.** | `YYYY-CONT-NNN-DDD` | Per `core/case-format.md`; CONT = contempt |
 | **Date** | `YYYY-MM-DD` | Must match filename date |
 | **Hearing Type** | Contempt Proceeding / Prosecution / Investigative | As applicable |
 | **Presiding** | Full title | Must be "The Honorable Lucius J. Morningstar" |
@@ -61,7 +61,7 @@
 ```markdown
 # Transcript: [Title per RULES §8.5.3]
 
-**Case No.:** YYYY-CONT-NNN
+**Case No.:** YYYY-CONT-NNN-DDD
 **Date:** YYYY-MM-DD
 **Hearing Type:** [Contempt Proceeding / Prosecution / Investigative]
 **Presiding:** The Honorable Lucius J. Morningstar

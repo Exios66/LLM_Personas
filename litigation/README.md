@@ -160,7 +160,7 @@ Or use the launch script:
 
 ## Output
 
-- **Transcripts (default):** `litigation/transcripts/YYYY-MM-DD-[matter-slug].md`
+- **Transcripts (default):** `litigation/transcripts/YYYY-MM-DD-[matter-slug].md` (per [core/case-format.md](../core/case-format.md)). Header MUST include `Case No.: YYYY-CATC-NNN-DDD`.
 - **Transcripts (optional):** `courtroom/transcripts/` — use `--save-to courtroom` or choose in menu
 - **State:** `state/current.md` updated with session outcome
 - **CHANGELOG:** Updated if decisions were made (F3+)

@@ -21,7 +21,7 @@ Each entry:
 | Scenario | Behavior / limitation | Workaround / note |
 |----------|------------------------|--------------------|
 | Opening `portal/viewer.html` via `file://` | Browser may block `fetch()` of local transcript files (CORS). List may be empty or only show hardcoded `KNOWN_TRANSCRIPTS`. | Serve the project over HTTP (e.g. `python3 -m http.server 8080`) and open `http://localhost:8080/portal/viewer.html`; or use `./portal/launch.sh` to open exported HTML. |
-| Transcript filename not `YYYY-MM-DD-*` or `YYYYMMDD_HHMMSS_*` | Launch script and generate.py may show "Unknown" date or parse title incorrectly. | Prefer the two supported naming conventions. See [portal/README.md](../portal/README.md). |
+| Transcript filename not `YYYY-MM-DD-*` or `YYYYMMDD_HHMMSS_*` | Launch script and generate.py may show "Unknown" date or parse title incorrectly. | Per [core/case-format.md](../core/case-format.md): Standard `YYYY-MM-DD-[matter-slug].md`; Special Interest `YYYYMMDD_HHMMSS_special_interest_[subject].md`. See [portal/README.md](../courtroom/portal/README.md). |
 | No `.html` in `courtroom/transcripts/` for a given `.md` | Launch script will call `portal/export_transcript.py` to generate HTML on demand. | Requires Python 3. If export fails, run the export command manually (see RUNBOOK). |
 | `portal/launch.sh` not executable | Shell reports "permission denied." | Run `chmod +x portal/launch.sh` once. |
 

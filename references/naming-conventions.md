@@ -144,4 +144,14 @@ const SUPPORTED_FILE_TYPES = ['jpg', 'png', 'gif'];
 
 ---
 
+## MORNINGSTAR Courtroom (Transcripts & Cases)
+
+For transcript filenames, Case No. format, and precedent indexing, see **[core/case-format.md](../core/case-format.md)**. Summary:
+
+- **Case No.:** `YYYY-CATC-NNN-DDD` (e.g. `2026-DEL-004-001`)
+- **Filename:** Standard `YYYY-MM-DD-[matter-slug].md`; Special Interest `YYYYMMDD_HHMMSS_special_interest_[subject].md`
+- **Header:** Use `Case No.:` (deprecate Matter ID)
+
+---
+
 *Names should tell a story. — Programmatron 💻*

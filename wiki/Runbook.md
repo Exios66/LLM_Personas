@@ -3,7 +3,7 @@
 | Symptom | Action |
 |---------|--------|
 | Portal won't launch / "permission denied" | `chmod +x portal/launch.sh`; run from project root. |
-| No transcripts found | Ensure `.md` files exist in `courtroom/transcripts/` with supported naming (`YYYY-MM-DD-topic.md` or `YYYYMMDD_HHMMSS_topic.md`). |
+| No transcripts found | Ensure `.md` files exist in `courtroom/transcripts/` with supported naming per [core/case-format.md](../core/case-format.md): `YYYY-MM-DD-[matter-slug].md` or `YYYYMMDD_HHMMSS_special_interest_[subject].md`. |
 | Viewer doesn't list my transcript | Add filename to `KNOWN_TRANSCRIPTS` in `portal/viewer.html`, or run `./portal/launch.sh` (discovers from directory). Or run `python3 portal/generate_manifest.py` and serve over HTTP. |
 | Export to HTML fails | Run manually: `python3 portal/export_transcript.py courtroom/transcripts/<file>.md -o portal/exports/<file>.html`. |
 | State missing or corrupted | Restore from backup if available; otherwise follow recovery levels in [Error-Recovery](Error-Recovery). |

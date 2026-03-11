@@ -56,6 +56,11 @@ This document serves as the authoritative index of precedent-setting decisions m
 | 2026-INFRA-002-001 | 2026-02-15 | Second Enhancement Deliberation | 10 enhancements adopted (operational excellence) | 4-0-0 | SME failures, dissolution, glossary, handoff, onboarding, portal, runbook, edge cases | BINDING |
 | 2026-ARCH-001-001 | 2026-02-15 | Agent Structure (CrewAI-Style Attributes) | Optional frontmatter adopted: role, goal, backstory, allow_delegation, response_format | 4-0-0 | Agent schema doc; extend all three agents; inter-agent protocol note | BINDING |
 | 2026-ARCH-002-001 | 2026-02-15 | Aegis Protocol Enhancements | 15 enhancements adopted for integration, semantics, escalation | 4-0-0 | Inter-agent protocol, aegis_core, rogue semantics, chaos injection, meta-deliberation | BINDING |
+| 2026-DEL-002-001 | 2026-02-17 | Gap Analysis (Phase 2–4) | Hybrid affirmed; i18n added to registry; matter-triage to procedures; F4+ pilot | 5-0-0 | i18n domain, matter-triage in procedures, specialist pilot for data/locale matters | BINDING |
+| 2026-DEL-003-001 | 2026-02-17 | Bench Trial — 15 Expert Domains | 15 new domains adopted to experts.yaml | 6-1-0 | data_privacy, observability, resilience, incident_response, devops, documentation, design_systems, frontend, mobile, ai_ml, data_engineering, cost, sustainability, ethics, qa_automation | BINDING |
+| 2026-DEL-004-001 | 2026-02-17 | Skills to Add to Each Agent | Skills index at docs/agent-skills.md; agent files reference index | 5-0-0 | Single source of truth for skills; morningstar, octavius, aegis, lil-jeff slates adopted | BINDING |
+| 2026-CONT-001-001 | 2026-02-15 | Xenon Contempt Hearing | No finding of contempt; style vs conduct distinction | 1-4-0 | Precedent: "Xenon problem"—polish as armor; distinguish tone from obstruction | BINDING |
+| 2026-DOC-001-001 | 2026-02-19 | Case Naming & Numbering Format | Canonical format YYYY-CATC-NNN-DDD; core/case-format.md; case registry | 4-1-0 | Single source of truth for case IDs; category codes; grandfather legacy | BINDING |
 
 ### Index by Category
 
@@ -95,7 +100,21 @@ This document serves as the authoritative index of precedent-setting decisions m
 
 | Case ID | Date | Matter | Ruling | Vote |
 |---------|------|--------|--------|------|
-| *No entries yet* | | | | |
+| 2026-DOC-001-001 | 2026-02-19 | Case Naming & Numbering Format | Canonical format; core/case-format.md; case registry | 4-1-0 |
+
+#### Deliberation (DEL)
+
+| Case ID | Date | Matter | Ruling | Vote |
+|---------|------|--------|--------|------|
+| 2026-DEL-002-001 | 2026-02-17 | Gap Analysis (Phase 2–4) | Hybrid affirmed; i18n, matter-triage, pilot | 5-0-0 |
+| 2026-DEL-003-001 | 2026-02-17 | Bench Trial — 15 Expert Domains | 15 domains adopted | 6-1-0 |
+| 2026-DEL-004-001 | 2026-02-17 | Skills to Add to Each Agent | Skills index at docs/agent-skills.md | 5-0-0 |
+
+#### Contempt (CONT)
+
+| Case ID | Date | Matter | Ruling | Vote |
+|---------|------|--------|--------|------|
+| 2026-CONT-001-001 | 2026-02-15 | Xenon Contempt Hearing | No finding of contempt | 1-4-0 |
 
 ---
 
@@ -144,7 +163,7 @@ Each significant ruling should have a full entry in this format:
 **Vote:** X-Y-Z  
 **Status:** BINDING | PERSUASIVE | DISTINGUISHED | OVERRULED  
 **Tags:** #tag1 #tag2 #tag3  
-**Transcript:** [courtroom/transcripts/YYYY-MM-DD-slug.md](path)
+**Transcript:** [courtroom/transcripts/YYYY-MM-DD-slug.md](path) — Filename per [core/case-format.md](../core/case-format.md)
 
 #### Matter
 

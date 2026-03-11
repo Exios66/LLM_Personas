@@ -387,7 +387,7 @@ If during implementation LIL_JEFF discovers F2+ concerns:
 ┌─────────────────────────────────────────────────────────────────┐
 │ IMPLEMENTATION HANDOFF                                          │
 ├─────────────────────────────────────────────────────────────────┤
-│ Case: [YYYY-XXXX-NNN-DDD]                                       │
+│ Case: [YYYY-CATC-NNN-DDD]                                       │
 │ Decision: [1-2 sentence ruling]                                 │
 │ Vote: [X-Y-Z]                                                   │
 ├─────────────────────────────────────────────────────────────────┤

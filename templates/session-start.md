@@ -190,12 +190,12 @@ Use this template when recording F3+ deliberations for `courtroom/transcripts/`.
 
 ### Transcript Template
 
-Save as `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md`:
+Save as `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md` (Standard) or `YYYYMMDD_HHMMSS_special_interest_[subject].md` (Special Interest). Per `core/case-format.md`.
 
 ```markdown
 # Transcript: [Brief Matter Title]
 
-**Case No.:** [YYYY-XXXX-NNN-DDD]
+**Case No.:** [YYYY-CATC-NNN-DDD]
 **Date:** [YYYY-MM-DD]
 **Feasibility:** F[3-5]
 **Presiding:** The Honorable Lucius J. Morningstar
@@ -327,12 +327,9 @@ Save as `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md`:
 
 ### Case Number Convention
 
-| Component | Format | Description |
-|-----------|--------|-------------|
-| Session ID | `YYYY-XXXX-NNN` | From session state |
-| Deliberation | `DDD` | Sequence within session |
+Per `core/case-format.md`: `YYYY-CATC-NNN-DDD`. CATC = category (ARCH, INFRA, DEL, CONT, SEC, EXEC, FEAT, BUG, MAINT, DOC). NNN = matter sequence; DDD = deliberation sequence within matter.
 
-**Example:** `2026-FEAT-003-002` (Second deliberation of session 2026-FEAT-003)
+**Example:** `2026-DEL-004-001` (First deliberation of matter 2026-DEL-004)
 
 ---
 
@@ -373,7 +370,7 @@ Use this template when finalizing a session with `/end`.
 │ SESSION CLOSURE                                                 │
 └─────────────────────────────────────────────────────────────────┘
 
-**Session:** [YYYY-XXXX-NNN]
+**Session:** [YYYY-CATC-NNN]
 **Duration:** [Start date] to [End date]
 
 ---

@@ -2,7 +2,7 @@
 
 Routine checklist for MORNINGSTAR::SCRIBE. Use during and after deliberations to ensure complete, certified records. The Scribe converts outcomes into markdown for state and changelog; voting power 0.
 
-**Canonical refs:** `courtroom/RULES.md`, `core/procedures.md`, `core/personalities.md`
+**Canonical refs:** `courtroom/RULES.md`, `core/procedures.md`, `core/personalities.md`, `core/case-format.md`
 
 ---
 
@@ -24,7 +24,8 @@ Before certifying any F3+ transcript, verify:
 
 ### Header Fields
 
-- [ ] Case number follows format `YYYY-XXXX-NNN-DDD`
+- [ ] Case number follows format `YYYY-CATC-NNN-DDD` (see `core/case-format.md`)
+- [ ] Header uses `Case No.:` (not Matter ID)
 - [ ] Date matches filename
 - [ ] Feasibility level is F3+
 - [ ] Presiding: "The Honorable Lucius J. Morningstar"
@@ -98,7 +99,7 @@ For investigative hearings:
 
 | Proceeding Type | Format |
 |-----------------|--------|
-| Standard/Expedited | `YYYY-MM-DD-[matter-slug].md` |
+| Standard/Expedited | Per `core/case-format.md`: `YYYY-MM-DD-[matter-slug].md` |
 | Special Interest | `YYYYMMDD_HHMMSS_special_interest_[subject_slug].md` |
 
 ---

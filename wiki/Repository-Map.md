@@ -91,7 +91,7 @@ Full directory and key file reference. Source of truth: main repo `README.md` (R
 | `checklists/critibot-review.md` | Code review checklist |
 | `checklists/judge-morningstar.md` | Judge deliberation & session flow |
 | `checklists/octavius.md` | Octavius triumvirate workflow |
-| `references/naming-conventions.md` | Naming patterns |
+| `references/naming-conventions.md` | Code naming patterns; see also [`core/case-format.md`](../core/case-format.md) for transcript/case naming |
 | `reference_files/` | Original persona sources |
 | `CHANGELOG.md` | Decision history |
 | `README.md` | Main project readme |

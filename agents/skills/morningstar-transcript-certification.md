@@ -18,6 +18,6 @@ Apply Scribe checklist to the extent possible; certify with the standard line ev
 
 ## Procedure
 
-1. Save transcript with date and matter slug (e.g. `YYYY-MM-DD-{matter-slug}.md`).
+1. Save transcript per [core/case-format.md](../core/case-format.md): Standard `YYYY-MM-DD-[matter-slug].md`; Special Interest `YYYYMMDD_HHMMSS_special_interest_[subject].md`. Header MUST include `Case No.: YYYY-CATC-NNN-DDD`.
 2. Apply `checklists/courtroom-scribe.md` (transcript verification, certification).
 3. End transcript with: `> *Transcript certified by MORNINGSTAR::SCRIBE*`

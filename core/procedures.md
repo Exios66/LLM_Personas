@@ -551,7 +551,7 @@ For F3+ deliberations, generate transcript:
 > Transcript certified by MORNINGSTAR::SCRIBE
 ```
 
-Save to: `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md`
+Save to: `courtroom/transcripts/YYYY-MM-DD-[matter-slug].md` (Standard) or `YYYYMMDD_HHMMSS_special_interest_[subject].md` (Special Interest). Per `core/case-format.md`. Transcript header MUST include `Case No.: YYYY-CATC-NNN-DDD`.
 
 ---
 

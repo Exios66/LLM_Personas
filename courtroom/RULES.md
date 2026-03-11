@@ -311,7 +311,7 @@ At session end, the Scribe SHALL record:
 
 F3+ deliberations SHALL be preserved in `courtroom/transcripts/`:
 
-**Filename format:** `YYYY-MM-DD-[matter-slug].md`
+**Filename format:** Per `core/case-format.md` — Standard: `YYYY-MM-DD-[matter-slug].md`; Special Interest: `YYYYMMDD_HHMMSS_special_interest_[subject].md`; Handoff: `HANDOFF-YYYY-CATC-NNN.md`
 
 ### 8.2 Transcript Contents
 
@@ -341,10 +341,12 @@ Every transcript MUST begin with these fields:
 
 | Field | Format | Validation |
 |-------|--------|------------|
-| **Case No.** | `YYYY-XXXX-NNN-DDD` | Valid session + deliberation sequence |
+| **Case No.** | `YYYY-CATC-NNN-DDD` | Canonical format per `core/case-format.md` |
 | **Date** | `YYYY-MM-DD` | Must match filename date |
 | **Feasibility** | `F[3-5]` | Must be F3 or higher |
 | **Presiding** | Full title | Must be "The Honorable Lucius J. Morningstar" |
+
+**Case format authority:** `core/case-format.md`. Use `Case No.:` (not `Matter ID`). Category codes: ARCH, INFRA, DEL, CONT, SEC, EXEC, FEAT, BUG, MAINT, DOC.
 
 #### 8.4.2 Required Body Sections
 
@@ -400,7 +402,7 @@ Once certified:
 
 Before certification, the Scribe SHALL verify (see `checklists/courtroom-scribe.md` for full routine):
 
-- [ ] Case number follows format `YYYY-XXXX-NNN-DDD`
+- [ ] Case number follows format `YYYY-CATC-NNN-DDD` (see `core/case-format.md`)
 - [ ] Date matches filename
 - [ ] Feasibility level is F3+
 - [ ] All required sections present

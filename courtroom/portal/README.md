@@ -76,12 +76,13 @@ python3 courtroom/portal/export_transcript.py courtroom/transcripts/2026-02-15-f
 
 ## Transcript filename formats
 
-The portal supports two naming conventions:
+Per `core/case-format.md`. Canonical naming:
 
 | Format | Example | Parsed as |
 |--------|---------|-----------|
-| `YYYY-MM-DD-topic.md` | `2026-02-15-framework-enhancement-analysis.md` | Date: 2026-02-15, Topic: Framework Enhancement Analysis |
-| `YYYYMMDD_HHMMSS_topic.md` | `20260214_044300_system_advancement.md` | Date: 2026-02-14 04:43, Topic: System Advancement |
+| **Standard** `YYYY-MM-DD-[matter-slug].md` | `2026-02-15-framework-enhancement-analysis.md` | Date: 2026-02-15, Topic: Framework Enhancement Analysis |
+| **Special Interest** `YYYYMMDD_HHMMSS_special_interest_[subject].md` | `20260214_044300_special_interest_api_design.md` | Date: 2026-02-14 04:43, Topic: Special Interest: Api Design |
+| *Legacy* `YYYYMMDD_HHMMSS_topic.md` | `20260214_044300_system_advancement.md` | Date: 2026-02-14 04:43 (grandfathered) |
 
 Place `.md` transcripts in `courtroom/transcripts/`. Pre-built `.html` files in the same directory are opened directly by the launch script (no export step).
 
@@ -270,7 +271,7 @@ Ensure `.md` files exist in `courtroom/transcripts/`:
 ls courtroom/transcripts/*.md
 ```
 
-Supported names: `YYYY-MM-DD-topic.md` or `YYYYMMDD_HHMMSS_topic.md`.
+Supported names per [core/case-format.md](../../core/case-format.md): Standard `YYYY-MM-DD-[matter-slug].md` or Special Interest `YYYYMMDD_HHMMSS_special_interest_[subject].md` (legacy `YYYYMMDD_HHMMSS_topic.md` grandfathered).
 
 ### Transcript discovery (manifest)
 

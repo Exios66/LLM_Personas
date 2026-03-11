@@ -29,7 +29,7 @@ Every F3+ transcript MUST end with:
 
 **Pre-certification verification** (run through `checklists/courtroom-scribe.md`):
 
-- [ ] Header: Case `YYYY-XXXX-NNN-DDD`, date, feasibility F3+, presiding Judge
+- [ ] Header: Case No. `YYYY-CATC-NNN-DDD` (per `core/case-format.md`), date, feasibility F3+, presiding Judge
 - [ ] Sections: Matter, Arguments (each personality), Vote (table), Ruling
 - [ ] Vote integrity: All members, tally matches, rationales present
 - [ ] Ruling: Decision, Vote, Rationale, Risk, Dissent
@@ -106,7 +106,7 @@ Certified transcripts SHALL NOT be modified. Corrections require addendum:
 | Metrics source | `state/metrics.md` |
 | Transcript template | `agents/templates/transcript-certification.md` |
 | Transcript dirs | `courtroom/transcripts/`, `litigation/transcripts/` |
-| Filename formats | Standard: `YYYY-MM-DD-[slug].md`; Special Interest: `YYYYMMDD_HHMMSS_special_interest_[subject].md` |
+| Filename formats | Per `core/case-format.md` — Standard: `YYYY-MM-DD-[slug].md`; Special Interest: `YYYYMMDD_HHMMSS_special_interest_[subject].md` |
 
 ---
 

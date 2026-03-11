@@ -300,7 +300,7 @@ The live session state document. Read at every `/morningstar` invocation. Update
 
 ### Transcripts (`courtroom/transcripts/`)
 
-Deliberation records for F3+ matters. Stored as both `.md` and exported `.html` for browser viewing. Accessible via `./courtroom/portal/launch.sh`.
+Deliberation records for F3+ matters. Naming and Case No. format per [`core/case-format.md`](./core/case-format.md): `YYYY-MM-DD-[matter-slug].md` (Standard) or `YYYYMMDD_HHMMSS_special_interest_[subject].md` (Special Interest). Header must include `Case No.: YYYY-CATC-NNN-DDD`. Stored as both `.md` and exported `.html` for browser viewing. Accessible via `./courtroom/portal/launch.sh`.
 
 ### Metrics (`state/metrics.md`)
 
