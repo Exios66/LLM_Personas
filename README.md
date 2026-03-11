@@ -31,7 +31,7 @@ A deliberative AI persona framework that transforms complex decisions into struc
 [![Cursor](https://img.shields.io/badge/Cursor-Ready-14b8a6?style=flat-square)](https://cursor.com)
 [![Python](https://img.shields.io/badge/Python-3.x-3776ab?style=flat-square)](https://www.python.org/)
 
-<!-- Animated & Dynamic (2026 Trends) -->
+[![pages-build-deployment](https://github.com/Exios66/LLM_Personas/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/Exios66/LLM_Personas/actions/workflows/pages/pages-build-deployment)
 
 [![Repository Views](https://dynamic-repo-badges.vercel.app/svg/count/2/Repository%20Views/Exios66.LLM_Personas)](https://github.com/Exios66/LLM_Personas)
 
