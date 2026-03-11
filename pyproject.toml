@@ -1,48 +1,21 @@
- [build-system]
- requires = ["setuptools>=61", "wheel"]
- build-backend = "setuptools.build_meta"
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
 
- [project]
- name = "llm-personas"
- version = "0.0.4"
- description = "MORNINGSTAR: a deliberative AI courtroom framework for complex technical decisions."
- readme = "README.md"
- requires-python = ">=3.9"
- authors = [
-   { name = "Exios", email = "noreply@example.com" },
- ]
- license = { text = "Internal use. Adapt as needed for your projects." }
- classifiers = [
-   "Programming Language :: Python :: 3",
-   "Programming Language :: Python :: 3 :: Only",
-   "License :: Other/Proprietary License",
-   "Operating System :: OS Independent",
- ]
- dependencies = [
-   "ollama>=0.3.0",
-   "openai>=1.0.0",
-   "PyYAML>=6.0",
-   "markdown>=3.5",
-   "python-dotenv>=1.0.0",
- ]
+[project]
+name = "MLP_Personas"
+version = "0.1.0"
+description = "MORNINGSTAR fork: deliberative AI courtroom framework."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "Exios66", email = "jjburleson@wisc.edu" },
+]
 
- [project.urls]
- Homepage = "https://github.com/Exios66/LLM_Personas"
- "Bug Tracker" = "https://github.com/Exios66/LLM_Personas/issues"
+[tool.setuptools]
+include-package-data = true
 
- [tool.setuptools]
- include-package-data = true
-
- [tool.setuptools.packages.find]
- where = ["."]
- include = [
-   "agents",
-   "litigation",
-   "courtroom",
-   "executive",
- ]
- exclude = [
-   "tests",
-   "tests.*",
- ]
-
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["agents", "litigation", "courtroom", "executive"]
+exclude = ["tests", "tests.*"]
