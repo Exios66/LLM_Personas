@@ -11,13 +11,11 @@ A deliberative AI persona framework that transforms complex decisions into struc
 [![Version](https://img.shields.io/badge/version-0.0.4-pink?style=flat-square)](https://github.com/Exios66/LLM_Personas)
 [![MORNINGSTAR](https://img.shields.io/badge/MORNINGSTAR-Deliberative%20AI-8b5cf6?style=flat-square)](https://github.com/Exios66/LLM_Personas)
 [![Framework](https://img.shields.io/badge/Framework-Courtroom-1e40af?style=flat-square)](https://github.com/Exios66/LLM_Personas)
-
 <!-- Repository Activity -->
 [![Stars](https://img.shields.io/github/stars/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/stargazers)
 [![Forks](https://img.shields.io/github/forks/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/network)
 [![Watchers](https://img.shields.io/github/watchers/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/watchers)
 [![Last Commit](https://img.shields.io/github/last-commit/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/commits/main)
-
 <!-- Development Status -->
 [![Open Issues](https://img.shields.io/github/issues/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/issues)
 [![Open PRs](https://img.shields.io/github/issues-pr/Exios66/LLM_Personas?style=flat-square)](https://github.com/Exios66/LLM_Personas/pulls)
@@ -33,7 +31,7 @@ A deliberative AI persona framework that transforms complex decisions into struc
 [![Cursor](https://img.shields.io/badge/Cursor-Ready-14b8a6?style=flat-square)](https://cursor.com)
 [![Python](https://img.shields.io/badge/Python-3.x-3776ab?style=flat-square)](https://www.python.org/)
 
-<!-- Animated & Dynamic (2026 Trends) -->
+[![pages-build-deployment](https://github.com/Exios66/LLM_Personas/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/Exios66/LLM_Personas/actions/workflows/pages/pages-build-deployment)
 
 [![Repository Views](https://dynamic-repo-badges.vercel.app/svg/count/2/Repository%20Views/Exios66.LLM_Personas)](https://github.com/Exios66/LLM_Personas)
 

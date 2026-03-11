@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "MLP_Personas"
+version = "0.1.0"
+description = "MORNINGSTAR fork: deliberative AI courtroom framework."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "Exios66", email = "jjburleson@wisc.edu" },
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["agents", "litigation", "courtroom", "executive"]
+exclude = ["tests", "tests.*"]
