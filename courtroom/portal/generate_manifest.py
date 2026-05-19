@@ -20,8 +20,8 @@ from pathlib import Path
 from typing import Optional
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-BASE_DIR = SCRIPT_DIR.parent
-TRANSCRIPTS_DIR = BASE_DIR / "courtroom" / "transcripts"
+BASE_DIR = SCRIPT_DIR.parent  # courtroom/
+TRANSCRIPTS_DIR = BASE_DIR / "transcripts"
 OUTPUT_FILE = SCRIPT_DIR / "transcripts_manifest.json"
 
 
