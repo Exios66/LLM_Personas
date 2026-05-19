@@ -19,7 +19,7 @@ from pathlib import Path
 # Project paths
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
-TRANSCRIPTS_DIR = BASE_DIR / "courtroom" / "transcripts"
+TRANSCRIPTS_DIR = BASE_DIR / "transcripts"
 EXPORTS_DIR = SCRIPT_DIR / "exports"
 
 # Dracula theme + courtroom personality styling (matches portal)
