@@ -26,6 +26,11 @@
    "python-dotenv>=1.0.0",
  ]
 
+ [project.optional-dependencies]
+ dev = [
+   "pytest>=7.4",
+ ]
+
  [project.urls]
  Homepage = "https://github.com/Exios66/LLM_Personas"
  "Bug Tracker" = "https://github.com/Exios66/LLM_Personas/issues"
@@ -45,4 +50,8 @@
    "tests",
    "tests.*",
  ]
+
+ [tool.pytest.ini_options]
+ testpaths = ["tests"]
+ pythonpath = ["."]
 
