@@ -1,4 +1,4 @@
-"""Regression tests for courtroom transcript audit helpers (reporter.py)."""
+"""Regression tests for Court Reporter transcript audit and naming (core/case-format.md)."""
 
 from __future__ import annotations
 
@@ -99,3 +99,26 @@ def test_audit_transcripts_missing_dir(tmp_path: Path) -> None:
     certified, uncertified = audit_transcripts(missing)
     assert certified == []
     assert uncertified == []
+
+
+def test_do_renames_skips_certified_even_with_suggestion(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    d = tmp_path / "t"
+    d.mkdir()
+    legacy = d / "20260216_120000_topic.md"
+    legacy.write_text(
+        f"**Date**: 2026-02-16\n\n{CERTIFICATION_MARKER}\n",
+        encoding="utf-8",
+    )
+    suggestion = _suggest_canonical_name(legacy, legacy.read_text(encoding="utf-8"))
+    assert suggestion is not None
+
+    entry = {
+        "certified": True,
+        "rename_suggested": suggestion,
+        "path_obj": legacy,
+    }
+    renamed = reporter._do_renames([entry], non_interactive=True)
+    assert renamed == 0
+    assert legacy.exists()
