@@ -19,11 +19,11 @@ GRAY='\033[0;90m'
 NC='\033[0m' # No Color
 BOLD='\033[1m'
 
-# Get script directory and project root
+# Get script directory and courtroom root (parent of portal/)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-TRANSCRIPTS_DIR="$PROJECT_ROOT/courtroom/transcripts"
-EXPORTS_DIR="$PROJECT_ROOT/portal/exports"
+COURTROOM_DIR="$(dirname "$SCRIPT_DIR")"
+TRANSCRIPTS_DIR="$COURTROOM_DIR/transcripts"
+EXPORTS_DIR="$SCRIPT_DIR/exports"
 
 # Global for exported file path
 EXPORTED_FILE=""
@@ -117,13 +117,13 @@ export_to_html() {
     
     echo -e "${YELLOW}Exporting to HTML...${NC}"
     
-    cd "$PROJECT_ROOT" || {
-        echo -e "${RED}Failed to cd to $PROJECT_ROOT${NC}"
+    cd "$COURTROOM_DIR" || {
+        echo -e "${RED}Failed to cd to $COURTROOM_DIR${NC}"
         return 1
     }
     
     local relative_transcript
-    relative_transcript=$(echo "$transcript" | sed "s|^$PROJECT_ROOT/||")
+    relative_transcript=$(echo "$transcript" | sed "s|^$COURTROOM_DIR/||")
     echo -e "${GRAY}  Source: $relative_transcript${NC}"
     echo -e "${GRAY}  Output: $output_file${NC}"
     
@@ -258,7 +258,7 @@ main() {
             echo ""
             echo -e "${RED}Failed to export transcript.${NC}"
             echo -e "${GRAY}Try running manually:${NC}"
-            echo -e "${GRAY}  cd $PROJECT_ROOT${NC}"
+            echo -e "${GRAY}  cd $COURTROOM_DIR${NC}"
             echo -e "${GRAY}  python3 portal/export_transcript.py \"$selected\" -o portal/exports/${fname}.html${NC}"
             echo ""
             echo -e "${GRAY}Press Enter to continue...${NC}"
