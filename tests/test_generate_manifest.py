@@ -6,11 +6,34 @@ import json
 import subprocess
 import sys
 
+from courtroom.portal.generate_manifest import extract_case_number, parse_basename
+
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MANIFEST_SCRIPT = REPO_ROOT / "courtroom" / "portal" / "generate_manifest.py"
 TRANSCRIPTS_DIR = REPO_ROOT / "courtroom" / "transcripts"
 MANIFEST_PATH = REPO_ROOT / "courtroom" / "portal" / "transcripts_manifest.json"
+
+
+def test_parse_basename_standard_and_legacy() -> None:
+    date, title = parse_basename("2026-02-17-bench-trial-topic")
+    assert date == "2026-02-17"
+    assert title == "Bench Trial Topic"
+
+    date2, title2 = parse_basename("20260216_133000_special_interest_security")
+    assert date2 == "2026-02-16 13:30"
+    assert "Special Interest" in title2 or "Security" in title2
+
+
+def test_extract_case_number_prefers_case_no_over_matter_id() -> None:
+    case_only = "**Case No.**: 2026-SECU-042-001\n"
+    assert extract_case_number(case_only) == "2026-SECU-042-001"
+
+    matter_only = "**Matter ID**: 2026-LEGAL-001\n"
+    assert extract_case_number(matter_only) == "2026-LEGAL-001"
+
+    both = "**Case No.**: 2026-A-001\n**Matter ID**: 2026-B-002\n"
+    assert extract_case_number(both) == "2026-A-001"
 
 
 def test_transcripts_dir_resolves_to_courtroom_transcripts():
