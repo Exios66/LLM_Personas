@@ -122,3 +122,48 @@ def test_do_renames_skips_certified_even_with_suggestion(
     renamed = reporter._do_renames([entry], non_interactive=True)
     assert renamed == 0
     assert legacy.exists()
+
+
+def test_suggest_canonical_name_from_header_date_when_format_unknown() -> None:
+    path = Path("adhoc_legacy_name.md")
+    content = "**Date**: 2026-03-01\n"
+    suggested = _suggest_canonical_name(path, content)
+    assert suggested == "2026-03-01-adhoc-legacy-name.md"
+
+
+def test_do_renames_uncertified_non_interactive(tmp_path: Path) -> None:
+    d = tmp_path / "t"
+    d.mkdir()
+    legacy = d / "20260216_120000_topic.md"
+    legacy.write_text("**Date**: 2026-02-16\n", encoding="utf-8")
+    suggestion = _suggest_canonical_name(legacy, legacy.read_text(encoding="utf-8"))
+    assert suggestion is not None
+
+    entry = {
+        "certified": False,
+        "rename_suggested": suggestion,
+        "path_obj": legacy,
+    }
+    renamed = reporter._do_renames([entry], non_interactive=True)
+    assert renamed == 1
+    assert not legacy.exists()
+    assert (d / suggestion).exists()
+
+
+def test_do_renames_skips_when_target_exists(tmp_path: Path) -> None:
+    d = tmp_path / "t"
+    d.mkdir()
+    legacy = d / "20260216_120000_topic.md"
+    legacy.write_text("**Date**: 2026-02-16\n", encoding="utf-8")
+    suggestion = _suggest_canonical_name(legacy, legacy.read_text(encoding="utf-8"))
+    assert suggestion is not None
+    (d / suggestion).write_text("existing\n", encoding="utf-8")
+
+    entry = {
+        "certified": False,
+        "rename_suggested": suggestion,
+        "path_obj": legacy,
+    }
+    renamed = reporter._do_renames([entry], non_interactive=True)
+    assert renamed == 0
+    assert legacy.exists()
