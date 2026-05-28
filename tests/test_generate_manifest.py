@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+import importlib.util
 import json
 import subprocess
 import sys
@@ -11,6 +12,50 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 MANIFEST_SCRIPT = REPO_ROOT / "courtroom" / "portal" / "generate_manifest.py"
 TRANSCRIPTS_DIR = REPO_ROOT / "courtroom" / "transcripts"
 MANIFEST_PATH = REPO_ROOT / "courtroom" / "portal" / "transcripts_manifest.json"
+
+
+def _load_manifest_module():
+    spec = importlib.util.spec_from_file_location("generate_manifest", MANIFEST_SCRIPT)
+    assert spec and spec.loader
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def test_parse_basename_iso_date_prefix():
+    mod = _load_manifest_module()
+    date_display, title = mod.parse_basename("2026-02-17-bench-trial")
+    assert date_display == "2026-02-17"
+    assert title == "Bench Trial"
+
+
+def test_parse_basename_legacy_timestamp():
+    mod = _load_manifest_module()
+    date_display, title = mod.parse_basename("20260216_133000_special_interest_security")
+    assert date_display == "2026-02-16 13:30"
+    assert title == "Special Interest Security"
+
+
+def test_parse_basename_unknown_falls_back_to_titlecase():
+    mod = _load_manifest_module()
+    date_display, title = mod.parse_basename("adhoc_topic_name")
+    assert date_display == "Unknown"
+    assert title == "Adhoc Topic Name"
+
+
+def test_extract_case_number_prefers_case_no_over_matter_id():
+    mod = _load_manifest_module()
+    content = (
+        "**Case No.**: 2026-SECU-042-001\n"
+        "**Matter ID**: 2026-LEGAL-999\n"
+    )
+    assert mod.extract_case_number(content) == "2026-SECU-042-001"
+
+
+def test_extract_case_number_matter_id_legacy():
+    mod = _load_manifest_module()
+    content = "**Matter ID**: 2026-LEGAL-001\n"
+    assert mod.extract_case_number(content) == "2026-LEGAL-001"
 
 
 def test_transcripts_dir_resolves_to_courtroom_transcripts():
