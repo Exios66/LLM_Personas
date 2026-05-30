@@ -116,6 +116,41 @@ PERSONALITY_PATTERNS = {
 }
 
 
+def _validate_output_path(output_path: Path, *, force: bool) -> None:
+    """Refuse destructive cleans on transcript sources or paths outside the portal."""
+    resolved = output_path.resolve()
+    default_out = OUTPUT_DIR.resolve()
+    transcripts_dir = (BASE_DIR / "transcripts").resolve()
+
+    if resolved == default_out:
+        return
+
+    if not force:
+        print(
+            f"Error: Refusing to clean non-default output directory:\n  {resolved}\n"
+            f"Default output is: {default_out}\n"
+            "Pass --force if you intend to remove this directory.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if resolved == transcripts_dir:
+        print(
+            f"Error: Refusing to delete transcript source directory: {resolved}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if resolved.exists():
+        md_files = list(resolved.rglob("*.md"))
+        if md_files:
+            print(
+                f"Error: Refusing to delete directory containing {len(md_files)} .md file(s): {resolved}",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+
 def check_gitmal():
     """Check if gitmal is installed and return its path."""
     gitmal_path = shutil.which('gitmal')
@@ -461,6 +496,11 @@ def main():
         action='store_true',
         help='Skip gitmal generation (only post-process existing output)'
     )
+    parser.add_argument(
+        '--force',
+        action='store_true',
+        help='Allow cleaning a non-default --output directory (never transcript dirs)',
+    )
     
     args = parser.parse_args()
     
@@ -470,6 +510,7 @@ def main():
     print()
     
     output_path = Path(args.output)
+    _validate_output_path(output_path, force=args.force)
     
     if not args.skip_gitmal:
         # Clean output dir before fresh generation to avoid accumulation
