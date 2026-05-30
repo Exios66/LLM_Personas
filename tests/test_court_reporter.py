@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -13,6 +14,7 @@ from courtroom.reporter import (
     _skip_file,
     _suggest_canonical_name,
     audit_transcripts,
+    regenerate_manifest,
 )
 
 
@@ -122,3 +124,66 @@ def test_do_renames_skips_certified_even_with_suggestion(
     renamed = reporter._do_renames([entry], non_interactive=True)
     assert renamed == 0
     assert legacy.exists()
+
+
+def test_suggest_canonical_name_from_header_date_unknown_stem() -> None:
+    path = Path("random_legacy_name.md")
+    content = "**Date**: 2026-03-01\n"
+    suggested = _suggest_canonical_name(path, content)
+    assert suggested == "2026-03-01-random-legacy-name.md"
+
+
+def test_do_renames_non_interactive_success(tmp_path: Path) -> None:
+    src = tmp_path / "20260216_120000_topic.md"
+    src.write_text("**Date**: 2026-02-16\n", encoding="utf-8")
+    suggestion = _suggest_canonical_name(src, src.read_text(encoding="utf-8"))
+    assert suggestion is not None
+    entry = {
+        "certified": False,
+        "rename_suggested": suggestion,
+        "path_obj": src,
+    }
+    renamed = reporter._do_renames([entry], non_interactive=True)
+    assert renamed == 1
+    assert not src.exists()
+    assert (tmp_path / suggestion).exists()
+
+
+def test_do_renames_skips_when_target_exists(tmp_path: Path, capsys) -> None:
+    src = tmp_path / "20260216_120000_topic.md"
+    src.write_text("**Date**: 2026-02-16\n", encoding="utf-8")
+    suggestion = _suggest_canonical_name(src, src.read_text(encoding="utf-8"))
+    assert suggestion is not None
+    (tmp_path / suggestion).write_text("existing\n", encoding="utf-8")
+    entry = {
+        "certified": False,
+        "rename_suggested": suggestion,
+        "path_obj": src,
+    }
+    renamed = reporter._do_renames([entry], non_interactive=True)
+    assert renamed == 0
+    assert src.exists()
+    assert "SKIP (target exists)" in capsys.readouterr().out
+
+
+def test_regenerate_manifest_success(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    script = tmp_path / "courtroom" / "portal" / "generate_manifest.py"
+    script.parent.mkdir(parents=True)
+    script.write_text("print('ok')\n", encoding="utf-8")
+    monkeypatch.setattr(reporter, "REPO_ROOT", tmp_path)
+
+    def fake_run(cmd, **kwargs):
+        assert str(script) in cmd
+        return subprocess.CompletedProcess(cmd, 0, "", "")
+
+    monkeypatch.setattr(reporter.subprocess, "run", fake_run)
+    assert regenerate_manifest() is True
+
+
+def test_regenerate_manifest_missing_script(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(reporter, "REPO_ROOT", tmp_path)
+    assert regenerate_manifest() is False
