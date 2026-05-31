@@ -44,3 +44,19 @@ def test_generate_manifest_includes_transcripts():
     )
     assert len(manifest["transcripts"]) == md_count
     assert manifest["transcripts"], "expected at least one transcript in manifest"
+
+
+def test_launch_sh_transcripts_dir():
+    """launch.sh PROJECT_ROOT is courtroom/; transcripts must be courtroom/transcripts."""
+    launch_sh = REPO_ROOT / "courtroom" / "portal" / "launch.sh"
+    content = launch_sh.read_text(encoding="utf-8")
+    assert 'TRANSCRIPTS_DIR="$PROJECT_ROOT/transcripts"' in content
+    assert 'TRANSCRIPTS_DIR="$PROJECT_ROOT/courtroom/transcripts"' not in content
+
+
+def test_viewer_html_transcripts_dir():
+    """viewer.html is under courtroom/portal/; fetch path must be ../transcripts/."""
+    viewer = REPO_ROOT / "courtroom" / "portal" / "viewer.html"
+    content = viewer.read_text(encoding="utf-8")
+    assert "const TRANSCRIPTS_DIR = '../transcripts/';" in content
+    assert "../courtroom/transcripts/" not in content
