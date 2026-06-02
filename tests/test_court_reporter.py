@@ -13,6 +13,7 @@ from courtroom.reporter import (
     _skip_file,
     _suggest_canonical_name,
     audit_transcripts,
+    regenerate_manifest,
 )
 
 
@@ -46,6 +47,13 @@ def test_suggest_canonical_name_legacy_special_interest() -> None:
     content = "**Date**: 2026-02-16\n"
     suggested = _suggest_canonical_name(path, content)
     assert suggested == "20260216_120000_special_interest_bohemian-grove.md"
+
+
+def test_suggest_canonical_name_from_header_date() -> None:
+    path = Path("legacy_topic_name.md")
+    content = "**Date**: 2026-03-01\n"
+    suggested = _suggest_canonical_name(path, content)
+    assert suggested == "2026-03-01-legacy-topic-name.md"
 
 
 def test_suggest_canonical_name_none_when_already_canonical() -> None:
@@ -122,3 +130,21 @@ def test_do_renames_skips_certified_even_with_suggestion(
     renamed = reporter._do_renames([entry], non_interactive=True)
     assert renamed == 0
     assert legacy.exists()
+
+
+def test_regenerate_manifest_uses_courtroom_portal_script(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[list[str]] = []
+
+    def fake_run(cmd, **kwargs):
+        calls.append(cmd)
+        result = type("R", (), {"returncode": 0})()
+        return result
+
+    monkeypatch.setattr(reporter.subprocess, "run", fake_run)
+    assert regenerate_manifest() is True
+    assert calls
+    script = calls[0][1]
+    assert script.endswith("courtroom/portal/generate_manifest.py")
+    assert "courtroom/courtroom" not in script
