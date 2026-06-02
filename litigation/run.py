@@ -59,6 +59,36 @@ def slugify(text: str) -> str:
     return s.strip("-") or "matter"
 
 
+REGISTRY_PATH = REPO_ROOT / "courtroom" / "case-registry.yaml"
+
+
+def allocate_case_no(category: str = "DEL", *, deliberation: int = 1) -> str:
+    """
+    Allocate the next Case No. from courtroom/case-registry.yaml.
+
+    Per core/case-format.md: registry holds next available NNN per category.
+    """
+    import yaml
+
+    year = datetime.now().strftime("%Y")
+    if not REGISTRY_PATH.exists():
+        return f"{year}-{category}-001-{deliberation:03d}"
+
+    data = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8")) or {}
+    year = str(data.get("year", year))
+    categories = data.setdefault("categories", {})
+    nnn = int(categories.get(category, 1))
+    case_no = f"{year}-{category}-{nnn:03d}-{deliberation:03d}"
+    categories[category] = nnn + 1
+    data["categories"] = categories
+    data["last_updated"] = datetime.now().strftime("%Y-%m-%d")
+    REGISTRY_PATH.write_text(
+        yaml.dump(data, default_flow_style=False, sort_keys=False),
+        encoding="utf-8",
+    )
+    return case_no
+
+
 def save_transcript(matter: str, deliberation: str, *, location: str = "litigation") -> Path:
     """Save transcript to litigation/transcripts/ (default) or courtroom/transcripts/."""
     today = datetime.now().strftime("%Y-%m-%d")
@@ -69,17 +99,19 @@ def save_transcript(matter: str, deliberation: str, *, location: str = "litigati
         transcripts_dir = Path(__file__).resolve().parent / "transcripts"
     transcripts_dir.mkdir(parents=True, exist_ok=True)
 
-    # Avoid overwriting
+    # Avoid overwriting filenames (independent of Case No. assignment)
     base_name = f"{today}-{slug}"
     path = transcripts_dir / f"{base_name}.md"
-    counter = 1
+    suffix = 1
     while path.exists():
-        path = transcripts_dir / f"{base_name}-{counter}.md"
-        counter += 1
+        path = transcripts_dir / f"{base_name}-{suffix}.md"
+        suffix += 1
+
+    case_no = allocate_case_no("DEL")
 
     header = f"""# Transcript: In Re: {matter[:80]}{'...' if len(matter) > 80 else ''}
 
-**Case No.:** {datetime.now().strftime('%Y')}-DEL-{counter:03d}-001
+**Case No.:** {case_no}
 **Date:** {today}
 **Feasibility:** F3
 **Presiding:** The Honorable Lucius J. Morningstar
