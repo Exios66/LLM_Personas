@@ -101,6 +101,26 @@ def test_audit_transcripts_missing_dir(tmp_path: Path) -> None:
     assert uncertified == []
 
 
+def test_regenerate_manifest_uses_courtroom_portal_script(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Manifest path must stay under courtroom/portal/, not courtroom/courtroom/."""
+    portal = tmp_path / "courtroom" / "portal"
+    portal.mkdir(parents=True)
+    script = portal / "generate_manifest.py"
+    script.write_text("#!/usr/bin/env python3\n", encoding="utf-8")
+    monkeypatch.setattr(reporter, "REPO_ROOT", tmp_path)
+
+    assert reporter.regenerate_manifest() is True
+
+
+def test_regenerate_manifest_false_when_script_missing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(reporter, "REPO_ROOT", tmp_path)
+    assert reporter.regenerate_manifest() is False
+
+
 def test_do_renames_skips_certified_even_with_suggestion(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
