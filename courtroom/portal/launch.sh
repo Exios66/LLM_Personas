@@ -22,7 +22,7 @@ BOLD='\033[1m'
 # Get script directory and project root
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-TRANSCRIPTS_DIR="$PROJECT_ROOT/courtroom/transcripts"
+TRANSCRIPTS_DIR="$SCRIPT_DIR/../transcripts"
 EXPORTS_DIR="$PROJECT_ROOT/portal/exports"
 
 # Global for exported file path
