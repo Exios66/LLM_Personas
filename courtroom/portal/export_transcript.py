@@ -18,9 +18,21 @@ from pathlib import Path
 
 # Project paths
 SCRIPT_DIR = Path(__file__).resolve().parent
-BASE_DIR = SCRIPT_DIR.parent
+BASE_DIR = SCRIPT_DIR.parent  # courtroom/
+REPO_ROOT = BASE_DIR.parent
 TRANSCRIPTS_DIR = BASE_DIR / "transcripts"
 EXPORTS_DIR = SCRIPT_DIR / "exports"
+
+
+def resolve_repo_path(path: str) -> Path:
+    """Resolve a repo-relative or courtroom-relative path to an absolute Path."""
+    candidate = Path(path)
+    if candidate.is_absolute():
+        return candidate
+    candidate = Path(path.lstrip("/"))
+    if candidate.parts[:1] == ("courtroom",):
+        return REPO_ROOT / candidate
+    return BASE_DIR / candidate
 
 # Dracula theme + courtroom personality styling (matches portal)
 HTML_TEMPLATE = """<!DOCTYPE html>
@@ -229,9 +241,7 @@ def main() -> int:
     parser.add_argument("-o", "--output", help="Output HTML path (default: portal/exports/<basename>.html)")
     args = parser.parse_args()
 
-    src = Path(args.transcript)
-    if not src.is_absolute():
-        src = BASE_DIR / args.transcript.lstrip("/")
+    src = resolve_repo_path(args.transcript)
     if not src.exists():
         print(f"Error: File not found: {src}", file=sys.stderr)
         return 1
@@ -245,9 +255,7 @@ def main() -> int:
     body_html = apply_personality_styling(body_html)
 
     if args.output:
-        out_path = Path(args.output)
-        if not out_path.is_absolute():
-            out_path = BASE_DIR / args.output
+        out_path = resolve_repo_path(args.output)
     else:
         EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
         out_path = EXPORTS_DIR / f"{src.stem}.html"
