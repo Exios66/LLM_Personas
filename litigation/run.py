@@ -14,6 +14,7 @@ from pathlib import Path
 
 # Add project root for imports
 REPO_ROOT = Path(__file__).resolve().parent.parent
+REGISTRY_PATH = REPO_ROOT / "courtroom" / "case-registry.yaml"
 sys.path.insert(0, str(REPO_ROOT))
 
 # Load .env from litigation/providers/ (OPENROUTER_API_KEY, etc.)
@@ -59,6 +60,52 @@ def slugify(text: str) -> str:
     return s.strip("-") or "matter"
 
 
+def allocate_case_no(category: str = "DEL", *, deliberation: int = 1) -> str:
+    """
+    Allocate the next Case No. from courtroom/case-registry.yaml.
+
+    Per core/case-format.md: registry holds next available NNN per category.
+    """
+    if not REGISTRY_PATH.exists():
+        year = datetime.now().strftime("%Y")
+        return f"{year}-{category}-001-{deliberation:03d}"
+
+    text = REGISTRY_PATH.read_text(encoding="utf-8")
+    try:
+        import yaml
+
+        data = yaml.safe_load(text) or {}
+    except Exception as exc:
+        raise RuntimeError(f"Failed to parse case registry: {exc}") from exc
+
+    year = str(data.get("year", datetime.now().strftime("%Y")))
+    categories = data.get("categories") or {}
+    nnn = int(categories.get(category, 1))
+    case_no = f"{year}-{category}-{nnn:03d}-{deliberation:03d}"
+
+    pattern = rf"^(\s*{re.escape(category)}:\s*)\d+(\s*(?:#.*)?)$"
+    if not re.search(pattern, text, re.MULTILINE):
+        raise ValueError(f"Category {category!r} not found in {REGISTRY_PATH}")
+
+    updated = re.sub(
+        pattern,
+        rf"\g<1>{nnn + 1}\g<2>",
+        text,
+        count=1,
+        flags=re.MULTILINE,
+    )
+    today = datetime.now().strftime("%Y-%m-%d")
+    updated = re.sub(
+        r'^last_updated:\s*".*"$',
+        f'last_updated: "{today}"',
+        updated,
+        count=1,
+        flags=re.MULTILINE,
+    )
+    REGISTRY_PATH.write_text(updated, encoding="utf-8")
+    return case_no
+
+
 def save_transcript(matter: str, deliberation: str, *, location: str = "litigation") -> Path:
     """Save transcript to litigation/transcripts/ (default) or courtroom/transcripts/."""
     today = datetime.now().strftime("%Y-%m-%d")
@@ -69,17 +116,19 @@ def save_transcript(matter: str, deliberation: str, *, location: str = "litigati
         transcripts_dir = Path(__file__).resolve().parent / "transcripts"
     transcripts_dir.mkdir(parents=True, exist_ok=True)
 
-    # Avoid overwriting
+    # Avoid overwriting filenames (independent of Case No. assignment)
     base_name = f"{today}-{slug}"
     path = transcripts_dir / f"{base_name}.md"
-    counter = 1
+    suffix = 1
     while path.exists():
-        path = transcripts_dir / f"{base_name}-{counter}.md"
-        counter += 1
+        path = transcripts_dir / f"{base_name}-{suffix}.md"
+        suffix += 1
+
+    case_no = allocate_case_no("DEL")
 
     header = f"""# Transcript: In Re: {matter[:80]}{'...' if len(matter) > 80 else ''}
 
-**Case No.:** {datetime.now().strftime('%Y')}-DEL-{counter:03d}-001
+**Case No.:** {case_no}
 **Date:** {today}
 **Feasibility:** F3
 **Presiding:** The Honorable Lucius J. Morningstar
