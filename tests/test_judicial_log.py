@@ -36,3 +36,26 @@ def test_verify_detects_tampered_entry_hash(tmp_path) -> None:
     ok, errors = log.verify()
     assert ok is False
     assert any("entry_hash mismatch" in e for e in errors)
+
+
+def test_verify_detects_broken_prev_hash_chain(tmp_path) -> None:
+    log_path = tmp_path / "judicial_decisions.log"
+    log = JudicialLog(log_path=log_path)
+    log.append("matter-a", compute_ruling_hash("ruling A"), "transcript-a.md")
+    log.append("matter-b", compute_ruling_hash("ruling B"), "transcript-b.md")
+
+    lines = log_path.read_text(encoding="utf-8").strip().split("\n")
+    entry2 = json.loads(lines[1])
+    entry2["prev_hash"] = "broken" * 8
+    lines[1] = json.dumps(entry2)
+    log_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    ok, errors = log.verify()
+    assert ok is False
+    assert any("prev_hash mismatch" in e for e in errors)
+
+
+def test_compute_ruling_hash_has_sha256_prefix() -> None:
+    h = compute_ruling_hash("test ruling content")
+    assert h.startswith("sha256:")
+    assert len(h) == len("sha256:") + 64
