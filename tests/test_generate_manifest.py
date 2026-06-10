@@ -23,6 +23,22 @@ def test_transcripts_dir_resolves_to_courtroom_transcripts():
     assert transcripts_dir.exists()
 
 
+def test_portal_launcher_resolves_transcripts_dir():
+    """launch.sh must use courtroom/transcripts, not courtroom/courtroom/transcripts."""
+    launch_sh = REPO_ROOT / "courtroom" / "portal" / "launch.sh"
+    content = launch_sh.read_text(encoding="utf-8")
+    assert 'TRANSCRIPTS_DIR="$PROJECT_ROOT/transcripts"' in content
+    assert 'TRANSCRIPTS_DIR="$PROJECT_ROOT/courtroom/transcripts"' not in content
+
+
+def test_portal_viewer_resolves_transcripts_dir():
+    """viewer.html must fetch ../transcripts/, not ../courtroom/transcripts/."""
+    viewer = REPO_ROOT / "courtroom" / "portal" / "viewer.html"
+    content = viewer.read_text(encoding="utf-8")
+    assert "const TRANSCRIPTS_DIR = '../transcripts/';" in content
+    assert "const TRANSCRIPTS_DIR = '../courtroom/transcripts/';" not in content
+
+
 def test_generate_manifest_includes_transcripts():
     result = subprocess.run(
         [sys.executable, str(MANIFEST_SCRIPT)],
