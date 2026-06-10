@@ -21,6 +21,7 @@ if str(_SCRIPT_DIR.parent) not in sys.path:
     sys.path.insert(0, str(_SCRIPT_DIR.parent))
 
 from executive.judicial_log import JudicialLog, _log_path
+from executive.proof import OverrideProof
 
 ACTIONS_LOG = "executive_actions.log"
 OVERRIDE_THRESHOLD = 5  # Alert if overrides in window exceed this
@@ -119,13 +120,23 @@ def run_checks() -> tuple[bool, list[str]]:
 
     for a in actions:
         rid = a.get("ruling_id", "")
-        if rid and rid not in approved and "override" not in a.get("action_type", "").lower():
-            # Action references ruling not in judicial log
-            proof = a.get("override_proof")
-            if not proof:
-                alerts.append(
-                    f"Action without judicial approval and no override proof: ruling_id={rid}"
-                )
+        if not rid or rid in approved:
+            continue
+        # Action references ruling not in judicial log — requires valid override proof
+        proof = a.get("override_proof")
+        reason = a.get("description", "")
+        if not proof:
+            alerts.append(
+                f"Action without judicial approval and no override proof: ruling_id={rid}"
+            )
+            continue
+        try:
+            if OverrideProof.verify(proof, rid, reason) is None:
+                alerts.append(f"Invalid override proof for ruling_id={rid}")
+        except FileNotFoundError:
+            alerts.append(
+                f"Cannot verify override proof (secret not configured): ruling_id={rid}"
+            )
 
     # (c) Override frequency
     overrides = [a for a in actions if a.get("override_proof")]
