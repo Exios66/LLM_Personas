@@ -101,6 +101,43 @@ def test_audit_transcripts_missing_dir(tmp_path: Path) -> None:
     assert uncertified == []
 
 
+def test_do_renames_uncertified_legacy(tmp_path: Path) -> None:
+    d = tmp_path / "t"
+    d.mkdir()
+    legacy = d / "20260216_120000_topic.md"
+    legacy.write_text("**Date**: 2026-02-16\n", encoding="utf-8")
+    suggestion = _suggest_canonical_name(legacy, legacy.read_text(encoding="utf-8"))
+    assert suggestion is not None
+
+    entry = {
+        "certified": False,
+        "rename_suggested": suggestion,
+        "path_obj": legacy,
+    }
+    renamed = reporter._do_renames([entry], non_interactive=True)
+    assert renamed == 1
+    assert not legacy.exists()
+    assert (d / suggestion).exists()
+
+
+def test_do_renames_skips_when_target_exists(tmp_path: Path) -> None:
+    d = tmp_path / "t"
+    d.mkdir()
+    legacy = d / "20260216_120000_topic.md"
+    legacy.write_text("**Date**: 2026-02-16\n", encoding="utf-8")
+    suggestion = _suggest_canonical_name(legacy, legacy.read_text(encoding="utf-8"))
+    assert suggestion is not None
+    (d / suggestion).write_text("existing\n", encoding="utf-8")
+
+    entry = {
+        "certified": False,
+        "rename_suggested": suggestion,
+        "path_obj": legacy,
+    }
+    assert reporter._do_renames([entry], non_interactive=True) == 0
+    assert legacy.exists()
+
+
 def test_do_renames_skips_certified_even_with_suggestion(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
