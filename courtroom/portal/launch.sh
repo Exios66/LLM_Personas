@@ -19,11 +19,11 @@ GRAY='\033[0;90m'
 NC='\033[0m' # No Color
 BOLD='\033[1m'
 
-# Get script directory and project root
+# Get script directory and project root (launch.sh lives in courtroom/portal/)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 TRANSCRIPTS_DIR="$PROJECT_ROOT/courtroom/transcripts"
-EXPORTS_DIR="$PROJECT_ROOT/portal/exports"
+EXPORTS_DIR="$SCRIPT_DIR/exports"
 
 # Global for exported file path
 EXPORTED_FILE=""
@@ -258,8 +258,7 @@ main() {
             echo ""
             echo -e "${RED}Failed to export transcript.${NC}"
             echo -e "${GRAY}Try running manually:${NC}"
-            echo -e "${GRAY}  cd $PROJECT_ROOT${NC}"
-            echo -e "${GRAY}  python3 portal/export_transcript.py \"$selected\" -o portal/exports/${fname}.html${NC}"
+            echo -e "${GRAY}  python3 $SCRIPT_DIR/export_transcript.py \"$selected\" -o $EXPORTS_DIR/${fname}.html${NC}"
             echo ""
             echo -e "${GRAY}Press Enter to continue...${NC}"
             read -r
