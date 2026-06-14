@@ -10,6 +10,19 @@ import yaml
 from litigation import run as litigation_run
 
 
+@pytest.mark.parametrize(
+    ("matter", "expected"),
+    [
+        ("Simple Matter", "simple-matter"),
+        ("  Mixed CASE #42!  ", "mixed-case-42"),
+        ("", "matter"),
+        ("---", "matter"),
+    ],
+)
+def test_slugify(matter: str, expected: str) -> None:
+    assert litigation_run.slugify(matter) == expected
+
+
 def test_allocate_case_no_increments_registry(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     registry = tmp_path / "case-registry.yaml"
     registry.write_text(
