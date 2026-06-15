@@ -12,6 +12,11 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+try:
+    import fcntl
+except ImportError:  # Windows — no cross-process locking
+    fcntl = None  # type: ignore[assignment,misc]
+
 # Add project root for imports
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -62,30 +67,70 @@ def slugify(text: str) -> str:
 REGISTRY_PATH = REPO_ROOT / "courtroom" / "case-registry.yaml"
 
 
+def _lock_registry_file(file_obj) -> None:
+    if fcntl is not None:
+        fcntl.flock(file_obj.fileno(), fcntl.LOCK_EX)
+
+
+def _unlock_registry_file(file_obj) -> None:
+    if fcntl is not None:
+        fcntl.flock(file_obj.fileno(), fcntl.LOCK_UN)
+
+
 def allocate_case_no(category: str = "DEL", *, deliberation: int = 1) -> str:
     """
     Allocate the next Case No. from courtroom/case-registry.yaml.
 
     Per core/case-format.md: registry holds next available NNN per category.
+    Uses an exclusive file lock so concurrent saves cannot corrupt the registry
+    or assign duplicate Case Nos. Creates the registry when missing and resets
+    per-category counters when the calendar year advances past the registry year.
     """
     import yaml
 
-    year = datetime.now().strftime("%Y")
+    calendar_year = datetime.now().strftime("%Y")
+    REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
     if not REGISTRY_PATH.exists():
-        return f"{year}-{category}-001-{deliberation:03d}"
+        REGISTRY_PATH.write_text(
+            yaml.dump(
+                {
+                    "year": int(calendar_year),
+                    "categories": {},
+                    "last_updated": datetime.now().strftime("%Y-%m-%d"),
+                },
+                default_flow_style=False,
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
 
-    data = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8")) or {}
-    year = str(data.get("year", year))
-    categories = data.setdefault("categories", {})
-    nnn = int(categories.get(category, 1))
-    case_no = f"{year}-{category}-{nnn:03d}-{deliberation:03d}"
-    categories[category] = nnn + 1
-    data["categories"] = categories
-    data["last_updated"] = datetime.now().strftime("%Y-%m-%d")
-    REGISTRY_PATH.write_text(
-        yaml.dump(data, default_flow_style=False, sort_keys=False),
-        encoding="utf-8",
-    )
+    with open(REGISTRY_PATH, "r+", encoding="utf-8") as registry_file:
+        _lock_registry_file(registry_file)
+        try:
+            registry_file.seek(0)
+            raw = registry_file.read()
+            data = yaml.safe_load(raw) or {}
+            year = str(data.get("year", calendar_year))
+            if year != calendar_year:
+                data["year"] = int(calendar_year)
+                data["categories"] = {cat: 1 for cat in (data.get("categories") or {})}
+                year = calendar_year
+            categories = data.setdefault("categories", {})
+            nnn = int(categories.get(category, 1))
+            case_no = f"{year}-{category}-{nnn:03d}-{deliberation:03d}"
+            categories[category] = nnn + 1
+            data["categories"] = categories
+            data["year"] = int(data.get("year", calendar_year))
+            data["last_updated"] = datetime.now().strftime("%Y-%m-%d")
+            serialized = yaml.dump(data, default_flow_style=False, sort_keys=False)
+            registry_file.seek(0)
+            registry_file.write(serialized)
+            registry_file.truncate()
+            registry_file.flush()
+            os.fsync(registry_file.fileno())
+        finally:
+            _unlock_registry_file(registry_file)
+
     return case_no
 
 
