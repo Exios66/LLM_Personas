@@ -72,7 +72,18 @@ def allocate_case_no(category: str = "DEL", *, deliberation: int = 1) -> str:
 
     year = datetime.now().strftime("%Y")
     if not REGISTRY_PATH.exists():
-        return f"{year}-{category}-001-{deliberation:03d}"
+        case_no = f"{year}-{category}-001-{deliberation:03d}"
+        data = {
+            "year": int(year),
+            "last_updated": datetime.now().strftime("%Y-%m-%d"),
+            "categories": {category: 2},
+        }
+        REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
+        REGISTRY_PATH.write_text(
+            yaml.dump(data, default_flow_style=False, sort_keys=False),
+            encoding="utf-8",
+        )
+        return case_no
 
     data = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8")) or {}
     year = str(data.get("year", year))
