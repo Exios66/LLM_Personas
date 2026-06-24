@@ -76,3 +76,18 @@ def test_save_transcript_filename_suffix_independent_of_case_no(
 
     assert path.name.endswith("-1.md")
     assert "**Case No.:** 2026-DEL-020-001" in content
+
+
+def test_allocate_case_no_initializes_missing_registry(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    registry = tmp_path / "case-registry.yaml"
+    monkeypatch.setattr(litigation_run, "REGISTRY_PATH", registry)
+
+    first = litigation_run.allocate_case_no("DEL")
+    second = litigation_run.allocate_case_no("DEL")
+
+    assert first == f"{litigation_run.datetime.now().strftime('%Y')}-DEL-001-001"
+    assert second == f"{litigation_run.datetime.now().strftime('%Y')}-DEL-002-001"
+    data = yaml.safe_load(registry.read_text(encoding="utf-8"))
+    assert data["categories"]["DEL"] == 3
