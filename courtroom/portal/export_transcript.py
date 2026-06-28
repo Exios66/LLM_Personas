@@ -206,6 +206,21 @@ def apply_personality_styling(html: str) -> str:
     return html
 
 
+def resolve_transcript_path(raw: str) -> Path:
+    """Resolve transcript path relative to courtroom/ (BASE_DIR).
+
+    Accepts paths relative to repo root (courtroom/transcripts/foo.md),
+    courtroom/ (transcripts/foo.md), or absolute paths.
+    """
+    src = Path(raw)
+    if src.is_absolute():
+        return src
+    rel = raw.lstrip("/")
+    if rel.startswith("courtroom/"):
+        rel = rel[len("courtroom/") :]
+    return BASE_DIR / rel
+
+
 def extract_title(md_path: Path, content: str) -> str:
     """Derive a human-readable title from path or first H1."""
     m = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
@@ -229,9 +244,7 @@ def main() -> int:
     parser.add_argument("-o", "--output", help="Output HTML path (default: portal/exports/<basename>.html)")
     args = parser.parse_args()
 
-    src = Path(args.transcript)
-    if not src.is_absolute():
-        src = BASE_DIR / args.transcript.lstrip("/")
+    src = resolve_transcript_path(args.transcript)
     if not src.exists():
         print(f"Error: File not found: {src}", file=sys.stderr)
         return 1
