@@ -85,6 +85,29 @@ def _collect_transcripts() -> List[Tuple[Path, str, str]]:
     return out
 
 
+def _matches_transcript_query(name: str, path: Path) -> bool:
+    """Match transcript by exact name, prefix, or topic suffix (not arbitrary substring)."""
+    stem = path.stem
+    if stem == name or path.name == name:
+        return True
+    if stem.startswith(name):
+        return True
+    return stem.endswith(f"-{name}") or stem.endswith(f"_{name}")
+
+
+def _resolve_transcript(name: str, rows: List[Tuple[Path, str, str]]) -> Optional[Path]:
+    """Pick the best transcript path for a query name."""
+    matches = [r for r in rows if _matches_transcript_query(name, r[0])]
+    if not matches:
+        return None
+    exact = [m for m in matches if m[0].stem == name or m[0].name == name]
+    if exact:
+        return exact[0][0]
+    if len(matches) > 1:
+        matches.sort(key=lambda r: len(r[0].stem))
+    return matches[0][0]
+
+
 def cmd_list(plain: bool) -> None:
     """List transcripts in a table or plain lines."""
     rows = _collect_transcripts()
@@ -116,17 +139,11 @@ def cmd_show(name: Optional[str], pager: bool) -> None:
         path = rows[0][0]
     else:
         name = name.strip()
-        matches = [r for r in rows if r[0].stem == name or r[0].name == name or r[0].stem.startswith(name) or name in r[0].stem]
-        if not matches:
+        path = _resolve_transcript(name, rows)
+        if path is None:
             print(f"No transcript matching '{name}'", file=sys.stderr)
             print("Use 'viewer.py list' to see available transcripts.", file=sys.stderr)
             sys.exit(1)
-        if len(matches) > 1:
-            # Prefer exact stem match
-            exact = [m for m in matches if m[0].stem == name]
-            path = exact[0][0] if exact else matches[0][0]
-        else:
-            path = matches[0][0]
     text = path.read_text(encoding="utf-8")
     if pager:
         import subprocess
@@ -223,15 +240,12 @@ def cmd_serve(port: int) -> None:
                 if not name:
                     self.send_error(404)
                     return
-                found = None
-                for p, date_str, topic in rows:
-                    if p.stem == name or name in p.stem:
-                        found = (p, topic)
-                        break
-                if not found:
+                resolved = _resolve_transcript(name, rows)
+                if not resolved:
                     self.send_error(404)
                     return
-                p, topic = found
+                p = resolved
+                topic = next(t for path, _, t in rows if path == p)
                 md = p.read_text(encoding="utf-8")
                 body_html = _markdown_to_html(md)
                 title = f"In Re: {topic}"
