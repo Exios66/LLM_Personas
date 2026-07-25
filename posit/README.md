@@ -2,6 +2,9 @@
 
 Quarto website for the MORNINGSTAR / LLM_Personas corpus, modeled on the JackJBurleson PSYCH 755 Connect Cloud layout (navbar, sidebar, TOC, SCSS theme, static bundle publish).
 
+**Live:** https://019f9a59-7b27-9a28-b0e8-d4576d860993.share.connect.posit.cloud/  
+**Dashboard:** https://connect.posit.cloud/jackjburleson/content/019f9a59-7b27-9a28-b0e8-d4576d860993
+
 ## Layout
 
 | Path | Role |

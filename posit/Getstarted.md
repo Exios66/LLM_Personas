@@ -76,5 +76,8 @@ After the first successful publish, `posit/_publish.yml` stores the content id a
 |---|---|
 | Account | `jackjburleson` |
 | Quarto project | `posit/` |
+| Share URL | https://019f9a59-7b27-9a28-b0e8-d4576d860993.share.connect.posit.cloud/ |
+| Dashboard | https://connect.posit.cloud/jackjburleson/content/019f9a59-7b27-9a28-b0e8-d4576d860993 |
+| Content ID | `019f9a59-7b27-9a28-b0e8-d4576d860993` |
 | Config | `posit/_publish.yml`, `posit/_quarto.yml` |
 | Helper | `scripts/publish_posit_morningstar.py` |
