@@ -126,7 +126,7 @@ Convened a Contempt & Prosecution Hearing in Special Interest format for *The Pe
 
 Convened an extensive Special Inquiry Hearing into the Bohemian Grove—a private 2,700-acre retreat owned by the Bohemian Club in Northern California. Investigative proceeding (no vote); purpose: establish factual record.
 
-**Transcript:** `courtroom/transcripts/20260216_120000_special_inquiry_bohemian_grove.md`
+**Transcript:** `courtroom/transcripts/20260216_120000_special_interest_special-inquiry-bohemian-grove.md`
 
 **Witnesses (9):** Professor Ashworth (history), Dr. Voss (sociology), Mr. Chenoweth (former staff), Dr. Marsh (ritual studies), Senator Hargrove (political activity), Ms. Torres (journalism), Mr. Whitfield (club defense), Dr. Webb (power structure), Professor Vance (constitutional law).
 
