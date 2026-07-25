@@ -30,6 +30,7 @@ A deliberative AI persona framework that transforms complex decisions into struc
 <!-- Platform -->
 [![Cursor](https://img.shields.io/badge/Cursor-Ready-14b8a6?style=flat-square)](https://cursor.com)
 [![Python](https://img.shields.io/badge/Python-3.x-3776ab?style=flat-square)](https://www.python.org/)
+[![Posit Connect Cloud](https://img.shields.io/badge/Posit%20Connect%20Cloud-Live-C5050C?style=flat-square)](https://019f9a59-7b27-9a28-b0e8-d4576d860993.share.connect.posit.cloud/)
 
 [![pages-build-deployment](https://github.com/Exios66/LLM_Personas/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/Exios66/LLM_Personas/actions/workflows/pages/pages-build-deployment)
 
@@ -41,7 +42,6 @@ A deliberative AI persona framework that transforms complex decisions into struc
 
 - [Overview](#overview)
 - [Quick Start](#quick-start)
-- [Posit Connect Cloud](#posit-connect-cloud-website)
 - [Navigation Index](#navigation-index)
 - [The Court](#the-court)
 - [Command Reference](#command-reference)
@@ -140,7 +140,15 @@ The litigation runner loads the **full MORNINGSTAR framework** (procedures, pers
 
 ### Posit Connect Cloud website
 
+**Live site:** [https://019f9a59-7b27-9a28-b0e8-d4576d860993.share.connect.posit.cloud/](https://019f9a59-7b27-9a28-b0e8-d4576d860993.share.connect.posit.cloud/)
+
 A Quarto website under [`posit/`](posit/) publishes the full MORNINGSTAR corpus (guide, court law, transcripts, apps, metrics) to the **JackJBurleson** Posit Connect Cloud account — as a separate content item from the PSYCH 755 manuscript.
+
+| Field | Value |
+|---|---|
+| Share URL | https://019f9a59-7b27-9a28-b0e8-d4576d860993.share.connect.posit.cloud/ |
+| Dashboard | https://connect.posit.cloud/jackjburleson/content/019f9a59-7b27-9a28-b0e8-d4576d860993 |
+| Content ID | `019f9a59-7b27-9a28-b0e8-d4576d860993` |
 
 ```bash
 pip install -r requirements-posit.txt
