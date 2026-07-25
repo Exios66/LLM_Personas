@@ -18,6 +18,7 @@ project:
 
 website:
   title: "MORNINGSTAR"
+  site-url: https://connect.posit.cloud/jackjburleson/content/019f9a59-7b27-9a28-b0e8-d4576d860993
   description: "The MORNINGSTAR Operational Agent Swarm — deliberative AI courtroom framework"
   repo-url: https://github.com/Exios66/LLM_Personas
   repo-actions: [source, issue]
