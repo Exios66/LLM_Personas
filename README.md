@@ -42,6 +42,7 @@ A deliberative AI persona framework that transforms complex decisions into struc
 
 - [Overview](#overview)
 - [Quick Start](#quick-start)
+- [Posit Connect Cloud](#posit-connect-cloud-website)
 - [Navigation Index](#navigation-index)
 - [The Court](#the-court)
 - [Command Reference](#command-reference)
