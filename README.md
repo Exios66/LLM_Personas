@@ -137,6 +137,18 @@ python litigation/run.py "Your matter"   # Direct run
 
 The litigation runner loads the **full MORNINGSTAR framework** (procedures, personalities, rules, MFAF, domain experts, spectators, checklists) and produces certified transcripts. It also provides a **local transcript viewer** (`litigation/viewer.py` — list, show, serve). See [`litigation/README.md`](litigation/README.md).
 
+### Posit Connect Cloud website
+
+A Quarto website under [`posit/`](posit/) publishes the full MORNINGSTAR corpus (guide, court law, transcripts, apps, metrics) to the **JackJBurleson** Posit Connect Cloud account — as a separate content item from the PSYCH 755 manuscript.
+
+```bash
+pip install -r requirements-posit.txt
+python scripts/build_posit_site_pages.py
+python scripts/publish_posit_morningstar.py
+```
+
+See [posit/README.md](posit/README.md) and [posit/Getstarted.md](posit/Getstarted.md).
+
 ---
 
 ## Navigation Index
