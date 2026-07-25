@@ -1,0 +1,173 @@
+---
+title: "The MORNINGSTAR Operational Agent Swarm"
+subtitle: "Deliberative AI courtroom framework — personalities, procedure, precedents, and certified rulings"
+author:
+  - name: Jack J. Burleson
+    url: https://github.com/Exios66
+    affiliations:
+      - Exios66 / LLM_Personas
+    corresponding: true
+date: last-modified
+abstract: |
+  MORNINGSTAR is a deliberative AI persona framework that reframes complex decisions as
+  structured courtroom proceedings. Distinct cognitive personalities — Architect, Engineer,
+  Debugger, Prophet, and Counsel — argue under the Honorable Lucius J. Morningstar, vote,
+  and produce documented rulings with explicit rationales and acknowledged risks. This Posit
+  Connect Cloud site publishes the full repository corpus: court law, SME registry, certified
+  transcripts, litigation tooling, companion agents (LIL_JEFF, OCTAVIUS, AEGIS), metrics, and
+  interactive browser applications.
+keywords:
+  - MORNINGSTAR
+  - deliberative AI
+  - multi-agent systems
+  - courtroom procedure
+  - LLM personas
+  - Cursor agents
+  - litigation runner
+---
+
+::: {.hero-brand}
+<span class="brand-name">MORNINGSTAR</span>
+<span class="brand-tag">*"The court convenes. The deliberation begins. The outcome is inevitable."*</span>
+:::
+
+::: {.github-access}
+<a class="github-btn" href="https://github.com/Exios66/LLM_Personas"><i class="bi bi-github"></i> Repository</a>
+<a class="github-btn" href="site/apps/live-courtroom/index.html"><i class="bi bi-broadcast"></i> Live Courtroom</a>
+<a class="github-btn" href="site/apps/portal/viewer.html"><i class="bi bi-journal-text"></i> Transcript Portal</a>
+<a class="github-btn" href="Getstarted.html"><i class="bi bi-rocket-takeoff"></i> Get Started</a>
+:::
+
+## Overview
+
+MORNINGSTAR is **not a chatbot**. It is a deliberative system.
+
+When faced with decisions that have meaningful tradeoffs, the court convenes personalities with documented biases, failure modes, and voting power. The court argues, votes, and produces rulings with institutional memory — precedents, transcripts, and persistent session state.
+
+| Provides | Does not provide |
+|---|---|
+| Structured deliberation for complex decisions | Fast answers to trivial questions |
+| Documented reasoning and dissent | Consensus without conflict |
+| Persistent state across sessions | Decisions without accountability |
+| Precedent tracking & Prophet vindication | Rubber-stamp approvals |
+
+```{python}
+#| label: corpus-stats
+#| echo: false
+
+from pathlib import Path
+import pandas as pd
+
+root = Path("..").resolve()
+stats = [
+    ("Wiki pages", len(list((root / "wiki").glob("*.md"))), "wiki/"),
+    ("Core law documents", len(list((root / "core").glob("*.md"))), "core/"),
+    ("Certified transcripts", len(list((root / "courtroom/transcripts").glob("*.md"))), "courtroom/transcripts/"),
+    ("Agent definitions", len(list((root / "agents").glob("*.md"))), "agents/"),
+    ("Agent skills", len(list((root / "agents/skills").glob("*.md"))), "agents/skills/"),
+    ("Checklists", len(list((root / "checklists").glob("*.md"))), "checklists/"),
+    ("Templates", len(list((root / "templates").glob("*.md"))), "templates/"),
+    ("Pytest modules", len(list((root / "tests").glob("test_*.py"))), "tests/"),
+]
+df = pd.DataFrame(stats, columns=["Corpus", "Count", "Path"])
+df
+```
+
+## The Court
+
+::: {.persona-grid}
+::: {.persona-chip}
+<div class="role">Judge</div>
+<div class="name">Lucius J. Morningstar</div>
+:::
+::: {.persona-chip .architect}
+<div class="role">Vote · Architect</div>
+<div class="name">Correctness</div>
+:::
+::: {.persona-chip .engineer}
+<div class="role">Vote · Engineer</div>
+<div class="name">Ship safely</div>
+:::
+::: {.persona-chip .debugger}
+<div class="role">Vote · Debugger</div>
+<div class="name">Edge cases</div>
+:::
+::: {.persona-chip .prophet}
+<div class="role">Vote · Prophet</div>
+<div class="name">Think larger</div>
+:::
+::: {.persona-chip .counsel}
+<div class="role">Vote · Counsel</div>
+<div class="name">Client & ethics</div>
+:::
+:::
+
+- **Presiding:** The Honorable Lucius J. Morningstar (tie-breaker) with advisory consultant Edward Cullen (non-voting apparition).
+- **Non-voting:** SCRIBE maintains transcripts, state, and the changelog.
+- **Companions:** LIL_JEFF (code), OCTAVIUS (R/Quarto), AEGIS (central authority / security).
+
+Full profiles: [Court Personalities](site/core/personalities.md) · [The Court](site/guide/the-court.md) · [Companion Personas](site/guide/companion-personas.md)
+
+## How a session works
+
+1. **Initialize** — Invoke `/morningstar` or the morningstar subagent; the court reads `state/current.md`.
+2. **Classify** — The Judge assigns feasibility **F0–F5** via the Multi-Factor Assessment Framework ([MFAF](site/core/mfaf.md)).
+3. **Deliberate** — Personalities argue (3–5 lines); Prophet offers one radical alternative; optional SME specialists at F3+.
+4. **Vote & rule** — YES / NO / ABSTAIN / RECUSED; certified ruling with Decision, Rationale, Risk, Dissent.
+5. **Record** — Scribe updates state, changelog, precedents; transcripts land in `courtroom/transcripts/`.
+
+See [Quick Start](site/guide/quick-start.md), [Procedures](site/guide/procedures.md), and [Command Reference](site/guide/command-reference.md).
+
+## Site map
+
+| Section | What you will find |
+|---|---|
+| [Guide](site/guide/home.md) | Onboarding, court roster, commands, glossary, runbook |
+| [Framework](site/core/personalities.md) | Personalities, MFAF, SME, case format, rules, precedents |
+| [Transcripts](site/courtroom/transcripts.md) | Certified deliberation corpus |
+| [Litigation](site/litigation/runner.md) | Local/free LLM runner (Ollama, LM Studio, OpenRouter) |
+| [Apps](site/apps/index.md) | Live courtroom UI + Dracula transcript portal |
+| [Project](site/project/modelcard.md) | Model card, metrics, architecture, security, changelog |
+
+## Interactive applications
+
+| Application | Description |
+|---|---|
+| [Live Courtroom](site/apps/live-courtroom/index.html) | Full browser deliberation workflow (phases, votes, export) |
+| [Transcript Portal](site/apps/portal/viewer.html) | Browse and read certified transcripts |
+
+Optional Node OpenRouter proxy: `backend/server.js` (see repository README). Portal launcher locally: `./courtroom/portal/launch.sh`.
+
+## Metrics snapshot
+
+```{python}
+#| label: metrics-snippet
+#| echo: false
+
+from pathlib import Path
+import re
+
+text = Path("../state/metrics.md").read_text(encoding="utf-8")
+# Pull the first few tables' key lines for a compact dashboard feel
+keep = []
+for line in text.splitlines():
+    if line.startswith("**Last Updated:**") or line.startswith("**Tracking Since:**") or line.startswith("**Total Sessions:**") or line.startswith("**Average Feasibility:**"):
+        keep.append(line)
+print("\n".join(keep) if keep else "See Metrics Dashboard page.")
+```
+
+Full dashboard: [Metrics](site/project/metrics.md) · live state: [Current Session State](site/project/current-state.md)
+
+## Repository identity
+
+| Field | Value |
+|---|---|
+| Repository | [`Exios66/LLM_Personas`](https://github.com/Exios66/LLM_Personas) |
+| Full title | The MORNINGSTAR Operational Agent Swarm |
+| Version | 0.0.4 |
+| Stack | HTML/CSS/JS courtroom · Python litigation & portal · Node proxy · Cursor agents |
+| Hosting | This Quarto website on Posit Connect Cloud (JackJBurleson) |
+
+---
+
+*"The court is now in session. May your decisions age gracefully."*

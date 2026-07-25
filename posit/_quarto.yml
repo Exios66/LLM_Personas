@@ -1,0 +1,184 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - Getstarted.md
+    - site/apps/index.md
+    - site/guide/*.md
+    - site/core/*.md
+    - site/courtroom/*.md
+    - site/courtroom/transcripts/*.md
+    - site/litigation/*.md
+    - site/executive/*.md
+    - site/project/*.md
+  resources:
+    - site/apps/live-courtroom/**
+    - site/apps/portal/**
+
+website:
+  title: "MORNINGSTAR"
+  description: "The MORNINGSTAR Operational Agent Swarm — deliberative AI courtroom framework"
+  repo-url: https://github.com/Exios66/LLM_Personas
+  repo-actions: [source, issue]
+  page-navigation: true
+  navbar:
+    background: "#1e1f29"
+    foreground: "#f8f8f2"
+    left:
+      - href: index.qmd
+        text: Overview
+      - href: Getstarted.md
+        text: Get Started
+      - text: Guide
+        menu:
+          - href: site/guide/quick-start.md
+            text: Quick Start
+          - href: site/guide/the-court.md
+            text: The Court
+          - href: site/guide/command-reference.md
+            text: Commands
+          - href: site/guide/procedures.md
+            text: Procedures
+          - href: site/guide/when-to-convene.md
+            text: When to Convene
+          - href: site/guide/domains-and-experts.md
+            text: Domains & Experts
+          - href: site/guide/companion-personas.md
+            text: Companion Personas
+          - href: site/guide/glossary.md
+            text: Glossary
+      - text: Framework
+        menu:
+          - href: site/core/personalities.md
+            text: Personalities
+          - href: site/core/mfaf.md
+            text: MFAF (F0–F5)
+          - href: site/core/sme-framework.md
+            text: SME Framework
+          - href: site/courtroom/rules.md
+            text: Court Rules
+          - href: site/courtroom/precedents.md
+            text: Precedents
+          - href: site/courtroom/transcripts.md
+            text: Transcripts
+          - href: site/litigation/runner.md
+            text: Litigation Runner
+          - href: site/executive/protocol.md
+            text: Executive Protocol
+      - text: Apps
+        menu:
+          - href: site/apps/index.md
+            text: Applications
+          - href: site/apps/live-courtroom/index.html
+            text: Live Courtroom
+          - href: site/apps/portal/viewer.html
+            text: Transcript Portal
+      - text: Project
+        menu:
+          - href: site/project/modelcard.md
+            text: Model Card
+          - href: site/project/metrics.md
+            text: Metrics
+          - href: site/project/architecture.md
+            text: Architecture
+          - href: site/project/changelog.md
+            text: Changelog
+          - href: site/project/security.md
+            text: Security
+          - href: site/guide/repository-map.md
+            text: Repository Map
+    right:
+      - icon: github
+        href: https://github.com/Exios66/LLM_Personas
+        aria-label: GitHub repository Exios66/LLM_Personas
+      - icon: github
+        href: https://github.com/Exios66
+        text: Exios66
+        aria-label: GitHub profile Exios66
+  page-footer:
+    left: "MORNINGSTAR · LLM_Personas · Jack J. Burleson"
+    right:
+      - text: "Built with Quarto"
+      - icon: github
+        href: https://github.com/Exios66/LLM_Personas
+        aria-label: GitHub repository
+  sidebar:
+    style: "floating"
+    contents:
+      - section: "Start here"
+        contents:
+          - index.qmd
+          - Getstarted.md
+          - site/apps/index.md
+          - site/guide/quick-start.md
+          - site/guide/onboarding.md
+      - section: "The Court"
+        contents:
+          - site/guide/the-court.md
+          - site/core/personalities.md
+          - site/guide/command-reference.md
+          - site/guide/procedures.md
+          - site/guide/when-to-convene.md
+          - site/courtroom/spectators.md
+      - section: "Law & procedure"
+        contents:
+          - site/courtroom/rules.md
+          - site/courtroom/best-practices.md
+          - site/courtroom/court-protocol.md
+          - site/core/mfaf.md
+          - site/core/case-format.md
+          - site/core/error-recovery.md
+          - site/guide/edge-cases.md
+      - section: "Experts & memory"
+        contents:
+          - site/guide/domains-and-experts.md
+          - site/courtroom/experts.md
+          - site/core/sme-framework.md
+          - site/courtroom/precedents.md
+          - site/courtroom/transcripts.md
+          - site/project/metrics.md
+          - site/project/current-state.md
+      - section: "Agents & tooling"
+        contents:
+          - site/guide/companion-personas.md
+          - site/guide/inter-agent-protocol.md
+          - site/guide/aegis-protocol.md
+          - site/litigation/runner.md
+          - site/litigation/openrouter.md
+          - site/executive/protocol.md
+          - site/courtroom/portal.md
+          - site/courtroom/reporter.md
+      - section: "Reference"
+        contents:
+          - site/guide/glossary.md
+          - site/guide/runbook.md
+          - site/guide/repository-map.md
+          - site/project/modelcard.md
+          - site/project/architecture.md
+          - site/project/agent-schema.md
+          - site/project/agent-skills.md
+          - site/project/security.md
+          - site/project/changelog.md
+
+format:
+  html:
+    theme:
+      - cosmo
+      - styles.scss
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    number-sections: false
+    code-fold: true
+    code-tools: false
+    link-external-newwindow: true
+    smooth-scroll: true
+    citations-hover: true
+    footnotes-hover: true
+
+execute:
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
