@@ -1,0 +1,153 @@
+/*-- scss:defaults --*/
+$link-color: #5b4b8a;
+$toc-color: #5b4b8a;
+$navbar-bg: #1e1f29;
+$navbar-fg: #f8f8f2;
+$navbar-hl: #bd93f9;
+
+/*-- scss:rules --*/
+:root {
+  --ms-purple: #bd93f9;
+  --ms-cyan: #8be9fd;
+  --ms-green: #50fa7b;
+  --ms-orange: #ffb86c;
+  --ms-pink: #ff79c6;
+  --ms-ink: #1e1f29;
+  --ms-paper: #f7f6f3;
+  --ms-rule: rgba(30, 31, 41, 0.12);
+}
+
+body {
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(189, 147, 249, 0.12), transparent 55%),
+    radial-gradient(900px 420px at 100% 0%, rgba(139, 233, 253, 0.10), transparent 50%),
+    var(--ms-paper);
+}
+
+#title-block-header {
+  border-bottom: 3px solid var(--ms-purple);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+}
+
+#title-block-header .title {
+  color: var(--ms-ink);
+  letter-spacing: 0.02em;
+}
+
+.quarto-title-meta {
+  font-size: 0.95rem;
+}
+
+.navbar {
+  border-bottom: 1px solid rgba(189, 147, 249, 0.35);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+div.callout-note {
+  border-left-color: var(--ms-purple);
+}
+
+.hero-brand {
+  margin: 0 0 1.25rem 0;
+  padding: 1.25rem 1.35rem;
+  border-left: 5px solid var(--ms-purple);
+  background: linear-gradient(135deg, rgba(189, 147, 249, 0.14), rgba(139, 233, 253, 0.08));
+}
+
+.hero-brand .brand-name {
+  display: block;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--ms-ink);
+  margin: 0 0 0.35rem 0;
+}
+
+.hero-brand .brand-tag {
+  display: block;
+  color: #4a4d63;
+  font-style: italic;
+  margin: 0;
+}
+
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.85rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.persona-chip {
+  padding: 0.75rem 0.9rem;
+  border-top: 3px solid var(--ms-purple);
+  background: rgba(255, 255, 255, 0.7);
+  border-right: 1px solid var(--ms-rule);
+  border-bottom: 1px solid var(--ms-rule);
+  border-left: 1px solid var(--ms-rule);
+}
+
+.persona-chip .role {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #666;
+}
+
+.persona-chip .name {
+  font-weight: 700;
+  color: var(--ms-ink);
+}
+
+.persona-chip.architect { border-top-color: var(--ms-cyan); }
+.persona-chip.engineer { border-top-color: var(--ms-green); }
+.persona-chip.debugger { border-top-color: var(--ms-orange); }
+.persona-chip.prophet { border-top-color: var(--ms-pink); }
+.persona-chip.counsel { border-top-color: #6272a4; }
+
+.github-access {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem 0;
+  align-items: center;
+}
+
+.github-access .github-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid rgba(91, 75, 138, 0.35);
+  border-radius: 0.35rem;
+  color: #5b4b8a;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: rgba(189, 147, 249, 0.08);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.github-access .github-btn:hover {
+  background: rgba(189, 147, 249, 0.16);
+  border-color: #5b4b8a;
+  color: #3f3463;
+  text-decoration: none;
+}
+
+.figure-caption,
+.quarto-float-fig > figcaption,
+.quarto-float-tbl > figcaption,
+.table-caption {
+  color: #222;
+  font-size: 0.95rem;
+  text-align: left;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}

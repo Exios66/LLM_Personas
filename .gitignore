@@ -39,3 +39,14 @@ courtroom/portal/output/
 
 # Optional: uncomment if you want to ignore state backups
 # state/backups/
+
+# Quarto / Posit Connect Cloud site
+_site/
+.quarto/
+/_freeze/
+posit/_site/
+posit/.quarto/
+posit/_freeze/
+
+/.quarto/
+**/*.quarto_ipynb
