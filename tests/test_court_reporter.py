@@ -1,0 +1,238 @@
+"""Regression tests for Court Reporter transcript audit and naming (core/case-format.md)."""
+
+from __future__ import annotations
+
+import subprocess
+from pathlib import Path
+
+import pytest
+
+from courtroom import reporter
+from courtroom.reporter import (
+    CERTIFICATION_MARKER,
+    _extract_header_info,
+    _skip_file,
+    _suggest_canonical_name,
+    audit_transcripts,
+    regenerate_manifest,
+)
+
+
+def test_skip_file_ignores_handoff_and_readme() -> None:
+    assert _skip_file("README.md") is True
+    assert _skip_file(".hidden.md") is True
+    assert _skip_file("HANDOFF-session.md") is True
+    assert _skip_file("2026-02-17-bench-trial.md") is False
+
+
+def test_extract_header_info_case_no_and_date() -> None:
+    content = (
+        "**Case No.**: 2026-SECU-042-001\n"
+        "**Date**: 2026-02-17\n"
+    )
+    info = _extract_header_info(content)
+    assert info["case_no"] == "2026-SECU-042-001"
+    assert info["date"] == "2026-02-17"
+    assert info["uses_matter_id"] is False
+
+
+def test_extract_header_info_canonical_colon_inside_bold() -> None:
+    """core/case-format.md uses **Case No.:** and **Date:** (colon inside bold)."""
+    content = (
+        "**Case No.:** 2026-FEAT-001-001\n"
+        "**Date:** 2026-07-25\n"
+    )
+    info = _extract_header_info(content)
+    assert info["case_no"] == "2026-FEAT-001-001"
+    assert info["date"] == "2026-07-25"
+    assert info["uses_matter_id"] is False
+
+
+def test_extract_header_info_matter_id_flagged() -> None:
+    content = "**Matter ID**: 2026-LEGAL-001\n**Date**: 2026-01-15\n"
+    info = _extract_header_info(content)
+    assert info["case_no"] == "2026-LEGAL-001"
+    assert info["uses_matter_id"] is True
+
+
+def test_suggest_canonical_name_legacy_special_interest() -> None:
+    path = Path("20260216_120000_bohemian_grove.md")
+    content = "**Date**: 2026-02-16\n"
+    suggested = _suggest_canonical_name(path, content)
+    assert suggested == "20260216_120000_special_interest_bohemian-grove.md"
+
+
+def test_suggest_canonical_name_none_when_already_canonical() -> None:
+    path = Path("2026-02-17-bench-trial-topic.md")
+    assert _suggest_canonical_name(path, "") is None
+    path2 = Path("20260216_133000_special_interest_security.md")
+    assert _suggest_canonical_name(path2, "") is None
+
+
+def test_audit_transcripts_certified_and_header_flags(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(reporter, "REPO_ROOT", tmp_path)
+    good = tmp_path / "2026-02-17-sample-matter.md"
+    good.write_text(
+        "**Case No.**: 2026-TEST-001\n"
+        "**Date**: 2026-02-17\n"
+        f"{CERTIFICATION_MARKER}\n",
+        encoding="utf-8",
+    )
+    bad_header = tmp_path / "20260216_120000_legacy_topic.md"
+    bad_header.write_text("No header fields.\n", encoding="utf-8")
+
+    certified, uncertified = audit_transcripts(tmp_path)
+
+    assert len(certified) == 1
+    assert certified[0]["name"] == good.name
+    assert certified[0]["header_ok"] is True
+    assert certified[0]["canonical"] is True
+
+    assert len(uncertified) == 1
+    assert uncertified[0]["name"] == bad_header.name
+    assert uncertified[0]["header_ok"] is False
+    assert uncertified[0]["format_ok"] is True  # legacy pattern grandfathered
+    assert uncertified[0]["rename_suggested"] is not None
+
+
+def test_audit_transcripts_skips_handoff(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(reporter, "REPO_ROOT", tmp_path)
+    handoff = tmp_path / "HANDOFF-notes.md"
+    handoff.write_text("draft\n", encoding="utf-8")
+    certified, uncertified = audit_transcripts(tmp_path)
+    assert certified == []
+    assert uncertified == []
+
+
+def test_audit_transcripts_missing_dir(tmp_path: Path) -> None:
+    missing = tmp_path / "nope"
+    certified, uncertified = audit_transcripts(missing)
+    assert certified == []
+    assert uncertified == []
+
+
+def test_do_renames_uncertified_legacy(tmp_path: Path) -> None:
+    d = tmp_path / "t"
+    d.mkdir()
+    legacy = d / "20260216_120000_topic.md"
+    legacy.write_text("**Date**: 2026-02-16\n", encoding="utf-8")
+    suggestion = _suggest_canonical_name(legacy, legacy.read_text(encoding="utf-8"))
+    assert suggestion is not None
+
+    entry = {
+        "certified": False,
+        "rename_suggested": suggestion,
+        "path_obj": legacy,
+    }
+    renamed = reporter._do_renames([entry], non_interactive=True)
+    assert renamed == 1
+    assert not legacy.exists()
+    assert (d / suggestion).exists()
+
+
+def test_do_renames_skips_when_target_exists(tmp_path: Path) -> None:
+    d = tmp_path / "t"
+    d.mkdir()
+    legacy = d / "20260216_120000_topic.md"
+    legacy.write_text("**Date**: 2026-02-16\n", encoding="utf-8")
+    suggestion = _suggest_canonical_name(legacy, legacy.read_text(encoding="utf-8"))
+    assert suggestion is not None
+    (d / suggestion).write_text("existing\n", encoding="utf-8")
+
+    entry = {
+        "certified": False,
+        "rename_suggested": suggestion,
+        "path_obj": legacy,
+    }
+    assert reporter._do_renames([entry], non_interactive=True) == 0
+    assert legacy.exists()
+
+
+def test_do_renames_skips_certified_even_with_suggestion(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    d = tmp_path / "t"
+    d.mkdir()
+    legacy = d / "20260216_120000_topic.md"
+    legacy.write_text(
+        f"**Date**: 2026-02-16\n\n{CERTIFICATION_MARKER}\n",
+        encoding="utf-8",
+    )
+    suggestion = _suggest_canonical_name(legacy, legacy.read_text(encoding="utf-8"))
+    assert suggestion is not None
+
+    entry = {
+        "certified": True,
+        "rename_suggested": suggestion,
+        "path_obj": legacy,
+    }
+    renamed = reporter._do_renames([entry], non_interactive=True)
+    assert renamed == 0
+    assert legacy.exists()
+
+
+def test_suggest_canonical_name_from_header_date_unknown_stem() -> None:
+    path = Path("random_legacy_name.md")
+    content = "**Date**: 2026-03-01\n"
+    suggested = _suggest_canonical_name(path, content)
+    assert suggested == "2026-03-01-random-legacy-name.md"
+
+
+def test_do_renames_non_interactive_success(tmp_path: Path) -> None:
+    src = tmp_path / "20260216_120000_topic.md"
+    src.write_text("**Date**: 2026-02-16\n", encoding="utf-8")
+    suggestion = _suggest_canonical_name(src, src.read_text(encoding="utf-8"))
+    assert suggestion is not None
+    entry = {
+        "certified": False,
+        "rename_suggested": suggestion,
+        "path_obj": src,
+    }
+    renamed = reporter._do_renames([entry], non_interactive=True)
+    assert renamed == 1
+    assert not src.exists()
+    assert (tmp_path / suggestion).exists()
+
+
+def test_do_renames_skips_when_target_exists(tmp_path: Path, capsys) -> None:
+    src = tmp_path / "20260216_120000_topic.md"
+    src.write_text("**Date**: 2026-02-16\n", encoding="utf-8")
+    suggestion = _suggest_canonical_name(src, src.read_text(encoding="utf-8"))
+    assert suggestion is not None
+    (tmp_path / suggestion).write_text("existing\n", encoding="utf-8")
+    entry = {
+        "certified": False,
+        "rename_suggested": suggestion,
+        "path_obj": src,
+    }
+    renamed = reporter._do_renames([entry], non_interactive=True)
+    assert renamed == 0
+    assert src.exists()
+    assert "SKIP (target exists)" in capsys.readouterr().out
+
+
+def test_regenerate_manifest_success(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    script = tmp_path / "courtroom" / "portal" / "generate_manifest.py"
+    script.parent.mkdir(parents=True)
+    script.write_text("print('ok')\n", encoding="utf-8")
+    monkeypatch.setattr(reporter, "REPO_ROOT", tmp_path)
+
+    def fake_run(cmd, **kwargs):
+        assert str(script) in cmd
+        return subprocess.CompletedProcess(cmd, 0, "", "")
+
+    monkeypatch.setattr(reporter.subprocess, "run", fake_run)
+    assert regenerate_manifest() is True
+
+
+def test_regenerate_manifest_missing_script(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(reporter, "REPO_ROOT", tmp_path)
+    assert regenerate_manifest() is False

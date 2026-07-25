@@ -20,8 +20,8 @@ from pathlib import Path
 from typing import Optional
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-BASE_DIR = SCRIPT_DIR.parent
-TRANSCRIPTS_DIR = BASE_DIR / "courtroom" / "transcripts"
+BASE_DIR = SCRIPT_DIR.parent  # courtroom/
+TRANSCRIPTS_DIR = BASE_DIR / "transcripts"
 OUTPUT_FILE = SCRIPT_DIR / "transcripts_manifest.json"
 
 
@@ -44,10 +44,15 @@ def parse_basename(basename: str):
 def extract_case_number(content: str) -> Optional[str]:
     """Extract case number from transcript content. Per core/case-format.md: Case No.: YYYY-CATC-NNN-DDD.
     Prefer Case No.; Matter ID supported for legacy transcripts (deprecated)."""
-    m = re.search(r"\*\*Case No\.\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", content, re.I)
+    # Accept **Case No.:** (canonical) and **Case No.**: (legacy) forms.
+    m = re.search(
+        r"\*\*Case No\.(?::\*\*|\*\*:)\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", content, re.I
+    )
     if m:
         return m.group(1)
-    m = re.search(r"\*\*Matter ID\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", content, re.I)
+    m = re.search(
+        r"\*\*Matter ID(?::\*\*|\*\*:)\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", content, re.I
+    )
     return m.group(1) if m else None
 
 

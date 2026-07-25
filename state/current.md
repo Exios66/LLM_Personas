@@ -1,7 +1,7 @@
 # MORNINGSTAR Session State
 
-> *Last updated: 2026-02-19*
-> *Session: 2026-SEC-001*
+> *Last updated: 2026-07-25*
+> *Session: 2026-HOTBUTTON-001*
 
 ---
 
@@ -9,41 +9,40 @@
 
 ### F4+ Specialist Pilot (in effect)
 
-Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching data, locale, or regulatory scope, the Judge shall consider seating at least one relevant specialist. **Pilot review due: 2026-05-18.** See `docs/morningstar-inventory-phase2-4.md` and `core/procedures.md` (§ Matter Triage, § F4+ Specialist Pilot).
+Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching data, locale, or regulatory scope, the Judge shall consider seating at least one relevant specialist. **Pilot review due: 2026-05-18** (overdue — schedule review). See `docs/morningstar-inventory-phase2-4.md` and `core/procedures.md` (§ Matter Triage, § F4+ Specialist Pilot).
+
+**Jul 25 application:** Pilot actively used — AI_ML, Security, Compliance, Ethics, Documentation specialists seated across the hot-button docket.
 
 ### Current Task
 <!-- What is the court currently working on? -->
 
-**Task:** Contempt & Prosecution Hearing — The People vs. Elon Musk (Xenon Fraud)
-**Status:** `complete`
-**Feasibility:** F3 (Special Interest)
-**Started:** 2026-02-16
+**Task:** Hot-button multi-matter docket — agentic software, geopolitics, and law  
+**Status:** `complete`  
+**Feasibility:** F4–F5 (four proceedings)  
+**Started:** 2026-07-25  
+**Closed:** 2026-07-25
 
 ### Working Files
 <!-- Files currently under consideration or modification -->
 
-- `courtroom/transcripts/20260216_160000_special_interest_xenon_fraud_elon_musk.md` (new)
-- `courtroom/transcripts/20260216_133000_special_interest_internal_security_aegis.md`
-- `portal/export_transcript.py` (export surface)
-- `portal/viewer.html` (viewer escape baseline)
-- `portal/transcripts_manifest.json` (discovery)
-- `state/backups/2026-02-16-current.md` (checkpoint)
+- `courtroom/transcripts/2026-07-25-agentic-production-mutation-controls.md` (2026-FEAT-001-001)
+- `courtroom/transcripts/2026-07-25-open-weight-frontier-export-controls.md` (2026-DEL-005-001)
+- `courtroom/transcripts/2026-07-25-agent-authored-legal-filings-authentication.md` (2026-DEL-006-001)
+- `courtroom/transcripts/20260725_190000_special_interest_agentic_cyber_attribution.md` (2026-SEC-003-001)
+- `courtroom/precedents.md` (4 new entries)
+- `state/metrics.md` (synced)
+- `state/backups/2026-07-25-current.md` (checkpoint)
 
 ### Recent Decisions
 <!-- Last 3-5 decisions for quick reference -->
 
 | Decision | Ruling | Vote | Date |
 |----------|--------|------|------|
-| Full session: Skills to add to each agent | Skills index at docs/agent-skills.md; all four agents reference it | 5-0-0 | 2026-02-17 |
-| Bench trial: 15 experts added to repertoire | 15 domains in experts.yaml (data_privacy, observability, resilience, incident_response, devops, documentation, design_systems, frontend, mobile, ai_ml, data_engineering, cost, sustainability, ethics, qa_automation) | 6-1-0 (Judge 2×) | 2026-02-17 |
-| Full deliberation: Gap analysis (Phase 2–4) | i18n in registry; matter-triage + F4+ pilot adopted | 5-0-0 | 2026-02-17 |
-| Xenon Fraud Contempt Hearing (People vs. Elon Musk) | Findings recorded | N/A (hearing) | 2026-02-16 |
-| Internal Security Hearing (Aegis-integrated) | Findings recorded | N/A (hearing) | 2026-02-16 |
-| Aegis Protocol Enhancements (15 items) | Adopted | 4-0-0 | 2026-02-15 |
-| Agent Structure (CrewAI-style attributes) | Adopted | 4-0-0 | 2026-02-15 |
-| Second Enhancement Slate (10 items) | Adopted | 4-0-0 | 2026-02-15 |
-| Framework Enhancements (10 items) | Adopted | 4-0-0 | 2026-02-15 |
-| Enhancement Implementation (1st slate) | Complete | N/A (handoff) | 2026-02-15 |
+| Agentic Production Mutation Controls (APMS) | Default deny unsupervised prod mutations; HITL + kill switch | 7-0-0 | 2026-07-25 |
+| Open-Weight Frontier Export Controls (SCG) | Staged Capability Governance adopted | 6-0-1 | 2026-07-25 |
+| Agent-Authored Legal Filings (AFAP) | Agents assist, never file of record; citation ledger | 7-0-0 | 2026-07-25 |
+| Special Inquiry: Agentic Cyber Attribution | Six findings recorded (no vote) | N/A | 2026-07-25 |
+| Case Naming & Case Numbering Format | Canonical YYYY-CATC-NNN-DDD | 4-1-0 | 2026-02-19 |
 
 ---
 
@@ -52,7 +51,10 @@ Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching
 ### Queued Deliberations
 <!-- Issues awaiting formal court review -->
 
-*None pending.*
+- Operationalize APMS / SCG / AFAP into runbooks and checklists (implementation handoff candidate for LIL_JEFF)
+- F4+ Specialist Pilot formal review (was due 2026-05-18)
+- Plurilateral Model Commons Compact (aspiration from DEL-005)
+- Court intake citation oracle advocacy (aspiration from DEL-006)
 
 ### Open Questions
 <!-- Unresolved questions that may require deliberation -->
@@ -60,6 +62,7 @@ Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching
 - Git history secret scan has not been performed (working tree only).
 - `portal/export_transcript.py` does not globally escape transcript HTML (risk if transcripts become untrusted input).
 - `portal/exports/` contains tracked `.html` exports despite ignore intent; publication boundary unclear.
+- LOAC threshold for agentic cyber operations remains unresolved (SEC-003).
 
 ### Blocked Items
 <!-- Work items waiting on external dependencies -->
@@ -75,20 +78,17 @@ Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching
 ### Key Context
 <!-- Critical information the court must remember across interactions -->
 
-- Xenon Fraud Hearing (2026-CONT-002): Special Interest Hearing held for *The People vs. Elon Musk*; 3 witnesses (Forensic Accountant, Xenon Engineer, Elon Musk hostile); 5 findings; Edward Cullen invoked (unspoken: need to be right over honest). Transcript: `courtroom/transcripts/20260216_160000_special_interest_xenon_fraud_elon_musk.md`.
-- Security posture (2026-SEC-001): No working-tree secrets detected by common patterns; primary risks are process-driven (future accidental inclusion), historical (git history), and portal export surface (untrusted input → HTML). Transcript filed: `courtroom/transcripts/20260216_133000_special_interest_internal_security_aegis.md`.
-- Aegis Protocol (2026-ARCH-002): 15 enhancements adopted; handoff to LIL_JEFF. See HANDOFF-2026-ARCH-002.md.
-- Agent structure (2026-ARCH-001): Optional frontmatter adopted; implementation complete.
-- Second slate (2026-INFRA-002): 10 enhancements adopted unanimously; handoff to LIL_JEFF and OCTAVIUS
-- Edward: favor reducing operator memory load over adding features
-- First slate (2026-INFRA-001) implemented; framework operational
-- Prophet proposals P1, P2, P4 deferred; P5 (Dissolution) adopted in second slate
-- Inter-agent protocol to be extended for OCTAVIUS handoff
+- **2026-07-25 Hot-Button Docket:** Four expansive proceedings with spectators (Echo, Harley, Uncle Ruckus), SMEs, and expert witnesses. Binding stack: APMS + SCG + AFAP + SEC-003 findings.
+- Xenon Fraud Hearing (2026-CONT-002): Special Interest Hearing held for *The People vs. Elon Musk*; 3 witnesses; 5 findings.
+- Security posture (2026-SEC-001): No working-tree secrets detected by common patterns; primary risks process-driven.
+- Aegis Protocol (2026-ARCH-002): 15 enhancements adopted; handoff to LIL_JEFF.
+- Edward pattern: favor reducing operator memory load; design for tired rubber-stamp humans (Jul 25).
 
 ### Assumptions in Effect
 <!-- Current working assumptions that may need revisiting -->
 
 - Framework documentation is complete and consistent
+- APMS/SCG/AFAP principles are binding for MORNINGSTAR-governed agentic work even before full runbook tooling lands
 - Users can navigate and operate using the new structure
 
 ### Technical Debt Acknowledged
@@ -96,10 +96,11 @@ Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching
 
 | Debt | Accepted | Reason | Priority |
 |------|----------|--------|----------|
-| Portal exporter does not globally escape/sanitize transcript HTML | 2026-02-16 | Export path assumes trusted input; risk if transcripts become untrusted | HIGH |
+| APMS/SCG/AFAP not yet runbook-implemented | 2026-07-25 | Principles certified; tooling handoff pending | HIGH |
+| Portal exporter does not globally escape/sanitize transcript HTML | 2026-02-16 | Export path assumes trusted input | HIGH |
 | Tracked files in `portal/exports/` despite ignore intent | 2026-02-16 | Shareable exports increase leak probability | HIGH |
 | Git history secret scan not automated | 2026-02-16 | Working tree scan insufficient | MEDIUM |
-| Missing SME failures file | 2026-02-15 | Referenced but never created | MEDIUM |
+| F4+ Specialist Pilot review overdue | 2026-07-25 | Due 2026-05-18; pilot nonetheless used successfully | MEDIUM |
 | Deferred Prophet proposals (P1, P2, P4) | 2026-02-15 | Premature without operational experience | LOW |
 
 ---
@@ -116,11 +117,14 @@ Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching
 | P3: Prophetic Pattern Recognition | 2026-INFRA-001 | Deferred (awaits metrics) |
 | P4: Cross-Framework Integration | 2026-INFRA-001 | Deferred |
 | P5: Dissolution Protocol | 2026-INFRA-001 | Adopted in 2026-INFRA-002 (Enhancement #2) |
+| Dual-plane Sentinel | 2026-FEAT-001 | Optional hardening adopted |
+| Plurilateral Model Commons Compact | 2026-DEL-005 | Aspiration |
+| Court intake citation oracle | 2026-DEL-006 | External advocacy |
 
 ### Vindication Record
 <!-- Prophet proposals that proved correct -->
 
-**Total Vindications:** 0
+**Total Vindications:** 0  
 **Vindication Rate:** N/A
 
 ---
@@ -130,15 +134,17 @@ Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching
 ### Active Specialists
 <!-- Currently seated specialists (persist until deliberation ends) -->
 
-- [None seated]
+- [None seated — session closed]
 
 ### Recent Witnesses
 <!-- Expert witnesses called this session -->
 
 | Domain | Matter | Confidence |
 |--------|--------|------------|
-| security | Internal security posture hearing (Aegis-integrated) | HIGH |
-| infrastructure | Portal export surfaces & publication boundaries | HIGH |
+| devops / ethics / incident_response | FEAT-001 APMS | HIGH |
+| security / legal / cost / ai_ml | DEL-005 SCG | HIGH–MEDIUM |
+| legal / ethics / qa_automation / data_privacy | DEL-006 AFAP | HIGH |
+| security / IR / legal / ethics / resilience | SEC-003 cyber attribution | HIGH–MEDIUM |
 
 ---
 
@@ -146,11 +152,11 @@ Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching
 
 | Metric | Value |
 |--------|-------|
-| Deliberations This Session | 2 |
-| Decisions Made | 2 (first: 10 enhancements; second: 10 enhancements) |
-| Implementations Completed | 10 |
-| Prophet Proposals | 5 |
-| SMEs Consulted | 0 |
+| Deliberations This Session | 4 |
+| Decisions Made | 3 (+1 findings hearing) |
+| Implementations Completed | 0 (principles certified; tooling pending) |
+| Prophet Proposals | 3 new Hail-Marys |
+| SMEs Consulted | 12+ witness testimonies; 6 specialist seatings |
 
 ---
 
@@ -158,24 +164,7 @@ Per ruling 2026-02-17 (full deliberation gap analysis): for F4+ matters touching
 
 <!-- Freeform notes for the Scribe to reference -->
 
-First formal deliberation of the MORNINGSTAR framework. Unanimous ratification of enhancement slate. Edward's observation regarding operator trust should be revisited when considering security enhancements.
-
-**Implementation complete (2026-02-15):** LIL_JEFF implemented all 10 enhancements:
-1. README.md — Enhanced with navigation index and command reference
-2. core/personalities.md — Complete personality definitions
-3. core/state-schema.md — State validation rules
-4. templates/session-start.md — Session templates
-5. courtroom/RULES.md — Transcript integrity requirements added
-6. core/error-recovery.md — Recovery and rollback protocols
-7. courtroom/precedents.md — Precedent database with first entry
-8. state/metrics.md — Metrics dashboard
-9. core/inter-agent-protocol.md — MORNINGSTAR ↔ LIL_JEFF protocol
-
-The framework is now fully operational with comprehensive documentation.
-
-**Second deliberation (2026-02-15):** Case 2026-INFRA-002. Court adopted second slate of 10 enhancements (SME failures, Dissolution Protocol, glossary, precedent citation, OCTAVIUS handoff, onboarding, portal discovery, state backup, runbook, edge-case registry). Handoff: LIL_JEFF primary, OCTAVIUS where applicable. See courtroom/transcripts/HANDOFF-2026-INFRA-002.md.
-
-**Agent structure deliberation (2026-02-15):** Case 2026-ARCH-001. Court adopted CrewAI-inspired optional agent frontmatter (role, goal, backstory, allow_delegation, response_format). Investigation: docs/agent-structure-investigation.md. Transcript: courtroom/transcripts/2026-02-15-agent-structure-deliberation.md. Handoff to LIL_JEFF: courtroom/transcripts/HANDOFF-2026-ARCH-001.md.
+**2026-07-25 Hot-Button Docket complete.** Court Reporter sync required for precedents, metrics, dashboard, manifest, Posit site, and GitHub Pages. Header parser in `courtroom/reporter.py` and `generate_manifest.py` updated to accept canonical `**Case No.:**` / `**Date:**` forms per `core/case-format.md`.
 
 ---
 

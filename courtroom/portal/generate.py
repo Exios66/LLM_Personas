@@ -236,7 +236,7 @@ def generate_transcript_index(output_dir):
     output_path = Path(output_dir)
     
     # Find transcript files
-    transcripts_dir = BASE_DIR / 'courtroom' / 'transcripts'
+    transcripts_dir = BASE_DIR / 'transcripts'
     if not transcripts_dir.exists():
         print("No transcripts directory found.")
         return

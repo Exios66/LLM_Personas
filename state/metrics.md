@@ -9,9 +9,9 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 
 ## Dashboard Overview
 
-**Last Updated:** 2026-02-19  
+**Last Updated:** 2026-07-25  
 **Tracking Since:** 2026-02-15  
-**Total Sessions:** 4+
+**Total Sessions:** 5+
 
 ---
 
@@ -21,12 +21,13 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 
 | Metric | All Time | This Month | Trend |
 |--------|----------|------------|-------|
-| Total Deliberations | 9 | 9 | — |
-| Decisions Made | 9 | 9 | — |
-| Unanimous Decisions | 6 | 6 | — |
-| Split Decisions | 2 | 2 | — |
+| Total Deliberations | 13 | 4 (Jul) | ↑ |
+| Decisions Made | 12 | 3 (Jul voted) | ↑ |
+| Unanimous Decisions | 8 | 2 | ↑ |
+| Split Decisions | 3 | 1 (6-0-1) | — |
 | Tie-Breakers Required | 0 | 0 | — |
 | Deadlocked Courts | 0 | 0 | — |
+| Special Interest Hearings | 4+ | 1 (Jul) | ↑ |
 
 ### Feasibility Distribution
 
@@ -35,19 +36,20 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 | F0 (Trivial) | 0 | 0% |
 | F1 (Simple) | 0 | 0% |
 | F2 (Moderate) | 0 | 0% |
-| F3 (Complex) | 2 | 22% |
-| F4 (Critical) | 3 | 33% |
-| F5 (Existential) | 4 | 44% |
+| F3 (Complex) | 2 | 15% |
+| F4 (Critical) | 4 | 31% |
+| F5 (Existential) | 7 | 54% |
 
-**Average Feasibility:** F4.2
+**Average Feasibility:** F4.4
 
 ### Vote Distribution
 
 | Outcome | Count | Percentage |
 |---------|-------|------------|
-| Unanimous YES (4-0-0, 5-0-0) | 6 | 67% |
-| Strong Majority (6-1-0) | 1 | 11% |
-| Simple Majority (1-4-0, no finding) | 1 | 11% |
+| Unanimous YES (4-0-0, 5-0-0, 7-0-0) | 8 | 67% |
+| Strong Majority (6-1-0, 6-0-1) | 2 | 17% |
+| Simple Majority (1-4-0, no finding) | 1 | 8% |
+| Findings-only (Special Interest) | 1+ | — |
 | Tie (Resolved) | 0 | 0% |
 | Rejected | 0 | 0% |
 
@@ -55,26 +57,31 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 
 ## Personality Analytics
 
-### Voting Patterns
+### Voting Patterns (2026-07-25 session sample)
 
 | Personality | YES | NO | ABSTAIN | RECUSED | Alignment Rate |
 |-------------|-----|-----|---------|---------|----------------|
-| ARCHITECT | 1 | 0 | 0 | 0 | 100% |
-| ENGINEER | 1 | 0 | 0 | 0 | 100% |
-| DEBUGGER | 1 | 0 | 0 | 0 | 100% |
-| PROPHET | 1 | 0 | 0 | 0 | 100% |
+| ARCHITECT | 3 | 0 | 0 | 0 | 100% |
+| ENGINEER | 3 | 0 | 0 | 0 | 100% |
+| DEBUGGER | 3 | 0 | 0 | 0 | 100% |
+| PROPHET | 2 | 0 | 1 | 0 | 100%* |
+| COUNSEL | 3 | 0 | 0 | 0 | 100% |
+| AI_ML (specialist) | 1 | 0 | 0 | 0 | 100% |
+| SECURITY (specialist) | 1 | 0 | 0 | 0 | 100% |
+| COMPLIANCE (specialist) | 2 | 0 | 0 | 0 | 100% |
+| ETHICS (specialist) | 1 | 0 | 0 | 0 | 100% |
+| DOCUMENTATION (specialist) | 1 | 0 | 0 | 0 | 100% |
 
-**Alignment Rate:** Percentage of votes matching the final ruling
+\*Prophet abstention on DEL-005 did not oppose the ruling; counted aligned with non-blocking posture.
 
 ### Alliance Frequency
 
 | Alliance | Occurrences | Win Rate |
 |----------|-------------|----------|
-| Architect + Debugger | 1 | 100% |
-| Engineer + Prophet | 1 | 100% |
-| Architect + Engineer | 1 | 100% |
-| Debugger + Prophet | 1 | 100% |
-| All Four (Unanimous) | 1 | 100% |
+| Architect + Debugger | 4+ | 100% |
+| Engineer + Counsel | 3+ | 100% |
+| All core YES (Unanimous) | 8 | 100% |
+| Specialists with majority | 3 | 100% |
 
 ### Dissent Frequency
 
@@ -83,7 +90,8 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 | ARCHITECT | 0 | 0% |
 | ENGINEER | 0 | 0% |
 | DEBUGGER | 0 | 0% |
-| PROPHET | 0 | 0% |
+| PROPHET | 1 (prior NO) + 1 abstain | low |
+| COUNSEL | 0 | 0% |
 
 ---
 
@@ -93,11 +101,12 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 
 | Metric | Value |
 |--------|-------|
-| Total Hail-Marys Proposed | 5 |
-| Proposals Adopted | 0 |
-| Proposals Rejected | 0 |
+| Total Hail-Marys Proposed | 9 |
+| Proposals Adopted | 1 (partial: Sentinel hardening; AFAP bridge) |
+| Proposals Rejected as blockers | 2 (Compact dependency; intake oracle dependency) |
 | Proposals Deferred | 4 |
 | Proposals Pending | 1 |
+| Proposals Recorded as Aspiration | 2 (Plurilateral Compact; court intake verifier) |
 
 ### Vindication Record
 
@@ -121,7 +130,10 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 | P2: Deliberation Replay System | 2026-INFRA-001 | Deferred | 2026-02-15 |
 | P3: Prophetic Pattern Recognition | 2026-INFRA-001 | Deferred | 2026-02-15 |
 | P4: Cross-Framework Integration | 2026-INFRA-001 | Deferred | 2026-02-15 |
-| P5: Dissolution Protocol | 2026-INFRA-001 | Honorable mention | 2026-02-15 |
+| P5: Dissolution Protocol | 2026-INFRA-001 | Honorable mention / adopted in INFRA-002 | 2026-02-15 |
+| Dual-plane Sentinel | 2026-FEAT-001 | Adopted as optional hardening | 2026-07-25 |
+| Plurilateral Model Commons Compact | 2026-DEL-005 | Aspiration | 2026-07-25 |
+| Court intake citation oracle | 2026-DEL-006 | External advocacy | 2026-07-25 |
 
 ---
 
@@ -131,28 +143,32 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 
 | Metric | Count |
 |--------|-------|
-| Expert Witnesses Summoned | 0 |
-| Specialists Seated | 0 |
-| Total SME Participations | 0 |
+| Expert Witnesses Summoned | 14+ (2026-07-25 session: 12 distinct testimonies) |
+| Specialists Seated | 6 seatings (AI_ML, Security, Compliance×2, Ethics, Documentation) |
+| Total SME Participations | 20+ |
 
-### Domain Utilization
+### Domain Utilization (2026-07-25 session)
 
 | Domain | Witness | Specialist | Total |
 |--------|---------|------------|-------|
-| Security | 0 | 0 | 0 |
-| Database | 0 | 0 | 0 |
-| Compliance | 0 | 0 | 0 |
-| Infrastructure | 0 | 0 | 0 |
-| Performance | 0 | 0 | 0 |
-| Accessibility | 0 | 0 | 0 |
-| UX | 0 | N/A | 0 |
-| Legal | 0 | N/A | 0 |
+| ai_ml | 1 | 1 | 2 |
+| security | 2 | 1 | 3 |
+| devops | 1 | 0 | 1 |
+| ethics | 3 | 1 | 4 |
+| incident_response | 2 | 0 | 2 |
+| compliance | 0 | 2 | 2 |
+| cost | 1 | 0 | 1 |
+| legal (advisory) | 3 | N/A | 3 |
+| qa_automation | 1 | 0 | 1 |
+| data_privacy | 1 | 0 | 1 |
+| documentation | 0 | 1 | 1 |
+| resilience | 1 | 0 | 1 |
 
 ### SME Effectiveness
 
 | Domain | Testimonies | Challenged | Upheld | Effectiveness |
 |--------|-------------|------------|--------|---------------|
-| *No SME activity yet* | | | | |
+| Mixed (Jul 25 slate) | 12 | Several (cross-ex) | Upheld with caveats | High |
 
 ### SME Failures Recorded
 
@@ -168,15 +184,19 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 
 | Metric | Value |
 |--------|-------|
-| Total Invocations | 1 |
-| Invocations per Deliberation | 1.00 |
-| Observations Acted Upon | TBD |
+| Total Invocations | 5+ |
+| Invocations per Deliberation (Jul 25) | 1.00 |
+| Observations Acted Upon | High (default-deny, operable checklists, AFAP bridge) |
 
 ### Invocation History
 
 | Date | Session | Matter | Key Observation |
 |------|---------|--------|-----------------|
 | 2026-02-15 | 2026-INFRA-001 | Framework Enhancements | "The system trusts. Perhaps that is its greatest vulnerability—and its greatest strength." |
+| 2026-07-25 | 2026-FEAT-001 | Agentic prod mutations | Design for tired rubber-stamp humans; default deny must be strong |
+| 2026-07-25 | 2026-DEL-005 | Open-weight export | Compact aspirational; SCG operable tomorrow |
+| 2026-07-25 | 2026-DEL-006 | Agent legal filings | Bind process to shame and evidence; do not wait for courts |
+| 2026-07-25 | 2026-SEC-003 | Agentic cyber attribution | Fear is humans starting wars and blaming agents |
 
 ---
 
@@ -187,18 +207,20 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 | Session ID | Date | Deliberations | Decisions | Duration |
 |------------|------|---------------|-----------|----------|
 | 2026-INFRA-001 | 2026-02-15 | 1 | 1 | Single session |
+| 2026-HOTBUTTON-001 | 2026-07-25 | 4 | 3 (+1 findings) | Multi-matter docket |
 
 ### Monthly Summary
 
 | Month | Sessions | Deliberations | Decisions | Unanimous | Prophet Vindications |
 |-------|----------|---------------|-----------|-----------|---------------------|
 | 2026-02 | 4+ | 9 | 9 | 6 | 0 |
+| 2026-07 | 1 | 4 | 3 | 2 | 0 |
 
 ### Yearly Summary
 
 | Year | Sessions | Deliberations | Decisions | Unanimous Rate | Prophet Vindication Rate |
 |------|----------|---------------|-----------|----------------|--------------------------|
-| 2026 | 4+ | 9 | 9 | 67% | N/A |
+| 2026 | 5+ | 13 | 12 | ~67% | N/A |
 
 ---
 
@@ -208,17 +230,18 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 
 | Metric | Value |
 |--------|-------|
-| Total Precedents | 9 |
-| Binding Precedents | 9 |
+| Total Precedents | 13 |
+| Binding Precedents | 13 |
 | Overruled Precedents | 0 |
 | Distinguished Precedents | 0 |
+| Findings-only Binding | 1 (2026-SEC-003-001) |
 
 ### Precedent Utilization
 
 | Metric | Value |
 |--------|-------|
-| Times Precedent Cited | 0 |
-| Times Precedent Followed | 0 |
+| Times Precedent Cited | 4+ (cross-cites in Jul 25 docket) |
+| Times Precedent Followed | 3 (APMS/SCG/AFAP chained into SEC-003) |
 | Times Precedent Distinguished | 0 |
 | Times Precedent Overruled | 0 |
 
@@ -230,7 +253,7 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 
 | Metric | Value |
 |--------|-------|
-| Decisions Awaiting Implementation | 0 |
+| Decisions Awaiting Implementation | 3 (APMS/SCG/AFAP operationalization) |
 | Implementations Completed | 3+ |
 | Implementation Success Rate | High |
 | Average Time to Implementation | N/A |
@@ -271,25 +294,27 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 
 ### Key Trends
 
-*Insufficient data for trend analysis. Check back after 5+ sessions.*
+1. **F5 concentration rising** — Jul 25 docket was majority existential (agentic + geopolitics + cyber).
+2. **SME utilization normalized** — F4+ Specialist Pilot actively used (6 specialist seatings).
+3. **Cross-precedent chaining** — FEAT/DEL/SEC matters explicitly cite each other within one session.
+4. **Spectator-rich records** — Echo, Harley, Uncle Ruckus present across all four Jul 25 proceedings.
 
 ### Health Indicators
 
 | Indicator | Status | Threshold | Current |
 |-----------|--------|-----------|---------|
-| Unanimous Rate | 🟢 Healthy | > 30% | 100% |
+| Unanimous Rate | 🟢 Healthy | > 30% | ~67% |
 | Prophet Vindication | ⚪ No Data | > 10% | N/A |
 | Deadlock Rate | 🟢 Healthy | < 10% | 0% |
-| SME Utilization | ⚪ No Data | Monitor | 0 |
+| SME Utilization | 🟢 Healthy | Monitor | Active |
 | Error Rate | 🟢 Healthy | < 5% | 0% |
 
 ### Recommended Actions
 
-*Based on current metrics:*
-
-1. **Continue tracking** — Baseline period, collect more data
-2. **Monitor Prophet proposals** — 5 pending, await operational experience before judgment
-3. **First implementation pending** — Track LIL_JEFF handoff completion
+1. **Operationalize APMS/SCG/AFAP** — convert rulings into runbooks/checklists
+2. **Monitor Level-4 runbook sprawl** — quarterly review per FEAT-001
+3. **Track Compact/intake-oracle aspirations** — do not block on them
+4. **Continue Prophet vindication tracking**
 
 ---
 
@@ -329,7 +354,7 @@ This document tracks cumulative statistics across all MORNINGSTAR sessions. Upda
 
 | Metric | Definition |
 |--------|------------|
-| **Alignment Rate** | % of personality votes matching final ruling |
+| **Alignment Rate** | % of personality votes matching the final ruling |
 | **Dissent Rate** | % of deliberations where personality was in minority |
 | **Vindication Rate** | Prophet proposals later proven correct / total proposals |
 | **Deadlock Rate** | Deliberations requiring Judge tie-break / total |
