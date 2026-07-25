@@ -36,6 +36,18 @@ def test_extract_header_info_case_no_and_date() -> None:
     assert info["uses_matter_id"] is False
 
 
+def test_extract_header_info_canonical_colon_inside_bold() -> None:
+    """core/case-format.md uses **Case No.:** and **Date:** (colon inside bold)."""
+    content = (
+        "**Case No.:** 2026-FEAT-001-001\n"
+        "**Date:** 2026-07-25\n"
+    )
+    info = _extract_header_info(content)
+    assert info["case_no"] == "2026-FEAT-001-001"
+    assert info["date"] == "2026-07-25"
+    assert info["uses_matter_id"] is False
+
+
 def test_extract_header_info_matter_id_flagged() -> None:
     content = "**Matter ID**: 2026-LEGAL-001\n**Date**: 2026-01-15\n"
     info = _extract_header_info(content)

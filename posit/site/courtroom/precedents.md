@@ -60,6 +60,10 @@ This document serves as the authoritative index of precedent-setting decisions m
 | 2026-DEL-004-001 | 2026-02-17 | Skills to Add to Each Agent | Skills index at docs/agent-skills.md; agent files reference index | 5-0-0 | Single source of truth for skills; morningstar, octavius, aegis, lil-jeff slates adopted | BINDING |
 | 2026-CONT-001-001 | 2026-02-15 | Xenon Contempt Hearing | No finding of contempt; style vs conduct distinction | 1-4-0 | Precedent: "Xenon problem"—polish as armor; distinguish tone from obstruction | BINDING |
 | 2026-DOC-001-001 | 2026-02-19 | Case Naming & Numbering Format | Canonical format YYYY-CATC-NNN-DDD; core/case-format.md; case registry | 4-1-0 | Single source of truth for case IDs; category codes; grandfather legacy | BINDING |
+| 2026-FEAT-001-001 | 2026-07-25 | Agentic Production Mutation Controls | Adopt APMS — default deny unsupervised prod mutations; HITL + kill switch | 7-0-0 | Proposal vs authorization planes; Level-4 runbooks capped; Sentinel optional | BINDING |
+| 2026-DEL-005-001 | 2026-07-25 | Open-Weight Frontier Export Controls | Adopt Staged Capability Governance (SCG) for dual-use relevant open weights | 6-0-1 | Tiered eval-gated release; Tier-3+ compliance review; Compact aspirational | BINDING |
+| 2026-DEL-006-001 | 2026-07-25 | Agent-Authored Legal Filings Authentication | Adopt AFAP — agents assist, never file of record; citation ledger + human attestation | 7-0-0 | Duty of candor cannot be delegated; privilege-preserving model routing | BINDING |
+| 2026-SEC-003-001 | 2026-07-25 | Special Inquiry: Agentic Cyber Attribution | Six findings on attribution degradation, escalation, civilian entanglement | N/A (hearing) | Prohibit offensive cyber tasking; segment research vs actuation agents | BINDING (findings) |
 
 ### Index by Category
 
@@ -74,7 +78,7 @@ This document serves as the authoritative index of precedent-setting decisions m
 
 | Case ID | Date | Matter | Ruling | Vote |
 |---------|------|--------|--------|------|
-| *No entries yet* | | | | |
+| 2026-FEAT-001-001 | 2026-07-25 | Agentic Production Mutation Controls | Adopt APMS — default deny unsupervised prod mutations | 7-0-0 |
 
 #### Infrastructure (INFRA)
 
@@ -108,12 +112,20 @@ This document serves as the authoritative index of precedent-setting decisions m
 | 2026-DEL-002-001 | 2026-02-17 | Gap Analysis (Phase 2–4) | Hybrid affirmed; i18n, matter-triage, pilot | 5-0-0 |
 | 2026-DEL-003-001 | 2026-02-17 | Bench Trial — 15 Expert Domains | 15 domains adopted | 6-1-0 |
 | 2026-DEL-004-001 | 2026-02-17 | Skills to Add to Each Agent | Skills index at docs/agent-skills.md | 5-0-0 |
+| 2026-DEL-005-001 | 2026-07-25 | Open-Weight Frontier Export Controls | Adopt Staged Capability Governance (SCG) | 6-0-1 |
+| 2026-DEL-006-001 | 2026-07-25 | Agent-Authored Legal Filings Authentication | Adopt AFAP | 7-0-0 |
 
 #### Contempt (CONT)
 
 | Case ID | Date | Matter | Ruling | Vote |
 |---------|------|--------|--------|------|
 | 2026-CONT-001-001 | 2026-02-15 | Xenon Contempt Hearing | No finding of contempt | 1-4-0 |
+
+#### Special Inquiry / Security (SEC)
+
+| Case ID | Date | Matter | Ruling | Vote |
+|---------|------|--------|--------|------|
+| 2026-SEC-003-001 | 2026-07-25 | Special Inquiry: Agentic Cyber Attribution | Six findings recorded | N/A (hearing) |
 
 ***
 ## Precedent Categories
@@ -322,7 +334,158 @@ Minor duplication if maintainers update body but not frontmatter; mitigated by d
 *First ARCH precedent.*
 
 ***
-*[Additional entries will be added as deliberations occur]*
+### 2026-FEAT-001-001: Agentic Production Mutation Controls
+
+**Date:** 2026-07-25  
+**Feasibility:** F5  
+**Vote:** 7-0-0 (Unanimous; AI_ML + Security specialists seated)  
+**Status:** BINDING  
+**Tags:** #agentic-controls #security #devops #approved #deployment  
+**Transcript:** [courtroom/transcripts/2026-07-25-agentic-production-mutation-controls.md](transcripts/2026-07-25-agentic-production-mutation-controls.md)
+
+#### Matter
+
+Whether autonomous coding agents may mutate production systems without mandatory human-in-the-loop gates, and what kill-switch, audit, and accountability controls are required.
+
+#### Ruling
+
+Adopt the Agentic Production Mutation Standard (APMS): unsupervised production mutations forbidden by default; human attestation bound to plan hash; dual-control for high blast-radius classes; capped Level-4 self-healing runbooks; out-of-band kill switch; named human accountable officer. Dual-plane Sentinel recommended as hardening, not a ship blocker.
+
+#### Rationale
+
+Agentic speed belongs in a proposal plane; production remains an authorization plane. Model reliability is heavy-tailed; change-control physics do not change because the actor is an agent.
+
+#### Risk Accepted
+
+Rubber-stamp approvals and Level-4 runbook loophole sprawl.
+
+#### Implications
+
+1. MORNINGSTAR-governed agentic work must default-deny unsupervised prod writes
+2. Cross-cites future security and IR deliberations
+3. First FEAT-category binding precedent
+
+#### Key Quotes
+
+> *"Autonomy is not absolution."*  
+> — The Honorable Lucius J. Morningstar
+
+#### Related Precedent
+
+- 2026-SEC-003-001: Applies APMS as civilian escalation brake
+- 2026-DEL-005-001: Complementary staging for agentic packaging redistribution
+
+***
+### 2026-DEL-005-001: Open-Weight Frontier Export Controls
+
+**Date:** 2026-07-25  
+**Feasibility:** F5  
+**Vote:** 6-0-1 (Prophet abstain; Compliance + Ethics specialists seated)  
+**Status:** BINDING  
+**Tags:** #geopolitics #export-controls #ai-ml #compliance #ethics #approved  
+**Transcript:** [courtroom/transcripts/2026-07-25-open-weight-frontier-export-controls.md](transcripts/2026-07-25-open-weight-frontier-export-controls.md)
+
+#### Matter
+
+Whether open-weight frontier-class models should be treated as dual-use export-controlled technology and what institutional redistribution posture to adopt.
+
+#### Ruling
+
+Adopt Staged Capability Governance (SCG): frontier open weights are dual-use *relevant*; tiered eval-gated release; compliance review for Tier-3+; distinguish research artifacts from agentic runtime packaging; refuse uncontrolled cyber-offensive fine-tune redistribution. Plurilateral Compact recorded as aspiration, not dependency.
+
+#### Rationale
+
+Blanket openness and blanket closure both fail against proliferation physics and research norms. Institutional amplification can be restrained even when mirrors leak.
+
+#### Risk Accepted
+
+Eval gaming, mirror leakage, geopolitical talent flight.
+
+#### Implications
+
+1. Sets redistribution checklist for frontier/agentic artifacts
+2. Informs Special Interest findings on civilian entanglement (2026-SEC-003)
+3. Prophet Compact remains diplomatic north star without blocking ops
+
+#### Related Precedent
+
+- 2026-FEAT-001-001: Controls on agentic actuation
+- 2026-SEC-003-001: Proliferation and attribution context
+
+***
+### 2026-DEL-006-001: Agent-Authored Legal Filings Authentication
+
+**Date:** 2026-07-25  
+**Feasibility:** F4  
+**Vote:** 7-0-0 (Unanimous; Compliance + Documentation specialists seated)  
+**Status:** BINDING  
+**Tags:** #law #professional-responsibility #agentic-controls #documentation #data-privacy #approved  
+**Transcript:** [courtroom/transcripts/2026-07-25-agent-authored-legal-filings-authentication.md](transcripts/2026-07-25-agent-authored-legal-filings-authentication.md)
+
+#### Matter
+
+Whether autonomous agents may draft or file legal instruments, and what authentication, citation integrity, disclosure, and privilege controls apply.
+
+#### Ruling
+
+Adopt the Agent-Filing Authentication Protocol (AFAP): agents may assist but never file of record; human authorized signer attestation; citation ledger with proposition-fitness emphasis; cite-lint gate; privilege-preserving model routing; provenance retention. Court-side intake validators advocated externally, not blocking.
+
+#### Rationale
+
+Duty of candor and competence cannot be delegated to a generative model; verification must scale with generation; “the model said so” is never a defense.
+
+#### Risk Accepted
+
+Rubber-stamp signers; incomplete digital reporter coverage for edge authorities.
+
+#### Implications
+
+1. Binding for MORNINGSTAR-adjacent legal drafting tooling
+2. Aligns documentation specialists as control owners
+3. Complements APMS accountability pattern in a legal domain
+
+#### Related Precedent
+
+- 2026-FEAT-001-001: Human finality for irreversible actions
+- 2026-SEC-003-001: Legal-process integrity adjacent to info ops
+
+***
+### 2026-SEC-003-001: Special Inquiry — Agentic Cyber Attribution
+
+**Date:** 2026-07-25  
+**Feasibility:** F5  
+**Vote:** N/A (Special Interest Hearing — findings only)  
+**Status:** BINDING (findings)  
+**Tags:** #geopolitics #security #law #agentic-controls #process  
+**Transcript:** [courtroom/transcripts/20260725_190000_special_interest_agentic_cyber_attribution.md](transcripts/20260725_190000_special_interest_agentic_cyber_attribution.md)
+
+#### Matter
+
+Investigative inquiry into attribution difficulty, escalation risks, and legal analogues for agentic cyber operations spanning state/proxy and civilian platforms.
+
+#### Ruling (Findings)
+
+Six findings: (1) capability/tempo shift via tool-use loops; (2) attribution degradation and framing risk; (3) escalation hazard from loosely supervised privileged agents; (4) civilian platform entanglement; (5) stressed LOAC/countermeasures/due-diligence pressure points; (6) institutional recommendations — prohibit offensive cyber tasking, enforce APMS, immutable telemetry, segment research vs actuation, align with SCG.
+
+#### Rationale
+
+Perfect attribution is unavailable; governance must not depend on it. “Agent exceeded mandate” is a foreseeable excuse pattern requiring architectural preemption.
+
+#### Risk Accepted
+
+Findings are open-source/constructed-expertise limited; classified realities may exceed the record.
+
+#### Implications
+
+1. Cross-binds FEAT-001, DEL-005, DEL-006 into a geopolitics/security stack
+2. Establishes no-offensive-cyber norm for MORNINGSTAR-governed stacks
+3. Leaves plurilateral clearinghouse as unresolved advocacy item
+
+#### Related Precedent
+
+- 2026-FEAT-001-001: APMS as escalation brake
+- 2026-DEL-005-001: SCG redistribution posture
+- 2026-DEL-006-001: Process integrity adjacent controls
 
 ***
 ## Citation Format
