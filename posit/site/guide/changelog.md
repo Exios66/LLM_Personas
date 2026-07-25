@@ -18,5 +18,6 @@ Decision history and implementation log are maintained in the repo.
 - Portal launch and export fixes: export_transcript.py, launch.sh (no tools/cli dependency), viewer and generate.py updates.
 - Experts/Domains integration and root README overhaul: courtroom/domains in nav, glossary, runbook, repository map, instructions.
 - Second Enhancement Deliberation (2026-INFRA-002): SME failures, dissolution protocol, glossary, precedent citation, OCTAVIUS handoff, onboarding, portal discovery, state backup, runbook, edge-case registry.
+- **2026-07-25 Hot-Button Docket:** APMS (FEAT-001), SCG open-weight export controls (DEL-005), AFAP legal-filing authentication (DEL-006), Special Inquiry on agentic cyber attribution (SEC-003).
 
 For full history and exact deliverables, see `CHANGELOG.md` in the repository.

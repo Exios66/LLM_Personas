@@ -1,5 +1,5 @@
 ---
-title: "20260216 120000 special inquiry bohemian grove"
+title: "20260216 120000 special interest special inquiry bohemian grove"
 ---
 
 # SPECIAL INQUIRY HEARING TRANSCRIPT

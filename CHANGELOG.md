@@ -12,6 +12,33 @@ Format: `[YYYY-MM-DD] Category: Description (Vote if applicable)`
 
 *Pending decisions and work in progress*
 
+- Operationalize APMS / SCG / AFAP into runbooks and checklists (post 2026-07-25 rulings)
+
+---
+
+## [2026-07-25] - Hot-Button Docket: Agentic Controls, Export Governance, Legal Auth, Cyber Attribution
+
+### Court Rulings & Special Interest Hearing
+
+Four expansive F4/F5 proceedings under Judge Morningstar with full gallery (Dr. Echo Sageseeker, Dr. Harley Scarlet Quinn, Uncle Ruckus), seated specialists, expert witnesses, and Edward Cullen invocations.
+
+| Case No. | Matter | Outcome | Vote | Risk |
+|----------|--------|---------|------|------|
+| 2026-FEAT-001-001 | Agentic Production Mutation Controls (APMS) | Default deny unsupervised prod mutations; HITL + kill switch + plan-hash binding | 7-0-0 | Rubber-stamp approvals; Level-4 loophole sprawl. Dissent: None. |
+| 2026-DEL-005-001 | Open-Weight Frontier Export Controls (SCG) | Staged Capability Governance; dual-use relevant; Tier-3+ compliance review | 6-0-1 | Eval gaming; mirror leakage; talent flight. Dissent: Prophet abstains pending Compact. |
+| 2026-DEL-006-001 | Agent-Authored Legal Filings (AFAP) | Agents assist, never file of record; citation ledger; privilege routing | 7-0-0 | Rubber-stamp signers; incomplete reporter coverage. Dissent: None. |
+| 2026-SEC-003-001 | Special Inquiry: Agentic Cyber Attribution | Six findings; prohibit offensive cyber tasking; segment research vs actuation | N/A (hearing) | Attribution uncertainty; escalation via “agent exceeded mandate.” |
+
+**Transcripts:**
+- `courtroom/transcripts/2026-07-25-agentic-production-mutation-controls.md`
+- `courtroom/transcripts/2026-07-25-open-weight-frontier-export-controls.md`
+- `courtroom/transcripts/2026-07-25-agent-authored-legal-filings-authentication.md`
+- `courtroom/transcripts/20260725_190000_special_interest_agentic_cyber_attribution.md`
+
+### Court Reporter Integration
+
+Precedents Master Index + full entries; `state/metrics.md` synced (13 deliberations, 13 precedents); `state/current.md` checkpointed; case registry updated (FEAT:1, DEL:6, SEC:3, DOC:1); project dashboard refreshed; portal manifest regenerated. Reporter/manifest header parsers accept canonical `**Case No.:**` / `**Date:**` forms per `core/case-format.md`.
+
 ---
 
 ## [2026-02-19] - Case Naming & Case Numbering Format (2026-DOC-001)
@@ -106,7 +133,7 @@ Convened a Contempt & Prosecution Hearing in Special Interest format for *The Pe
 
 Convened an extensive Special Inquiry Hearing into the Bohemian Grove—a private 2,700-acre retreat owned by the Bohemian Club in Northern California. Investigative proceeding (no vote); purpose: establish factual record.
 
-**Transcript:** `courtroom/transcripts/20260216_120000_special_inquiry_bohemian_grove.md`
+**Transcript:** `courtroom/transcripts/20260216_120000_special_interest_special-inquiry-bohemian-grove.md`
 
 **Witnesses (9):** Professor Ashworth (history), Dr. Voss (sociology), Mr. Chenoweth (former staff), Dr. Marsh (ritual studies), Senator Hargrove (political activity), Ms. Torres (journalism), Mr. Whitfield (club defense), Dr. Webb (power structure), Professor Vance (constitutional law).
 

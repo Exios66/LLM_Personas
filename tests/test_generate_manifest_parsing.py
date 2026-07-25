@@ -28,6 +28,11 @@ def test_extract_case_number_prefers_case_no() -> None:
     assert extract_case_number(content) == "2026-SECU-042-001"
 
 
+def test_extract_case_number_canonical_colon_inside_bold() -> None:
+    content = "**Case No.:** 2026-DEL-005-001\n**Matter ID:** 2026-OLD-001\n"
+    assert extract_case_number(content) == "2026-DEL-005-001"
+
+
 def test_extract_case_number_matter_id_legacy() -> None:
     content = "**Matter ID**: 2026-LEGAL-001\n"
     assert extract_case_number(content) == "2026-LEGAL-001"

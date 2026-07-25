@@ -1,6 +1,6 @@
 # Project Dashboard: LLM_Personas (MORNINGSTAR)
 
-> Last Updated: 2026-02-19
+> Last Updated: 2026-07-25
 > Status: In Progress
 
 ## Overview
@@ -75,14 +75,15 @@
 
 | Metric | Value |
 |--------|-------|
-| Total Sessions | 4+ |
-| Total Deliberations | 9 |
-| Decisions Made | 9 |
-| Unanimous Decisions | 6 |
-| Total Precedents | 9 |
+| Total Sessions | 5+ |
+| Total Deliberations | 13 |
+| Decisions Made | 12 |
+| Unanimous Decisions | 8 |
+| Total Precedents | 13 |
 | Handoffs to LIL_JEFF | 3+ |
-| Prophet Proposals | 5 (4 deferred, 1 honorable mention) |
+| Prophet Proposals | 9 hail-marys tracked (4 deferred, aspirations recorded) |
 | Prophet Vindications | 0 |
+| SME Participations (Jul 25) | 12+ witnesses; 6 specialist seatings |
 
 ---
 
@@ -90,9 +91,10 @@
 
 | Location | Count |
 |----------|-------|
-| Courtroom transcripts | 19 |
+| Courtroom transcripts | 23 certified/filed `.md` (excl. handoffs/html) |
 | Litigation transcripts | 3 |
-| Handoff documents | 4 |
+| Handoff documents | 5 |
+| Jul 25 hot-button filings | 4 (FEAT-001, DEL-005, DEL-006, SEC-003) |
 | Agent reports output | `agents/reports/` (RPT_*_YYYYMMDD_HHMMSS.html) |
 
 ---
@@ -103,8 +105,9 @@
 
 | Task | Module | Priority | Status |
 |------|--------|----------|--------|
+| Operationalize APMS / SCG / AFAP runbooks | courtroom, docs | High | ⏳ |
+| F4+ Specialist Pilot formal review | core, procedures | Medium | 🔍 |
 | Prophet vindication tracking | core, templates | Medium | 🔄 |
-| SME utilization baseline | courtroom | Low | ⏳ |
 | LIL_JEFF handoff completion | agents | High | 🔍 |
 
 ### Completed This Sprint
@@ -114,6 +117,8 @@
 - [x] Gmail delivery for reports
 - [x] agents/tools and agents/workflows layout
 - [x] Tavily + DuckDuckGo search integration
+- [x] 2026-07-25 hot-button docket (4 expansive proceedings certified)
+- [x] Court Reporter sync (precedents, metrics, dashboard, manifest)
 
 ---
 
@@ -126,6 +131,9 @@
 | YAML for domain registry | Human-editable, versionable SME definitions | — |
 | Markdown transcripts | Portable, readable, version-control friendly | — |
 | Alphanumeric report ID + timestamp | Traceable, sortable output filenames | 2026-02-19 |
+| APMS default-deny unsupervised prod mutations | Agentic blast-radius control (2026-FEAT-001) | 2026-07-25 |
+| SCG staged open-weight redistribution | Dual-use / geopolitics posture (2026-DEL-005) | 2026-07-25 |
+| AFAP agent legal-filing authentication | Duty of candor + citation ledger (2026-DEL-006) | 2026-07-25 |
 
 ---
 
@@ -134,7 +142,8 @@
 | Issue | Impact | Mitigation | Owner |
 |-------|--------|------------|-------|
 | Prophet proposals deferred | Pending judgment on radical ideas | Operational experience; revisit periodically | — |
-| SME usage at 0 | Domains underutilized | Add SME invocation to deliberation flows | — |
+| APMS/SCG/AFAP not yet runbook-tooled | Principles binding but ops incomplete | Handoff to LIL_JEFF for checklists | — |
+| F4+ Specialist Pilot review overdue | Pilot used without formal closeout | Schedule review deliberation | — |
 
 ---
 

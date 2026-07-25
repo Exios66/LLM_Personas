@@ -21,11 +21,15 @@ Certified deliberation transcripts from the MORNINGSTAR court.
 | [2026 02 17 the missing character traits and members from the mornings](transcripts/2026-02-17-the-missing-character-traits-and-members-from-the-mornings.html) | `2026-02-17-the-missing-character-traits-and-members-from-the-mornings.md` |
 | [2026 02 17 the optimal number of tokens to include in order for the mor](transcripts/2026-02-17-the-optimal-number-of-tokens-to-include-in-order-for-the-mor.html) | `2026-02-17-the-optimal-number-of-tokens-to-include-in-order-for-the-mor.md` |
 | [2026 02 19 case naming and numbering format](transcripts/2026-02-19-case-naming-and-numbering-format.html) | `2026-02-19-case-naming-and-numbering-format.md` |
-| [20260214 140000 doj epstein disclosure analysis](transcripts/20260214_140000_doj_epstein_disclosure_analysis.html) | `20260214_140000_doj_epstein_disclosure_analysis.md` |
+| [2026 07 25 agent authored legal filings authentication](transcripts/2026-07-25-agent-authored-legal-filings-authentication.html) | `2026-07-25-agent-authored-legal-filings-authentication.md` |
+| [2026 07 25 agentic production mutation controls](transcripts/2026-07-25-agentic-production-mutation-controls.html) | `2026-07-25-agentic-production-mutation-controls.md` |
+| [2026 07 25 open weight frontier export controls](transcripts/2026-07-25-open-weight-frontier-export-controls.html) | `2026-07-25-open-weight-frontier-export-controls.md` |
+| [20260214 140000 special interest doj epstein disclosure analysis](transcripts/20260214_140000_special_interest_doj-epstein-disclosure-analysis.html) | `20260214_140000_special_interest_doj-epstein-disclosure-analysis.md` |
 | [20260214 180000 special interest january 6th analysis](transcripts/20260214_180000_special_interest_january_6th_analysis.html) | `20260214_180000_special_interest_january_6th_analysis.md` |
-| [20260216 120000 special inquiry bohemian grove](transcripts/20260216_120000_special_inquiry_bohemian_grove.html) | `20260216_120000_special_inquiry_bohemian_grove.md` |
+| [20260216 120000 special interest special inquiry bohemian grove](transcripts/20260216_120000_special_interest_special-inquiry-bohemian-grove.html) | `20260216_120000_special_interest_special-inquiry-bohemian-grove.md` |
 | [20260216 133000 special interest internal security aegis](transcripts/20260216_133000_special_interest_internal_security_aegis.html) | `20260216_133000_special_interest_internal_security_aegis.md` |
 | [20260216 160000 special interest xenon fraud elon musk](transcripts/20260216_160000_special_interest_xenon_fraud_elon_musk.html) | `20260216_160000_special_interest_xenon_fraud_elon_musk.md` |
+| [20260725 190000 special interest agentic cyber attribution](transcripts/20260725_190000_special_interest_agentic_cyber_attribution.html) | `20260725_190000_special_interest_agentic_cyber_attribution.md` |
 | [HANDOFF 2026 ARCH 001](transcripts/HANDOFF-2026-ARCH-001.html) | `HANDOFF-2026-ARCH-001.md` |
 | [HANDOFF 2026 ARCH 002](transcripts/HANDOFF-2026-ARCH-002.html) | `HANDOFF-2026-ARCH-002.md` |
 | [HANDOFF 2026 EXEC 001](transcripts/HANDOFF-2026-EXEC-001.html) | `HANDOFF-2026-EXEC-001.md` |

@@ -37,10 +37,17 @@ SPECIAL_INTEREST_PATTERN = re.compile(r"^\d{8}_\d{6}_special_interest_.+")
 LEGACY_SPECIAL_PATTERN = re.compile(r"^\d{8}_\d{6}_.+")  # YYYYMMDD_HHMMSS_topic (grandfathered)
 HANDOFF_PATTERN = re.compile(r"^HANDOFF-", re.I)
 
-# Header validation
-CASE_NO_PATTERN = re.compile(r"\*\*Case No\.\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", re.I)
-MATTER_ID_PATTERN = re.compile(r"\*\*Matter ID\*\*:\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", re.I)
-DATE_HEADER_PATTERN = re.compile(r"\*\*Date\*\*:\s*(\d{4}-\d{2}-\d{2})", re.I)
+# Header validation — accept both **Case No.:** (canonical per case-format.md)
+# and **Case No.**: (legacy colon-outside-bold) forms.
+CASE_NO_PATTERN = re.compile(
+    r"\*\*Case No\.(?::\*\*|\*\*:)\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", re.I
+)
+MATTER_ID_PATTERN = re.compile(
+    r"\*\*Matter ID(?::\*\*|\*\*:)\s*(\d{4}-[A-Z]+-\d{3}(?:-\d+)?)", re.I
+)
+DATE_HEADER_PATTERN = re.compile(
+    r"\*\*Date(?::\*\*|\*\*:)\s*(\d{4}-\d{2}-\d{2})", re.I
+)
 
 
 def _skip_file(name: str) -> bool:
