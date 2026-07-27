@@ -21,6 +21,7 @@ if str(_SCRIPT_DIR.parent) not in sys.path:
     sys.path.insert(0, str(_SCRIPT_DIR.parent))
 
 from executive.judicial_log import JudicialLog, _log_path
+from executive.proof import OverrideProof
 
 ACTIONS_LOG = "executive_actions.log"
 OVERRIDE_THRESHOLD = 5  # Alert if overrides in window exceed this
@@ -82,6 +83,22 @@ def record_action(
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
 
+def _override_proof_error(action: dict) -> Optional[str]:
+    """Return an error message when override proof is missing or invalid."""
+    proof = action.get("override_proof")
+    if not proof:
+        return "missing override proof"
+
+    ruling_id = action.get("ruling_id", "")
+    reason = action.get("override_reason") or action.get("description", "")
+    try:
+        if OverrideProof.verify(proof, ruling_id, reason) is None:
+            return "invalid override proof"
+    except FileNotFoundError:
+        return "cannot verify override proof (secret not configured)"
+    return None
+
+
 def _judicial_ruling_ids(log: JudicialLog) -> set[str]:
     """Extract ruling IDs from judicial log (from source or matter)."""
     ids = set()
@@ -119,13 +136,17 @@ def run_checks() -> tuple[bool, list[str]]:
 
     for a in actions:
         rid = a.get("ruling_id", "")
-        if rid and rid not in approved and "override" not in a.get("action_type", "").lower():
-            # Action references ruling not in judicial log
-            proof = a.get("override_proof")
-            if not proof:
-                alerts.append(
-                    f"Action without judicial approval and no override proof: ruling_id={rid}"
-                )
+        if not rid:
+            alerts.append("Action without ruling_id reference")
+            continue
+        if rid in approved:
+            continue
+
+        proof_error = _override_proof_error(a)
+        if proof_error:
+            alerts.append(
+                f"Action without judicial approval ({proof_error}): ruling_id={rid}"
+            )
 
     # (c) Override frequency
     overrides = [a for a in actions if a.get("override_proof")]

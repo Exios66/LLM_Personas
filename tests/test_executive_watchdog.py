@@ -66,6 +66,112 @@ def test_run_checks_alerts_on_unapproved_action_without_proof(
     assert any("without judicial approval" in a for a in alerts)
 
 
+def test_run_checks_alerts_on_override_action_without_proof(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    log_path = tmp_path / "judicial_decisions.log"
+    actions_path = tmp_path / "executive_actions.log"
+
+    JudicialLog(log_path=log_path)
+
+    _write_action(
+        actions_path,
+        action_type="override",
+        ruling_id="2026-UNKNOWN-999",
+        description="rogue override",
+    )
+
+    monkeypatch.setattr(watchdog, "JudicialLog", lambda: JudicialLog(log_path=log_path))
+    monkeypatch.setattr(watchdog, "_actions_log_path", lambda: actions_path)
+
+    ok, alerts = watchdog.run_checks()
+    assert ok is False
+    assert any("missing override proof" in a for a in alerts)
+
+
+def test_run_checks_alerts_on_invalid_override_proof(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    log_path = tmp_path / "judicial_decisions.log"
+    actions_path = tmp_path / "executive_actions.log"
+    secret_path = tmp_path / ".executive_secret"
+    secret_path.write_bytes(bytes.fromhex("ab" * 32))
+
+    JudicialLog(log_path=log_path)
+
+    _write_action(
+        actions_path,
+        action_type="execute",
+        ruling_id="2026-UNKNOWN-999",
+        description="rogue execution",
+        override_proof="fake-proof",
+    )
+
+    monkeypatch.setattr(watchdog, "JudicialLog", lambda: JudicialLog(log_path=log_path))
+    monkeypatch.setattr(watchdog, "_actions_log_path", lambda: actions_path)
+    monkeypatch.setenv("EXECUTIVE_PROOF_SECRET", "0x" + ("ab" * 32))
+
+    ok, alerts = watchdog.run_checks()
+    assert ok is False
+    assert any("invalid override proof" in a for a in alerts)
+
+
+def test_run_checks_accepts_valid_override_proof_for_unapproved_ruling(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    log_path = tmp_path / "judicial_decisions.log"
+    actions_path = tmp_path / "executive_actions.log"
+    secret_path = tmp_path / ".executive_secret"
+    secret_path.write_bytes(bytes.fromhex("cd" * 32))
+
+    JudicialLog(log_path=log_path)
+    reason = "emergency rollback"
+    proof = OverrideProof.generate(
+        "2026-UNKNOWN-999",
+        reason,
+        timestamp="2026-05-25T12:00:00+00:00",
+        secret_path=secret_path,
+    )
+
+    _write_action(
+        actions_path,
+        action_type="override",
+        ruling_id="2026-UNKNOWN-999",
+        description=reason,
+        override_proof=proof,
+    )
+
+    monkeypatch.setattr(watchdog, "JudicialLog", lambda: JudicialLog(log_path=log_path))
+    monkeypatch.setattr(watchdog, "_actions_log_path", lambda: actions_path)
+    monkeypatch.setenv("EXECUTIVE_PROOF_SECRET", "0x" + ("cd" * 32))
+
+    ok, alerts = watchdog.run_checks()
+    assert ok is True
+    assert alerts == []
+
+
+def test_run_checks_alerts_on_missing_ruling_id(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    log_path = tmp_path / "judicial_decisions.log"
+    actions_path = tmp_path / "executive_actions.log"
+
+    JudicialLog(log_path=log_path)
+    _write_action(
+        actions_path,
+        action_type="execute",
+        ruling_id="",
+        description="deploy without ruling reference",
+    )
+
+    monkeypatch.setattr(watchdog, "JudicialLog", lambda: JudicialLog(log_path=log_path))
+    monkeypatch.setattr(watchdog, "_actions_log_path", lambda: actions_path)
+
+    ok, alerts = watchdog.run_checks()
+    assert ok is False
+    assert any("without ruling_id reference" in a for a in alerts)
+
+
 def test_run_checks_alerts_on_tampered_judicial_log(
     tmp_path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

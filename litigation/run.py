@@ -6,6 +6,7 @@ Run MORNINGSTAR deliberation protocol via Ollama, LM Studio, or OpenRouter.
 """
 
 import argparse
+import fcntl
 import os
 import re
 import sys
@@ -71,21 +72,39 @@ def allocate_case_no(category: str = "DEL", *, deliberation: int = 1) -> str:
     import yaml
 
     year = datetime.now().strftime("%Y")
+    REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
     if not REGISTRY_PATH.exists():
-        return f"{year}-{category}-001-{deliberation:03d}"
+        REGISTRY_PATH.write_text(
+            yaml.dump(
+                {
+                    "year": int(year),
+                    "categories": {category: 1},
+                    "last_updated": datetime.now().strftime("%Y-%m-%d"),
+                },
+                default_flow_style=False,
+                sort_keys=False,
+            ),
+            encoding="utf-8",
+        )
 
-    data = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8")) or {}
-    year = str(data.get("year", year))
-    categories = data.setdefault("categories", {})
-    nnn = int(categories.get(category, 1))
-    case_no = f"{year}-{category}-{nnn:03d}-{deliberation:03d}"
-    categories[category] = nnn + 1
-    data["categories"] = categories
-    data["last_updated"] = datetime.now().strftime("%Y-%m-%d")
-    REGISTRY_PATH.write_text(
-        yaml.dump(data, default_flow_style=False, sort_keys=False),
-        encoding="utf-8",
-    )
+    with open(REGISTRY_PATH, "r+", encoding="utf-8") as registry_file:
+        fcntl.flock(registry_file.fileno(), fcntl.LOCK_EX)
+        try:
+            data = yaml.safe_load(registry_file.read()) or {}
+            year = str(data.get("year", year))
+            categories = data.setdefault("categories", {})
+            nnn = int(categories.get(category, 1))
+            case_no = f"{year}-{category}-{nnn:03d}-{deliberation:03d}"
+            categories[category] = nnn + 1
+            data["categories"] = categories
+            data["last_updated"] = datetime.now().strftime("%Y-%m-%d")
+            registry_file.seek(0)
+            registry_file.truncate()
+            registry_file.write(
+                yaml.dump(data, default_flow_style=False, sort_keys=False)
+            )
+        finally:
+            fcntl.flock(registry_file.fileno(), fcntl.LOCK_UN)
     return case_no
 
 
