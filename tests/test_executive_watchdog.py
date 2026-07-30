@@ -87,6 +87,60 @@ def test_run_checks_alerts_on_tampered_judicial_log(
     assert any("Log integrity" in a for a in alerts)
 
 
+def test_run_checks_alerts_on_override_without_proof(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    log_path = tmp_path / "judicial_decisions.log"
+    actions_path = tmp_path / "executive_actions.log"
+
+    JudicialLog(log_path=log_path)  # empty approvals
+
+    _write_action(
+        actions_path,
+        action_type="override",
+        ruling_id="2026-UNKNOWN-999",
+        description="rogue override",
+    )
+
+    monkeypatch.setattr(watchdog, "JudicialLog", lambda: JudicialLog(log_path=log_path))
+    monkeypatch.setattr(watchdog, "_actions_log_path", lambda: actions_path)
+
+    ok, alerts = watchdog.run_checks()
+    assert ok is False
+    assert any("Override action without proof" in a for a in alerts)
+
+
+def test_run_checks_alerts_on_invalid_override_proof(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    log_path = tmp_path / "judicial_decisions.log"
+    actions_path = tmp_path / "executive_actions.log"
+    secret_path = tmp_path / ".executive_secret"
+    secret_path.write_bytes(bytes.fromhex("99" * 32))
+
+    proof = OverrideProof.generate(
+        "2026-DEL-001",
+        "emergency",
+        timestamp="2026-05-25T12:00:00+00:00",
+        secret_path=secret_path,
+    )
+    _write_action(
+        actions_path,
+        action_type="override",
+        ruling_id="2026-DEL-002",
+        description="emergency",
+        override_proof=proof,
+    )
+
+    monkeypatch.setattr(watchdog, "JudicialLog", lambda: JudicialLog(log_path=log_path))
+    monkeypatch.setattr(watchdog, "_actions_log_path", lambda: actions_path)
+    monkeypatch.setenv("EXECUTIVE_PROOF_SECRET", "99" * 64)
+
+    ok, alerts = watchdog.run_checks()
+    assert ok is False
+    assert any("Invalid override proof" in a for a in alerts)
+
+
 def test_run_checks_override_frequency_threshold(
     tmp_path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
