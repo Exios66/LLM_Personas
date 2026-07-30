@@ -36,3 +36,22 @@ def test_extract_title_from_dated_filename():
     mod = _load_export_module()
     path = Path("2026-02-15-framework-enhancement-analysis.md")
     assert mod.extract_title(path, "") == "Framework Enhancement Analysis"
+
+
+def test_resolve_transcript_path_accepts_repo_root_prefix():
+    """README documents courtroom/transcripts/foo.md from repo root."""
+    mod = _load_export_module()
+    sample = "2026-02-15-framework-enhancement-analysis.md"
+    resolved = mod.resolve_transcript_path(f"courtroom/transcripts/{sample}")
+    expected = REPO_ROOT / "courtroom" / "transcripts" / sample
+    assert resolved == expected
+    assert resolved.exists()
+
+
+def test_resolve_transcript_path_accepts_courtroom_relative_prefix():
+    mod = _load_export_module()
+    sample = "2026-02-15-framework-enhancement-analysis.md"
+    resolved = mod.resolve_transcript_path(f"transcripts/{sample}")
+    expected = REPO_ROOT / "courtroom" / "transcripts" / sample
+    assert resolved == expected
+    assert resolved.exists()
