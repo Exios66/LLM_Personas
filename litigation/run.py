@@ -67,25 +67,38 @@ def allocate_case_no(category: str = "DEL", *, deliberation: int = 1) -> str:
     Allocate the next Case No. from courtroom/case-registry.yaml.
 
     Per core/case-format.md: registry holds next available NNN per category.
+    Creates the registry on first use. Uses an exclusive file lock so concurrent
+    litigation runs cannot assign duplicate Case Nos.
     """
+    import fcntl
     import yaml
 
     year = datetime.now().strftime("%Y")
-    if not REGISTRY_PATH.exists():
-        return f"{year}-{category}-001-{deliberation:03d}"
+    REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-    data = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8")) or {}
-    year = str(data.get("year", year))
-    categories = data.setdefault("categories", {})
-    nnn = int(categories.get(category, 1))
-    case_no = f"{year}-{category}-{nnn:03d}-{deliberation:03d}"
-    categories[category] = nnn + 1
-    data["categories"] = categories
-    data["last_updated"] = datetime.now().strftime("%Y-%m-%d")
-    REGISTRY_PATH.write_text(
-        yaml.dump(data, default_flow_style=False, sort_keys=False),
-        encoding="utf-8",
-    )
+    with open(REGISTRY_PATH, "a+", encoding="utf-8") as lock_file:
+        fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+        lock_file.seek(0)
+        raw = lock_file.read()
+        data = yaml.safe_load(raw) if raw.strip() else {}
+        if not isinstance(data, dict):
+            data = {}
+
+        year = str(data.get("year", year))
+        categories = data.setdefault("categories", {})
+        # Registry may seed unused categories at 0; NNN must be 001-999 per case-format.md
+        nnn = max(int(categories.get(category, 1)), 1)
+        case_no = f"{year}-{category}-{nnn:03d}-{deliberation:03d}"
+        categories[category] = nnn + 1
+        data["categories"] = categories
+        data.setdefault("year", year)
+        data["last_updated"] = datetime.now().strftime("%Y-%m-%d")
+
+        lock_file.seek(0)
+        lock_file.truncate()
+        lock_file.write(yaml.dump(data, default_flow_style=False, sort_keys=False))
+        lock_file.flush()
+
     return case_no
 
 

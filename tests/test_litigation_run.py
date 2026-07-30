@@ -10,6 +10,39 @@ import yaml
 from litigation import run as litigation_run
 
 
+def test_allocate_case_no_creates_registry_when_missing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    registry = tmp_path / "case-registry.yaml"
+    monkeypatch.setattr(litigation_run, "REGISTRY_PATH", registry)
+
+    first = litigation_run.allocate_case_no("DEL")
+    second = litigation_run.allocate_case_no("DEL")
+
+    assert first == "2026-DEL-001-001"
+    assert second == "2026-DEL-002-001"
+    assert registry.exists()
+    data = yaml.safe_load(registry.read_text(encoding="utf-8"))
+    assert data["categories"]["DEL"] == 3
+
+
+def test_allocate_case_no_treats_zero_category_as_first_case(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    registry = tmp_path / "case-registry.yaml"
+    registry.write_text(
+        yaml.dump({"year": 2026, "categories": {"FEAT": 0}}),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(litigation_run, "REGISTRY_PATH", registry)
+
+    case_no = litigation_run.allocate_case_no("FEAT")
+
+    assert case_no == "2026-FEAT-001-001"
+    data = yaml.safe_load(registry.read_text(encoding="utf-8"))
+    assert data["categories"]["FEAT"] == 2
+
+
 def test_allocate_case_no_increments_registry(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     registry = tmp_path / "case-registry.yaml"
     registry.write_text(

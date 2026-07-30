@@ -119,13 +119,27 @@ def run_checks() -> tuple[bool, list[str]]:
 
     for a in actions:
         rid = a.get("ruling_id", "")
-        if rid and rid not in approved and "override" not in a.get("action_type", "").lower():
-            # Action references ruling not in judicial log
-            proof = a.get("override_proof")
+        action_type = a.get("action_type", "").lower()
+        proof = a.get("override_proof")
+
+        if "override" in action_type:
             if not proof:
+                alerts.append(f"Override action without proof: ruling_id={rid}")
+                continue
+            try:
+                from executive.proof import OverrideProof
+
+                reason = a.get("description", "")
+                if OverrideProof.verify(proof, rid, reason) is None:
+                    alerts.append(f"Invalid override proof: ruling_id={rid}")
+            except FileNotFoundError:
                 alerts.append(
-                    f"Action without judicial approval and no override proof: ruling_id={rid}"
+                    f"Cannot verify override proof (secret missing): ruling_id={rid}"
                 )
+        elif rid and rid not in approved:
+            alerts.append(
+                f"Action without judicial approval and no override proof: ruling_id={rid}"
+            )
 
     # (c) Override frequency
     overrides = [a for a in actions if a.get("override_proof")]
