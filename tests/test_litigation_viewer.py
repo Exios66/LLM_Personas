@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from litigation.viewer import _collect_transcripts, _transcript_meta
+from litigation.viewer import _collect_transcripts, _resolve_transcript, _transcript_meta
 
 
 def test_transcript_meta_iso_date_slug() -> None:
@@ -34,3 +34,18 @@ def test_collect_transcripts_skips_readme_and_dotfiles(tmp_path: Path, monkeypat
     assert rows[0][0].name == "2026-01-01-sample.md"
     assert rows[0][1] == "2026-01-01"
     assert rows[0][2] == "Sample"
+
+
+def test_resolve_transcript_prefers_exact_suffix_over_broader_match(tmp_path: Path) -> None:
+    """Short topic queries must not match unrelated longer stems (e.g. bar vs foo-bar)."""
+    bar = tmp_path / "2026-06-01-bar.md"
+    foo_bar = tmp_path / "2026-06-01-foo-bar.md"
+    bar.write_text("# bar", encoding="utf-8")
+    foo_bar.write_text("# foo bar", encoding="utf-8")
+
+    rows = [
+        (foo_bar, "2026-06-01", "Foo Bar"),
+        (bar, "2026-06-01", "Bar"),
+    ]
+    resolved = _resolve_transcript("bar", rows)
+    assert resolved == bar
