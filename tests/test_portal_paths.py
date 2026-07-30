@@ -35,3 +35,21 @@ def test_viewer_path_served_over_http():
     # Browser resolves relative to /courtroom/portal/viewer.html -> /courtroom/transcripts/
     assert rel == "../transcripts/"
     assert "courtroom/courtroom" not in rel
+
+
+def test_launch_sh_exports_dir():
+    """launch.sh must export HTML to portal/exports, not a stale project-root path."""
+    text = LAUNCH_SH.read_text(encoding="utf-8")
+    assert 'EXPORTS_DIR="$SCRIPT_DIR/exports"' in text
+    assert "$PROJECT_ROOT/portal/exports" not in text
+
+
+def test_viewer_html_sessions_fetch_path():
+    """viewer.html sessions path from portal/ must resolve to courtroom/sessions/."""
+    text = VIEWER_HTML.read_text(encoding="utf-8")
+    m = re.search(r"const SESSIONS_DIR = '([^']+)';", text)
+    assert m is not None
+    rel = m.group(1)
+    resolved = (PORTAL_DIR / rel).resolve()
+    expected = (REPO_ROOT / "courtroom" / "sessions").resolve()
+    assert resolved == expected
