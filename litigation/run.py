@@ -67,21 +67,32 @@ def allocate_case_no(category: str = "DEL", *, deliberation: int = 1) -> str:
     Allocate the next Case No. from courtroom/case-registry.yaml.
 
     Per core/case-format.md: registry holds next available NNN per category.
+    Creates the registry when missing and resets category counters on year rollover.
     """
     import yaml
 
-    year = datetime.now().strftime("%Y")
-    if not REGISTRY_PATH.exists():
-        return f"{year}-{category}-001-{deliberation:03d}"
+    calendar_year = datetime.now().strftime("%Y")
+    if REGISTRY_PATH.exists():
+        data = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8")) or {}
+    else:
+        data = {}
 
-    data = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8")) or {}
-    year = str(data.get("year", year))
+    registry_year = str(data.get("year", calendar_year))
+    if registry_year != calendar_year:
+        # New calendar year — reset per-category sequences for the new year.
+        data["year"] = int(calendar_year)
+        data["categories"] = {cat: 1 for cat in (data.get("categories") or {})}
+        registry_year = calendar_year
+
+    year = registry_year
     categories = data.setdefault("categories", {})
     nnn = int(categories.get(category, 1))
     case_no = f"{year}-{category}-{nnn:03d}-{deliberation:03d}"
     categories[category] = nnn + 1
     data["categories"] = categories
+    data["year"] = int(data.get("year", calendar_year))
     data["last_updated"] = datetime.now().strftime("%Y-%m-%d")
+    REGISTRY_PATH.parent.mkdir(parents=True, exist_ok=True)
     REGISTRY_PATH.write_text(
         yaml.dump(data, default_flow_style=False, sort_keys=False),
         encoding="utf-8",
