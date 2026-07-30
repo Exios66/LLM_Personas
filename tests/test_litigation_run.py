@@ -76,3 +76,17 @@ def test_save_transcript_filename_suffix_independent_of_case_no(
 
     assert path.name.endswith("-1.md")
     assert "**Case No.:** 2026-DEL-020-001" in content
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("collision test", "collision-test"),
+        ("  Mixed CASE!  ", "mixed-case"),
+        ("", "matter"),
+        ("!!!", "matter"),
+        ("a" * 80, "a" * 60),
+    ],
+)
+def test_slugify_normalizes_matter_text(raw: str, expected: str) -> None:
+    assert litigation_run.slugify(raw) == expected
