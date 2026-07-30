@@ -43,6 +43,29 @@ def test_run_checks_passes_with_approved_ruling(tmp_path, monkeypatch: pytest.Mo
     assert alerts == []
 
 
+def test_run_checks_alerts_on_override_without_proof(
+    tmp_path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    log_path = tmp_path / "judicial_decisions.log"
+    actions_path = tmp_path / "executive_actions.log"
+
+    JudicialLog(log_path=log_path)  # empty approvals
+
+    _write_action(
+        actions_path,
+        action_type="override",
+        ruling_id="2026-UNKNOWN-999",
+        description="rogue override",
+    )
+
+    monkeypatch.setattr(watchdog, "JudicialLog", lambda: JudicialLog(log_path=log_path))
+    monkeypatch.setattr(watchdog, "_actions_log_path", lambda: actions_path)
+
+    ok, alerts = watchdog.run_checks()
+    assert ok is False
+    assert any("Override action without cryptographic proof" in a for a in alerts)
+
+
 def test_run_checks_alerts_on_unapproved_action_without_proof(
     tmp_path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
