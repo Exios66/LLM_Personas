@@ -36,3 +36,30 @@ def test_extract_title_from_dated_filename():
     mod = _load_export_module()
     path = Path("2026-02-15-framework-enhancement-analysis.md")
     assert mod.extract_title(path, "") == "Framework Enhancement Analysis"
+
+
+def test_md_to_html_converts_headers_and_bold():
+    mod = _load_export_module()
+    html = mod.md_to_html("## Section\n\n**Bold** claim.")
+    assert "<h2>Section</h2>" in html
+    assert "<strong>Bold</strong>" in html
+
+
+def test_apply_personality_styling_wraps_votes():
+    mod = _load_export_module()
+    styled = mod.apply_personality_styling("<p>Vote: YES and NO and ABSTAIN</p>")
+    assert 'class="vote-yes"' in styled
+    assert 'class="vote-no"' in styled
+    assert 'class="vote-abstain"' in styled
+
+
+def test_exports_dir_resolves_under_portal():
+    mod = _load_export_module()
+    expected = REPO_ROOT / "courtroom" / "portal" / "exports"
+    assert mod.EXPORTS_DIR == expected
+
+
+def test_extract_title_from_timestamped_filename():
+    mod = _load_export_module()
+    path = Path("20260215_120000_framework_review.md")
+    assert mod.extract_title(path, "") == "Framework Review"

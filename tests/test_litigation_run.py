@@ -76,3 +76,60 @@ def test_save_transcript_filename_suffix_independent_of_case_no(
 
     assert path.name.endswith("-1.md")
     assert "**Case No.:** 2026-DEL-020-001" in content
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("Simple Matter", "simple-matter"),
+        ("  Mixed   CASE 123!!  ", "mixed-case-123"),
+        ("", "matter"),
+        ("---", "matter"),
+    ],
+)
+def test_slugify(raw: str, expected: str) -> None:
+    assert litigation_run.slugify(raw) == expected
+
+
+def test_allocate_case_no_without_registry(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    missing = tmp_path / "no-registry.yaml"
+    monkeypatch.setattr(litigation_run, "REGISTRY_PATH", missing)
+
+    case_no = litigation_run.allocate_case_no("DEL", deliberation=2)
+
+    assert case_no.startswith(litigation_run.datetime.now().strftime("%Y") + "-DEL-001-002")
+    assert not missing.exists()
+
+
+def test_save_transcript_courtroom_location(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    registry = tmp_path / "case-registry.yaml"
+    registry.write_text(yaml.dump({"year": 2026, "categories": {"DEL": 1}}), encoding="utf-8")
+    monkeypatch.setattr(litigation_run, "REGISTRY_PATH", registry)
+    monkeypatch.setattr(litigation_run, "REPO_ROOT", tmp_path)
+
+    courtroom_dir = tmp_path / "courtroom" / "transcripts"
+    courtroom_dir.mkdir(parents=True)
+
+    path = litigation_run.save_transcript("courtroom matter", "Body.", location="courtroom")
+
+    assert path.parent == courtroom_dir
+    assert "courtroom matter" in path.read_text(encoding="utf-8")
+
+
+def test_save_transcript_appends_scribe_certification(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    registry = tmp_path / "case-registry.yaml"
+    registry.write_text(yaml.dump({"year": 2026, "categories": {"DEL": 1}}), encoding="utf-8")
+    monkeypatch.setattr(litigation_run, "REGISTRY_PATH", registry)
+
+    fake_module = tmp_path / "litigation_pkg"
+    fake_module.mkdir()
+    (fake_module / "run.py").write_text("", encoding="utf-8")
+    (fake_module / "transcripts").mkdir()
+    monkeypatch.setattr(litigation_run, "__file__", str(fake_module / "run.py"))
+
+    path = litigation_run.save_transcript("cert test", "Deliberation without footer.")
+    content = path.read_text(encoding="utf-8")
+
+    assert content.endswith("> *Transcript certified by MORNINGSTAR::SCRIBE*\n")
