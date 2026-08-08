@@ -46,6 +46,38 @@ def test_extract_case_number_prefers_case_no_over_matter_id() -> None:
     assert extract_case_number(both) == "2026-A-001"
 
 
+def test_parse_basename_iso_date_format():
+    date, title = parse_basename("2026-02-17-bench-trial-topic")
+    assert date == "2026-02-17"
+    assert title == "Bench Trial Topic"
+
+
+def test_parse_basename_legacy_timestamp_format():
+    date, title = parse_basename("20260216_133000_special_interest_security")
+    assert date == "2026-02-16 13:30"
+    assert title == "Special Interest Security"
+
+
+def test_parse_basename_unknown_fallback():
+    date, title = parse_basename("weird_legacy_name")
+    assert date == "Unknown"
+    assert title == "Weird Legacy Name"
+
+
+def test_extract_case_number_prefers_case_no_over_matter_id():
+    content = "**Case No.**: 2026-SECU-042-001\n**Matter ID**: 2026-LEGAL-001\n"
+    assert extract_case_number(content) == "2026-SECU-042-001"
+
+
+def test_extract_case_number_matter_id_legacy_fallback():
+    content = "**Matter ID**: 2026-LEGAL-042\n"
+    assert extract_case_number(content) == "2026-LEGAL-042"
+
+
+def test_extract_case_number_missing_returns_none():
+    assert extract_case_number("No canonical header fields.") is None
+
+
 def test_transcripts_dir_resolves_to_courtroom_transcripts():
     """Manifest generator must read courtroom/transcripts, not courtroom/courtroom/transcripts."""
     # Mirror path logic in generate_manifest.py
