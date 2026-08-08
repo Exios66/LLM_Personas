@@ -10,6 +10,19 @@ import yaml
 from litigation import run as litigation_run
 
 
+def test_allocate_case_no_without_registry_uses_year_default(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    missing = tmp_path / "case-registry.yaml"
+    monkeypatch.setattr(litigation_run, "REGISTRY_PATH", missing)
+
+    case_no = litigation_run.allocate_case_no("DEL")
+
+    year = litigation_run.datetime.now().strftime("%Y")
+    assert case_no == f"{year}-DEL-001-001"
+    assert not missing.exists()
+
+
 def test_allocate_case_no_increments_registry(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     registry = tmp_path / "case-registry.yaml"
     registry.write_text(
